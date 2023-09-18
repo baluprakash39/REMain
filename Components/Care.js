@@ -23,6 +23,9 @@ const Care = () => {
         <Text style={styles.title}>Vehicle Care</Text>
       
         <View style={styles.line}></View>
+
+
+        
         <View style={{ flexDirection: 'row', marginLeft: 30,marginTop:20 }}>
   <Text style={{ color: 'white', fontSize: 20, width: 150 }}>Vehicle</Text>
   <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>

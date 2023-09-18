@@ -6,6 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Components/Home';
 import Addvehicle from './Components/Addvehicle';
 import Care from './Components/Care';
+import CompanyDetails from './Components/CompanyDetails';
+import Accesories from './Components/Accessories';
+import Share from './Components/Share';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -13,15 +16,15 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen
-          name="Care"
-          component={Care}
-          options={{ headerShown: false }} // Hide the header for the "Home" screen
-        />
-        {/* <Stack.Screen
           name="Addvehicle"
           component={Addvehicle}
           options={{ headerShown: false }} // Hide the header for the "Home" screen
-        /> */}
+        />
+        <Stack.Screen
+    name="Share"
+    component={Share} // Add the Share component here
+    options={{ headerShown: false }}// You can customize the header title here
+  />
       </Stack.Navigator>
     </NavigationContainer>
   );
