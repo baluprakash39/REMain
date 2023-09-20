@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet,Button,ScrollView  } from 'react-native';
 
 import { Dropdown } from 'react-native-element-dropdown';
-
+import { useNavigation } from '@react-navigation/native';
 const Care = () => {
+  const navigation = useNavigation();
     const [basic, setValue] = useState('');
     const [Nilldip, setnilldip] = useState('');
     const [EP, setEP] = useState('');
@@ -14,6 +15,10 @@ const Care = () => {
     const [four,setfour]=useState('');
     const [five,setfive]=useState('');
     const[fiveRsa,setRsa]=useState('')
+
+    const navigateToInventory = () => {
+      navigation.navigate('Inventory');
+    };
   return (
    
     <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
@@ -21,7 +26,9 @@ const Care = () => {
       <View style={[styles.container, { height: 1000 }]}>
         {/* Your content here */}
         <Text style={styles.title}>Vehicle Care</Text>
-      
+        <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
         <View style={styles.line}></View>
 
 
@@ -248,7 +255,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '100%',
   },
-  
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+  },
+
+  backButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   
   
 });

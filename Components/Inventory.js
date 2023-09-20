@@ -6,7 +6,9 @@ import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
-
+import Home from './Home';
+import Care from './Care';
+import Accessories from './Accessories';
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -31,7 +33,6 @@ const styles = StyleSheet.create({
     borderColor: 'white', // White border
     borderWidth: 1, // 1 pixel border width
   },
-  
   loginButton: {
     backgroundColor: '#F9F9F9', // Use the same background color as searchInput
     paddingVertical: 4,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Home() {
+function Inventory() {
   const [search, setSearch] = useState('');
   const [createVehicle1, setCreateVehicle1] = useState(true);
   const [addVehicle1, setAddVehicle1] = useState(false);
@@ -60,11 +61,12 @@ function Home() {
   const [vehicleModels, setVehicleModels] = useState([]);
   const [selectedModel, setSelectedModel] = useState('');
   const [filteredProductData, setFilteredProductData] = useState([]);
+  const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
   useEffect(() => {
     fetchSections();
     fetchBikeDetails();
-  }, []);
+  }, [reloadKey]);
 
   useEffect(() => {
     filterProductData();
@@ -85,6 +87,7 @@ function Home() {
       .then((data) => {
         if (data && data.sections && data.sections.length > 0) {
           setSections(data.sections);
+          console.log(data.sections)
         }
       })
       .catch((error) => {
@@ -107,36 +110,67 @@ function Home() {
       });
   };
 
-  const carddata = (data) => {
-    AsyncStorage.setItem('homedata', JSON.stringify(data._id))
-      .then(() => {
-        console.log('Data saved successfully:', data._id);
-      })
-      .catch((error) => {
-        console.error('Error saving data:', error);
-      });
-  };
+//   const carddata = (data) => {
+//     AsyncStorage.setItem('homedata', JSON.stringify(data._id))
+//       .then(() => {
+//         console.log('Data saved successfully:', data._id);
+//       })
+//       .catch((error) => {
+//         console.error('Error saving data:', error);
+//       });
+//   };
+
+
 
   const products = (section) => {
     setSelectedSection(section);
     setAcc(section);
-    axios
-      .get(`https://shy-tan-tam.cyclic.cloud/formdetails/getbikes/${section}`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        if (response.data) {
-          setProductData(response.data.bikes);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching bike details:', error);
-      });
+  
+    if (section === 'Accesories' || section === 'Care') {
+      // Call fetchBikeDetails if sectionname is Accessories or Care
+      setReloadKey(reloadKey + 1);
+      fetchBikeDetails();
+    } else {
+      axios
+        .get(`https://shy-tan-tam.cyclic.cloud/formdetails/getbikes/${section}`, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          if (response.data) {
+            setProductData(response.data.bikes);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching bike details:', error);
+        });
+    }
   };
-
+  
+  const carddata = (data) => {
+    console.log(acc)
+    if (acc === "Accesories") {
+      AsyncStorage.setItem('carddata', JSON.stringify(data._id))
+        .then(() => {
+          console.log('Data saved successfully:', data._id);
+          navigation.navigate('Accessories'); // Navigate to the Accessories screen
+        })
+        .catch((error) => {
+          console.error('Error saving data:', error);
+        });
+    }  if (acc === "Care"){
+      AsyncStorage.setItem('carddata', JSON.stringify(data._id))
+        .then(() => {
+          console.log('Data saved successfully:', data._id);
+          navigation.navigate('Care'); // Navigate to the Care screen
+        })
+        .catch((error) => {
+          console.error('Error saving data:', error);
+        });
+    }
+  };
   const navigation = useNavigation(); // Get the navigation object
 
   return (
@@ -154,37 +188,39 @@ function Home() {
             onPress={() => {
               // Handle login button press here
               // You can navigate to the login screen or perform the desired action.
-              // For now, I'm just logging a message.
+              navigation.navigate('Home'); 
               console.log('Login button pressed');
             }}
           >
-            <Text style={styles.loginButtonText}>Login</Text>
+            <Text style={styles.loginButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: 'row', borderRadius: 10, marginTop: 10 }}>
-          {sections
-            .filter((sec) => sec.Sectionname !== 'Accesories' && sec.Sectionname !== 'Care')
-            .map((sec, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'white',
-                  borderWidth: 1,
-                  borderColor: '#F9F9F9',
-                  borderRadius: 10,
-                  padding: 10,
-                  margin: 5,
-                  width: '49%',
-                  marginBottom: 20,
-                  justifyContent: 'center', // Center the content vertically
-              alignItems: 'center'
-                }}
-                onPress={() => products(sec.Sectionname)}
-              >
-                <Text style={{ color: 'black',fontSize:15,fontWeight:700 }}>{sec.Sectionname}</Text>
-              </TouchableOpacity>
-            ))}
-        </View>
+  {sections
+    .filter((sec) => sec.Sectionname === 'Accesories' || sec.Sectionname === 'Care')
+    .map((sec, index) => (
+      <TouchableOpacity
+        key={index}
+        style={{
+            backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'white',
+          borderWidth: 1,
+          borderColor: '#F9F9F9',
+          borderRadius: 10,
+          padding: 10,
+          margin: 5,
+          width: '48%',
+          marginBottom: 20,
+          justifyContent: 'center', // Center the content vertically
+          alignItems: 'center',     // Center the content horizontally
+          
+        }}
+        onPress={() => products(sec.Sectionname)}
+      >
+        <Text style={{ color: 'black', fontSize: 15, fontWeight: 700 }}>{sec.Sectionname}</Text>
+      </TouchableOpacity>
+    ))}
+</View>
+
         <FlatList
           data={filteredProductData}
           numColumns={2}
@@ -192,11 +228,10 @@ function Home() {
           renderItem={({ item }) => (
             <TouchableOpacity
             onPress={() => {
-              carddata(item); // Handle any card data logic you need here
-              navigation.navigate('Share'); // Navigate to the Share screen
+              carddata(item);
             }}
             style={{
-              
+              borderColor: 'rgba(249, 249, 249, 0.50)',
               borderWidth: 1,
               backgroundColor: 'rgba(151, 151, 151, 0.50)',
               height: 250,
@@ -204,7 +239,6 @@ function Home() {
               margin: 5,
               borderRadius: 10,
               width: 100,
-              
             }}
           >
               <Image
@@ -236,4 +270,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Inventory;

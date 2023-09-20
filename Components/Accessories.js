@@ -9,6 +9,8 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 const data = [
   { label: 'Item 1', value: '1' },
   { label: 'Item 2', value: '2' },
@@ -20,6 +22,7 @@ const data = [
   { label: 'Item 8', value: '8' },
 ];
 const Accessories = () => {
+  const navigation = useNavigation();
   const [selectedTab, setSelectedTab] = useState('Style');
   const [showSafetyAccessoriesDropdown, setShowSafetyAccessoriesDropdown] = useState(false);
   const [input1, setInput1] = useState('');
@@ -72,17 +75,32 @@ const [showHeadlightDropdown, setShowHeadlightDropdown] = useState(false);
 const [input23, setInput23] = useState('');
 const [input24, setInput24] = useState('');
 
-  const toggleSafetyAccessoriesDropdown = () => {
-    setShowSafetyAccessoriesDropdown(!showSafetyAccessoriesDropdown);
-  };
 
-  const selectSafetyAccessoriesValue = () => {
-    const selectedValue = `${input1} - ${input2}`;
-    console.log('Selected Safety Accessories Value:', selectedValue);
-    setInput1('');
-    setInput2('');
-    toggleSafetyAccessoriesDropdown();
-  };
+
+
+
+
+const [input1Error, setInput1Error] = useState('');
+const [input2Error, setInput2Error] = useState('');
+
+const toggleSafetyAccessoriesDropdown = () => {
+  setShowSafetyAccessoriesDropdown(!showSafetyAccessoriesDropdown);
+};
+const selectSafetyAccessoriesValue = () => {
+  if (!input1 || !input2) {
+    setInput1Error('This field is required');
+    setInput2Error('This field is required');
+    return;
+  }
+const selectedValue = `${input1} - ${input2}`;
+  console.log('Selected Safety Accessories Value:', selectedValue);
+  setInput1('');
+  setInput2('');
+  setInput1Error('');
+  setInput2Error('');
+  toggleSafetyAccessoriesDropdown();
+};
+  
 
   const toggleWindshieldDropdown = () => {
     setShowWindshieldDropdown(!showWindshieldDropdown);
@@ -219,10 +237,16 @@ const selectHeadlightValue = () => {
   setInput24('');
   toggleHeadlightDropdown();
 };
+const navigateToInventory = () => {
+  navigation.navigate('Inventory');
+};
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <Text style={styles.title}>Vehicle Accessories</Text>
+        <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
         <View style={styles.line}></View>
         <View style={{ flexDirection: 'row', marginLeft: 30, marginTop: 20 }}>
           <Text style={{ color: '#CBCBCA', fontSize: 20, width: 150 }}>Vehicle</Text>
@@ -564,32 +588,55 @@ const selectHeadlightValue = () => {
           </View>
         )}
         {/* Safety Accessories Dropdown */}
-        <TouchableOpacity onPress={toggleSafetyAccessoriesDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showSafetyAccessoriesDropdown ? 'Close Safety Accessories' : 'Open Safety Accessories'}
-            </Text>
-          </View>
-        </TouchableOpacity>
-        {showSafetyAccessoriesDropdown && (
-          <View style={styles.dropdown}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Safety Accessories Text"
-              value={input1}
-              onChangeText={(text) => setInput1(text)}
-            />
-            <TextInput
-              style={styles.inputField2}
-              placeholder="Enter Safety Accessories Value"
-              value={input2}
-              onChangeText={(text) => setInput2(text)}
-            />
-            <TouchableOpacity style={styles.selectButton} onPress={selectSafetyAccessoriesValue}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+       
+<TouchableOpacity onPress={toggleSafetyAccessoriesDropdown}>
+  <View style={styles.dropdown}>
+    <Text style={styles.dropdownText}>
+      {showSafetyAccessoriesDropdown ? 'Close Safety Accessories' : 'Open Safety Accessories'}
+    </Text>
+  </View>
+</TouchableOpacity>
+{showSafetyAccessoriesDropdown && (
+  
+  <View style={styles.dropdown}>
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.inputField}
+        placeholder="Enter Safety Accessories Text"
+        value={input1}
+        onChangeText={(text) => {
+          setInput1(text);
+          setInput1Error(''); // Clear the error message when text changes
+        }}
+      />
+    </View>
+    <View>
+    {input1Error ? <Text style={styles.errorText}>{input1Error}</Text> : null}
+    </View>
+   
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.inputField2}
+        placeholder="Enter Safety Accessories Value"
+        value={input2}
+        onChangeText={(text) => {
+          setInput2(text);
+          setInput2Error(''); // Clear the error message when text changes
+        }}
+      />
+    </View>
+  {input2Error ? <Text style={styles.errorText}>{input2Error}</Text> : null} 
+
+    <TouchableOpacity style={styles.selectButton} onPress={selectSafetyAccessoriesValue}>
+      <Text style={styles.selectButtonText}>+</Text>
+    </TouchableOpacity>
+  </View>
+
+ 
+)}
+
+
+
           </>
         )}
  
@@ -649,11 +696,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   dropdown: {
-    backgroundColor: 'rgba(249, 249, 249, 0.1)',
+    // backgroundColor: 'rgba(249, 249, 249, 0.1)',
     borderRadius: 5,
     padding: 10,
     marginTop: 20,
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
@@ -685,6 +731,23 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 35,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+  },
+
+  backButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginTop: 4,
   },
 });
 

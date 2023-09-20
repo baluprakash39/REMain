@@ -1,30 +1,43 @@
-
-
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Components/Home';
-import Addvehicle from './Components/Addvehicle';
 import Care from './Components/Care';
-import CompanyDetails from './Components/CompanyDetails';
-import Accesories from './Components/Accessories';
+import Accessories from './Components/Accessories';
+import Inventory from './Components/Inventory';
 import Share from './Components/Share';
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Inventory'>
       <Stack.Screen
-          name="Addvehicle"
-          component={Addvehicle}
-          options={{ headerShown: false }} // Hide the header for the "Home" screen
+          name="Inventory"
+          component={Inventory}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
-    name="Share"
-    component={Share} // Add the Share component here
-    options={{ headerShown: false }}// You can customize the header title here
-  />
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+       
+        <Stack.Screen
+          name="Accessories"
+          component={Accessories}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Care"
+          component={Care}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Share"
+          component={Share}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
