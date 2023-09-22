@@ -302,7 +302,8 @@ function Home() {
   };
 
   const fetchSections = () => {
-    const url = 'https://shy-tan-tam.cyclic.cloud/bikes/bikes';
+    const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';
+
 
     fetch(url)
       .then((response) => response.json())
@@ -317,7 +318,7 @@ function Home() {
   };
 
   const fetchBikeDetails = () => {
-    const url = `https://shy-tan-tam.cyclic.cloud/formdetails/getbikes`;
+    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes`;
 
     axios
       .get(url)
@@ -345,7 +346,7 @@ function Home() {
     setSelectedSection(section);
     setAcc(section);
     axios
-      .get(`https://shy-tan-tam.cyclic.cloud/formdetails/getbikes/${section}`, {
+      .get(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes/${section}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',

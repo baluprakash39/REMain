@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ScrollView} from 'react-native'; // Import ScrollView for scrolling if needed
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,6 +27,7 @@ const Share = () => {
   const [address, setAddress] = useState('');
   const [mobilenumber, setMobileNumber] = useState('');
   const [emailid, setEmailId] = useState('');
+
   const [isSelected, setSelection] = useState(false);
   const [isNilldip,setnilldip]=useState(false);
   const [EP,setEP]=useState(false);
@@ -51,6 +51,41 @@ const [engineGuards, setEngineGuards] = useState(null);
 const [sumpGuards, setSumpGuards] = useState(null);
 const [safetyAccessories, setSafetyAccessories] = useState(null);
 
+const handleShare = async () => {
+  try {
+    // Prepare the formData object with customer details and other data
+    const formData = {
+      customername,
+      address,
+      mobilenumber,
+      emailid,
+      // Add other data you want to store
+      value,
+      oilFillerCap,
+      headlight,
+      windshields,
+      panniers,
+      seats,
+      backrest,
+      footpegs,
+      engineGuards,
+      sumpGuards,
+      safetyAccessories,
+    };
+
+    // Convert formData to JSON string
+    const formDataJSON = JSON.stringify(formData);
+
+    // Store the formData in AsyncStorage
+    await AsyncStorage.setItem('formData', formDataJSON);
+
+    // Navigate to the SharePdf screen
+    navigation.navigate('SharePdf');
+  } catch (error) {
+    console.error('Error storing formData:', error);
+  }
+};
+
   const removeQuotes = (str) => {
     return str.replace(/["']/g, '');
   };
@@ -70,7 +105,7 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
   }, []);
 
   const fetchBikeDetails = async (id) => {
-    const url = `https://shy-tan-tam.cyclic.cloud/formdetails/getbike/${id}`;
+    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${id}`;
 
     try {
       const response = await axios.get(url);
@@ -78,7 +113,7 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
       setDataArray([]);
       setDataArray((prevDataArray) => [...prevDataArray, bike]);
       await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-      console.log('Bike data stored successfully');
+      console.log('Bike data stored successfully',bike);
     } catch (error) {
       console.error('Error fetching bike details:', error);
     }
@@ -168,20 +203,20 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
               <Text style={styles.datacardtext}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
 
               <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:20 }}>Ex.showroom price (including GST)</Text>
+                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>Ex.showroom price (including GST)</Text>
                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {data.exShowroomPrice}</Text>
               </View>
 
               <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:20 }}>RTO Charges</Text>
+                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>RTO Charges</Text>
                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  500</Text>
               </View>
               <View > 
-                <Text style={{ marginLeft:20,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
+                <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
              <View style={{display:'flex',flexDirection:'row'}}>
             {/* Basic */}
              <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>Basic</Text>
+             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Basic</Text>
              <CheckBox
           value={isSelected}
           onValueChange={setSelection}
@@ -190,7 +225,7 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
             </View> 
             {/* Nilldip */}
             <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>Nildip</Text>
+             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Nildip</Text>
              <CheckBox
           value={isNilldip}
           onValueChange={setnilldip}
@@ -219,14 +254,14 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
              
             </View>
             <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:20,marginTop:20,marginBottom:10 }}>Registartion(Fixed)</Text>
+                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30,marginTop:20,marginBottom:10 }}>Registartion(Fixed)</Text>
                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  1000</Text>
               </View>
-              <Text style={{ marginLeft:20,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Hypothiccation</Text>
+              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Hypothiccation</Text>
               <View style={{display:'flex',flexDirection:'row'}}>
             {/* YES */}
              <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>YES</Text>
+             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>YES</Text>
              <CheckBox
           value={YES}
           onValueChange={setYes}
@@ -247,13 +282,13 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
              
             </View>
             <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:20 }}>OnRoad Price</Text>
+                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>OnRoad Price</Text>
                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  3,50,000</Text>
               </View>
              
 
-              <Text style={{ marginLeft:20,display:'flex',justifyContent:'flex-start', color: '#F9F9F9', fontSize: 22 ,marginBottom:10,fontWeight:600}}>Optional Add Ons/Products</Text>
-              <Text style={{ marginLeft:20,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
+              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: '#F9F9F9', fontSize: 22 ,marginBottom:10,fontWeight:600}}>Optional Add Ons/Products</Text>
+              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Extended Warrenty</Text>
              <View style={{display:'flex',flexDirection:'row'}}>
             {/* 4 */}
              <View style={{display:'flex',flexDirection:'row'}}>
@@ -578,14 +613,22 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
           </View>
           <View style={styles.centeredContainer}>
             
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={styles.shareButton}
                 onPress={() => {
                   // Handle the share functionality here
+                  navigation.navigate('SharePdf');
                 }}
               >
                 <Text style={styles.shareButtonText}>Share Screen</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+       <TouchableOpacity
+          style={styles.shareButton}
+          onPress={handleShare} // Call handleShare when the button is pressed
+        >
+          <Text style={styles.shareButtonText}>Share Screen</Text>
+        </TouchableOpacity>
+
             </View>
       </View>
     ))}
@@ -724,7 +767,7 @@ const styles = StyleSheet.create({
   },
   datacard: {
     width: 800,
-    height: 1000,
+    height: 2000,
     backgroundColor: 'rgba(151, 151, 151, 0.3)',
     // alignItems: 'center',
     borderRadius: 10,
@@ -734,7 +777,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textDecorationLine: 'underline',
     marginBottom: 20,
-    textAlign:'center'
+    textAlign:'center',
+  
   },shareButton: {
     backgroundColor: 'gray',
     padding: 10,

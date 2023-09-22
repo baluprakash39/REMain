@@ -390,7 +390,7 @@ const AddVehicle = () => {
 
   const fetchSections = async () => {
     try {
-      const response = await fetch('https://shy-tan-tam.cyclic.cloud/bikes/bikes');
+      const response = await fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -463,7 +463,7 @@ const AddVehicle = () => {
 
     if (!hasErrors) {
       // All required fields are filled, so you can send the POST request here
-      const url = 'https://shy-tan-tam.cyclic.cloud/formdetails/uploadbikes';
+      const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/uploadbikes';
 
       const userData = {
         vehiclename: vehicleName,

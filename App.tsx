@@ -9,6 +9,8 @@ import Care from './Components/Care';
 import CompanyDetails from './Components/CompanyDetails';
 import Accesories from './Components/Accessories';
 import Share from './Components/Share';
+import SharePdf from './Components/SharePdf';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -16,8 +18,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen
-          name="Addvehicle"
-          component={Addvehicle}
+          name="Home"
+          component={Home}
           options={{ headerShown: false }} // Hide the header for the "Home" screen
         />
         <Stack.Screen
@@ -25,6 +27,12 @@ const App = () => {
     component={Share} // Add the Share component here
     options={{ headerShown: false }}// You can customize the header title here
   />
+         <Stack.Screen
+          name="SharePdf"
+          component={SharePdf}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

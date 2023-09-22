@@ -9,6 +9,9 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
+import SharePdf from './SharePdf'; 
+import { useNavigation } from '@react-navigation/native';
+
 const data = [
   { label: 'Item 1', value: '1' },
   { label: 'Item 2', value: '2' },
@@ -20,6 +23,11 @@ const data = [
   { label: 'Item 8', value: '8' },
 ];
 const Accessories = () => {
+  const navigation = useNavigation(); // Initialize navigation
+
+  const navigateToSharePdf = (formData) => {
+    navigation.navigate('SharePdfScreen', { formData }); // Navigate to SharePdf and pass formData
+  }
   const [selectedTab, setSelectedTab] = useState('Style');
   const [showSafetyAccessoriesDropdown, setShowSafetyAccessoriesDropdown] = useState(false);
   const [input1, setInput1] = useState('');
@@ -498,8 +506,12 @@ const selectHeadlightValue = () => {
               <Text style={styles.selectButtonText}>+</Text>
             </TouchableOpacity>
           </View>
+          
         )}
-
+      
+    <TouchableOpacity onPress={() => navigateToSharePdf(formData)}>
+      <Text>Go to SharePdf</Text>
+    </TouchableOpacity>
 
 
           </>
