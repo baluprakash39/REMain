@@ -6,13 +6,17 @@ import Care from './Components/Care';
 import Accessories from './Components/Accessories';
 import Inventory from './Components/Inventory';
 import Share from './Components/Share';
+import AddVehicle from './Components/Addvehicle';
+import CompanyDetails from './Components/CompanyDetails';
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Inventory'>
-      <Stack.Screen
+       
+      
+       <Stack.Screen
           name="Inventory"
           component={Inventory}
           options={{ headerShown: false }}
@@ -38,6 +42,11 @@ const App = () => {
           component={Share}
           options={{ headerShown: false }}
         />
+         <Stack.Screen
+          name="Addvehicle"
+          component={AddVehicle}
+          options={{ headerShown: false }}
+        />  
       </Stack.Navigator>
     </NavigationContainer>
   );

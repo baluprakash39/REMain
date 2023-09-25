@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground,Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -63,6 +63,75 @@ function Inventory() {
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
+
+  const [docId, setDocId] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const navigation = useNavigation(); // Get the navigation object
+
+
+  const handleFileInput = () => {
+    const options = {
+      title: 'Select Images',
+      mediaType: 'photo', // Specify the media type you want to pick (photo or video)
+      quality: 0.5, // Image quality
+      storageOptions: {
+        skipBackup: true, // Do not back up the image to the cloud
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        // User cancelled the image picker
+      } else if (response.error) {
+        // Handle error
+        console.error(response.error);
+      } else {
+        // Image selected, add it to the selectedFiles array
+        const newSelectedFiles = [...selectedFiles, response];
+        setSelectedFiles(newSelectedFiles);
+      }
+    });
+  };
+
+  const uploadImages = async () => {
+    const formData = new FormData();
+
+    selectedFiles.forEach((file, index) => {
+      formData.append(`adminallimages[${index}]`, {
+        uri: file.uri,
+        type: file.type,
+        name: file.fileName,
+      });
+    });
+
+    try {
+      const response = await axios.post(
+        `https://shy-tan-tam.cyclic.cloud/upload/upload/${docId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log(response.data);
+      // Handle success response here
+    } catch (error) {
+      console.error(error);
+      // Handle error here
+    }
+  };
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     fetchSections();
     fetchBikeDetails();
@@ -74,13 +143,14 @@ function Inventory() {
 
   const filterProductData = () => {
     const filteredData = productData.filter((data) =>
-      data.vehiclename.toLowerCase().includes(search.toLowerCase())
-    );
+    data?.vehiclename?.toLowerCase().includes(search.toLowerCase())
+  );
+  
     setFilteredProductData(filteredData);
   };
 
   const fetchSections = () => {
-    const url = 'https://shy-tan-tam.cyclic.cloud/bikes/bikes';
+    const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';
 
     fetch(url)
       .then((response) => response.json())
@@ -96,7 +166,7 @@ function Inventory() {
   };
 
   const fetchBikeDetails = () => {
-    const url = `https://shy-tan-tam.cyclic.cloud/formdetails/getbikes`;
+    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes`;
 
     axios
       .get(url)
@@ -132,7 +202,7 @@ function Inventory() {
       fetchBikeDetails();
     } else {
       axios
-        .get(`https://shy-tan-tam.cyclic.cloud/formdetails/getbikes/${section}`, {
+        .get(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes/${section}`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
@@ -152,16 +222,16 @@ function Inventory() {
   const carddata = (data) => {
     console.log(acc)
     if (acc === "Accesories") {
-      AsyncStorage.setItem('carddata', JSON.stringify(data._id))
+      AsyncStorage.setItem('ACC', JSON.stringify(data._id))
         .then(() => {
-          console.log('Data saved successfully:', data._id);
+          // console.log('Data saved successfully:', data._id);
           navigation.navigate('Accessories'); // Navigate to the Accessories screen
         })
         .catch((error) => {
           console.error('Error saving data:', error);
         });
     }  if (acc === "Care"){
-      AsyncStorage.setItem('carddata', JSON.stringify(data._id))
+      AsyncStorage.setItem('Care', JSON.stringify(data._id))
         .then(() => {
           console.log('Data saved successfully:', data._id);
           navigation.navigate('Care'); // Navigate to the Care screen
@@ -171,14 +241,15 @@ function Inventory() {
         });
     }
   };
-  const navigation = useNavigation(); // Get the navigation object
+  
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
           <TextInput
-            style={styles.searchInput}
+            style={[styles.searchInput, { color: 'white' }]}
+            placeholderTextColor="white"
             placeholder="Search Vehicle"
             value={search}
             onChangeText={setSearch}
@@ -202,8 +273,9 @@ function Inventory() {
       <TouchableOpacity
         key={index}
         style={{
-            backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'white',
+            backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'transparent',
           borderWidth: 1,
+         
           borderColor: '#F9F9F9',
           borderRadius: 10,
           padding: 10,
@@ -214,58 +286,116 @@ function Inventory() {
           alignItems: 'center',     // Center the content horizontally
           
         }}
+        
+        
         onPress={() => products(sec.Sectionname)}
       >
-        <Text style={{ color: 'black', fontSize: 15, fontWeight: 700 }}>{sec.Sectionname}</Text>
+        <Text style={{ color: 'black', fontSize: 15, fontWeight: 700 ,color:'white'}}>{sec.Sectionname}</Text>
       </TouchableOpacity>
     ))}
 </View>
 
         <FlatList
+        
           data={filteredProductData}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-            onPress={() => {
-              carddata(item);
-            }}
-            style={{
+            
+            
+            <View    style={{
               borderColor: 'rgba(249, 249, 249, 0.50)',
               borderWidth: 1,
-              backgroundColor: 'rgba(151, 151, 151, 0.50)',
-              height: 250,
+              // backgroundColor: 'rgba(151, 151, 151, 0.50)',
+              height: 300,
               flex: 1,
               margin: 5,
               borderRadius: 10,
               width: 100,
+              marginBottom:15
+            }}>
+
+              <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+              <TouchableOpacity style={{marginBottom:30,width:70}}>
+              <Text style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:30,textAlign:'center'}} onPress={() => handleDelete(item._id)}>Edit</Text>
+              </TouchableOpacity>
+           
+
+              <TouchableOpacity style={{marginBottom:30,width:70}}>
+              <Text style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:30,textAlign:'center'}}>delete</Text>
+              </TouchableOpacity>
+</View>
+
+
+            <TouchableOpacity
+            
+            onPress={() => {
+              carddata(item);
             }}
+            // style={{
+            //   borderColor: 'rgba(249, 249, 249, 0.50)',
+            //   borderWidth: 1,
+            //   // backgroundColor: 'rgba(151, 151, 151, 0.50)',
+            //   height: 250,
+            //   flex: 1,
+            //   margin: 5,
+            //   borderRadius: 10,
+            //   width: 100,
+            // }}
           >
               <Image
                 style={{
-                  height: '60%',
+                  height: '70%',
                   width: '100%',
                   borderRadius: 10,
+                  
                 }}
                 source={{ uri: item.adminallimages[0] }}
               />
               <View style={{ flex: 1, justifyContent: 'space-between', padding: 5 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{item.vehiclename}</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>
-                    <Icon name="speedometer-outline" style={{ marginRight: 5, fontSize: 5 }} />
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:18 }}>{item.vehiclename}</Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:15 }}>
+                   
                     {item.EngineCC} CC
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>Price Starts from</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{item.exShowroomPrice}</Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:18 }}>Price Starts from</Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:15 }}>{item.exShowroomPrice}</Text>
                 </View>
               </View>
             </TouchableOpacity>
+            </View>
           )}
         />
+       
+        <TouchableOpacity
+          
+        style={{
+          backgroundColor: 'white',
+          borderRadius: 100, // Make it round
+          width: 50, // Set a fixed width for a round button
+          height: 50, // Set a fixed height for a round button
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute', // Position it absolutely
+          bottom: 30, // Adjust the distance from the bottom as needed
+          right: '50%', // Center it horizontally
+          transform: [{ translateX: 25 }],
+          fontWeight:1000 // Move it half of its width to center it,
+          
+        }}
+        onPress={() => {
+          // Handle the "+" button press here
+          // You can navigate to the "AddVehicle" screen
+          navigation.navigate('Addvehicle'); 
+        }}
+       >
+        <Text style={{ color: 'black', fontSize: 40, fontWeight: 700 }}>+</Text>
+      </TouchableOpacity>
       </View>
+      
     </ImageBackground>
   );
 }
