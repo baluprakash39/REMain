@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ScrollView} from 'react-native'; // Import ScrollView for scrolling if needed
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation } from '@react-navigation/native';
@@ -112,33 +114,33 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
   };
 
   return (
-    <ImageBackground
-    source={require('../assets/red.jpg')} // Replace with your image path
-    style={styles.container}
-  >
+<ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
     <ScrollView contentContainerStyle={styles.container}>
     {dataArray.map((data, index) => (
       <View key={index} style={styles.content}>
-       <TouchableOpacity
+       {/* <TouchableOpacity
           onPress={() => {
             // Navigate back to the 'Home' screen
             navigation.navigate('Home');
           }}
         >
           <Text style={{ color: 'white', fontSize: 20 }}>Back</Text>
-        </TouchableOpacity>
-        <View style={styles.hr} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ textAlign: 'left', color: 'white', fontSize: 30, flex: 1 }}>
-            Quotation
-          </Text>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg',
-            }}
-          />
-        </View>
+        </TouchableOpacity> */}
+          <View style={styles.header}>
+            <View style={{ alignContent: 'center'}}>
+              <TouchableOpacity onPress={() => {
+              // Navigate back to the 'Home' screen
+              navigation.navigate('Home');
+              }} style={styles.backButton}>
+                <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+              </TouchableOpacity>
+            </View>
+              <View style={{ alignContent: 'center'}}>
+                <Text style={styles.headertitle}>Quotation</Text>
+              </View>
+          </View>
+
+        <View style={styles.line}></View>
 
         {/* Add Customer Details Section Below */}
         <Text style={styles.title}>Customer details</Text>
@@ -149,7 +151,7 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
               style={styles.input}
               value={customername}
               onChangeText={setCustomerName}
-              placeholder="Enter customer name"
+              placeholder="Enter name"
             />
           </View>
           <View style={styles.cardContent}>
@@ -167,16 +169,16 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
               style={styles.input}
               value={mobilenumber}
               onChangeText={setMobileNumber}
-              placeholder="Enter Mobile"
+              placeholder="Enter mobile number"
             />
           </View>
           <View style={styles.cardContent}>
-            <Text style={styles.labelText}>emailid :</Text>
+            <Text style={styles.labelText}>Email-id :</Text>
             <TextInput
               style={styles.input}
               value={emailid}
               onChangeText={setEmailId}
-              placeholder="Enter mailId"
+              placeholder="example@email.com"
             />
           </View>
         </View>
@@ -192,123 +194,142 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
           {/* Center the datacard container */}
           <View style={styles.centeredContainer}>
             <View style={styles.datacard}>
-              <Text style={styles.datacardtext}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
+              <Text style={{fontWeight:600, color: '#f9f9f9', fontSize: 20, borderBottomWidth:1, borderColor: '#F9F9F9', paddingVertical: 5, textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
 
-              <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>Ex.showroom price (including GST)</Text>
-                <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {data.exShowroomPrice}</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.3, borderBottomColor: '#F9F9F9', height: 50,}}>
+              <Text style={{ color: '#F9F9F9', fontSize: 16, flex: 1,marginLeft:5, letterSpacing: 0.4 }}>Ex.showroom price (including GST)</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600' }}>₹  {data.exShowroomPrice}</Text>
               </View>
 
-              <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>RTO Charges</Text>
-                <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  500</Text>
-              </View>
-              <View > 
-                <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.3, borderBottomColor: '#F9F9F9', height: 30,paddingVertical:5}}>
+                <Text style={{ color: '#F9F9F9', fontSize: 16, flex: 1,marginLeft:5, letterSpacing: 0.4 }}>RTO Charges</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600' }}>₹  500</Text>
+              </View >
+              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#F9F9F9', height: 60,}}> 
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between',}}>
+                <Text style={{ marginLeft:5,justifyContent:'flex-start', color: '#F9F9F9', fontSize: 16,marginBottom:4, letterSpacing: 0.4}}>Insurance</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600' }}>₹  500</Text>
+                </View>
              <View style={{display:'flex',flexDirection:'row'}}>
             {/* Basic */}
-             <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Basic</Text>
+             <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>Basic</Text>
              <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
+                value={isSelected}
+                onValueChange={setSelection}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
             </View> 
             {/* Nilldip */}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Nildip</Text>
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>Nildip</Text>
              <CheckBox
-          value={isNilldip}
-          onValueChange={setnilldip}
-          style={styles.checkbox}
-        />
+                value={isNilldip}
+                onValueChange={setnilldip}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
             </View>
             
             {/* EP */}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>EP</Text>
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>EP</Text>
              <CheckBox
-          value={EP}
-          onValueChange={setEP}
-          style={styles.checkbox}
-        />
+                value={EP}
+                onValueChange={setEP}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
             </View>
             {/* RTI */}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>RTI</Text>
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>RTI</Text>
              <CheckBox
           value={RTI}
           onValueChange={setRTI}
-          style={styles.checkbox}
+          style={{ borderColor: 'red',}} // Change the box color here
+          tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
         />
             </View>
-             
             </View>
-            <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30,marginTop:20,marginBottom:10 }}>Registartion(Fixed)</Text>
-                <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  1000</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.3, borderBottomColor: '#F9F9F9', height: 30,paddingVertical:5}}>
+                <Text style={{ color: '#F9F9F9', fontSize: 16, flex: 1,marginLeft:5, letterSpacing: 0.4 }}>Registartion(Fixed)</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600'  }}>₹  1000</Text>
               </View>
-              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Hypothiccation</Text>
+              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#F9F9F9', height: 60}}> 
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between',}}>
+                      <Text style={{ marginLeft:5,justifyContent:'flex-start', color: '#F9F9F9', fontSize: 16,marginBottom:4, letterSpacing: 0.4,}}>Hypothecation</Text>
+                      <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600' }}>₹  1000</Text>
+                  </View>
               <View style={{display:'flex',flexDirection:'row'}}>
             {/* YES */}
-             <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>YES</Text>
-             <CheckBox
-          value={YES}
-          onValueChange={setYes}
-          style={styles.checkbox}
-        />
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+                <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>YES</Text>
+                <CheckBox
+                    value={YES}
+                    onValueChange={setYes}
+                    style={{ borderColor: 'red',}} // Change the box color here
+                    tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+                  />
             </View> 
-           
-           
-            {/* NO */}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>NO</Text>
+           {/* NO */}
+           <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>NO</Text>
              <CheckBox
           value={NO}
           onValueChange={setNo}
-          style={styles.checkbox}
+          style={{ borderColor: 'red',}} // Change the box color here
+          tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
         />
             </View>
              
             </View>
-            <View style={styles.priceContainer}>
-                <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>OnRoad Price</Text>
-                <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  3,50,000</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between',height: 40,paddingVertical:5}}>
+                <Text style={{ color: '#F9F9F9', fontSize: 18, flex: 1,marginLeft:5, letterSpacing: 0.4, fontWeight: '600' }}>OnRoad Price total :</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 18, flex: 1, textAlign: 'right',marginRight:4, fontWeight: '600' }}>₹  3,50,000</Text>
               </View>
-             
-
-              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: '#F9F9F9', fontSize: 22 ,marginBottom:10,fontWeight:600}}>Optional Add Ons/Products</Text>
-              <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Extended Warrenty</Text>
-             <View style={{display:'flex',flexDirection:'row'}}>
+              </View>
+              </View>
+              <View style={styles.optionaladdoncontainer}>
+              <Text style={{fontWeight:600, color: '#f9f9f9', fontSize: 20, borderBottomWidth:1, borderColor: '#F9F9F9', paddingVertical: 5, textAlign:'center', }}>Optional Add Ons/Products</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between',}}>
+                <Text style={{ marginLeft:5,justifyContent:'flex-start', color: '#F9F9F9', fontSize: 16,marginBottom:4, letterSpacing: 0.4}}>Extended Warranty</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: 14, flex: 1, textAlign: 'right',marginRight:4, fontWeight:'600' }}>₹  500</Text>
+                </View>
+             <View style={{display:'flex',flexDirection:'row',borderBottomWidth:0.3, borderColor: '#F9F9F9', paddingBottom:5}}>
             {/* 4 */}
-             <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>4Years</Text>
+             <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>4Years</Text>
              <CheckBox
-          value={four}
-          onValueChange={setfour}
-          style={styles.checkbox}
-        />
-            </View> 
+                value={four}
+                onValueChange={setfour}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
+            </View>
             {/* 5 */}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>5Years</Text>
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>5Years</Text>
              <CheckBox
-          value={five}
-          onValueChange={setfive}
-          style={styles.checkbox}
-        />
+                value={five}
+                onValueChange={setfive}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
             </View>
             
             {/* 5+RSA*/}
-            <View style={{display:'flex',flexDirection:'row'}}>
-             <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>5Years+RSA</Text>
+            <View style={{alignItems:'center',flexDirection:'row'}}>
+             <Text style={{color:'#F9F9F9',fontSize:14,marginLeft:5, letterSpacing: 0.4}}>5Years+RSA</Text>
              <CheckBox
-          value={fiveRsa}
-          onValueChange={setfiveRsa}
-          style={styles.checkbox}
-        />
+                value={fiveRsa}
+                onValueChange={setfiveRsa}
+                style={{ borderColor: 'red',}} // Change the box color here
+                tintColors={{ true: 'blue', false: '#f9f9f9' }} // Change the checkmark color here
+              />
             </View>
             
          {/* style,comfort,safty tabs */}
@@ -317,24 +338,26 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
              
             </View>
 
-<View style={styles.accessoriesText}>
-  <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
+<View style={{ margin:4,borderRadius:2,padding:3, flexDirection:'row' ,justifyContent: 'space-between', borderRadius:10, backgroundColor:'#111111'}}>
+  <View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch'}}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
       Style
     </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Comfort')}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
       Comfort
     </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Protection')}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
       Protection
     </Text>
   </View>
-  <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+  <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between',width:230,marginHorizontal:2 }}>
     {selectedTab === 'Style' && (
       <>
         {/* Show mirrors dropdown */}
         <View style={styles.dropdown}>
           <Picker
+            backgroundColor={'#111111'}
+            borderColor={'#f9f9f9'}
             selectedValue={selectedMirrorstext}
             onValueChange={(itemValue) => {
               const selectedMirror = data.mirrors.find(
@@ -344,7 +367,7 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
               setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : '');
             }}
           >
-            <Picker.Item label="select Mirrors" value="" />
+            <Picker.Item label="Mirrors"  value="" />
             {data.mirrors.map((mirror) => (
               <Picker.Item
                 key={mirror._id}
@@ -361,12 +384,12 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
             onValueChange={(itemValue) => {
               const selectedoil = data.oilfillercap.find(
                 (oil) => oil.oilfillercaptext === itemValue
-              );
+                );
               setSelectedOilFillerCapText(selectedoil ? selectedoil.oilfillercaptext : '');
               setSelectedOilFillerCapValue(selectedoil ? selectedoil.oilfillercapvalue : '');
-            }}
-          >
-            <Picker.Item label="select Oilfiller cap" value="" />
+                }}
+              >
+            <Picker.Item label="Oilfiller cap" value="" />
             {data.oilfillercap.map((oil) => (
               <Picker.Item
                 key={oil._id}
@@ -383,259 +406,228 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
             onValueChange={(itemValue) => {
               const selectedHeadLight = data.headlight.find(
                 (headlight) => headlight.headlighttext === itemValue
-              );
+                 );
               setSelectedHeadLightText(selectedHeadLight ? selectedHeadLight.headlighttext : '');
               setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : '');
-            }}
-          >
-            <Picker.Item label="select Headlight" value="" />
-            {data.headlight.map((headlight) => (
-              <Picker.Item
-                key={headlight._id}
-                label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
-                value={headlight.headlighttext}
-              />
-            ))}
-          </Picker>
-        </View>
+                }}
+              >
+              <Picker.Item label="Headlight" value="" />
+              {data.headlight.map((headlight) => (
+                <Picker.Item
+                  key={headlight._id}
+                  label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
+                  value={headlight.headlighttext}
+                />
+                ))}
+              </Picker>
+          </View>
+          </>
+        )}
+
+
+            {selectedTab === 'Comfort' && (
+              <>
+              {/* Windshields */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedWindshieldsText}
+                  onValueChange={(itemValue) => {
+                    const selectedWindshield = data.windshields.find(
+                      (windshield) => windshield.windshieldstext === itemValue
+                    );
+                    setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
+                    setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
+                  }}
+                >
+                  <Picker.Item label="Windshields" value="" />
+                  {data.windshields.map((windshield) => (
+                    <Picker.Item
+                      key={windshield._id}
+                      label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
+                      value={windshield.windshieldstext}
+                    />
+                  ))}
+                </Picker>
+              </View>
+              {/* Panniers */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedPanniersText}
+                  onValueChange={(itemValue) => {
+                    const selectedPannier = data.panniers.find(
+                      (pannier) => pannier.pannierstext === itemValue
+                    );
+                    setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
+                    setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
+                  }}
+                >
+                  <Picker.Item label="Panniers" value="" />
+                  {data.panniers.map((pannier) => (
+                    <Picker.Item
+                      key={pannier._id}
+                      label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
+                      value={pannier.pannierstext}
+                    />
+                  ))}
+                </Picker>
+              </View>
+
+              {/* Seats */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedSeatsText}
+                  onValueChange={(itemValue) => {
+                    const selectedSeat = data.seats.find(
+                      (seat) => seat.seatstext === itemValue
+                    );
+                    setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
+                    setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
+                  }}
+                >
+                  <Picker.Item label="Seats" value="" />
+                  {data.seats.map((seat) => (
+                    <Picker.Item
+                      key={seat._id}
+                      label={`${seat.seatstext} (${seat.seatsvalue})`}
+                      value={seat.seatstext}
+                    />
+                  ))}
+                </Picker>
+              </View>
+
+              {/* Backrest */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedBackrestText}
+                  onValueChange={(itemValue) => {
+                    const selectedBackrest = data.backrests.find(
+                      (backrest) => backrest.backreststext === itemValue
+                    );
+                    setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
+                    setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
+                  }}
+                >
+                  <Picker.Item label="Backrest" value="" />
+                  {data.backrests.map((backrest) => (
+                    <Picker.Item
+                      key={backrest._id}
+                      label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
+                      value={backrest.backreststext}
+                    />
+                  ))}
+                </Picker>
+              </View>
+          {/* Foot Pegs */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedFootPegsText}
+              onValueChange={(itemValue) => {
+                const selectedFootPeg = data.footpegs.find(
+                  (footpeg) => footpeg.footpegstext === itemValue
+                );
+                setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
+                setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
+              }}
+            >
+              <Picker.Item label="Foot Pegs" value="" />
+              {data.footpegs.map((footpeg) => (
+                <Picker.Item
+                  key={footpeg._id}
+                  label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
+                  value={footpeg.footpegstext}
+                />
+              ))}
+            </Picker>
+          </View>
       </>
-    )}
+      )}
 
 
-{selectedTab === 'Comfort' && (
-  <>
-{/* Windshields */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedWindshieldsText}
-    onValueChange={(itemValue) => {
-      const selectedWindshield = data.windshields.find(
-        (windshield) => windshield.windshieldstext === itemValue
-      );
-      setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
-      setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Windshields" value="" />
-    {data.windshields.map((windshield) => (
-      <Picker.Item
-        key={windshield._id}
-        label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
-        value={windshield.windshieldstext}
-      />
-    ))}
-  </Picker>
-</View>
-{/* Panniers */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedPanniersText}
-    onValueChange={(itemValue) => {
-      const selectedPannier = data.panniers.find(
-        (pannier) => pannier.pannierstext === itemValue
-      );
-      setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
-      setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Panniers" value="" />
-    {data.panniers.map((pannier) => (
-      <Picker.Item
-        key={pannier._id}
-        label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
-        value={pannier.pannierstext}
-      />
-    ))}
-  </Picker>
-</View>
+          {selectedTab==='Protection'&&(
+          <>
 
-{/* Seats */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSeatsText}
-    onValueChange={(itemValue) => {
-      const selectedSeat = data.seats.find(
-        (seat) => seat.seatstext === itemValue
-      );
-      setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
-      setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Seats" value="" />
-    {data.seats.map((seat) => (
-      <Picker.Item
-        key={seat._id}
-        label={`${seat.seatstext} (${seat.seatsvalue})`}
-        value={seat.seatstext}
-      />
-    ))}
-  </Picker>
-</View>
+          {/* Engine Guards */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedEngineGuardsText}
+              onValueChange={(itemValue) => {
+                const selectedEngineGuard = data.enginegaurds.find(
+                  (engineGuard) => engineGuard.enginegaurdstext === itemValue
+                  );
+                setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
+                setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
+                  }}
+                >
+              <Picker.Item label="Engine Guards" value="" />
+              {data.enginegaurds.map((engineGuard) => (
+                <Picker.Item
+                  key={engineGuard._id}
+                  label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
+                  value={engineGuard.enginegaurdstext}
+                />
+              ))}
+            </Picker>
+          </View>
 
-{/* Backrest */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedBackrestText}
-    onValueChange={(itemValue) => {
-      const selectedBackrest = data.backrests.find(
-        (backrest) => backrest.backreststext === itemValue
-      );
-      setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
-      setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Backrest" value="" />
-    {data.backrests.map((backrest) => (
-      <Picker.Item
-        key={backrest._id}
-        label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
-        value={backrest.backreststext}
-      />
-    ))}
-  </Picker>
-</View>
-{/* Foot Pegs */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedFootPegsText}
-    onValueChange={(itemValue) => {
-      const selectedFootPeg = data.footpegs.find(
-        (footpeg) => footpeg.footpegstext === itemValue
-      );
-      setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
-      setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Foot Pegs" value="" />
-    {data.footpegs.map((footpeg) => (
-      <Picker.Item
-        key={footpeg._id}
-        label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
-        value={footpeg.footpegstext}
-      />
-    ))}
-  </Picker>
-</View>
-</>
-)}
-
-
-{selectedTab==='Protection'&&(
-<>
-
-{/* Engine Guards */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedEngineGuardsText}
-    onValueChange={(itemValue) => {
-      const selectedEngineGuard = data.enginegaurds.find(
-        (engineGuard) => engineGuard.enginegaurdstext === itemValue
-      );
-      setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
-      setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Engine Guards" value="" />
-    {data.enginegaurds.map((engineGuard) => (
-      <Picker.Item
-        key={engineGuard._id}
-        label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
-        value={engineGuard.enginegaurdstext}
-      />
-    ))}
-  </Picker>
-</View>
-
-{/* Sump Guards */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSumpGuardsText}
-    onValueChange={(itemValue) => {
-      const selectedSumpGuard = data.sumpgaurds.find(
-        (sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
-      );
-      setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
-      setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
-    }}
-  >
-    <Picker.Item label="Select Sump Guards" value="" />
-    {data.sumpgaurds.map((sumpGuard) => (
-      <Picker.Item
-        key={sumpGuard._id}
-        label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
-        value={sumpGuard.sumpgaurdstext}
-      />
-    ))}
-  </Picker>
-</View>
+          {/* Sump Guards */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedSumpGuardsText}
+              onValueChange={(itemValue) => {
+                const selectedSumpGuard = data.sumpgaurds.find(
+                  (sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
+                  );
+                setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
+                setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
+                }}
+              >
+              <Picker.Item label="Sump Guards" value="" />
+              {data.sumpgaurds.map((sumpGuard) => (
+                <Picker.Item
+                  key={sumpGuard._id}
+                  label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
+                  value={sumpGuard.sumpgaurdstext}
+                />
+              ))}
+            </Picker>
+          </View>
 
 {/* Other Dropdowns */}
 {/* Add more Picker components for other dropdowns here */}
 
- {/* Safety Accessories */}
-<View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSafetyAccessoriesText}
-    onValueChange={(itemValue) => {
-      const selectedSafetyAccessory = data.safetyaccessories.find(
-        (safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
-      );
-      setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
-      setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Safety Accessories" value="" />
-    {data.safetyaccessories.map((safetyAccessory) => (
-      <Picker.Item
-        key={safetyAccessory._id}
-        label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
-        value={safetyAccessory.safetyaccessoriestext}
-      />
-    ))}
-  </Picker>
-</View>
+        {/* Safety Accessories */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedSafetyAccessoriesText}
+            onValueChange={(itemValue) => {
+              const selectedSafetyAccessory = data.safetyaccessories.find(
+                (safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
+                );
+              setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
+              setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
+                }}
+              >
+            <Picker.Item label="Safety Accessories" value="" />
+            {data.safetyaccessories.map((safetyAccessory) => (
+              <Picker.Item
+                key={safetyAccessory._id}
+                label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
+                value={safetyAccessory.safetyaccessoriestext}
+                  />
+                ))}
+          </Picker>
+        </View>
 
-
-
-</>
-)}
-
-
-
-
-
-
-
+        </>
+        )}
 
   </View>
 </View>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-             </View>
-             
-             
-
-
-
-
-
               {/* Add a separate view for the extended line */}
               {/* <View style={styles.extendedLine} /> */}
             </View>
-          </View>
-          <View style={styles.centeredContainer}>
+          <View style={styles.bottombuttonscontainer}>
             
               <TouchableOpacity
                 style={styles.shareButton}
@@ -643,7 +635,10 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
                   // Handle the share functionality here
                 }}
               >
-                <Text style={styles.shareButtonText}>Share Screen</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <Ionicons name='document-text' size={20} color={'#f9f9f9'} />
+                  <Text style={styles.shareButtonText}>Preview & Share Doc</Text>
+                </View>
               </TouchableOpacity>
             </View>
       </View>
@@ -654,50 +649,57 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
 };
 
 const styles = StyleSheet.create({
-    dropdown: {
-        height: 50,
-        width: '80%',
-        justifyContent: 'center', // Center the text vertically
-        paddingLeft: 10, // Add some padding to align text properly
-        backgroundColor:'white',
-        borderRadius:10,
-        marginBottom:25
-      },
-    tab: {
-        color: 'black',
-        fontSize: 18,
-        fontWeight: 'bold',
-        padding: 10,
-        margin: 5,
-        borderRadius: 10,
-        textAlign: 'center', // Center the text horizontally
-        alignItems: 'center', // Center the text vertically
-        width: 150,
-        height:50,
-        marginLeft:50,
-      },
-    accessoriesText: {
-        color: 'white',
-        fontSize: 22,
-        fontWeight: '500',
-        marginTop: 100,
-        marginBottom: 30,
-        // backgroundColor:'rgba(151, 151, 151, 0.3)',
-        borderRadius:50,
-        height:800,
-       
-      },
-  centeredContainer: {
+  backgroundImage: {
     flex: 1,
-    justifyContent: 'center',
+    resizeMode: 'cover',
+  },
+  dropdown: {
+    height: 40,
+    width:'100%',
+    justifyContent: 'center', // Center the text vertically
+    paddingVertical: 5, // Add some padding to align text properly
+    backgroundColor:'#F9F9F9',
+    borderRadius:5,
+    marginHorizontal:5,
+    marginVertical:5,
+  },
+  header:{
+    gap: 130,
+    height: 40,
     alignItems: 'center',
-    borderRadius:20,
-    width:'auto'
-    
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  headertitle:{
+    color: '#f9f9f9',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+  tab: {
+    color:'#F9F9F9',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    paddingVertical:25,
+    marginHorizontal:2,
+    marginVertical:5,
+    borderRadius: 10,
+    textAlign: 'center',
+    height:70,
+    width:120,
+    alignItems:'center',
+    alignContent:'center',
+    borderColor: '#F9F9F9',
+    borderWidth:1,
+  },
+  checkbox: {
+    borderColor: '#f9f9f9'
   },
   extendedLine: {
     borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
-    borderBottomColor: 'white',
+    borderBottomColor: '#F9F9F9',
     marginBottom: 20, // Add spacing between the line and the next content
   },
   
@@ -705,107 +707,125 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: '#F9F9F9',
     marginBottom: 20, // Add spacing between the line and the next content
     // columnGap: 100
   },
-  
   container: {
-    cardContent: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingHorizontal: 20, // Add horizontal padding as needed
-      marginBottom: 10, // Add margin at the bottom as needed
-    },
-
-    flexGrow: 1, // To make sure content can be scrolled if needed
-    paddingVertical: 20, // Add some padding at the top and bottom
-    paddingHorizontal: 10, // Add horizontal padding
+    paddingHorizontal: 8,
+    paddingTop: 10,
   },
-  content: {
-    marginVertical: 10,
-  },
-  hr: {
-    borderWidth: 1,
-    borderColor: 'white',
+  line: {
+    height: 1,
+    backgroundColor: '#F9F9F9',
     width: '100%',
   },
   title: {
-    color: 'white',
+    color: '#f9f9f9',
     fontWeight: 'bold',
-    fontSize: 25,
-    textAlign: 'center',
+    fontSize: 18,
+    textAlign: 'left',
   },
   logo: {
-    height: 80,
     width: 180,
     borderRadius: 10,
     height: 60,
     marginTop: 10,
   },
   card: {
+    flexDirection:'column',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: '#f9f9f9',
+    borderRadius: 10,
+    height: 200,
     width: '100%', // Adjust the width as needed
     backgroundColor: 'black',
     marginTop: 10, // Add margin between sections
-    padding: 10, // Add padding inside the card
+    paddingHorizontal: 5, // Add padding inside the card
   },
   cardContent: {
+    height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 5, // Add vertical margin between items
   },
   labelText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-    flex: 1, // To allow text to expand and push TextInput to the right
+    color: '#f9f9f9',
+    width: 100,
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.4,
   },
   input: {
-    flex: 2, // To allow TextInput to expand
-    color: 'black',
-    backgroundColor: 'rgba(217, 217, 217, 1)',
+    flex: 1, // To allow TextInput to expand
+    color: '#868687',
+    backgroundColor: '#cbcbca',
+    borderRadius:5,
     paddingLeft: 10, // Add left padding for better appearance
   },
   imageCard: {
     alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 50,
-    height: 600
+    marginBottom: 5,
+    marginTop: 10,
+    height: 200,
   },
   customerImage: {
-    width: 800,
-    height: 500,
+    width: '100%',
+    height: 180,
     resizeMode: 'cover',
     borderRadius: 10,
   },
-  datacard: {
-    width: 800,
-    height: 2000,
-    backgroundColor: 'rgba(151, 151, 151, 0.3)',
-    // alignItems: 'center',
-    borderRadius: 10,
+  centeredContainer: {
+    height: '500',
+    width: '100%',
+    borderRadius:10,
+    backgroundColor:'#434242',
+    marginBottom: 5,
+    gap: 5,
+    borderColor:'#f9f9f9',
+    borderWidth: 0.5,
   },
   datacardtext: {
-    color: 'white',
-    fontSize: 30,
+    color: '#f9f9f9',
+    fontSize: 18,
     textDecorationLine: 'underline',
-    marginBottom: 20,
+    marginLeft:5,
+    marginBottom: 4,
     textAlign:'center',
-  
-  },shareButton: {
-    backgroundColor: 'gray',
+  },
+  optionaladdoncontainer:{
+    width:'100%',
+    // alignItems: 'center',
+    borderRadius: 10 ,
+    gap: 5,
+    borderRadius:10,
+    backgroundColor: '#434242',
+    borderColor:'#f9f9f9',
+    borderWidth: 1,
+    paddingBottom:5,
+  },
+  bottombuttonscontainer:{
+    alignItems:'center',
+    width:'100%', 
+    height:50, 
+    marginTop: 30,
+    marginBottom:20,
+  },
+  shareButton: {
+    borderColor: '#f9f9f9',
+    backgroundColor:'#453F3F',
+    borderWidth: 1,
+    borderRadius: 6,
+    width:'70%',
+    height: 50,
     padding: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 20,
-    width:200
+    alignItems: 'center'
   },
   shareButtonText: {
-    color: 'white',
+    color: '#f9f9f9',
     fontSize: 18,
+    fontWeight: '500',
+    textAlign:'center',
   },
 });
 

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet } from 'react-native';
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
+import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
@@ -14,9 +16,10 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginHorizontal: 5
   },
   searchInput: {
     height: 35,
@@ -26,17 +29,34 @@ const styles = StyleSheet.create({
     padding: 4,
     fontSize: 16,
     width: 250,
+    color: '#868687',
+    padding: 2,
     borderRadius: 10,
     backgroundColor: 'transparent', // Transparent background
     borderColor: 'white', // White border
     borderWidth: 1, // 1 pixel border width
   },
-  
+  searchcontainer:{
+    width: 250,
+    height: 35,
+    flexDirection: 'row',
+    alignItems:'center',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: '#3D3C3C',
+    borderColor: 'rgba(249, 249, 249, 0.50)', // White border
+    borderWidth: 1, // 1 pixel border width
+  },
+  searchInput: {
+    color: '#868687',
+    padding: 2,
+    fontSize: 16,
+  },
   loginButton: {
     backgroundColor: '#F9F9F9', // Use the same background color as searchInput
     paddingVertical: 4,
     paddingHorizontal: 16,
-    borderRadius: 10,
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -147,13 +167,13 @@ function Home() {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TextInput
-          style={[styles.searchInput, { color: 'white' }]}
-            placeholder="Search Vehicle"
-            placeholderTextColor="white"
-            value={search}
-            onChangeText={setSearch}
-          />
+        <View style={styles.searchcontainer}>
+              <Ionicons name="search" size={15} color="#F9f9f9" />
+                    <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
+                      value={search}
+                      selectionColor="red"
+                      onChangeText={setSearch}/>
+          </View>
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
@@ -179,7 +199,7 @@ function Home() {
                   borderRadius: 10,
                   padding: 10,
                   margin: 5,
-                  width: '49%',
+                  width: '30%',
                   marginBottom: 20,
                   justifyContent: 'center', // Center the content vertically
               alignItems: 'center'
@@ -216,21 +236,28 @@ function Home() {
                 style={{
                   height: '60%',
                   width: '100%',
-                  borderRadius: 10,
+                  borderTopRightRadius: 10,
+                  borderTopLeftRadius: 10,
                 }}
                 source={{ uri: item.adminallimages[0] }}
               />
-              <View style={{ flex: 1, justifyContent: 'space-between', padding: 5 }}>
+              <View style={{ flex: 1, justifyContent: 'space-between', padding: 5, flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{item.vehiclename}</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>
-                    <Icon name="speedometer-outline" style={{ marginRight: 5, fontSize: 5 }} />
-                    {item.EngineCC} CC
-                  </Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 600, textTransform: 'uppercase'}}>{item.vehiclename}</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Ionicons name="speedometer-outline" size={15} color="#FFFFFF" />
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                      {item.EngineCC} CC
+                    </Text>
+                  </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', fontSize: 10 }}>Price Starts from</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: 18, paddingRight: 5 }} >{'\u20B9'}</Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 500, fontSize: 18 }}>{item.exShowroomPrice}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>Price Starts from</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{item.exShowroomPrice}</Text>
                 </View>
               </View>
             </TouchableOpacity>
