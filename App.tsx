@@ -8,6 +8,7 @@ import Addvehicle from './Components/Addvehicle';
 import Care from './Components/Care';
 import CompanyDetails from './Components/CompanyDetails';
 import Accesories from './Components/Accessories';
+import MyDropdown from './Components/Dropdown';
 import Share from './Components/Share';
 import SharePdf from './Components/SharePdf';
 
@@ -16,7 +17,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='MyDropdown'>
       <Stack.Screen
           name="Home"
           component={Home}
@@ -32,7 +33,11 @@ const App = () => {
           component={SharePdf}
           options={{ headerShown: false }}
         />
-
+        <Stack.Screen
+          name="Mydropdown"
+          component={MyDropdown}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';                           
+ import {useState, useEffect} from 'react';                           
 import { View, Button,  Text,  StyleSheet, ScrollView, Image} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
@@ -6,53 +6,50 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 
 
-const SharePdf = (formInput) => {
- 
-    const [formData, setFormData] = useState({ 
-    customername: 'BOYAPATI CHOWDARY',
-    mobilenumber:'9876543210',
-    emailid:'example@email.com',
-    address:'D.no : 48-1-117, Marati Palem', 
-    // customeraddress2:'Ongole, Andhra Pradesh - 523001',
-    dealercompany:'Lekhana Automotives',
-    dealeraddress1:'D.no: 7-1200-1-1, South Bypas', 
-    dealeraddress2:'ONGOLE, Andhra Pradesh, IN - 523001',
-    gstin:'37AAEFL2826R1ZR',
-    dealercontact:'8879083431',
-    Enquirydate:'01 Aug, 2023',
-    EnquiryNumber:'AB2324-01',
-    Vehicledetails :'Super meteor - Astral, 350cc, Blue color',
-    ExshowroomPrice:'₹2,13,852.00',
-    Insurance:'₹11,032.00',
-    RTOCharges:'₹26,602.00',
-    OnroadpricetotalA:'INR.2,51,486.00',
-    Vegafullfacehelmet:'₹1,000.00',
-    EngineGuard:'₹500.00',
-    FouryearsExtendedWarranty:'₹11,500.00',
-    OptionalAddonspricetotalB:'INR.13,000.00',
-    OnroadpricetotalA:'INR.2,51,486.00',
-    OptionalAddonspricetotalB:'INR.13,000.00',
-    GrandTotalAB:'INR.2,64,486.00',
-    oilFillerCap,
-    headlight,
-    windshields,
-    panniers,
-    seats,
-    backrest,
-    footpegs,
-    engineGuards,
-    sumpGuards,
-    safetyAccessories,
-    // Add more form fields as needed
-    });
+const SharePdf = ({route}) => {
+  const { formData,
+    customername,
+    address,
+    mobilenumber,
+    emailid,
+    exShowroomPrice,
+    roadtax,
+    Vehiclecolor,
+    EngineCC,
+    adminallimages,
+    vehiclename,
+    model,
+    selectedMirrorstext, 
+    selectedMirrorsvalue,
+    selectedOilFillerCapText,
+    selectedOilFillerCapValue,
+    selectedHeadLightText,
+    selectedHeadLightValue,
+    selectedWindshieldsText,
+    selectedWindshieldsValue,
+    selectedPanniersText,
+    selectedPanniersValue,
+    selectedSeatsText,
+    selectedSeatsValue,
+    selectedBackrestText,
+    selectedBackrestValue,
+    selectedFootPegsText,
+    selectedFootPegsValue,
+    selectedEngineGuardsText,
+    selectedEngineGuardsValue,
+    selectedSumpGuardsText,
+    selectedSumpGuardsValue,
+    selectedSafetyAccessoriesText,
+    selectedSafetyAccessoriesValue } = route.params;
 
+  
   useEffect(() => {
     // Retrieve 'formData' from AsyncStorage
     AsyncStorage.getItem('formData')
       .then((data) => {
         if (data) {
           const parsedData = JSON.parse(data);
-          setFormData(parsedData);
+          // setFormData(parsedData);
           console.log('Retrieved formData from AsyncStorage:', parsedData);
         }
       })
@@ -110,7 +107,8 @@ const SharePdf = (formInput) => {
                  text-transform: uppercase;">Quotation</p>
      </div>
      <div>
-       <img src="assets/Royal-Enfield-Logo.png" alt="Royal 					Enfield Logo" class="relogo" 
+     <img src={require('../assets/relogo.jpeg')}  class="relogo" />
+
             style="display: flex;
                    width: 170px;
                    height: 70px;
@@ -149,7 +147,7 @@ const SharePdf = (formInput) => {
                  font-weight: 600;
                  line-height: 0.1px;
                  align-items: flex-start;
-                 letter-spacing: 0.5px;">${formData.customername}</p>
+                 letter-spacing: 0.5px;">${customername}</p>
        <p       
           style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
@@ -157,7 +155,7 @@ const SharePdf = (formInput) => {
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.mobilenumber}</p>
+                 align-items: flex-start;">${mobilenumber}</p>
        <p       
           style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
@@ -165,7 +163,7 @@ const SharePdf = (formInput) => {
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-	start;">${formData.emailid}</p>
+                 align-items: flex-	start;">${emailid}</p>
        <p       
           style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
@@ -173,7 +171,7 @@ const SharePdf = (formInput) => {
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.address}</p>
+                 align-items: flex-start;">${address}</p>
        <p       
           style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
@@ -310,7 +308,7 @@ const SharePdf = (formInput) => {
                    font-family: 'Inter', sans-serif;
                    font-size:12px;
                    font-weight: 700;
-                   line-height: 0.1px;">${formData.Vehicledetails}</p>
+                   line-height: 0.1px;">${vehiclename},${model},${EngineCC},${Vehiclecolor}</p>
        </div>
        <!-- vehiclename closed -->
      </div>
@@ -318,7 +316,7 @@ const SharePdf = (formInput) => {
       </div>
    <!-- EnquiryandVehicle closed -->
      <div class="vehicleimage">
-       <img src={Imagelogo} alt="Example Image" class="bike" 
+       <img src=${adminallimages[0]} alt="Example Image" class="bike" 
             style="object-fit: scale-down;
                    align-self: stretch;
                    border-radius: 10px;
@@ -415,7 +413,7 @@ const SharePdf = (formInput) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${formData.ExshowroomPrice}</p>
+                     line-height: 0.1px;">${exShowroomPrice}</p>
          </div>
          <!-- value closed -->
        </div>
@@ -526,7 +524,7 @@ const SharePdf = (formInput) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${formData.RTOCharges}</p>
+                     line-height: 0.1px;">${roadtax}</p>
          </div>
          <!-- value closed -->
        </div>
@@ -624,7 +622,10 @@ const SharePdf = (formInput) => {
                  font-weight: 700;">Optional Add-on's / Products</p>
      </div>
      <!-- quotationhead closed -->
-     <!-- Vega full face helmet -->
+
+
+
+                           <!-- Vega full face helmet -->
      <div class="container5"
           style="display: flex;
                  height: 20px;
@@ -644,7 +645,7 @@ const SharePdf = (formInput) => {
             style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600;">Vega full face helmet</p>
+                   font-weight: 600>${selectedSafetyAccessoriesText}p>
        </div>
        <!-- subheadings closed -->
        <div class="symbol1"
@@ -674,13 +675,72 @@ const SharePdf = (formInput) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${formData.Vegafullfacehelmet}</p>
+                     line-height: 0.1px;">${selectedSafetyAccessoriesValue}</p>
          </div>
          <!-- value closed -->
        </div>
        <!-- symbol 1 closed -->
      </div>
      <!-- container 5 closed -->
+                      <!-- Mirrors -->
+     <div class="container5"
+          style="display: flex;
+                 height: 20px;
+                 flex-direction: row;
+                 justify-content: space-between;
+                 border-bottom: 0.5px solid #D7DAE0;
+                 align-items: center;
+                 align-self: stretch;
+                 align-content: center;
+                 flex-shrink: 0;">
+       <div class="subheadings"
+            style="display: flex;
+                   padding: 0px 10px;
+                   align-items: flex-start;
+                   flex: 1 0 0;">
+         <p class="onroadsubText"
+            style="color: #1A1C21;
+                   font-family: 'Inter', sans-serif;
+                   font-size: 10px;
+                   font-weight: 600;">${selectedMirrorstext}</p>
+                   
+       </div>
+       <!-- subheadings closed -->
+       <div class="symbol1"
+            style="display: flex;
+                   flex-direction: row;
+                   align-items: center;
+                   align-content: center;">
+         <div class="rupeessymbol">
+           <p class= "symbolText"
+              style="color: #5E6470;
+                     fontFamily: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-weight: 800;
+                     align-content: center;
+                     textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+         </div>
+         <!-- rupeessymbol closed -->
+         <div class="value"
+              style="display: flex;
+                     padding: 0px 10px;
+                     justify-content: center;
+                     align-items: center;">
+           <p class="pricesubText"
+              style="color: var(--gray-600, #5E6470);
+                     text-align: right;
+                     font-family: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-style: normal;
+                     font-weight: 700;
+                     line-height: 0.1px;">${selectedMirrorsvalue}</p>
+         </div>
+         <!-- value closed -->
+       </div>
+       <!-- symbol 1 closed -->
+     </div>
+     <!-- container 5 closed -->
+
      <!-- Engine Guard -->
      <div class="container5"
           style="display: flex;
@@ -700,7 +760,7 @@ const SharePdf = (formInput) => {
             style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600;">Engine Guard</p>
+                   font-weight: 600;">${selectedOilFillerCapText}</p>
        </div>
        <!-- subheadings closed -->
        <div class="symbol1"
@@ -730,13 +790,463 @@ const SharePdf = (formInput) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${formData.EngineGuard}</p>
+                     line-height: 0.1px;">${selectedOilFillerCapValue}</p>
          </div>
          <!-- value closed -->
        </div>
        <!-- symbol 1 closed -->
      </div>
      <!-- container 5 closed -->
+
+<!-- windsheilds-->
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedHeadLightText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedHeadLightValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedWindshieldsText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedWindshieldsValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedPanniersText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedPanniersValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedSeatsText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedSeatsValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedBackrestText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedBackrestValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedFootPegsText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedFootPegsValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${selectedEngineGuardsText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedEngineGuardsValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
+<div class="container5"
+     style="display: flex;
+            height: 20px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">${ selectedSumpGuardsText}</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${selectedSumpGuardsValue}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
+<!-- container 5 closed -->
+
      <!-- 4 years extended warranty -->
      <div class="container5"
           style="display: flex;
@@ -1341,7 +1851,7 @@ const SharePdf = (formInput) => {
       const shareOptions = {
         url: `file://${pdf.filePath}`,
         type: 'application/pdf',
-        message: 'PDF shared sucesfully',
+        message: 'PDF shared successfully',
       };
 
       const result = await Share.open(shareOptions);
@@ -1365,16 +1875,16 @@ const SharePdf = (formInput) => {
     <View style={styles.header}> 
       <Text style={styles.headerText}>Quotation</Text>
     </View> 
-<Image source={require('../assets/Royal-Enfield-Logo.jpeg')} style={styles.relogo}/> 
+<Image source={require('../assets/relogo.jpeg')} style={styles.relogo}/> 
   </View> 
   <View style={styles.container2}>  
     <View style={styles.customerdetailscontainer}>  
       <Text style={styles.header2Text}>Customer details</Text>
-      <Text style={ styles.headersubtext}>BOYAPATI CHOWDARY</Text>
-      <Text style={ styles.headersubtext}>9876543210</Text>
-      <Text style={ styles.headersubtext}>example@email.com</Text>
-      <Text style={ styles.headersubtext}>D.no : 48-1-117, Marati Palem</Text>  
-      <Text style={ styles.headersubtext}>Ongole, Andhra Pradesh - 523001</Text>   
+      <Text style={ styles.headersubtext}>{customername}</Text>
+      <Text style={ styles.headersubtext}>{address}</Text>
+      <Text style={ styles.headersubtext}>{mobilenumber}</Text>
+      <Text style={ styles.headersubtext}>{emailid}</Text>  
+      
     </View> 
   <View style={styles.companydetailscontainer}>                        
     <Text style={styles.showroomnameText}>Lekhana Automotives</Text>
@@ -1402,11 +1912,11 @@ const SharePdf = (formInput) => {
     <Text style={styles.vehsubText}>Vehicle details :</Text>
     </View> 
     <View style={styles.vehiclename}>  
-    <Text style={styles.vehnamesubText}>Super meteor - Astral, 350cc, Blue color</Text>
+    <Text style={styles.vehnamesubText}>{`${vehiclename}, ${model}, ${EngineCC}, ${Vehiclecolor}`}</Text>
     </View> 
-  </View>  
+  </View> 
 </View>
-<Image source={require('../assets/bike.jpeg')} style={styles.bike}/>
+<Image source={{ uri: adminallimages[0] }} style={styles.bike} />
 </View>
   <View style={styles.quotationbody}>   
   <View style={styles.onroadpricecontainer}>    
@@ -1422,7 +1932,7 @@ const SharePdf = (formInput) => {
      <Text style={styles.symbolText}>₹</Text>
      </View>
      <View style={styles.value}>
-     <Text style={styles.pricesubText}>2,13,852.00</Text>
+     <Text style={styles.pricesubText}>{exShowroomPrice}</Text>
      </View>
      </View> 
      </View> 
@@ -1448,7 +1958,7 @@ const SharePdf = (formInput) => {
      <Text style={styles.symbolText}>₹</Text>
      </View>
      <View style={styles.value}>
-     <Text style={styles.pricesubText}>26,602.00</Text>
+     <Text style={styles.pricesubText}>{roadtax}</Text>
      </View>
      </View> 
      </View>
@@ -1485,6 +1995,19 @@ const SharePdf = (formInput) => {
      </View>
      <View style={styles.container5}>
     <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>M</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>1,000.00</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
     <Text style={styles.addonproducttext}>Engine Guard</Text>
     </View>
 <View style={styles.symbol1}>         
@@ -1493,6 +2016,19 @@ const SharePdf = (formInput) => {
      </View>
      <View style={styles.value}>
      <Text style={styles.pricesubText}>500.00</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedMirrorstext}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedMirrorsvalue}</Text>
      </View>
      </View> 
      </View>
@@ -2258,3 +2794,7 @@ gstdash:{
 });
 
 export default SharePdf;
+
+
+
+
