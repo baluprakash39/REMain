@@ -71,11 +71,15 @@ function Home() {
   }, [search, productData]);
 
   const filterProductData = () => {
-    const filteredData = productData.filter((data) =>
-      data.vehiclename.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredData = productData.filter((data) => {
+      if (data.vehiclename) {
+        return data.vehiclename.toLowerCase().includes(search.toLowerCase());
+      }
+      return false; // If vehiclename is undefined, don't include it in the filteredData
+    });
     setFilteredProductData(filteredData);
   };
+  
 
   const fetchSections = () => {
     const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';

@@ -8,17 +8,19 @@ import Inventory from './Components/Inventory';
 import Share from './Components/Share';
 import AddVehicle from './Components/Addvehicle';
 import CompanyDetails from './Components/CompanyDetails';
+import Update from './Components/Update';
+import Dropdown from './Components/Dropdown';
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Inventory'>
+      <Stack.Navigator initialRouteName='Home'>
        
-      
+     
        <Stack.Screen
-          name="Inventory"
-          component={Inventory}
+          name="Dropdown"
+          component={Dropdown}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -37,9 +39,15 @@ const App = () => {
           component={Care}
           options={{ headerShown: false }}
         />
+        
          <Stack.Screen
           name="Share"
           component={Share}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Update"
+          component={Update}
           options={{ headerShown: false }}
         />
          <Stack.Screen

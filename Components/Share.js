@@ -6,17 +6,9 @@ import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation } from '@react-navigation/native';
+import { Picker } from '@react-native-picker/picker';
 
-const dataa = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
-  ];
+
 // import CheckBox from 'react-native-check-box'
 const Share = () => {
   const navigation = useNavigation();
@@ -38,7 +30,7 @@ const Share = () => {
   const[five,setfive]=useState(false);
   const[fiveRsa,setfiveRsa]=useState(false);
   const [selectedTab, setSelectedTab] = useState('Style');
-
+  const [selectedValue, setSelectedValue] = useState('default'); // Initialize
 
 const [oilFillerCap, setOilFillerCap] = useState(null);
 const [headlight, setHeadlight] = useState(null);
@@ -51,6 +43,41 @@ const [engineGuards, setEngineGuards] = useState(null);
 const [sumpGuards, setSumpGuards] = useState(null);
 const [safetyAccessories, setSafetyAccessories] = useState(null);
 
+
+// dropdowns
+const [selectedMirrorstext, setSelectedMirrorstext] = useState(''); // Initialize with a default value
+  const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState('');
+  const [selectedOilFillerCapText, setSelectedOilFillerCapText] = useState(''); // Initialize with a default value for oilfillercap
+  const [selectedOilFillerCapValue, setSelectedOilFillerCapValue] = useState('');
+  const [selectedHeadLightText, setSelectedHeadLightText] = useState('');
+const [selectedHeadLightValue, setSelectedHeadLightValue] = useState('');
+const [selectedWindshieldsText, setSelectedWindshieldsText] = useState('');
+const [selectedWindshieldsValue, setSelectedWindshieldsValue] = useState('');
+const [selectedPanniersText, setSelectedPanniersText] = useState('');
+const [selectedPanniersValue, setSelectedPanniersValue] = useState('');
+const [selectedSeatsText, setSelectedSeatsText] = useState('');
+const [selectedSeatsValue, setSelectedSeatsValue] = useState('');
+
+const [selectedBackrestText, setSelectedBackrestText] = useState('');
+const [selectedBackrestValue, setSelectedBackrestValue] = useState('');
+
+const [selectedFootPegsText, setSelectedFootPegsText] = useState('');
+const [selectedFootPegsValue, setSelectedFootPegsValue] = useState('');
+
+const [selectedEngineGuardsText, setSelectedEngineGuardsText] = useState('');
+const [selectedEngineGuardsValue, setSelectedEngineGuardsValue] = useState('');
+
+const [selectedSumpGuardsText, setSelectedSumpGuardsText] = useState('');
+const [selectedSumpGuardsValue, setSelectedSumpGuardsValue] = useState('');
+
+
+const [selectedSafetyAccessoriesText, setSelectedSafetyAccessoriesText] = useState('');
+const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useState('');
+// Add state variables for other dropdowns here
+
+
+
+console.log(selectedMirrorsvalue,selectedMirrorstext)
   const removeQuotes = (str) => {
     return str.replace(/["']/g, '');
   };
@@ -290,9 +317,8 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
              
             </View>
 
-
-            <View style={styles.accessoriesText}>
-  <View style={{ display:'flex',flexDirection:'row',justifyContent:'center' }}>
+<View style={styles.accessoriesText}>
+  <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
       Style
     </Text>
@@ -302,255 +328,288 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Protection')}>
       Protection
     </Text>
-    {/* Show dropdowns based on the selected tab */}
-    
-   
-
-
-
-
-
-
   </View>
-  
   <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-              {/* Show dropdowns based on the selected tab */}
-              {selectedTab === 'Style' && (
-                // Add your dropdown components for Style here
+    {selectedTab === 'Style' && (
+      <>
+        {/* Show mirrors dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedMirrorstext}
+            onValueChange={(itemValue) => {
+              const selectedMirror = data.mirrors.find(
+                (mirror) => mirror.mirrorstext === itemValue
+              );
+              setSelectedMirrorstext(selectedMirror ? selectedMirror.mirrorstext : '');
+              setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : '');
+            }}
+          >
+            <Picker.Item label="select Mirrors" value="" />
+            {data.mirrors.map((mirror) => (
+              <Picker.Item
+                key={mirror._id}
+                label={`${mirror.mirrorstext} (${mirror.mirrorsvalue})`}
+                value={mirror.mirrorstext}
+              />
+            ))}
+          </Picker>
+        </View>
+        {/* Show oil filler dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedOilFillerCapText}
+            onValueChange={(itemValue) => {
+              const selectedoil = data.oilfillercap.find(
+                (oil) => oil.oilfillercaptext === itemValue
+              );
+              setSelectedOilFillerCapText(selectedoil ? selectedoil.oilfillercaptext : '');
+              setSelectedOilFillerCapValue(selectedoil ? selectedoil.oilfillercapvalue : '');
+            }}
+          >
+            <Picker.Item label="select Oilfiller cap" value="" />
+            {data.oilfillercap.map((oil) => (
+              <Picker.Item
+                key={oil._id}
+                label={`${oil.oilfillercaptext} (${oil.oilfillercapvalue})`}
+                value={oil.oilfillercaptext}
+              />
+            ))}
+          </Picker>
+        </View>
+        {/* Show headlight dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedHeadLightText}
+            onValueChange={(itemValue) => {
+              const selectedHeadLight = data.headlight.find(
+                (headlight) => headlight.headlighttext === itemValue
+              );
+              setSelectedHeadLightText(selectedHeadLight ? selectedHeadLight.headlighttext : '');
+              setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : '');
+            }}
+          >
+            <Picker.Item label="select Headlight" value="" />
+            {data.headlight.map((headlight) => (
+              <Picker.Item
+                key={headlight._id}
+                label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
+                value={headlight.headlighttext}
+              />
+            ))}
+          </Picker>
+        </View>
+      </>
+    )}
 
-                <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5,width:500 }}>
-                  {/* Mirrors */}
-                <Dropdown
-                  style={styles.dropdown}
-                  placeholderStyle={styles.placeholderStyle}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  inputSearchStyle={styles.inputSearchStyle}
-                  data={dataa}
-                  search
-                  maxHeight={400}
-                  labelField="label"
-                  valueField="value"
-                  placeholder="Select Mirrors"
-                  searchPlaceholder="Search..."
-                  value={value}
-                  onChange={(item) => {
-                    setValue(item.value);
-                  }}
-                />
 
-                 {/* Oil Filler Cap */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Oil Filler Cap"
-      searchPlaceholder="Search..."
-      value={oilFillerCap}
-      onChange={(item) => {
-        setOilFillerCap(item.value);
-      }}
-    />
-
-    {/* Headlight */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Headlight"
-      searchPlaceholder="Search..."
-      value={headlight}
-      onChange={(item) => {
-        setHeadlight(item.value);
-      }}
-    />
-              </View>
-                
-              )}
-               
 {selectedTab === 'Comfort' && (
-    <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5,width:500 }}>
-      {/* Windshields */}
-      <Dropdown
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        data={dataa}
-        search
-        maxHeight={400}
-        labelField="label"
-        valueField="value"
-        placeholder="Select Windshields"
-        searchPlaceholder="Search..."
-        value={windshields} // Create a state variable for windshields
-        onChange={(item) => {
-          setWindshields(item.value); // Create a state variable and set its value
-        }}
+  <>
+{/* Windshields */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedWindshieldsText}
+    onValueChange={(itemValue) => {
+      const selectedWindshield = data.windshields.find(
+        (windshield) => windshield.windshieldstext === itemValue
+      );
+      setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
+      setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Windshields" value="" />
+    {data.windshields.map((windshield) => (
+      <Picker.Item
+        key={windshield._id}
+        label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
+        value={windshield.windshieldstext}
       />
-
-      {/* Panniers */}
-      <Dropdown
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        data={dataa}
-        search
-        maxHeight={400}
-        labelField="label"
-        valueField="value"
-        placeholder="Select Panniers"
-        searchPlaceholder="Search..."
-        value={panniers} // Create a state variable for panniers
-        onChange={(item) => {
-          setPanniers(item.value); // Create a state variable and set its value
-        }}
+    ))}
+  </Picker>
+</View>
+{/* Panniers */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedPanniersText}
+    onValueChange={(itemValue) => {
+      const selectedPannier = data.panniers.find(
+        (pannier) => pannier.pannierstext === itemValue
+      );
+      setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
+      setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Panniers" value="" />
+    {data.panniers.map((pannier) => (
+      <Picker.Item
+        key={pannier._id}
+        label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
+        value={pannier.pannierstext}
       />
-           {/* Seats */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Seats"
-      searchPlaceholder="Search..."
-      value={seats}
-      onChange={(item) => {
-        setSeats(item.value);
-      }}
-    />
+    ))}
+  </Picker>
+</View>
 
-    {/* Backrest */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Backrest"
-      searchPlaceholder="Search..."
-      value={backrest}
-      onChange={(item) => {
-        setBackrest(item.value);
-      }}
-    />
+{/* Seats */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedSeatsText}
+    onValueChange={(itemValue) => {
+      const selectedSeat = data.seats.find(
+        (seat) => seat.seatstext === itemValue
+      );
+      setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
+      setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Seats" value="" />
+    {data.seats.map((seat) => (
+      <Picker.Item
+        key={seat._id}
+        label={`${seat.seatstext} (${seat.seatsvalue})`}
+        value={seat.seatstext}
+      />
+    ))}
+  </Picker>
+</View>
 
-    {/* Footpegs */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Footpegs"
-      searchPlaceholder="Search..."
-      value={footpegs}
-      onChange={(item) => {
-        setFootpegs(item.value);
-      }}
-    />
+{/* Backrest */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedBackrestText}
+    onValueChange={(itemValue) => {
+      const selectedBackrest = data.backrests.find(
+        (backrest) => backrest.backreststext === itemValue
+      );
+      setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
+      setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Backrest" value="" />
+    {data.backrests.map((backrest) => (
+      <Picker.Item
+        key={backrest._id}
+        label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
+        value={backrest.backreststext}
+      />
+    ))}
+  </Picker>
+</View>
+{/* Foot Pegs */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedFootPegsText}
+    onValueChange={(itemValue) => {
+      const selectedFootPeg = data.footpegs.find(
+        (footpeg) => footpeg.footpegstext === itemValue
+      );
+      setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
+      setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Foot Pegs" value="" />
+    {data.footpegs.map((footpeg) => (
+      <Picker.Item
+        key={footpeg._id}
+        label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
+        value={footpeg.footpegstext}
+      />
+    ))}
+  </Picker>
+</View>
+</>
+)}
 
-      
-    </View>
-  )}
-{selectedTab === 'Protection' && (
-  <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5, width: 500 }}>
-    {/* Engine Guards */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Engine Guards"
-      searchPlaceholder="Search..."
-      value={engineGuards}
-      onChange={(item) => {
-        setEngineGuards(item.value);
-      }}
-    />
 
-    {/* Sump Guards */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Sump Guards"
-      searchPlaceholder="Search..."
-      value={sumpGuards}
-      onChange={(item) => {
-        setSumpGuards(item.value);
-      }}
-    />
+{selectedTab==='Protection'&&(
+<>
 
-    {/* Safety Accessories */}
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={dataa}
-      search
-      maxHeight={400}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Safety Accessories"
-      searchPlaceholder="Search..."
-      value={safetyAccessories}
-      onChange={(item) => {
-        setSafetyAccessories(item.value);
-      }}
-    />
-  </View>
+{/* Engine Guards */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedEngineGuardsText}
+    onValueChange={(itemValue) => {
+      const selectedEngineGuard = data.enginegaurds.find(
+        (engineGuard) => engineGuard.enginegaurdstext === itemValue
+      );
+      setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
+      setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Engine Guards" value="" />
+    {data.enginegaurds.map((engineGuard) => (
+      <Picker.Item
+        key={engineGuard._id}
+        label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
+        value={engineGuard.enginegaurdstext}
+      />
+    ))}
+  </Picker>
+</View>
+
+{/* Sump Guards */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedSumpGuardsText}
+    onValueChange={(itemValue) => {
+      const selectedSumpGuard = data.sumpgaurds.find(
+        (sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
+      );
+      setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
+      setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
+    }}
+  >
+    <Picker.Item label="Select Sump Guards" value="" />
+    {data.sumpgaurds.map((sumpGuard) => (
+      <Picker.Item
+        key={sumpGuard._id}
+        label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
+        value={sumpGuard.sumpgaurdstext}
+      />
+    ))}
+  </Picker>
+</View>
+
+{/* Other Dropdowns */}
+{/* Add more Picker components for other dropdowns here */}
+
+ {/* Safety Accessories */}
+<View style={styles.dropdown}>
+  <Picker
+    selectedValue={selectedSafetyAccessoriesText}
+    onValueChange={(itemValue) => {
+      const selectedSafetyAccessory = data.safetyaccessories.find(
+        (safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
+      );
+      setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
+      setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
+    }}
+  >
+    <Picker.Item label="Select Safety Accessories" value="" />
+    {data.safetyaccessories.map((safetyAccessory) => (
+      <Picker.Item
+        key={safetyAccessory._id}
+        label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
+        value={safetyAccessory.safetyaccessoriestext}
+      />
+    ))}
+  </Picker>
+</View>
+
+
+
+</>
 )}
 
 
 
-            </View>
-  
 
 
 
-            
 
 
+  </View>
 </View>
-        
+
 
 
 
@@ -597,7 +656,7 @@ const [safetyAccessories, setSafetyAccessories] = useState(null);
 const styles = StyleSheet.create({
     dropdown: {
         height: 50,
-        width: '110%',
+        width: '80%',
         justifyContent: 'center', // Center the text vertically
         paddingLeft: 10, // Add some padding to align text properly
         backgroundColor:'white',

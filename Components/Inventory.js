@@ -1,14 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground,Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
 import Home from './Home';
 import Care from './Care';
 import Accessories from './Accessories';
+import Update from './Update';
+
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -70,66 +76,14 @@ function Inventory() {
   const navigation = useNavigation(); // Get the navigation object
 
 
-  const handleFileInput = () => {
-    const options = {
-      title: 'Select Images',
-      mediaType: 'photo', // Specify the media type you want to pick (photo or video)
-      quality: 0.5, // Image quality
-      storageOptions: {
-        skipBackup: true, // Do not back up the image to the cloud
-      },
-    };
 
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        // User cancelled the image picker
-      } else if (response.error) {
-        // Handle error
-        console.error(response.error);
-      } else {
-        // Image selected, add it to the selectedFiles array
-        const newSelectedFiles = [...selectedFiles, response];
-        setSelectedFiles(newSelectedFiles);
-      }
-    });
-  };
-
-  const uploadImages = async () => {
-    const formData = new FormData();
-
-    selectedFiles.forEach((file, index) => {
-      formData.append(`adminallimages[${index}]`, {
-        uri: file.uri,
-        type: file.type,
-        name: file.fileName,
-      });
-    });
-
-    try {
-      const response = await axios.post(
-        `https://shy-tan-tam.cyclic.cloud/upload/upload/${docId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
-      console.log(response.data);
-      // Handle success response here
-    } catch (error) {
-      console.error(error);
-      // Handle error here
-    }
-  };
-
-
-
-
-
-
-
+  useFocusEffect(
+    React.useCallback(() => {
+      // This function will be called when the screen gains focus
+     fetchBikeDetails(); // Replace with the function that fetches your data
+    }, [])
+  );
+ 
 
 
   useEffect(() => {
@@ -243,6 +197,74 @@ function Inventory() {
   };
   
 
+  const deleteProduct = (Id) => {
+    console.log(Id);
+    // Show confirmation alert (optional)
+    Alert.alert(
+      'Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => {
+            const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/deletebikes/${Id}`;
+  
+            fetch(apiUrl, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                // Update the state by removing the deleted item
+                setProductData((prevProductData) =>
+                  prevProductData.filter((item) => item._id !== Id)
+                );
+  
+                // Trigger a re-render by updating the reloadKey
+                setReloadKey(reloadKey + 1);
+  
+                // Show a success alert
+                Alert.alert('Success', 'Product Deleted Successfully');
+              })
+              .catch((error) => {
+                console.error('Error deleting product:', error);
+                Alert.alert('Error', 'Failed to delete product');
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+  
+  
+ 
+  function handleEdit(item) {
+    // Store the item data locally using AsyncStorage
+    AsyncStorage.setItem('Bikes', JSON.stringify(item))
+      .then(() => {
+        console.log(item);
+        // Navigate to the 'Update' screen using navigation
+        navigation.navigate('Update');
+      })
+      .catch((error) => {
+        console.error('Error storing data:', error);
+      });
+  }
+
+
+
+
+
+
+
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
@@ -316,13 +338,14 @@ function Inventory() {
             }}>
 
               <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-              <TouchableOpacity style={{marginBottom:30,width:70}}>
-              <Text style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:30,textAlign:'center'}} onPress={() => handleDelete(item._id)}>Edit</Text>
+              <TouchableOpacity style={{marginBottom:30,width:40}}>
+             
+                <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='edit' size={15} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
            
 
-              <TouchableOpacity style={{marginBottom:30,width:70}}>
-              <Text style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:30,textAlign:'center'}}>delete</Text>
+              <TouchableOpacity style={{marginBottom:30,width:40}}>
+              <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='delete' size={15} onPress={() => deleteProduct(item._id)}/>
               </TouchableOpacity>
 </View>
 
