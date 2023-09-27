@@ -800,9 +800,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ScrollView } from 'react-native'; // Import ScrollView for scrolling if needed
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
+
+
+
 
 const Share = () => {
   const navigation = useNavigation();
@@ -1275,10 +1280,10 @@ console.log("adress",companyaddress)
     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
       Style
     </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Comfort')}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
       Comfort
     </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Protection')}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
       Protection
     </Text>
   </View>
@@ -1591,7 +1596,10 @@ console.log("adress",companyaddress)
                 style={styles.shareButton}
                 onPress={handleShare} // Call handleShare when the button is pressed
               >
-                <Text style={styles.shareButtonText}>Share Screen</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <Ionicons name='document-text' size={20} color={'#f9f9f9'} />
+                  <Text style={styles.shareButtonText}>Preview & Share Doc</Text>
+                </View>
               </TouchableOpacity>
 
             </View>
@@ -1603,6 +1611,10 @@ console.log("adress",companyaddress)
 };
 
 const styles = StyleSheet.create({
+   backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   dropdown: {
     height: 50,
     width: '80%',
@@ -1638,7 +1650,21 @@ const styles = StyleSheet.create({
   },
   centeredContainer: {
     flex: 1,
-    justifyContent: 'center',
+    resizeMode: 'cover',
+  },
+  dropdown: {
+    height: 40,
+    width:'100%',
+    justifyContent: 'center', // Center the text vertically
+    paddingVertical: 5, // Add some padding to align text properly
+    backgroundColor:'#F9F9F9',
+    borderRadius:5,
+    marginHorizontal:5,
+    marginVertical:5,
+  },
+  header:{
+    gap: 130,
+    height: 40,
     alignItems: 'center',
     borderRadius: 20,
     width: 'auto'
@@ -1646,7 +1672,7 @@ const styles = StyleSheet.create({
   },
   extendedLine: {
     borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
-    borderBottomColor: 'white',
+    borderBottomColor: '#F9F9F9',
     marginBottom: 20, // Add spacing between the line and the next content
   },
 
@@ -1654,79 +1680,71 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: '#F9F9F9',
     marginBottom: 20, // Add spacing between the line and the next content
     // columnGap: 100
   },
-
   container: {
-    cardContent: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingHorizontal: 20, // Add horizontal padding as needed
-      marginBottom: 10, // Add margin at the bottom as needed
-    },
-
-    flexGrow: 1, // To make sure content can be scrolled if needed
-    paddingVertical: 20, // Add some padding at the top and bottom
-    paddingHorizontal: 10, // Add horizontal padding
+    paddingHorizontal: 8,
+    paddingTop: 10,
   },
-  content: {
-    marginVertical: 10,
-  },
-  hr: {
-    borderWidth: 1,
-    borderColor: 'white',
+  line: {
+    height: 1,
+    backgroundColor: '#F9F9F9',
     width: '100%',
   },
   title: {
-    color: 'white',
+    color: '#f9f9f9',
     fontWeight: 'bold',
-    fontSize: 25,
-    textAlign: 'center',
+    fontSize: 18,
+    textAlign: 'left',
   },
   logo: {
-    height: 80,
     width: 180,
     borderRadius: 10,
     height: 60,
     marginTop: 10,
   },
   card: {
+    flexDirection:'column',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: '#f9f9f9',
+    borderRadius: 10,
+    height: 200,
     width: '100%', // Adjust the width as needed
     backgroundColor: 'black',
     marginTop: 10, // Add margin between sections
-    padding: 10, // Add padding inside the card
+    paddingHorizontal: 5, // Add padding inside the card
   },
   cardContent: {
+    height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 5, // Add vertical margin between items
   },
   labelText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-    flex: 1, // To allow text to expand and push TextInput to the right
+    color: '#f9f9f9',
+    width: 100,
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.4,
   },
   input: {
-    flex: 2, // To allow TextInput to expand
-    color: 'black',
-    backgroundColor: 'rgba(217, 217, 217, 1)',
+    flex: 1, // To allow TextInput to expand
+    color: '#868687',
+    backgroundColor: '#cbcbca',
+    borderRadius:5,
     paddingLeft: 10, // Add left padding for better appearance
   },
   imageCard: {
     alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 50,
-    height: 600
+    marginBottom: 5,
+    marginTop: 10,
+    height: 200,
   },
   customerImage: {
-    width: 800,
-    height: 500,
+    width: '100%',
+    height: 180,
     resizeMode: 'cover',
     borderRadius: 10,
   },
@@ -1738,8 +1756,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   datacardtext: {
-    color: 'white',
-    fontSize: 30,
+    color: '#f9f9f9',
+    fontSize: 18,
     textDecorationLine: 'underline',
     marginBottom: 20,
     textAlign: 'center',
@@ -1753,8 +1771,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   shareButtonText: {
-    color: 'white',
+    color: '#f9f9f9',
     fontSize: 18,
+    fontWeight: '500',
+    textAlign:'center',
   },
 });
 

@@ -358,10 +358,12 @@
 // export default AddVehicle;
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Button } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native'; 
 import { Dropdown } from 'react-native-element-dropdown';
 
+
 const AddVehicle = () => {
+  const navigation = useNavigation();
   const [sections, setSections] = useState([]);
   const [value, setValue] = useState(null);
   const [brandName, setBrandName] = useState('');
@@ -406,6 +408,7 @@ const AddVehicle = () => {
   };
 
   const addVehicle = () => {
+   
     // Reset error messages
     setBrandNameError('');
     setVehicleNameError('');
@@ -416,7 +419,7 @@ const AddVehicle = () => {
     setRoadTaxError('');
     setRegistrationError('');
     setSectionError('');
-
+    
     // Check for errors
     let hasErrors = false;
 
@@ -488,6 +491,7 @@ const AddVehicle = () => {
             throw new Error('Network response was not ok');
           }
           return response.json();
+         
         })
         .then((data) => {
           console.log(data);
@@ -501,6 +505,7 @@ const AddVehicle = () => {
           setRegistration('');
           setSectionError('');
           setValue(null);
+          navigation.navigate('Inventory');
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -508,11 +513,17 @@ const AddVehicle = () => {
         });
     }
   };
-
+  const handleBackPress = () => {
+    // Navigate back to the Inventory screen
+    navigation.navigate('Inventory');
+  };
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         {/* Your content here */}
+        <TouchableOpacity onPress={handleBackPress}>
+            <Text style={{color:'white',fontSize:20}}>Back</Text>
+          </TouchableOpacity>
         <Text style={styles.title}>Add Vehicle</Text>
 
         <View style={styles.line}></View>
