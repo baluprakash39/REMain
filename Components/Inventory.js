@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground,Button } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
@@ -22,34 +23,50 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginHorizontal:5,
   },
-  searchInput: {
-    height: 35,
-    marginTop: 32,
-    marginRight: 16,
-    color: 'white',
-    padding: 4,
-    fontSize: 16,
+  searchcontainer:{
     width: 250,
-    borderRadius: 10,
-    backgroundColor: 'transparent', // Transparent background
-    borderColor: 'white', // White border
+    height: 35,
+    flexDirection: 'row',
+    alignItems:'center',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: '#3D3C3C',
+    borderColor: 'rgba(249, 249, 249, 0.50)', // White border
     borderWidth: 1, // 1 pixel border width
   },
+  searchInput: {
+    color: '#868687',
+    padding: 2,
+    fontSize: 16,
+  },
   loginButton: {
-    backgroundColor: '#F9F9F9', // Use the same background color as searchInput
-    paddingVertical: 4,
-    paddingHorizontal: 16,
-    borderRadius: 10,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 3,
+    paddingRight: 3,
+    borderRadius: 5,
+    borderWidth: 1,
+    width: 70,
+    height: 35,
+    borderColor: '#F9F9F9',
     justifyContent: 'center',
     alignItems: 'center',
   },
   loginButtonText: {
-    color: 'black', // Change the text color as needed
+    color: '#F9F9F9', // Change the text color as needed
     fontWeight: 'bold',
+    letterSpacing: 0.4,
+  },
+  vehiclevalue:{
+    flexDirection: 'row',
+    paddingRight: 2,
+    gap: 3,
+    alignItems: 'flex-end',
   },
 });
 
@@ -269,13 +286,13 @@ function Inventory() {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TextInput
-            style={[styles.searchInput, { color: 'white' }]}
-            placeholderTextColor="white"
-            placeholder="Search Vehicle"
-            value={search}
-            onChangeText={setSearch}
-          />
+          <View style={styles.searchcontainer}>
+              <Ionicons name="search" size={15} color="#F9f9f9" />
+                    <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
+                      value={search}
+                      selectionColor="red"
+                      onChangeText={setSearch}/>
+          </View>
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
@@ -295,14 +312,11 @@ function Inventory() {
       <TouchableOpacity
         key={index}
         style={{
-            backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'transparent',
-          borderWidth: 1,
-         
-          borderColor: '#F9F9F9',
+          backgroundColor: selectedSection === sec.Sectionname ? '#F9F9F9' : '#868687',
           borderRadius: 10,
           padding: 10,
           margin: 5,
-          width: '48%',
+          width: '30%',
           marginBottom: 20,
           justifyContent: 'center', // Center the content vertically
           alignItems: 'center',     // Center the content horizontally
@@ -312,7 +326,7 @@ function Inventory() {
         
         onPress={() => products(sec.Sectionname)}
       >
-        <Text style={{ color: 'black', fontSize: 15, fontWeight: 700 ,color:'white'}}>{sec.Sectionname}</Text>
+        <Text style={{ color: 'black', fontSize: 15, fontWeight: 700 }}>{sec.Sectionname}</Text>
       </TouchableOpacity>
     ))}
 </View>
@@ -328,26 +342,25 @@ function Inventory() {
             <View    style={{
               borderColor: 'rgba(249, 249, 249, 0.50)',
               borderWidth: 1,
-              // backgroundColor: 'rgba(151, 151, 151, 0.50)',
-              height: 300,
+              backgroundColor: '#434242',
               flex: 1,
               margin: 5,
               borderRadius: 10,
+              height:250,
               width: 100,
-              marginBottom:15
+              justifyContent:'space-between',
             }}>
 
-              <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-              <TouchableOpacity style={{marginBottom:30,width:40}}>
-             
-                <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='edit' size={15} onPress={() => handleEdit(item)}/>
-              </TouchableOpacity>
-           
+<View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:3, paddingVertical:3}}>
+  <TouchableOpacity style={{ height:40, width: 40, borderRadius: 50,alignItems: 'center', justifyContent: 'center',borderWidth:0.5, borderColor:'#f9f9f9' }}>
+    <AntDesign style={{ color: '#f9f9f9'}} name='edit' size={20} onPress={() => handleEdit(item)} />
+  </TouchableOpacity>
 
-              <TouchableOpacity style={{marginBottom:30,width:40}}>
-              <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='delete' size={15} onPress={() => deleteProduct(item._id)}/>
-              </TouchableOpacity>
+  <TouchableOpacity style={{ height:40, width: 40, borderRadius: 50, alignItems: 'center', justifyContent: 'center',borderWidth:0.5, borderColor:'#f9f9f9' }}>
+    <AntDesign style={{ color: '#f9f9f9'}} name='delete' size={20} onPress={() => deleteProduct(item._id)} />
+  </TouchableOpacity>
 </View>
+
 
 
             <TouchableOpacity
@@ -366,57 +379,62 @@ function Inventory() {
             //   width: 100,
             // }}
           >
+            <View style={{justifyContent: 'space-between',flexDirection: 'column'}}>
               <Image
                 style={{
-                  height: '70%',
+                  height: '60%',
                   width: '100%',
-                  borderRadius: 10,
-                  
                 }}
                 source={{ uri: item.adminallimages[0] }}
               />
-              <View style={{ flex: 1, justifyContent: 'space-between', padding: 5 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:18 }}>{item.vehiclename}</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:15 }}>
-                   
-                    {item.EngineCC} CC
-                  </Text>
+              
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between',paddingBottom:4,paddingLeft:4 }}>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 600, textTransform: 'uppercase'}}>{item.vehiclename}</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center',paddingLeft:4 }}>
+                    <Ionicons name="speedometer-outline" size={15} color="#FFFFFF" />
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                      {item.EngineCC} CC
+                    </Text>
+                  </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end',paddingHorizontal:4}}>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', fontSize: 10 }}>Price Starts from</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: 18, paddingRight: 5 }} >{'\u20B9'}</Text>
+                  <Text style={{ color: '#FFFFFF', fontWeight: 500, fontSize: 18 }}>{item.exShowroomPrice}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:18 }}>Price Starts from</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold',fontSize:15 }}>{item.exShowroomPrice}</Text>
                 </View>
               </View>
             </TouchableOpacity>
             </View>
           )}
         />
-       
-        <TouchableOpacity
+                <TouchableOpacity
           
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 100, // Make it round
-          width: 50, // Set a fixed width for a round button
-          height: 50, // Set a fixed height for a round button
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'absolute', // Position it absolutely
-          bottom: 30, // Adjust the distance from the bottom as needed
-          right: '50%', // Center it horizontally
-          transform: [{ translateX: 25 }],
-          fontWeight:1000 // Move it half of its width to center it,
+          style={{
+            backgroundColor: '#f9f9f9',
+            borderWidth:0.5,
+            borderColor:'red',
+            borderRadius: 100, // Make it round
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute', // Position it absolutely
+            bottom: 30, // Adjust the distance from the bottom as needed
+            right: '50%', // Center it horizontally
+            transform: [{ translateX: 25 }],
+            
+          }}
+          onPress={() => {
+            // Handle the "+" button press here
+            // You can navigate to the "AddVehicle" screen
+            navigation.navigate('Addvehicle'); 
+          }}
+         >
           
-        }}
-        onPress={() => {
-          // Handle the "+" button press here
-          // You can navigate to the "AddVehicle" screen
-          navigation.navigate('Addvehicle'); 
-        }}
-       >
-        <Text style={{ color: 'black', fontSize: 40, fontWeight: 700 }}>+</Text>
-      </TouchableOpacity>
+            <MaterialIcons name='add-circle' size={50} color='#111111' />
+          
+        </TouchableOpacity>
       </View>
       
     </ImageBackground>

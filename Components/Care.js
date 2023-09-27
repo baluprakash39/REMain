@@ -1,5 +1,6 @@
-
-import React, { useState,useEffect } from 'react';
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
+import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet,Button,ScrollView  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -183,127 +184,118 @@ const Care = () => {
   return (
    
     <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
-        <ScrollView style={styles.container} contentContainerStyle={{ minHeight: 1000 }}>
-        {dataArray.map((bike, index) => (
-      <View key={index} style={[styles.container, { height: 1300 }]}>
+        <ScrollView contentContainerStyle={styles.page }>
+      <View style={styles.container}>
         {/* Your content here */}
-        <Text style={styles.title}>Vehicle Care</Text>
-        <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-        <View style={styles.line}></View>
-
-
         
-        <View style={{ flexDirection: 'row', marginLeft: 30,marginTop:20 }}>
-  <Text style={{ color: 'white', fontSize: 20, width: 150 }}>Vehicle</Text>
-  <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-  <Text style={{ color: 'white', fontSize: 25,fontWeight:700}}>{bike.vehiclename}</Text>
-</View>
-<View style={{ flexDirection: 'row', marginLeft: 30 }}>
-  <Text style={{ color: 'white', fontSize: 20, width: 150 }}>Model</Text>
-  <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-  <Text style={{ color: 'white', fontSize: 20 }}>{bike.model}</Text>
-</View>
-<View style={{ flexDirection: 'row', marginLeft: 30 }}>
-  <Text style={{ color: 'white', fontSize: 20, width: 150 }}>EngineCC</Text>
-  <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-  <Text style={{ color: 'white', fontSize: 20 }}>{bike.EngineCC}</Text>
-</View>
-<View style={{ flexDirection: 'row', marginLeft: 30 }}>
-  <Text style={{ color: 'white', fontSize: 20, width: 150 }}>Color</Text>
-  <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-  <Text style={{ color: 'white', fontSize: 20 }}>{bike.vehiclecolor}</Text>
-</View>
-
-{/* Insurance  view*/}
-<View>
-<Text style={{ color: 'white', fontSize: 18, fontWeight: '700', marginLeft: 30, marginTop: 30 }}>
-  Insurance
-</Text>
-
-
-<View  style={{ flexDirection: 'column', marginTop: 20 }}>
-         
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Basic</Text>
-            
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Basic insurence value"
-              placeholderTextColor="gray"
-              value={Basic}
-              onChangeText={(text) => setValue(text)}
-            />
+        <View style={styles.header}>
+          <View style={{ height:'100%', alignContent: 'center'}}>
+            <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
+              <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+            </TouchableOpacity>
           </View>
-          {basicError ? <Text style={styles.errorText}>{basicError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Nildip</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Nilldip value"
-              placeholderTextColor="gray"
-              value={Nildip}
-              onChangeText={(text) =>setnilldip(text)}
-            />
-          </View>
-          {nilldipError ? <Text style={styles.errorText}>{nilldipError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>EP</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter EP value"
-              placeholderTextColor="gray"
-              value={Ep}
-              onChangeText={(text) =>setEP(text)}
-            />
-          </View>
-          {epError ? <Text style={styles.errorText}>{epError}</Text> : null}
-
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>RTI</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter RTI value"
-              placeholderTextColor="gray"
-              value={RTI}
-              onChangeText={(text) =>setRTI(text)}
-            />
-          </View>
- {rtiError ? <Text style={styles.errorText}>{rtiError}</Text> : null}
-
+            <View style={{ alignItems: 'center'}}>
+            <Text style={styles.title}>Vehicle Care</Text>
+            </View>
         </View>
-     </View>    
+
+        <View style={styles.line}></View>
+        <View style={{ gap: 5}}>
+          <View style={{ flexDirection: 'row',marginTop:10 }}>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:400, width: 150 }}>Vehicle</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4}}>Scooty</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:400, width: 150 }}>Model</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4}}>125</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:400, width: 150 }}>EngineCC</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4 }}>250cc</Text>
+          </View>
+          <View style={{ flexDirection: 'row', }}>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:400, width: 150 }}>Color</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4 }}>Red</Text>
+          </View>
+        </View>
+
+        <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 15 }}>
+          Insurance
+        </Text>
+
+          <View style={{ flexDirection: 'column', marginTop: 10,gap: 5, width: '100%'}}>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%' }}>
+              <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, marginRight: 10, color: '#F9F9F9' }}>Basic</Text>
+                <TextInput
+                  style={styles.inputField}
+                  placeholder="Enter value"
+                  placeholderTextColor="gray"
+                  value={Basic}
+                  onChangeText={(text) => setValue(text)}/>
+            </View>
+          
+            <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%'  }}>
+              <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, width: 80, marginRight: 10, color: '#F9F9F9' }}>Nildip</Text>
+                <TextInput
+                  style={styles.inputField}
+                  placeholder="Enter value"
+                  placeholderTextColor="gray"
+                  value={Nildip}
+                  onChangeText={(text) =>setnilldip(text)}/>
+            </View>
+          
+            <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%'  }}>
+              <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, width: 80, marginRight: 10, color: '#F9F9F9' }}>EP</Text>
+                <TextInput
+                  style={styles.inputField}
+                  placeholder="Enter value"
+                  placeholderTextColor="gray"
+                  value={Ep}
+                  onChangeText={(text) =>setEP(text)}/>
+            </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%'  }}>
+              <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, width: 80, marginRight: 10, color: '#F9F9F9' }}>RTI</Text>
+                <TextInput
+                  style={styles.inputField}
+                  placeholder="Enter value"
+                  placeholderTextColor="gray"
+                  value={RTI}
+                  onChangeText={(text) =>setRTI(text)}/>
+            </View>
+ {rtiError ? <Text style={styles.errorText}>{rtiError}</Text> : null}
+          </View>  
 
 
 {/* Hypothication view */}
-
-  <View >
-        <Text style={{ color: 'white', fontSize: 18, fontWeight: '700', marginLeft: 30, marginTop: 30 }}>
-  Hypothication
+        <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 15 }}>
+  Hypothecation
 </Text>
 
 
-<View style={{ flexDirection: 'column', marginTop: 20 }}>
+<View style={{ flexDirection: 'column', marginTop: 10,gap: 5, width: '100%' }}>
          
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Yes</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%' }}>
+            <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, marginRight: 10, color: '#F9F9F9' }}>Yes</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Yes value"
+              placeholder="Enter value"
               placeholderTextColor="gray"
               value={Yes}
               onChangeText={(text) => setYES(text)}
             />
           </View>
           {yesError ? <Text style={styles.errorText}>{yesError}</Text> : null}
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>No</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%'}}>
+            <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, marginRight: 10, color: '#F9F9F9' }}>No</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter No value"
+              placeholder="Enter value"
               placeholderTextColor="gray"
               value={No}
               onChangeText={(text) =>setNO(text)}
@@ -317,45 +309,43 @@ const Care = () => {
 
        
         </View>
-</View>
 
 
 {/* Extednedwarenty */}
-<View>
-        <Text style={{ color: 'white', fontSize: 18, fontWeight: '700', marginLeft: 30, marginTop: 30 }}>
-  Extended Warrenty
+        <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 15 }}>
+  Extended Warranty
 </Text>
 
 
-<View style={{ flexDirection: 'column', marginTop: 20 }}>
+<View style={{ flexDirection: 'column', marginTop: 10,gap: 5, width: '100%' }}>
          
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>4Years</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%' }}>
+            <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, marginRight: 10, color: '#F9F9F9' }}>4Years</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter 4Years value"
+              placeholder="Enter value"
               placeholderTextColor="gray"
               value={fouryears}
               onChangeText={(text) => setfour(text)}
             />
           </View>
           {fourError ? <Text style={styles.errorText}>{fourError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>5years</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%' }}>
+            <Text style={{ fontSize:16, fontWeight: 500, width: 80,letterSpacing: 0.5, marginRight: 10, color: '#F9F9F9' }}>5years</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter 5years value"
+              placeholder="Enter value"
               placeholderTextColor="gray"
               value={fiveyears}
               onChangeText={(text) =>setfive(text)}
             />
           </View>
           {fiveError ? <Text style={styles.errorText}>{fiveError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15,width:500,marginLeft: 30 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>5yeasr+Rsa</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width:'100%' }}>
+            <Text style={{ fontSize:14, fontWeight: 500, width: 80,letterSpacing: 0.2, marginRight: 10, color: '#F9F9F9' }}>5years+Rsa</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter 5years+Rsa value"
+              placeholder="Enter value"
               placeholderTextColor="gray"
               value={fiveplusRSAyears}
               onChangeText={(text) =>setRsa(text)}
@@ -366,17 +356,19 @@ const Care = () => {
 
 
         </View>
-</View>
-        
-  
-
-      <TouchableOpacity style={styles.button} onPress={()=>handleEditDetails(bike._id)}>
-            <Text style={styles.buttonText}>Edit/Add Details</Text>
+      <View style={styles.bottombuttons}>
+          <TouchableOpacity style={styles.bottombackbutton} onPress={() => {// Add your logic to add the vehicle here
+                }}>
+                <Text style={{ color: '#f9f9f9', fontSize: 18, fontWeight: 500, textAlign:'center'}}>Back</Text>
+              </TouchableOpacity>
+          <TouchableOpacity style={styles.bottomeditbutton} onPress={() => {// Add your logic to add the vehicle here
+            }}>
+            <Text style={{ color: '#303030', fontSize: 18, fontWeight: 500, textAlign:'center'}}>Edit</Text>
           </TouchableOpacity>
           
       
           </View>
-           ))} 
+          </View>
       </ScrollView>
     </ImageBackground>
     
@@ -384,73 +376,81 @@ const Care = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  header:{
+    gap: 100,
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    height: 25,
+    alignContent: 'center',
+    marginBottom: 5
+  },
+  backButton:{
+    alignItems: 'center',
+  },
+  title: {
+    color: '#F9F9F9',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
   errorText: {
     color: 'red',
-    
     textAlign:'center',
     fontSize:17
   },
-    inputField: {
-        flex: 1,
-        height: 40,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        paddingLeft: 10,
-        color: 'black',
-    
-      },
-      button: {
-        backgroundColor: 'rgba(249, 249, 249, 0.6)',
-        width: 150,
-        alignSelf: 'center',
-        alignItems: 'center',
-        paddingVertical: 10,
-        borderRadius: 5,
-        marginTop: 20, // Adjust this value as needed
-        marginBottom: 100, // Adjust this value as needed
-      },
-      
-      buttonText: {
-        color: 'black',
-        fontWeight: 'bold',
-      },
 
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover'
+  inputField: {
+      flex: 1,
+      height: 40,
+      backgroundColor: '#F9F9F9',
+      borderRadius: 5,
+      paddingLeft: 10,
+      color: '#868687',
+    },
+    bottombuttons:{ 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    alignItems:'center',
+    width:'96%', 
+    height:40, 
+    marginTop: 50,
+    marginHorizontal: 8,
   },
-  container: {
-    flex: 1,
-    padding: 16,
-    height:1
-   
-  },
-  title: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 16,
-   
-  },
-  line: {
-    height: 1,
-    backgroundColor: 'white',
-    width: '100%',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    zIndex: 1,
-  },
+    bottombackbutton:{
+      borderColor: '#f9f9f9',
+      backgroundColor:'#453F3F',
+      borderWidth: 1,
+      borderRadius: 6,
+      width: 160,
+      height: 40,
+      paddingVertical: 6,
+    },
+    bottomeditbutton:{
+      borderColor: '#868687',
+      backgroundColor:'#f9f9f9',
+      borderWidth: 1,
+      borderRadius: 6,
+      width: 160,
+      height: 40,
+      paddingVertical: 6,
+    },
+    backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover'
+    },
+    line: {
+      height: 1,
+      backgroundColor: '#F9F9F9',
+      width: '100%',
+    },
 
-  backButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  
   
 });
 

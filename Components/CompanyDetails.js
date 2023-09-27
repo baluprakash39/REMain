@@ -1,7 +1,10 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, ScrollView, Button } from 'react-native';
 import axios from 'axios';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import  FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { useNavigation } from '@react-navigation/native';
 
 const CompanyDetails = () => {
   const [CompanyName, setCompanyName] = useState('');
@@ -191,164 +194,208 @@ const CompanyDetails = () => {
         });
     }
   };
+  const handleBackPress = () => {
+    // Navigate back to the Inventory screen
+    navigation.navigate('Inventory');
+  };
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.title}>CompanyDetails</Text>
+        <View style={styles.header}>
+          <View style={{ height:'100%', alignContent: 'center'}}>
+            <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+              <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+            </TouchableOpacity>
+          </View>
+            <View style={{ alignItems: 'center'}}>
+              <Text style={styles.title}>Company details</Text>
+            </View>
+        </View>
           <View style={styles.line}></View>
-          <View style={{ flexDirection: 'column', marginTop: 20 }}>
+          <View style={{ flexDirection: 'column', marginTop: 20, }}>
             {/* Company Name */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: 'white', fontSize: 18, fontWeight: '700' }}>Company Name</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom:5,}}>
+              <Text style={styles.subtitle}>Company Name</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center'}}>:</Text>
               <TextInput
                 style={styles.inputField}
-                placeholder="Enter Brand Name"
-                placeholderTextColor="gray"
+                placeholder="Enter your Company name"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={CompanyName}
                 onChangeText={handleCompanyNameChange}
               />
             </View>
-            {companyNameError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{companyNameError}</Text> : null}
+            {companyNameError ? <Text style={styles.errorText}>{companyNameError}</Text> : null}
+            
 
             {/* Company Address */}
-            <Text style={{ color: 'white', fontSize: 20, marginBottom: 20, marginTop: 20, fontWeight: '700' }}>Company Address</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>Address1</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 10, marginBottom:5 }}>Company Address</Text>
+
+            <View style={{ flexDirection: 'column', marginTop: 10,gap: 5, width: '100%' }}>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>Address1</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Address Name"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={CompanyAddress}
                 onChangeText={handleCompanyAddressChange}
               />
             </View>
-            {companyAddressError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{companyAddressError}</Text> : null}
+            {companyAddressError ? <Text style={styles.errorText}>{companyAddressError}</Text> : null}
 
             {/* Street Name */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>Street Name</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>Street Name</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Street Name"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={StreetName}
                 onChangeText={handleStreetNameChange}
               />
             </View>
-            {streetNameError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{streetNameError}</Text> : null}
+            {streetNameError ? <Text style={styles.errorText}>{streetNameError}</Text> : null}
 
             {/* City */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>City</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>City</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter City Name"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={City}
                 onChangeText={handleCityChange}
               />
             </View>
-            {cityError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{cityError}</Text> : null}
+            {cityError ? <Text style={styles.errorText}>{cityError}</Text> : null}
 
             {/* Pincode */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>Pincode</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>Pincode</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Pincode"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={Pincode}
                 onChangeText={handlePincodeChange}
               />
             </View>
-            {pincodeError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{pincodeError}</Text> : null}
+            {pincodeError ? <Text style={styles.errorText}>{pincodeError}</Text> : null}
 
             {/* State */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>State</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>State</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Statename"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={State}
                 onChangeText={handleStateChange}
               />
             </View>
-            {stateError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{stateError}</Text> : null}
+            {stateError ? <Text style={styles.errorText}>{stateError}</Text> : null}
 
             {/* Country */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>Country</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>Country</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Country Name"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={Country}
                 onChangeText={handleCountryChange}
               />
             </View>
-            {countryError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{countryError}</Text> : null}
-
+            {countryError ? <Text style={styles.errorText}>{countryError}</Text> : null}
+        </View>
             {/* Contact Details */}
-            <Text style={{ color: 'white', fontSize: 20, marginBottom: 20, marginTop: 20, fontWeight: '700' }}>Contact Details</Text>
+            <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 15, marginBottom:5 }}>Contact Details</Text>
+
+            <View style={{ flexDirection: 'column', marginTop: 10,gap: 5, width: '100%' }}>
 
             {/* Contact Number */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>ContactNumber</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>ContactNumber</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Contact Number"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={ContactNumber}
                 onChangeText={handleContactNumberChange}
               />
             </View>
-            {contactNumberError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{contactNumberError}</Text> : null}
+            {contactNumberError ? <Text style={styles.errorText}>{contactNumberError}</Text> : null}
 
             {/* Email Id */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>EmailId</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>EmailId</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter EmailId"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={EmailId}
                 onChangeText={handleEmailIdChange}
               />
             </View>
-            {emailIdError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{emailIdError}</Text> : null}
+            {emailIdError ? <Text style={styles.errorText}>{emailIdError}</Text> : null}
 
             {/* Website */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, width: 550 }}>
-              <Text style={{ width: 120, marginRight: 10, color: '#CBCBCA', fontSize: 16 }}>Website</Text>
-              <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5}}>
+              <Text style={styles.subtitle}>Website</Text>
+              <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
               <TextInput
                 style={styles.inputField}
                 placeholder="Enter Website"
-                placeholderTextColor="gray"
+                selectionColor="red"
+                placeholderTextColor="#303030"
+                backgroundColor="#CBCBCA"
                 value={Website}
                 onChangeText={handleWebsiteChange}
               />
             </View>
-            {websiteError ? <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>{websiteError}</Text> : null}
-
-            <TouchableOpacity
+            {websiteError ? <Text style={styles.errorText}>{websiteError}</Text> : null}
+          </View>
+          <View style={styles.bottombuttons}>
+          <TouchableOpacity
               style={styles.button}
-              onPress={handleSubmit}
+              onPress={handleSubmit} // Add the addVehicle function to the onPress handler
             >
-              <Text style={styles.buttonText}>Add Details </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <FontAwesome6 name='address-card' size={20} color={'#f9f9f9'} />
+                  <Text style={styles.buttonText}>Add Details</Text>
+                </View>
             </TouchableOpacity>
+        </View>
           </View>
         </View>
       </ScrollView>
@@ -365,25 +412,33 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  header:{
+    gap: 110,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   title: {
-    color: 'white',
-    fontSize: 24,
+    color: '#F9F9F9',
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 16,
+    letterSpacing: 0.5,
   },
   line: {
     height: 1,
     backgroundColor: 'white',
     width: '100%',
   },
-  dropdown: {
-    height: 40,
-    width: '100%',
-    justifyContent: 'center', // Center the text vertically
-    paddingLeft: 10, // Add some padding to align text properly
+  subtitle:{ 
+    width: 120,
+    marginRight: 10,
+    color: '#F9F9F9',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.2,
   },
   inputField: {
     flex: 1,
@@ -391,21 +446,39 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     paddingLeft: 10,
-    color: 'black',
-
+    color: '#868687',
   },
-  button: {
-    backgroundColor: 'rgba(249, 249, 249, 0.6)',
-    width: 200,
-    alignSelf: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-    borderRadius: 5,
+  bottombuttons:{ 
+    alignItems:'center',
+    width:'100%', 
+    height:50, 
     marginTop: 50,
   },
+  button: {
+    borderColor: '#f9f9f9',
+    backgroundColor:'#453F3F',
+    borderWidth: 1,
+    borderRadius: 6,
+    width:'70%',
+    height: 50,
+    padding: 10,
+    alignItems: 'center'
+  },
   buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
+    color: '#f9f9f9',
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign:'center',
+  },
+  errorText: {
+    color: '#ffffff',
+    textDecorationLine:'underline',
+    marginTop: 0,
+    fontSize: 12,
+    textAlign: 'right',
+    marginBottom:5,
+    letterSpacing: 0.4,
+    fontWeight: '500',
   },
 });
 

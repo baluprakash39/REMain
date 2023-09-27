@@ -1,4 +1,5 @@
-
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
+import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 
 import React, { useState,useEffect } from 'react';
 import {
@@ -897,52 +898,57 @@ const deletheadlight = (objId, headId) => {
         <ScrollView>
         {dataArray.map((data, index) => (
       <View key={index} style={styles.container}>
-        <Text style={styles.title}>Vehicle Accessories</Text>
-        <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-        <View style={styles.line}></View>
-        <View style={{ flexDirection: 'row', marginLeft: 30, marginTop: 20 }}>
-          <Text style={{ color: '#CBCBCA', fontSize: 20, width: 150 }}>Vehicle</Text>
-          <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-          <Text style={{ color: 'white', fontSize: 25, fontWeight: '700' }}>{data.vehiclename}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', marginLeft: 30 }}>
-          <Text style={{ color: '#CBCBCA', fontSize: 20, width: 150 }}>Model</Text>
-          <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-          <Text style={{ color: 'white', fontSize: 20 }}>{data.model}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', marginLeft: 30 }}>
-          <Text style={{ color: '#CBCBCA', fontSize: 20, width: 150 }}>EngineCC</Text>
-          <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-          <Text style={{ color: 'white', fontSize: 20 }}>{data.EngineCC}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', marginLeft: 30 }}>
-          <Text style={{ color: '#CBCBCA', fontSize: 20, width: 150 }}>Color</Text>
-          <Text style={{ color: 'white', fontSize: 20, width: 50, textAlign: 'center' }}>:</Text>
-          <Text style={{ color: 'white', fontSize: 20 }}>{data.vehiclecolor}</Text>
-        </View>
-  
+        <View style={styles.header}>
+          <View style={{ height:'100%', alignContent: 'center'}}>
+            <TouchableOpacity onPress={navigateToInventory} style={styles.backButton}>
+              <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+            </TouchableOpacity>
+            </View>
+            <View style={{ alignItems: 'center'}}>
+            <Text style={styles.title}>Vehicle Accessories</Text>
+            </View>
+            </View>
 
+        <View style={styles.line}></View>
+        <View style={{ gap: 5}}>
+        <View style={{ flexDirection: 'row',  marginTop: 10 }}>
+          <Text style={{ color: '#CBCBCA', fontSize: 14, fontWeight:400, width: 150 }}>Vehicle</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4 }}>{data.vehiclename}</Text>
+        </View>
+        <View style={{ flexDirection: 'row',}}>
+          <Text style={{ color: '#CBCBCA', fontSize: 14, fontWeight:400, width: 150 }}>Model</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4 }}>{data.model}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', }}>
+          <Text style={{ color: '#CBCBCA', fontSize: 14, fontWeight:400, width: 150 }}>EngineCC</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4}}>{data.EngineCC}</Text>
+        </View>
+        <View style={{ flexDirection: 'row',}}>
+          <Text style={{ color: '#CBCBCA', fontSize: 14, fontWeight:400, width: 150 }}>Color</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, width: 50, textAlign: 'center' }}>:</Text>
+          <Text style={{ color: '#F9F9F9', fontSize: 14, fontWeight:600, letterSpacing: 0.4 }}>{data.vehiclecolor}</Text>
+        </View>
+        </View>
         <Text style={styles.accessoriesText}>Available Accessories</Text>
 
        {/* Add tabs for Style, Comfort, and Protection */}
-       <View style={styles.accessoriesText}>
-  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'rgba(249, 249, 249, 0.5)' : 'transparent' }} onPress={() => setSelectedTab('Style')}>
-      Style
-    </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? 'rgba(249, 249, 249, 0.5)' : 'transparent'  }} onPress={() => setSelectedTab('Comfort')}>
-      Comfort
-    </Text>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ?'rgba(249, 249, 249, 0.5)' : 'transparent'  }} onPress={() => setSelectedTab('Protection')}>
-      Protection
-    </Text>
-  </View>
-</View>
-       
+       <View style={{ borderWidth:1, borderColor: '#868687',backgroundColor: 'rgba(249, 249, 249, 0.30)', borderRadius:5,padding:5 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch' }}>
+              <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? '#F9F9F9' : '#868687' }} onPress={() => setSelectedTab('Style')}>
+                Style
+              </Text>
+              <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#868687' }} onPress={() => setSelectedTab('Comfort')}>
+                Comfort
+              </Text>
+              <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? '#F9F9F9' : '#868687' }} onPress={() => setSelectedTab('Protection')}>
+                Protection
+              </Text>
+          </View>
+      
 
-       <View>
         {/* Show dropdowns based on the selected tab */}
         {selectedTab === 'Style' && (
           // Add your dropdown components for Style here
@@ -951,34 +957,43 @@ const deletheadlight = (objId, headId) => {
            
     {/* Mirrors Dropdown */}
     <TouchableOpacity onPress={toggleMirrorsDropdown}>
-  <View style={styles.dropdown}>
-    <Text style={styles.dropdownText}>
-      {showMirrorsDropdown ? 'Close Mirrors' : 'Open Mirrors'}
-    </Text>
-  </View>
+    <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {' Mirrors'}
+        </Text>
+        <MaterialIcons
+          name={showMirrorsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
+
 </TouchableOpacity>
 {showMirrorsDropdown && (
-  <View style={styles.dropdown}>
-    <View  style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}} >
+  <View style={{borderRadius: 6,
+    padding: 10,
+    marginTop: 4,
+    gap:4,
+    flexDirection: 'row',
+    alignItems:'flex-start',
+    justifyContent:'space-between',}}>
     <TextInput
       style={styles.inputField}
-      placeholder="Enter Mirrors Text"
+      placeholder="Enter Text"
       value={input19}
       onChangeText={(text) => setInput19(text)}
     />
-    
     <TextInput
       style={styles.inputField2}
-      placeholder="Enter Mirrors Value"
+      placeholder="Enter Value"
       value={input20}
       onChangeText={(text) => setInput20(text)}
     />
-    <TouchableOpacity style={styles.selectButton} onPress={()=>selectMirrorsValue(data._id)}>
-      <Text style={styles.selectButtonText}>+</Text>
-    </TouchableOpacity>
-
-
-  </View>
+<TouchableOpacity style={styles.selectButton} onPress={()=>selectMirrorsValue(data._id)}>
+      <Text style={styles.selectButtonText}>
+        <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+      </Text>
+      </TouchableOpacity>
   <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}} >
             {input19Error ? <Text style={styles.errorText}>{input19Error}</Text> : null}
             {input20Error ? <Text style={styles.errorText}>{input20Error}</Text> : null}
@@ -1007,31 +1022,42 @@ const deletheadlight = (objId, headId) => {
 
             {/* Oil Filler Cap Dropdown */}
 <TouchableOpacity onPress={toggleOilFillerCapDropdown}>
-  <View style={styles.dropdown}>
-    <Text style={styles.dropdownText}>
-      {showOilFillerCapDropdown ? 'Close Oil Filler Cap' : 'Open Oil Filler Cap'}
-    </Text>
-  </View>
+<View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {' Oil Filler Cap'}
+        </Text>
+        <MaterialIcons
+          name={showOilFillerCapDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
 </TouchableOpacity>
 {showOilFillerCapDropdown && (
-  <View style={styles.dropdown}>
-    <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}} >
+  <View style={{borderRadius: 6,
+    padding: 10,
+    marginTop: 4,
+    gap:4,
+    flexDirection: 'row',
+    alignItems:'flex-start',
+    justifyContent:'space-between',}}>
     <TextInput
       style={styles.inputField}
-      placeholder="Enter Oil Filler Cap Text"
+      placeholder="Enter Text"
       value={input21}
       onChangeText={(text) => setInput21(text)}
     />
     <TextInput
       style={styles.inputField2}
-      placeholder="Enter Oil Filler Cap Value"
+      placeholder="Enter Value"
       value={input22}
       onChangeText={(text) => setInput22(text)}
     />
     <TouchableOpacity style={styles.selectButton} onPress={()=>selectOilFillerCapValue(data._id)}>
-      <Text style={styles.selectButtonText}>+</Text>
-    </TouchableOpacity>
-  </View>
+      <Text style={styles.selectButtonText}>
+      <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+      </Text>
+      </TouchableOpacity>
   <View>
   <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}} >
            {input21Error ? <Text style={styles.errorText}>{input21Error}</Text> : null}       
@@ -1045,7 +1071,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deleteoilfiller(data._id,oil._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+    </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{oil.oilfillercaptext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{oil.oilfillercapvalue}</Text>
@@ -1059,22 +1085,31 @@ const deletheadlight = (objId, headId) => {
 
 
   </View>
-  
 )}
  {/* Headlight Dropdown */}
 <TouchableOpacity onPress={toggleHeadlightDropdown}>
-  <View style={styles.dropdown}>
-    <Text style={styles.dropdownText}>
-      {showHeadlightDropdown ? 'Close Headlight' : 'Open Headlight'}
-    </Text>
-  </View>
+<View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Headlight'}
+        </Text>
+        <MaterialIcons
+          name={showHeadlightDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
 </TouchableOpacity>
 {showHeadlightDropdown && (
-  <View style={styles.dropdown} >
-  <View  style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
+  <View style={{borderRadius: 6,
+    padding: 10,
+    marginTop: 4,
+    gap:4,
+    flexDirection: 'row',
+    alignItems:'flex-start',
+    justifyContent:'space-between',}}>
     <TextInput
       style={styles.inputField}
-      placeholder="Enter Headlight Text"
+      placeholder="Enter Text"
       value={input23}
       onChangeText={(text) => setInput23(text)}
     />
@@ -1085,9 +1120,10 @@ const deletheadlight = (objId, headId) => {
       onChangeText={(text) => setInput24(text)}
     />
     <TouchableOpacity style={styles.selectButton} onPress={()=>selectHeadlightValue(data._id)}>
-      <Text style={styles.selectButtonText}>+</Text>
-    </TouchableOpacity>
-  </View>
+      <Text style={styles.selectButtonText}>
+      <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+      </Text>
+      </TouchableOpacity>
   <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
     {input23Error ? <Text style={styles.errorText}>{input23Error}</Text> : null}
     {input24Error ? <Text style={styles.errorText}>{input24Error}</Text> : null}
@@ -1098,7 +1134,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deletheadlight(data._id,head._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+    </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{head.headlighttext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{head.headlightvalue}</Text>
@@ -1114,7 +1150,6 @@ const deletheadlight = (objId, headId) => {
  
  
   </View>
-  
 )}
           </>
         )}
@@ -1125,18 +1160,28 @@ const deletheadlight = (objId, headId) => {
           <>
            {/* Windshield Dropdown */}
         <TouchableOpacity onPress={toggleWindshieldDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showWindshieldDropdown ? 'Close Windshield' : 'Open Windshield'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {' Windshield'}
+        </Text>
+        <MaterialIcons
+          name={showWindshieldDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showWindshieldDropdown && (
-          <View style={styles.dropdown}>
-          <View  style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}} >
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Windshield Text"
+              placeholder="Enter Text"
               value={input3}
               onChangeText={(text) => setInput3(text)}
             />
@@ -1147,10 +1192,10 @@ const deletheadlight = (objId, headId) => {
               onChangeText={(text) => setInput4(text)}
             />
             <TouchableOpacity style={styles.selectButton} onPress={()=>selectWindshieldValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
             </TouchableOpacity>
-          </View>
-          
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input3Error ? <Text style={styles.errorText}>{input3Error}</Text> : null}
   {input4Error ? <Text style={styles.errorText}>{input4Error}</Text> : null}
@@ -1162,7 +1207,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deleteWindshield(data._id,wind._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{wind.windshieldstext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{wind.windshieldsvalue}</Text>
@@ -1180,31 +1225,42 @@ const deletheadlight = (objId, headId) => {
 
         {/* Seats Dropdown */}
         <TouchableOpacity onPress={toggleSeatsDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showSeatsDropdown ? 'Close Seats' : 'Open Seats'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {' Seats'}
+        </Text>
+        <MaterialIcons
+          name={showSeatsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showSeatsDropdown && (
-          <View style={styles.dropdown}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Seats Text"
+              placeholder="Enter Text"
               value={input5}
               onChangeText={(text) => setInput5(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Seats Value"
+              placeholder="Enter Value"
               value={input6}
               onChangeText={(text) => setInput6(text)}
             />
             <TouchableOpacity style={styles.selectButton} onPress={()=>selectSeatsValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input5Error ? <Text style={styles.errorText}>{input5Error}</Text> : null}
   {input6Error ? <Text style={styles.errorText}>{input6Error}</Text> : null}
@@ -1215,7 +1271,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deleteSeats(data._id,seat._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{seat.seatstext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{seat.seatsvalue}</Text>
@@ -1234,32 +1290,42 @@ const deletheadlight = (objId, headId) => {
 
         {/* Backrests Dropdown */}
         <TouchableOpacity onPress={toggleBackrestsDropdown}>
-          <View style={styles.dropdown}>
-          
-            <Text style={styles.dropdownText}>
-              {showBackrestsDropdown ? 'Close Backrests' : 'Open Backrests'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {' Backrests '}
+        </Text>
+        <MaterialIcons
+          name={showBackrestsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showBackrestsDropdown && (
-          <View style={styles.dropdown}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Backrests Text"
+              placeholder="Enter Text"
               value={input7}
               onChangeText={(text) => setInput7(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Backrests Value"
+              placeholder="Enter Value"
               value={input8}
               onChangeText={(text) => setInput8(text)}
             />
             <TouchableOpacity style={styles.selectButton} onPress={()=>selectBackrestsValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input7Error ? <Text style={styles.errorText}>{input7Error}</Text> : null}
   {input8Error ? <Text style={styles.errorText}>{input8Error}</Text> : null}
@@ -1270,7 +1336,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deleteBackrest(data._id,back._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{back.backreststext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{back.backrestsvalue}</Text>
@@ -1283,31 +1349,42 @@ const deletheadlight = (objId, headId) => {
         )}
         {/* Panniers Dropdown */}
         <TouchableOpacity onPress={togglePanniersDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showPanniersDropdown ? 'Close Panniers' : 'Open Panniers'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Panniers'}
+        </Text>
+        <MaterialIcons
+          name={showPanniersDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showPanniersDropdown && (
-          <View style={styles.dropdown}>
-          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}} >
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Panniers Text"
+              placeholder="Enter Text"
               value={input11}
               onChangeText={(text) => setInput11(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Panniers Value"
+              placeholder="Enter Value"
               value={input12}
               onChangeText={(text) => setInput12(text)}
             />
             <TouchableOpacity style={styles.selectButton} onPress={()=>selectPanniersValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input11Error ? <Text style={styles.errorText}>{input11Error}</Text> : null}
   {input12Error ? <Text style={styles.errorText}>{input12Error}</Text> : null}
@@ -1333,31 +1410,42 @@ const deletheadlight = (objId, headId) => {
 
         {/* Footpegs Dropdown */}
         <TouchableOpacity onPress={toggleFootpegsDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showFootpegsDropdown ? 'Close Footpegs' : 'Open Footpegs'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Footpegs'}
+        </Text>
+        <MaterialIcons
+          name={showFootpegsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showFootpegsDropdown && (
-          <View style={styles.dropdown}>
-          <View  style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}} >
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Footpegs Text"
+              placeholder="Enter Text"
               value={input13}
               onChangeText={(text) => setInput13(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Footpegs Value"
+              placeholder="Enter Value"
               value={input14}
               onChangeText={(text) => setInput14(text)}
             />
             <TouchableOpacity style={styles.selectButton} onPress={()=>selectFootpegsValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input13Error ? <Text style={styles.errorText}>{input13Error}</Text> : null}
   {input14Error ? <Text style={styles.errorText}>{input14Error}</Text> : null}
@@ -1368,7 +1456,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deletefoot(data._id,foot._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{foot.footpegstext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{foot.footpegsvalue}</Text>
@@ -1390,31 +1478,42 @@ const deletheadlight = (objId, headId) => {
           <>
              {/* Engine Guards Dropdown */}
         <TouchableOpacity onPress={toggleEngineGuardsDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showEngineGuardsDropdown ? 'Close Engine Guards' : 'Open Engine Guards'}
-            </Text>
-          </View >
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Engine Guards'}
+        </Text>
+        <MaterialIcons
+          name={showEngineGuardsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showEngineGuardsDropdown && (
-          <View style={styles.dropdown}>
-          <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Engine Guards Text"
+              placeholder="Enter Text"
               value={enginegaurdstext}
               onChangeText={(text) => setInput15(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Engine Guards Value"
+              placeholder="Enter Value"
               value={enginegaurdsvalue}
               onChangeText={(text) => setInput16(text)}
             />
             <TouchableOpacity style={styles.selectButton}  onPress={() => selectEngineGuardsValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
   {input15Error ? <Text style={styles.errorText}>{input15Error}</Text> : null}
   {input16Error ? <Text style={styles.errorText}>{input16Error}</Text> : null}
@@ -1426,7 +1525,7 @@ const deletheadlight = (objId, headId) => {
       <View>
       <TouchableOpacity onPress={() => deleteEngine(data._id,engine._id)}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
         <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{engine.enginegaurdstext}</Text>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{engine.enginegaurdsvalue}</Text>
@@ -1444,31 +1543,42 @@ const deletheadlight = (objId, headId) => {
 
         {/* Sump Guards Dropdown */}
         <TouchableOpacity onPress={toggleSumpGuardsDropdown}>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownText}>
-              {showSumpGuardsDropdown ? 'Close Sump Guards' : 'Open Sump Guards'}
-            </Text>
-          </View>
+        <View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Sump Guards'}
+        </Text>
+        <MaterialIcons
+          name={showSumpGuardsDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
+    </View>
         </TouchableOpacity>
         {showSumpGuardsDropdown && (
-          <View  style={styles.dropdown}>
-          <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
+          <View style={{borderRadius: 6,
+            padding: 10,
+            marginTop: 4,
+            gap:4,
+            flexDirection: 'row',
+            alignItems:'flex-start',
+            justifyContent:'space-between',}}>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Sump Guards Text"
+              placeholder="Enter Text"
               value={input17}
               onChangeText={(text) => setInput17(text)}
             />
             <TextInput
               style={styles.inputField2}
-              placeholder="Enter Sump Guards Value"
+              placeholder="Enter Value"
               value={input18}
               onChangeText={(text) => setInput18(text)}
             />
             <TouchableOpacity style={styles.selectButton}  onPress={()=>selectSumpGuardsValue(data._id)}>
-              <Text style={styles.selectButtonText}>+</Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={styles.selectButtonText}>
+              <MaterialIcons name='add-circle' size={40} color='#f9f9f9' />
+              </Text>
+              </TouchableOpacity>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
                 {input17Error ? <Text style={styles.errorText}>{input17Error}</Text> : null}
                 {input18Error ? <Text style={styles.errorText}>{input18Error}</Text> : null}
@@ -1488,79 +1598,82 @@ const deletheadlight = (objId, headId) => {
       </View>
     </View>
   ))}
-</View>
-
-
-
-          </View>
+</View></View>
         )}
         {/* Safety Accessories Dropdown */}
        
 <TouchableOpacity onPress={toggleSafetyAccessoriesDropdown}>
-  <View style={styles.dropdown}>
-    <Text style={styles.dropdownText}>
-      {showSafetyAccessoriesDropdown ? 'Close Safety Accessories' : 'Open Safety Accessories'}
-    </Text>
-  </View>
-</TouchableOpacity>
-{showSafetyAccessoriesDropdown && (
-  <View style={styles.dropdown}>
-  <View style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly'}}>
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.inputField}
-        placeholder="Enter Safety Accessories Text"
-        value={input1}
-        onChangeText={(text) => {
-          setInput1(text);
-          setInput1Error(''); // Clear the error message when text changes
-        }}
-      />
+<View style={styles.dropdown}>
+        <Text style={styles.dropdownText}>
+          {'Safety Accessories'}
+        </Text>
+        <MaterialIcons
+          name={showSafetyAccessoriesDropdown ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={20}
+          color='#303030'
+        />
     </View>
-    <View>
-   
-    </View>
-   
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.inputField2}
-        placeholder="Enter Safety Accessories Value"
-        value={input2}
-        onChangeText={(text) => {
-          setInput2(text);
-          setInput2Error(''); // Clear the error message when text changes
-        }}
-      />
-    </View>
- 
-
-    <TouchableOpacity style={styles.selectButton} onPress={()=>selectSafetyAccessoriesValue(data._id)}>
-      <Text style={styles.selectButtonText}>+</Text>
     </TouchableOpacity>
-  </View>
-  <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                {input1Error ? <Text style={styles.errorText}>{input1Error}</Text> : null}
-                {input2Error ? <Text style={styles.errorText}>{input2Error}</Text> : null}
-              </View>
-              <View style={{ flexDirection: 'row',justifyContent:"space-between" }}>
-  {data.safetyaccessories.map((safty, saftyIndex) => (
-    <View key={saftyIndex}>
-      <View>
-      <TouchableOpacity onPress={() => handleRemovesafty(data._id,safty._id)}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
-        </TouchableOpacity>
-        <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{safty.safetyaccessoriestext}</Text>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{safty.safetyaccessoriesvalue}</Text>
-        </View>
+{showSafetyAccessoriesDropdown && (
+  <View>
+    <View style={{
+      borderRadius: 6,
+      padding: 10,
+      marginTop: 4,
+      gap: 4,
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+    }}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputField}
+          placeholder="Enter Text"
+          value={input1}
+          onChangeText={(text) => {
+            setInput1(text);
+            setInput1Error(''); // Clear the error message when text changes
+          }} />
       </View>
-    </View>
-  ))}
-</View>
-</View>
- 
-)}
 
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputField2}
+          placeholder="Enter Value"
+          value={input2}
+          onChangeText={(text) => {
+            setInput2(text);
+            setInput2Error(''); // Clear the error message when text changes
+          }} />
+      </View>
+
+      <TouchableOpacity style={styles.selectButton} onPress={() => selectSafetyAccessoriesValue(data._id)}>
+        <Text style={styles.selectButtonText}>+</Text>
+      </TouchableOpacity>
+    </View>
+
+    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+      {input1Error ? <Text style={styles.errorText}>{input1Error}</Text> : null}
+      {input2Error ? <Text style={styles.errorText}>{input2Error}</Text> : null}
+    </View>
+
+    <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+      {data.safetyaccessories.map((safty, saftyIndex) => (
+        <View key={saftyIndex}>
+          <View>
+            <TouchableOpacity onPress={() => handleRemovesafty(data._id, safty._id)}>
+              <Text style={{ color: 'white', fontSize: 20, textAlign: 'right', width: 150 }}>X</Text>
+            </TouchableOpacity>
+            <View style={{ borderWidth: 1, borderColor: 'white', height: 50, width: 150, color: 'white', borderRadius: 10 }}>
+              <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{safty.safetyaccessoriestext}</Text>
+              <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{safty.safetyaccessoriesvalue}</Text>
+            </View>
+          </View>
+        </View>
+      ))}
+    </View>
+  </View>
+)}
 
 
           </>
@@ -1576,35 +1689,28 @@ const deletheadlight = (objId, headId) => {
 };
 
 const styles = StyleSheet.create({
-  tab: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    padding: 10,
-    margin: 5,
-    borderRadius: 10,
-    textAlign: 'center',
-    width: 170,
-    height:45,
-    borderWidth:1,
-    borderColor:'white'
-  },
+
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  header:{
+    gap: 80,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   title: {
     color: 'white',
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
+    letterSpacing: 0.5,
   },
   line: {
     height: 1,
@@ -1612,45 +1718,65 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   accessoriesText: {
-    color: 'white',
-    fontSize: 22,
+    color: '#f9f9f9',
+    fontSize: 18,
     fontWeight: '500',
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    letterSpacing: 0.4,
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
-  dropdownText: {
-    color: 'white',
+  tab: {
+    color: '#111111',
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 10,
-    marginLeft: 20,
-    textAlign: 'left',
+    padding: 8,
+    borderRadius: 10,
+    textAlign: 'center',
+    height:40,
+    width:120,
   },
   dropdown: {
-    backgroundColor: 'rgba(249, 249, 249, 0.1)',
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 20,
-   
+    borderRadius: 6,
+    height: 50,
+    marginTop: 4,
+    backgroundColor: '#CBCBCA',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexShrink: 0,
+    borderWidth: 1,
+    borderColor: '#f9f9f9',
+    paddingRight: 4
+    },
+  dropdownText: {
+    color: '#303030',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'left',
+    letterSpacing: 0.4,
+    paddingLeft: 5,
   },
+  
   inputField: {
     height: 40,
-    width: 300,
+    width: 170,
+    gap:2,
+    alignItems:'center',
     backgroundColor: 'rgba(217, 217, 217, 1)',
     borderRadius: 5,
-    paddingLeft: 10,
     marginBottom: 10,
   },
   inputField2: {
     height: 40,
-    width: 100,
+    width: 130,
     backgroundColor: 'rgba(217, 217, 217, 1)',
     borderRadius: 5,
     paddingLeft: 10,
     marginBottom: 10,
   },
   selectButton: {
-    backgroundColor: 'rgba(217, 217, 217, 1)',
     borderRadius: 500,
     width: 44,
     padding: 0,
@@ -1662,23 +1788,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 35,
   },
-  backButton: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    zIndex: 1,
-  },
 
-  backButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   errorText: {
     color: 'red',
-    fontSize: 17,
+    fontSize: 12,
     marginTop: 4,
-    marginLeft:0
   },
 });
 

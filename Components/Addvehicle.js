@@ -167,8 +167,8 @@
 //         <View style={styles.line}></View>
 //         <View style={{ flexDirection: 'column', marginTop: 20 }}>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Select Section</Text>
-//             <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5 }}>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Select Section</Text>
+//             <View style={{ flex: 1, backgroundColor: '#F9F9F9', borderRadius: 5 }}>
 //               <Dropdown
 //                 style={styles.dropdown}
 //                 placeholderStyle={styles.placeholderStyle}
@@ -191,11 +191,11 @@
 //           </View>
 //           <Text style={styles.errorText}>{sectionError}</Text>
 //            {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Brand Name</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Brand Name</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Brand Name"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={brandName}
 //               onChangeText={(text) => setBrandName(text)}
 //             />
@@ -205,11 +205,11 @@
 
 
 // <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//   <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Vehicle Name</Text>
+//   <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Vehicle Name</Text>
 //   <TextInput
 //     style={styles.inputField}
 //     placeholder="Enter Vehicle Name"
-//     placeholderTextColor="gray"
+//     placeholderTextColor="#868687"
 //     value={vehicleName}
 //     onChangeText={(text) => {
 //       setVehicleName(text); // Update the state with the input value
@@ -219,22 +219,22 @@
 // </View>
 // <Text style={styles.errorText}>{vehicleNameError}</Text>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Model Name</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Model Name</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Model Name"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={modelName}
 //               onChangeText={(text) => setModelName(text)}
 //             />
 //           </View>
 //           <Text style={styles.errorText}>{modelNameError}</Text>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Engine CC</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Engine CC</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Engine CC"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={engineCC}
 //               onChangeText={(text) => setEngineCC(text)}
 //             />
@@ -242,44 +242,44 @@
 //           <Text style={styles.errorText}>{engineCCError}</Text>
 
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Color</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Color</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Color"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={color}
 //               onChangeText={(text) => setColor(text)}
 //             />
 //           </View>
 //           <Text style={styles.errorText}>{colorError}</Text>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>ExShowroom Price</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>ExShowroom Price</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter ExShowroom price"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={exShowroomPrice}
 //               onChangeText={(text) => setExShowroomPrice(text)}
 //             />
 //           </View>
 //           <Text style={styles.errorText}>{exShowroomPriceError}</Text>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Road tax</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Road tax</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Roadtax"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={roadTax}
 //               onChangeText={(text) => setRoadTax(text)}
 //             />
 //           </View>
 //           <Text style={styles.errorText}>{registrationError}</Text>
 //           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-//             <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Registartion(fixed)</Text>
+//             <Text style={{ width: 120, marginRight: 10, color: '#F9F9F9' }}>Registartion(fixed)</Text>
 //             <TextInput
 //               style={styles.inputField}
 //               placeholder="Enter Registartion"
-//               placeholderTextColor="gray"
+//               placeholderTextColor="#868687"
 //               value={registration}
 //               onChangeText={(text) => setRegistration(text)}
 //             />
@@ -308,7 +308,7 @@
 //     padding: 16,
 //   },
 //   title: {
-//     color: 'white',
+//     color: '#F9F9F9',
 //     fontSize: 24,
 //     fontWeight: 'bold',
 //     textAlign: 'center',
@@ -316,7 +316,7 @@
 //   },
 //   line: {
 //     height: 1,
-//     backgroundColor: 'white',
+//     backgroundColor: '#F9F9F9',
 //     width: '100%',
 //   },
 //   dropdown: {
@@ -328,7 +328,7 @@
 //   inputField: {
 //     flex: 1,
 //     height: 40,
-//     backgroundColor: 'white',
+//     backgroundColor: '#F9F9F9',
 //     borderRadius: 5,
 //     paddingLeft: 10,
 //     color: 'black',
@@ -360,6 +360,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { Dropdown } from 'react-native-element-dropdown';
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
+import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+import  FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
 
 const AddVehicle = () => {
@@ -520,17 +523,24 @@ const AddVehicle = () => {
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
-        {/* Your content here */}
-        <TouchableOpacity onPress={handleBackPress}>
-            <Text style={{color:'white',fontSize:20}}>Back</Text>
-          </TouchableOpacity>
-        <Text style={styles.title}>Add Vehicle</Text>
+     
+        <View style={styles.header}>
+          <View style={{ height:'100%', alignContent: 'center'}}>
+            <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+              <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+            </TouchableOpacity>
+          </View>
+            <View style={{ alignItems: 'center'}}>
+              <Text style={styles.title}>Add Vehicle</Text>
+            </View>
+        </View>
 
         <View style={styles.line}></View>
-        <View style={{ flexDirection: 'column', marginTop: 20 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Select Section</Text>
-            <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5 }}>
+
+        <View style={{ flexDirection: 'column', marginTop: 20}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+            <Text style={styles.subtitle}>Select Section</Text>
+            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: 5 }}>
               <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -553,12 +563,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Vehicle Name</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.subtitle}>Vehicle Name</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Vehicle Name"
-              placeholderTextColor="gray"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={vehicleName}
               onChangeText={(text) => {
                 setVehicleName(text);
@@ -568,12 +580,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{vehicleNameError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Model Name</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <Text style={styles.subtitle}>Model Name</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Model Name"
-              placeholderTextColor="gray"
+              placeholder="Enter Name/Number"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={modelName}
               onChangeText={(text) => {
                 setModelName(text);
@@ -583,12 +597,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{modelNameError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Engine CC</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <Text style={styles.subtitle}>Engine CC</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Engine CC"
-              placeholderTextColor="gray"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={engineCC}
               onChangeText={(text) => {
                 setEngineCC(text);
@@ -598,12 +614,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{engineCCError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Color</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+            <Text style={styles.subtitle}>Color</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Color"
-              placeholderTextColor="gray"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={color}
               onChangeText={(text) => {
                 setColor(text);
@@ -613,12 +631,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{colorError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>ExShowroom Price</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+            <Text style={styles.subtitle}>Ex-Showroom Price</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter ExShowroom price"
-              placeholderTextColor="gray"
+              placeholder="Enter Value"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={exShowroomPrice}
               onChangeText={(text) => {
                 setExShowroomPrice(text);
@@ -628,12 +648,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{exShowroomPriceError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Road tax</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.subtitle}>Road tax</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Roadtax"
-              placeholderTextColor="gray"
+              placeholder="Enter Value"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={roadTax}
               onChangeText={(text) => {
                 setRoadTax(text);
@@ -643,12 +665,14 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{roadTaxError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-            <Text style={{ width: 120, marginRight: 10, color: 'white' }}>Registartion(fixed)</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.subtitle}>Registration(fixed)</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Registartion"
-              placeholderTextColor="gray"
+              placeholder="Enter Value"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
               value={registration}
               onChangeText={(text) => {
                 setRegistration(text);
@@ -658,13 +682,20 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{registrationError}</Text>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={addVehicle} // Add the addVehicle function to the onPress handler
-          >
-            <Text style={styles.buttonText}>Add Vehicle</Text>
-          </TouchableOpacity>
+          
         </View>
+        <View style={styles.bottombuttons}>
+          <TouchableOpacity
+              style={styles.button}
+              onPress={addVehicle} // Add the addVehicle function to the onPress handler
+            >
+                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <FontAwesome6 name='motorcycle' size={20} color={'#f9f9f9'} />
+                  <Text style={styles.buttonText}>Add Vehicle</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+
       </View>
     </ImageBackground>
   );
@@ -679,51 +710,96 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  header:{
+    gap: 110,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   title: {
-    color: 'white',
-    fontSize: 24,
+    color: '#F9F9F9',
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 16,
+    marginBottom: 16,
+    letterSpacing: 0.5,
   },
   line: {
     height: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#F9F9F9',
     width: '100%',
   },
   dropdown: {
     height: 40,
     width: '100%',
+    color:'#303030',
+    borderRadius:5,
+    backgroundColor: '#CBCBCA',
     justifyContent: 'center', // Center the text vertically
     paddingLeft: 10, // Add some padding to align text properly
+  },
+  subtitle:{ 
+    width: 120,
+    marginRight: 10,
+    color: '#F9F9F9',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.2,
+  },
+  placeholderStyle:{
+    color:'#303030',
+    fontSize: 14,
+    fontWeight:'500'
+  },
+  selectedTextStyle:{
+    color:'#303030',
+  },
+  inputSearchStyle:{
+    color:'#303030',
+    borderRadius:5,
+    fontSize: 14,
+    fontWeight:'500'
   },
   inputField: {
     flex: 1,
     height: 40,
-    backgroundColor: 'white',
+    backgroundColor: '#F9F9F9',
     borderRadius: 5,
     paddingLeft: 10,
     color: 'black',
+    fontSize: 12,
+    fontWeight:'500',
+    letterSpacing: 0.4,
+  },
+  bottombuttons:{ 
+    alignItems:'center',
+    width:'100%', 
+    height:50, 
+    marginTop: 50,
   },
   button: {
-    backgroundColor: 'rgba(249, 249, 249, 0.6)',
-    width: 200,
-    alignSelf: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginTop: 2,
+    borderColor: '#f9f9f9',
+    backgroundColor:'#453F3F',
+    borderWidth: 1,
+    borderRadius: 6,
+    width:'70%',
+    height: 50,
+    padding: 10,
+    alignItems: 'center'
   },
   buttonText: {
-    color: 'black',
-    fontWeight: 'bold',
+    color: '#f9f9f9',
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign:'center',
   },
   errorText: {
     color: 'red',
     marginTop: 0,
-    fontSize: 15,
+    fontSize: 12,
     textAlign: 'center',
-    marginBottom:15
+    marginBottom:15,
+    letterSpacing: 0.2,
+    fontWeight: '500'
   },
 });
 

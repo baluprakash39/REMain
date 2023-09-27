@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='CompanyDetails'>
        
      
        <Stack.Screen
@@ -55,6 +55,16 @@ const App = () => {
           component={AddVehicle}
           options={{ headerShown: false }}
         />  
+         <Stack.Screen
+          name="Inventory"
+          component={Inventory}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CompanyDetails"
+          component={CompanyDetails}
+          options={{ headerShown: false }}
+        /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

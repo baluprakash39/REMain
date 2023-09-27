@@ -114,18 +114,18 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
   };
 
   return (
-<ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
-    <ScrollView contentContainerStyle={styles.container}>
-    {dataArray.map((data, index) => (
-      <View key={index} style={styles.content}>
-       {/* <TouchableOpacity
-          onPress={() => {
-            // Navigate back to the 'Home' screen
-            navigation.navigate('Home');
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 20 }}>Back</Text>
-        </TouchableOpacity> */}
+    <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
+      <ScrollView contentContainerStyle={styles.container}>
+        {dataArray.map((data, index) => (
+        <View key={index} style={styles.content}>
+          {/* <TouchableOpacity
+              onPress={() => {
+                // Navigate back to the 'Home' screen
+                navigation.navigate('Home');
+              }}
+            >
+              <Text style={{ color: '#F9F9F9', fontSize: 20 }}>Back</Text>
+            </TouchableOpacity> */}
           <View style={styles.header}>
             <View style={{ alignContent: 'center'}}>
               <TouchableOpacity onPress={() => {
@@ -141,7 +141,6 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
           </View>
 
         <View style={styles.line}></View>
-
         {/* Add Customer Details Section Below */}
         <Text style={styles.title}>Customer details</Text>
         <View style={styles.card}>
@@ -624,9 +623,12 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
   </View>
 </View>
 
+             
+
               {/* Add a separate view for the extended line */}
               {/* <View style={styles.extendedLine} /> */}
             </View>
+          
           <View style={styles.bottombuttonscontainer}>
             
               <TouchableOpacity
@@ -647,7 +649,6 @@ console.log(selectedMirrorsvalue,selectedMirrorstext)
   </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
