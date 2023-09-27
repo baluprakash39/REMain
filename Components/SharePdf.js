@@ -19,6 +19,17 @@ const SharePdf = ({route}) => {
     adminallimages,
     vehiclename,
     model,
+    companyaddress,
+    companyname,
+    city,
+    contactnumber,
+    gstin,
+    country,
+    dealeremailid,
+    pincode,
+    state,
+    streetname,
+    website,
     selectedMirrorstext, 
     selectedMirrorsvalue,
     selectedOilFillerCapText,
@@ -107,7 +118,7 @@ const SharePdf = ({route}) => {
                  text-transform: uppercase;">Quotation</p>
      </div>
      <div>
-     <img src={require('../assets/relogo.jpeg')}  class="relogo" />
+     <img src='../assets/relogo.jpeg'  class="relogo" 
 
             style="display: flex;
                    width: 170px;
@@ -191,35 +202,35 @@ const SharePdf = ({route}) => {
                  font-size: 14px;
                  font-style: normal;
                  font-weight: 700;
-                 line-height: 0.2px;">${formData.dealercompany}</p>
+                 line-height: 0.2px;">${companyname}</p>
        <p style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
                  font-size: 10px;
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.dealeraddress1}</p>
+                 align-items: flex-start;">${companyaddress},${streetname}</p>
        <p style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
                  font-size: 10px;
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.dealeraddress2}</p>
+                 align-items: flex-start;">${city},${state},${pincode},${country}</p>
        <p style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
                  font-size: 10px;
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.gstin}</p>
+                 align-items: flex-start;">${gstin}</p>
        <p style="color: var(--gray-600, #5E6470);
                  font-family: Poppins, sans-serif;
                  font-size: 10px;
                  font-style: normal;
                  font-weight: 600;
                  line-height: 0.1px;
-                 align-items: flex-start;">${formData.dealercontact}</p>
+                 align-items: flex-start;">${contactnumber}</p>
      </div>
    </div>
   </div>
@@ -258,7 +269,7 @@ const SharePdf = ({route}) => {
          <p style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 12px;
-                   font-weight: 700;">${formData.Enquirydate}</p>
+                   font-weight: 700;">Enquiry Number</p>
        </div>
        <!-- date closed -->
        <div class="eqnum"
@@ -274,7 +285,7 @@ const SharePdf = ({route}) => {
          <p style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 12px;
-                   font-weight: 700;">${formData.EnquiryNumber}</p>
+                   font-weight: 700;"></p>
        </div>
        <!-- eqnum closed -->
      </div>       
@@ -1775,7 +1786,7 @@ const SharePdf = ({route}) => {
                    font-family: 'Inter',sans-serif;
                    font-size: 10px;
                    font-style: normal;
-                   font-weight: 600;">37AAEFL2826R1ZR</p>
+                   font-weight: 600;">${gstin}</p>
        </div>
        <!-- gstinnumbercontainer closed -->
      </div>
@@ -1809,7 +1820,7 @@ const SharePdf = ({route}) => {
                font-family: 'Inter', sans-serif;
                font-size: 10px;
                font-style: normal;
-               font-weight: 600;">www.royalenfield.com</p>
+               font-weight: 600;">${website}</p>
    </div>
    <!-- website closed -->
    <!-- Company Email -->
@@ -1827,7 +1838,7 @@ const SharePdf = ({route}) => {
                font-size: 10px;
                font-style: normal;
                font-weight: 600;
-               letter-spacing: 0.4px">lekhanaautomotives@gmail.com</p>
+               letter-spacing: 0.4px">${dealeremailid}</p>
    </div>
    <!-- companyemail closed -->
   </div>
@@ -1887,11 +1898,11 @@ const SharePdf = ({route}) => {
       
     </View> 
   <View style={styles.companydetailscontainer}>                        
-    <Text style={styles.showroomnameText}>Lekhana Automotives</Text>
-    <Text style={styles.headersubtext}>D.no: 7-1200-1-1, South Bypass Road</Text>
-    <Text style={styles.headersubtext}>ONGOLE, Andhra Pradesh, IN - 523001</Text>
-    <Text style={styles.headersubtext}>37AAEFL2826R1ZR</Text>
-    <Text style={styles.headersubtext}>8879083431</Text>
+    <Text style={styles.showroomnameText}>{companyname}</Text>
+    <Text style={styles.headersubtext}>{address}</Text>
+    <Text style={styles.headersubtext}>{`${city}, ${state}, ${pincode}, ${country}`}</Text>
+    <Text style={styles.headersubtext}>{gstin}</Text>
+    <Text style={styles.headersubtext}>{contactnumber}</Text>
   </View> 
   </View> 
   </View>  
@@ -1982,40 +1993,14 @@ const SharePdf = ({route}) => {
   </View>
   <View style={styles.container5}>
     <View style={styles.subheadings}>
-    <Text style={styles.addonproducttext}>Vega full face helmet</Text>
+    <Text style={styles.addonproducttext}>{selectedSafetyAccessoriesText}</Text>
     </View>
 <View style={styles.symbol1}>         
 <View style={styles.rupeessymbol}>
      <Text style={styles.symbolText}>₹</Text>
      </View>
      <View style={styles.value}>
-     <Text style={styles.pricesubText}>1,000.00</Text>
-     </View>
-     </View> 
-     </View>
-     <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.addonproducttext}>M</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}>₹</Text>
-     </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}>1,000.00</Text>
-     </View>
-     </View> 
-     </View>
-     <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.addonproducttext}>Engine Guard</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}>₹</Text>
-     </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}>500.00</Text>
+     <Text style={styles.pricesubText}>{selectedSafetyAccessoriesValue}</Text>
      </View>
      </View> 
      </View>
@@ -2029,6 +2014,136 @@ const SharePdf = ({route}) => {
      </View>
      <View style={styles.value}>
      <Text style={styles.pricesubText}>{selectedMirrorsvalue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedOilFillerCapText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedOilFillerCapValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedOilFillerCapText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedOilFillerCapValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedHeadLightText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedHeadLightValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedWindshieldsText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedWindshieldsValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedPanniersText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedPanniersValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedSeatsText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedSeatsValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedBackrestText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedBackrestValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedFootPegsText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedFootPegsValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedEngineGuardsText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedEngineGuardsValue}</Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.addonproducttext}>{selectedSumpGuardsText}</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{selectedSumpGuardsValue}</Text>
      </View>
      </View> 
      </View>
@@ -2161,10 +2276,10 @@ const SharePdf = ({route}) => {
    </View>
    <View style={styles.footer}>
     <View style={styles.website}>
-    <Text style={styles.websiteText}>www.royalenfield.com</Text>
+    <Text style={styles.websiteText}>{website}</Text>
     </View>
     <View style={styles.companyemail}>
-      <Text style={styles.companyemailText}>lekhanaautomotives@gmail.com</Text>
+      <Text style={styles.companyemailText}>{dealeremailid}</Text>
     </View>
    </View>
    </View>

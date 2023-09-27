@@ -868,13 +868,20 @@ const [adminallimages,setadminallimages]=useState('');
 const [vehiclename,setvehiclename]=useState('');
 const [model,setmodel]=useState('');
 
-
-
 // dealerdetails
 const [dataaa, setData] = useState([]);
 
 const [companyaddress,setcopmapnyadress]=useState('');
-
+const [companyname,setcompanyname]=useState('');
+const [city,setcity]=useState('');
+const [gstin,setgstin]=useState('');
+const [contactnumber,setcontactnumber]=useState('');
+const [country,setcountry]=useState('');
+const [dealeremailid,setdealeremailid]=useState('');
+const [pincode,setpincode]=useState('');
+const [state,setstate]=useState('');
+const [streetname,setstreetname]=useState('');
+const [website,setwebsite]=useState('');
 console.log("adress",companyaddress)
 
 
@@ -940,6 +947,17 @@ console.log("adress",companyaddress)
         adminallimages,
         vehiclename,
         model,
+        companyaddress,
+        companyname,
+        city,
+        contactnumber,
+        gstin,
+        country,
+        dealeremailid,
+        pincode,
+        state,
+        streetname,
+        website,
         selectedMirrorstext,
         selectedMirrorsvalue,
         selectedOilFillerCapText,
@@ -1016,8 +1034,18 @@ console.log("adress",companyaddress)
         // Extract the data from the response
         const responseData = response.data.user[0];
         console.log("data",responseData)
-        const {companyaddress,companyname,city,contactnumber,country,emailid,pincode,state,streetname,website}=responseData
+        const {companyaddress,companyname,city,contactnumber,country,dealeremailid,pincode,state,streetname,website}=responseData
         setcopmapnyadress(companyaddress)
+        setcompanyname(companyname)
+        setcity(city)
+        setgstin(gstin)
+        setcontactnumber(contactnumber)
+        setcountry(country)
+        setdealeremailid(dealeremailid)
+        setpincode(pincode)
+        setstate(state)
+        setstreetname(streetname)
+        setwebsite(website)
         // Update the state with the fetched data
         setData([...dataaa,responseData]);
       } catch (error) {
