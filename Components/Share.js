@@ -807,30 +807,23 @@ import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 
 
-
-
 const Share = () => {
   const navigation = useNavigation();
   const [customername, setCustomerName] = useState('');
   const [address, setAddress] = useState('');
   const [mobilenumber, setMobileNumber] = useState('');
   const [emailid, setEmailId] = useState('');
-  const [isSelected, setSelection] = useState(false);
+  
+  //date//
+  const [enquiryDate, setEnquiryDate] = useState('');
+  //checkboxes//
   const [dataArray, setDataArray] = useState([]);
-  const [isNilldip, setNilldip] = useState(false);
-  const [EP, setEP] = useState(false);
-  const [RTI, setRTI] = useState(false);
-  const [YES, setYes] = useState(false);
-  const [NO, setNo] = useState(false);
-  const [four, setFour] = useState(false);
-  const [five, setFive] = useState(false);
-  const [fiveRsa, setFiveRsa] = useState(false);
+  const [checkboxes, setCheckboxes] = useState([]);
+    
+  
   const [selectedValue, setSelectedValue] = useState('default');
+
  
-
-
-
-
 // dropdown
 const [selectedMirrorstext, setSelectedMirrorstext] = useState(''); // Initialize with a default value
 const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState('');
@@ -918,6 +911,7 @@ console.log("adress",companyaddress)
     safetyaccessorieslabel: '',
     safetyaccessoriesvalue: '',
     isSelected: false,
+    // Basic:false,
     isNilldip: false,
     EP: false,
     RTI: false,
@@ -945,6 +939,7 @@ console.log("adress",companyaddress)
         address,
         mobilenumber,
         emailid,
+        enquiryDate,
         exShowroomPrice,
         roadtax,
         Vehiclecolor,
@@ -963,6 +958,15 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
+        // basic: checkboxValues.basic,
+      Nildip: checkboxValues.Nildip,
+      EP: checkboxValues.EP,
+      RTI: checkboxValues.RTI,
+      YES: checkboxValues.YES,
+      NO: checkboxValues.NO,
+      fouryears: checkboxValues.fouryears,
+      fiveyears: checkboxValues.fiveyears,
+      fiveyearsplusRSA: checkboxValues.fiveyearsplusRSA,
         selectedMirrorstext,
         selectedMirrorsvalue,
         selectedOilFillerCapText,
@@ -1001,6 +1005,7 @@ console.log("adress",companyaddress)
     try {
       const response = await axios.get(url);
       const bike = response.data;
+      console.log(response)
       const { exShowroomPrice, roadtax,vehiclecolor,EngineCC,adminallimages,vehiclename,model } = bike;
 
       // Filter and store exShowroomPrice and roadtax in separate useState variables
@@ -1077,84 +1082,99 @@ console.log("adress",companyaddress)
       });
   }, []);
 
+  //date//
+  const getCurrentDate = () => {
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate;
+  };
+
+  useEffect(() => {
+    const date = getCurrentDate();
+    setEnquiryDate(date);
+  }, []);
+
+
 
   return (
-    <ImageBackground
-      source={require('../assets/red.jpg')} // Replace with your image path
-      style={styles.container}
-    >
+    <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
       <ScrollView contentContainerStyle={styles.container}>
         {dataArray.map((data, index) => (
-          <View key={index} style={styles.content}>
-            <TouchableOpacity
+        <View key={index} style={styles.content}>
+          {/* <TouchableOpacity
               onPress={() => {
                 // Navigate back to the 'Home' screen
                 navigation.navigate('Home');
               }}
             >
-              <Text style={{ color: 'white', fontSize: 20 }}>Back</Text>
-            </TouchableOpacity>
-            <View style={styles.hr} />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={{ textAlign: 'left', color: 'white', fontSize: 30, flex: 1 }}>
-                Quotation
-              </Text>
-              <Image
-                style={styles.logo}
-                source={{
-                  uri: 'https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg',
-                }}
-              />
+              <Text style={{ color: '#F9F9F9', fontSize: 20 }}>Back</Text>
+            </TouchableOpacity> */}
+          <View style={styles.header}>
+            <View style={{ alignContent: 'center'}}>
+              <TouchableOpacity onPress={() => {
+              // Navigate back to the 'Home' screen
+              navigation.navigate('Home');
+              }} style={styles.backButton}>
+                <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+              </TouchableOpacity>
             </View>
+              <View style={{ alignContent: 'center'}}>
+                <Text style={styles.headertitle}>Quotation</Text>
+              </View>
+          </View>
 
-            {/* Add Customer Details Section Below */}
-            <Text style={styles.title}>Customer details</Text>
-            <View style={styles.card}>
-              <View style={styles.cardContent}>
-                <Text style={styles.labelText}>Customer Name :</Text>
-                <TextInput
-                  style={styles.input}
-                  value={customername}
-                  onChangeText={setCustomerName}
-                  placeholder="Enter customer name"
-                />
-              </View>
-              <View style={styles.cardContent}>
-                <Text style={styles.labelText}>Address :</Text>
-                <TextInput
-                  style={styles.input}
-                  value={address}
-                  onChangeText={setAddress}
-                  placeholder="Enter address"
-                />
-              </View>
-              <View style={styles.cardContent}>
-                <Text style={styles.labelText}>Mobilenumber :</Text>
-                <TextInput
-                  style={styles.input}
-                  value={mobilenumber}
-                  onChangeText={setMobileNumber}
-                  placeholder="Enter Mobile"
-                />
-              </View>
-              <View style={styles.cardContent}>
-                <Text style={styles.labelText}>emailid :</Text>
-                <TextInput
-                  style={styles.input}
-                  value={emailid}
-                  onChangeText={setEmailId}
-                  placeholder="Enter mailId"
-                />
-              </View>
-            </View>
-            <View style={styles.imageCard}>
-              {data.adminallimages && data.adminallimages.length > 0 && (
-                <Image
-                  style={styles.customerImage}
-                  source={{ uri: data.adminallimages[0] }}
-                />
-              )}
-            </View>
+        <View style={styles.line}></View>
+        {/* Add Customer Details Section Below */}
+        <Text style={styles.title}>Customer details</Text>
+        <View style={styles.card}>
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Customer Name :</Text>
+            <TextInput
+              style={styles.input}
+              value={customername}
+              onChangeText={setCustomerName}
+              placeholder="Enter name"
+            />
+          </View>
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Address :</Text>
+            <TextInput
+              style={styles.input}
+              value={address}
+              onChangeText={setAddress}
+              placeholder="Enter address"
+            />
+          </View>
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Mobilenumber :</Text>
+            <TextInput
+              style={styles.input}
+              value={mobilenumber}
+              onChangeText={setMobileNumber}
+              placeholder="Enter mobile number"
+            />
+          </View>
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Email-id :</Text>
+            <TextInput
+              style={styles.input}
+              value={emailid}
+              onChangeText={setEmailId}
+              placeholder="example@email.com"
+            />
+          </View>
+        </View>
+        <View style={styles.imageCard}>
+            {data.adminallimages && data.adminallimages.length > 0 && (
+              <Image
+                style={styles.customerImage}
+                source={{ uri: data.adminallimages[0] }}
+              />
+            )}
+          </View>
 
             {/* Center the datacard container */}
             <View style={styles.centeredContainer}>
@@ -1176,39 +1196,35 @@ console.log("adress",companyaddress)
                     {/* Basic */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Basic</Text>
-                      <CheckBox
-                        value={isSelected}
-                        onValueChange={setSelection}
-                        style={styles.checkbox}
-                      />
+                      {/* <CheckBox
+        value={checkboxValues.basic}
+        onValueChange={() => handleCheckboxChange('basic')}
+      /> */}
                     </View>
                     {/* Nilldip */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Nildip</Text>
                       <CheckBox
-                        value={isNilldip}
-                        onValueChange={setNilldip}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.Nildip}
+        onValueChange={() => handleCheckboxChange('Nildip')}
+      />
                     </View>
 
                     {/* EP */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>EP</Text>
                       <CheckBox
-                        value={EP}
-                        onValueChange={setEP}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.EP}
+        onValueChange={() => handleCheckboxChange('EP')}
+      />
                     </View>
                     {/* RTI */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>RTI</Text>
                       <CheckBox
-                        value={RTI}
-                        onValueChange={setRTI}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.RTI}
+        onValueChange={() => handleCheckboxChange('RTI')}
+      />
                     </View>
 
                   </View>
@@ -1222,19 +1238,17 @@ console.log("adress",companyaddress)
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>YES</Text>
                       <CheckBox
-                        value={YES}
-                        onValueChange={setYes}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.YES}
+        onValueChange={() => handleCheckboxChange('YES')}
+      />
                     </View>
                     {/* NO */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>NO</Text>
                       <CheckBox
-                        value={NO}
-                        onValueChange={setNo}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.NO}
+        onValueChange={() => handleCheckboxChange('NO')}
+      />
                     </View>
                   </View>
                   <View style={styles.priceContainer}>
@@ -1248,28 +1262,25 @@ console.log("adress",companyaddress)
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>4Years</Text>
                       <CheckBox
-                        value={four}
-                        onValueChange={setFour}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.fouryears}
+        onValueChange={() => handleCheckboxChange('fouryears')}
+      />
                     </View>
                     {/* 5 */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years</Text>
                       <CheckBox
-                        value={five}
-                        onValueChange={setFive}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.fiveyears}
+        onValueChange={() => handleCheckboxChange('fiveyears')}
+      />
                     </View>
                     {/* 5+RSA*/}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years+RSA</Text>
                       <CheckBox
-                        value={fiveRsa}
-                        onValueChange={setFiveRsa}
-                        style={styles.checkbox}
-                      />
+        value={checkboxValues.fiveyearsplusRSA}
+        onValueChange={() => handleCheckboxChange('fiveyearsplusRSA')}
+      />
                     </View>
                     {/* style,comfort,safty tabs */}
 
@@ -1553,28 +1564,11 @@ console.log("adress",companyaddress)
   </Picker>
 </View>
 
-
-
 </>
 )}
 
-
-
-
-
-
-
-
   </View>
 </View>
-
-
-
-
-
-
-
-
 
                 </View>
                 {/* Add a separate view for the extended line */}
@@ -1609,7 +1603,6 @@ console.log("adress",companyaddress)
     </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
    backgroundImage: {
     flex: 1,

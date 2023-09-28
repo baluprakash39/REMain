@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+// import LinearGradient from 'react-native-linear-gradient';
+import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,18 +21,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 10,
-
+    marginHorizontal:5,
   },
-  searchInput: {
-    height: 35,
-    color: 'white',
-    padding: 4,
-    fontSize: 16,
+  searchcontainer:{
     width: 250,
+    height: 35,
+    flexDirection: 'row',
+    alignItems:'center',
+    padding: 4,
     borderRadius: 5,
     backgroundColor: '#3D3C3C',
-    borderColor: '#f9f9f9', // White border
+    borderColor: 'rgba(249, 249, 249, 0.50)', // White border
     borderWidth: 1, // 1 pixel border width
+  },
+  searchInput: {
+    color: '#868687',
+    padding: 2,
+    fontSize: 16,
   },
   loginButton: {
     paddingTop: 2,
@@ -189,13 +195,13 @@ function Inventory() {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search Vehicle"
-            placeholderTextColor="#F9F9F9"
-            value={search}
-            onChangeText={setSearch}
-          />
+          <View style={styles.searchcontainer}>
+              <Ionicons name="search" size={15} color="#F9f9f9" />
+                    <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
+                      value={search}
+                      selectionColor="red"
+                      onChangeText={setSearch}/>
+          </View>
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
@@ -215,13 +221,11 @@ function Inventory() {
       <TouchableOpacity
         key={index}
         style={{
-          backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'white',
-          borderWidth: 1,
-          borderColor: '#F9F9F9',
+          backgroundColor: selectedSection === sec.Sectionname ? '#F9F9F9' : '#868687',
           borderRadius: 10,
           padding: 10,
           margin: 5,
-          width: '48%',
+          width: '30%',
           marginBottom: 20,
           justifyContent: 'center', // Center the content vertically
           alignItems: 'center',     // Center the content horizontally
@@ -233,58 +237,64 @@ function Inventory() {
       </TouchableOpacity>
     ))}
 </View>
+</View>
 
-        <FlatList
-          data={filteredProductData}
-          numColumns={2}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-            onPress={() => {
-              carddata(item);
-            }}
-            style={{
-              borderColor: 'rgba(249, 249, 249, 0.50)',
-              borderWidth: 1,
-              backgroundColor: 'rgba(151, 151, 151, 0.50)',
-              height: 250,
-              flex: 1,
-              margin: 5,
-              borderRadius: 10,
-              width: 100,
-            }}
-          >
-              <Image
-                style={{
-                  height: '60%',
-                  width: '100%',
-                  borderTopRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                }}
-                source={{ uri: item.adminallimages[0] }}
-              />
-              <View style={{ flex: 1, justifyContent: 'space-between', padding: 5 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold' }}>{item.vehiclename}</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold' }}>
-                  <Icon name="speedometer" size={25} />
-                    {item.EngineCC} CC
-                  </Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', fontSize: 10 }}>Price Starts from</Text>
-                  <View style={styles.vehiclevalue}>
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', fontSize: 12 }} >INR.</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{item.exShowroomPrice}</Text>
-                </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+<FlatList
+  data={filteredProductData}
+  numColumns={2}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={({ item }) => (
+    <TouchableOpacity
+      onPress={() => {
+        carddata(item);
+      }}
+      style={{
+        borderColor: 'rgba(249, 249, 249, 0.50)',
+        borderWidth: 1,
+        backgroundColor: '#434242',
+        flex: 1,
+        margin: 5,
+        borderRadius: 10,
+        height: 250,
+        width: 100,
+        justifyContent: 'space-between',
+      }}
+    >
+      {/* Add content here */}
+      <View>
+        {/* Add content here */}
       </View>
+
+      {/* Add content here */}
+    </TouchableOpacity>
+  )}
+/>
+
+<TouchableOpacity
+  style={{
+    backgroundColor: '#f9f9f9',
+    borderWidth: 0.5,
+    borderColor: 'red',
+    borderRadius: 100, // Make it round
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute', // Position it absolutely
+    bottom: 30, // Adjust the distance from the bottom as needed
+    right: '50%', // Center it horizontally
+    transform: [{ translateX: 25 }],
+  }}
+  onPress={() => {
+    // Handle the "+" button press here
+    // You can navigate to the "AddVehicle" screen
+    navigation.navigate('Addvehicle');
+  }}
+>
+  <MaterialIcons name='add-circle' size={50} color='#111111' />
+</TouchableOpacity>
+
+      
     </ImageBackground>
   );
 }
 
-export default Inventory;
+export default Inventory

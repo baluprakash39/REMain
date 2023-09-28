@@ -209,7 +209,7 @@ function Home() {
                   width: '30%',
                   marginBottom: 20,
                   justifyContent: 'center', // Center the content vertically
-              alignItems: 'center'
+                  alignItems: 'center'
                 }}
                 onPress={() => products(sec.Sectionname)}
               >

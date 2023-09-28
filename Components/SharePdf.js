@@ -12,6 +12,7 @@ const SharePdf = ({route}) => {
     address,
     mobilenumber,
     emailid,
+    enquiryDate,
     exShowroomPrice,
     roadtax,
     Vehiclecolor,
@@ -30,6 +31,15 @@ const SharePdf = ({route}) => {
     state,
     streetname,
     website,
+    Basic,
+    Nildip,
+    EP,
+    RTI,
+    YES,
+    NO,
+    fouryears,
+    fiveyears,
+    fiveyearsplusRSA,
     selectedMirrorstext, 
     selectedMirrorsvalue,
     selectedOilFillerCapText,
@@ -269,7 +279,7 @@ const SharePdf = ({route}) => {
          <p style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 12px;
-                   font-weight: 700;">Enquiry Number</p>
+                   font-weight: 700;">${enquiryDate}</p>
        </div>
        <!-- date closed -->
        <div class="eqnum"
@@ -480,7 +490,115 @@ const SharePdf = ({route}) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${formData.Insurance}</p>
+                     line-height: 0.1px;">${Nildip}</p>
+         </div>
+         <!-- value closed -->
+       </div>
+       <!-- symbol 1 closed -->
+     </div>
+     <div class="container5"
+          style="display: flex;
+                 height: 20px;
+                 flex-direction: row;
+                 justify-content: space-between;
+                 border-bottom: 0.5px solid #D7DAE0;
+                 align-items: center;
+                 align-self: stretch;
+                 flex-shrink: 0;">
+       <div class="subheadings"
+            style="display: flex;
+                   padding: 0px 10px;
+                   align-items: flex-start;
+                   flex: 1 0 0;">
+         <p class="onroadsubText"
+            style="color: #1A1C21;
+                   font-family: 'Inter', sans-serif;
+                   font-size: 10px;
+                   font-weight: 600;">Insurance</p>
+       </div>
+       <!-- subheadings closed -->
+       <div class="symbol1"
+            style="display: flex;
+                   flex-direction: row;
+                   align-items: center;
+                   margin-left: 3px;">
+         <div class="rupeessymbol">
+           <p class= "symbolText"
+              style="color: #5E6470;
+                     fontFamily: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-weight: 800;
+                     align-content: center;
+                     textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+         </div>
+         <!-- rupeessymbol closed -->
+         <div class="value"
+              style="display: flex;
+                     padding: 0px 10px;
+                     justify-content: center;
+                     align-items: center;">
+           <p class="pricesubText"
+              style="color: var(--gray-600, #5E6470);
+                     text-align: right;
+                     font-family: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-style: normal;
+                     font-weight: 700;
+                     line-height: 0.1px;">${EP}</p>
+         </div>
+         <!-- value closed -->
+       </div>
+       <!-- symbol 1 closed -->
+     </div>
+     <div class="container5"
+          style="display: flex;
+                 height: 20px;
+                 flex-direction: row;
+                 justify-content: space-between;
+                 border-bottom: 0.5px solid #D7DAE0;
+                 align-items: center;
+                 align-self: stretch;
+                 flex-shrink: 0;">
+       <div class="subheadings"
+            style="display: flex;
+                   padding: 0px 10px;
+                   align-items: flex-start;
+                   flex: 1 0 0;">
+         <p class="onroadsubText"
+            style="color: #1A1C21;
+                   font-family: 'Inter', sans-serif;
+                   font-size: 10px;
+                   font-weight: 600;">Insurance</p>
+       </div>
+       <!-- subheadings closed -->
+       <div class="symbol1"
+            style="display: flex;
+                   flex-direction: row;
+                   align-items: center;
+                   margin-left: 3px;">
+         <div class="rupeessymbol">
+           <p class= "symbolText"
+              style="color: #5E6470;
+                     fontFamily: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-weight: 800;
+                     align-content: center;
+                     textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+         </div>
+         <!-- rupeessymbol closed -->
+         <div class="value"
+              style="display: flex;
+                     padding: 0px 10px;
+                     justify-content: center;
+                     align-items: center;">
+           <p class="pricesubText"
+              style="color: var(--gray-600, #5E6470);
+                     text-align: right;
+                     font-family: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-style: normal;
+                     font-weight: 700;
+                     line-height: 0.1px;">${RTI}</p>
          </div>
          <!-- value closed -->
        </div>
@@ -1911,7 +2029,7 @@ const SharePdf = ({route}) => {
   <View style={styles.container3}>  
     <View style={styles.date}>   
     <Text style={styles.subText}>Enquiry date</Text>
-    <Text  style={styles.dateText}>01 Aug, 2023</Text>
+    <Text  style={styles.dateText}>{enquiryDate}</Text>
     </View>
     <View style={styles.eqnum}>    
       <Text style={styles.subText}>Enquiry Number</Text>

@@ -18,7 +18,8 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Share'>
+      <Stack.Navigator initialRouteName='Inventory'>
+       
      
         <Stack.Screen
           name="Care"
@@ -36,6 +37,11 @@ const App = () => {
           component={Share}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="SharePdf"
+          component={SharePdf}
+          options={{ headerShown: false }}
+        />
          <Stack.Screen
           name="Update"
           component={Update}
@@ -47,10 +53,15 @@ const App = () => {
           options={{ headerShown: false }}
         />  
          <Stack.Screen
-          name="SharePdf"
-          component={SharePdf}
+          name="Inventory"
+          component={Inventory}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CompanyDetails"
+          component={CompanyDetails}
+          options={{ headerShown: false }}
+        /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
