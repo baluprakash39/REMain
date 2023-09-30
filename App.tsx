@@ -12,15 +12,28 @@ import Update from './Components/Update';
 import MyDropdown from './Components/Dropdown';
 import Dropdown from './Components/Dropdown';
 import SharePdf from './Components/SharePdf';
+import Otp from './Components/Otp';
+import Login from './Components/Login';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Inventory'>
-       
-     
+      <Stack.Navigator initialRouteName='Home'>
+
+        <Stack.Screen
+          name="Otp"
+          component={Otp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+
+
         <Stack.Screen
           name="Care"
           component={Care}
@@ -31,8 +44,8 @@ const App = () => {
           component={Home}
           options={{ headerShown: false }}
         />
-        
-         <Stack.Screen
+
+        <Stack.Screen
           name="Share"
           component={Share}
           options={{ headerShown: false }}
@@ -42,26 +55,31 @@ const App = () => {
           component={SharePdf}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Update"
           component={Update}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Addvehicle"
           component={AddVehicle}
           options={{ headerShown: false }}
-        />  
-         <Stack.Screen
+        />
+        <Stack.Screen
           name="Inventory"
           component={Inventory}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Accessories"
+          component={Accessories}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="CompanyDetails"
           component={CompanyDetails}
           options={{ headerShown: false }}
-        /> 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

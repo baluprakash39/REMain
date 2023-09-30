@@ -818,7 +818,17 @@ const Share = () => {
   const [enquiryDate, setEnquiryDate] = useState('');
   //checkboxes//
   const [dataArray, setDataArray] = useState([]);
-  const [checkboxes, setCheckboxes] = useState([]);
+    const [isSelected, setSelection] = useState(false);
+  const [isNilldip,setnilldip]=useState(false);
+  const [EP,setEP]=useState(false);
+  const[RTI,setRTI]=useState(false);
+  const [YES,setYes]=useState(false);
+  const[NO,setNo]=useState(false);
+  const[four,setfour]=useState(false);
+  const[five,setfive]=useState(false);
+  const[fiveRsa,setfiveRsa]=useState(false);
+  
+  
     
   
   const [selectedValue, setSelectedValue] = useState('default');
@@ -958,15 +968,6 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
-        // basic: checkboxValues.basic,
-      Nildip: checkboxValues.Nildip,
-      EP: checkboxValues.EP,
-      RTI: checkboxValues.RTI,
-      YES: checkboxValues.YES,
-      NO: checkboxValues.NO,
-      fouryears: checkboxValues.fouryears,
-      fiveyears: checkboxValues.fiveyears,
-      fiveyearsplusRSA: checkboxValues.fiveyearsplusRSA,
         selectedMirrorstext,
         selectedMirrorsvalue,
         selectedOilFillerCapText,
@@ -1196,35 +1197,39 @@ console.log("adress",companyaddress)
                     {/* Basic */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Basic</Text>
-                      {/* <CheckBox
-        value={checkboxValues.basic}
-        onValueChange={() => handleCheckboxChange('basic')}
-      /> */}
+                      <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* Nilldip */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Nildip</Text>
                       <CheckBox
-        value={checkboxValues.Nildip}
-        onValueChange={() => handleCheckboxChange('Nildip')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
 
                     {/* EP */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>EP</Text>
                       <CheckBox
-        value={checkboxValues.EP}
-        onValueChange={() => handleCheckboxChange('EP')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* RTI */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>RTI</Text>
                       <CheckBox
-        value={checkboxValues.RTI}
-        onValueChange={() => handleCheckboxChange('RTI')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
 
                   </View>
@@ -1238,17 +1243,19 @@ console.log("adress",companyaddress)
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>YES</Text>
                       <CheckBox
-        value={checkboxValues.YES}
-        onValueChange={() => handleCheckboxChange('YES')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* NO */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>NO</Text>
                       <CheckBox
-        value={checkboxValues.NO}
-        onValueChange={() => handleCheckboxChange('NO')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                   </View>
                   <View style={styles.priceContainer}>
@@ -1262,25 +1269,28 @@ console.log("adress",companyaddress)
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>4Years</Text>
                       <CheckBox
-        value={checkboxValues.fouryears}
-        onValueChange={() => handleCheckboxChange('fouryears')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* 5 */}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years</Text>
                       <CheckBox
-        value={checkboxValues.fiveyears}
-        onValueChange={() => handleCheckboxChange('fiveyears')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* 5+RSA*/}
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                       <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years+RSA</Text>
                       <CheckBox
-        value={checkboxValues.fiveyearsplusRSA}
-        onValueChange={() => handleCheckboxChange('fiveyearsplusRSA')}
-      />
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
                     </View>
                     {/* style,comfort,safty tabs */}
 

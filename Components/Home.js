@@ -184,9 +184,7 @@ function Home() {
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
-              // Handle login button press here
-              // You can navigate to the login screen or perform the desired action.
-              // For now, I'm just logging a message.
+              navigation.navigate('Otp');
               console.log('Login button pressed');
             }}
           >

@@ -92,17 +92,15 @@ const SharePdf = ({route}) => {
            display: flex;
            flex-direction: column;
            justify-content: space-between;
-           align-items: flex-start;
-           border-width: 1px;
-           border-color: #303030;">
+           align-items: flex-start;">
   <div class="heading" 
       style="display: flex;
              width: 100%;
              height: 174px;
-             padding-top: 10px;
-             padding-bottom: 16px;
-             padding-left: 16px ;
-             padding-right: 16px;
+             padding-top: 6px;
+             padding-bottom: 10px;
+             padding-left: 10px ;
+             padding-right: 10px;
              flex-direction: column;
              justify-content: space-between;
              align-items: center;
@@ -259,7 +257,7 @@ const SharePdf = ({route}) => {
                align-self: stretch;">
      <!-- Container 3 (Enquiry Date and Number) -->
      <div class="container3"
-          style="  padding: 5px;
+          style="padding: 5px;
                  display: flex;
                  flex-direction: row;
                  justify-content: space-between;
@@ -490,7 +488,7 @@ const SharePdf = ({route}) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${Nildip}</p>
+                     line-height: 0.1px;">${Basic}}</p>
          </div>
          <!-- value closed -->
        </div>
@@ -2410,11 +2408,9 @@ const SharePdf = ({route}) => {
 
 const styles = StyleSheet.create({
   bodypage: {
-    padding:10,
+    padding:5,
     width: 595,
     height: 842,
-    borderWidth:2,
-    borderColor: '#d7dae0',
     backgroundColor: '#ffffff',
   },
   heading: {
@@ -2425,7 +2421,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 174,
-    paddingVertical: 12,
+    paddingVertical: 6,
     paddingHorizontal: 0,
     flexShrink: 0,
   },
