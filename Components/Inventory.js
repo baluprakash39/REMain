@@ -764,6 +764,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
+// import {launchImageLibrary }from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
+import DocumentPicker from 'react-native-document-picker';
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
@@ -828,7 +832,8 @@ function Inventory() {
   const [selectedSection, setSelectedSection] = useState(null);
 
   const [docId, setDocId] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+  const [singleFile, setSingleFile] = useState(null);
 
   const navigation = useNavigation(); // Get the navigation object
 
@@ -1009,11 +1014,131 @@ function Inventory() {
       });
   }
 
+  // const options = {
+  //   title: 'Select Images',
+  //   mediaType: 'photo',
+  //   storageOptions: {
 
+  //     path: 'image',
+  //   },
+  // };
+ 
 
+  // const openImagePicker = (Id) => {
+  //   const options = {
+  //     title: 'Select Images',
+  //     mediaType: 'photo',
+  //     storageOptions: {
+  //       path: 'image',
+  //     },
+  //   };
+  
+  //   launchImageLibrary(options, (response) => {
+  //     console.log('Response = ', response);
+  
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else {
+  //       // Handle the selected image here
+  //       const { uri, fileName } = response;
+  //       const file = {
+  //         uri,
+  //         name: fileName,
+  //         type: 'image/jpeg', // Adjust the type as needed
+  //       };
+  //       setSelectedFiles([...selectedFiles, file]);
+  //       uploadImage(Id);
+  //     }
+  //   });
+  // };
 
+  // const uploadImage = async (Id) => {
+  //   console.log(Id)
+  //   try {
+     
 
+  //     const formData = new FormData();
 
+  //     selectedFiles.forEach((file) => {
+  //       console.log("file",file)
+  //       body.append('photo', {uri: imagePath,name: 'photo.png',filename :'imageName.png',type: 'image/png'});
+  //     });
+  
+  //    console.log(formData)
+  //     const response = await fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/upload/upload/${Id}`, {
+  //       method: 'POST',
+  //       body: formData,
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+
+  //     if (response.ok) {
+  //       // Handle success
+  //       console.log('Image uploaded successfully');
+  //     } else {
+  //       // Handle error
+  //       console.log('Image upload failed');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error uploading image:', error);
+  //   }
+  // };
+
+  const uploadImage = async (Id) => {
+    try {
+      const result = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images], // Specify the allowed file types (images)
+      });
+  
+      if (!result) {
+        // User canceled the picker
+        console.log('User canceled image picker');
+        return;
+      }
+  
+      if (!result.uri) {
+        console.error('Empty or invalid file URI');
+        return;
+      }
+  
+      // Log the URI for debugging
+      console.log('Selected file URI:', result.uri);
+  
+      const formData = new FormData();
+      formData.append('photo', {
+        uri: result.uri,
+        type: result.type,
+        name: result.name,
+      });
+  
+      const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/upload/upload/${Id}`;
+  
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      if (response.ok) {
+        // Handle success
+        console.log('Image uploaded successfully');
+        // You may want to trigger a refresh or update here if needed
+      } else {
+        // Handle error
+        console.error('Image upload failed');
+      }
+    } catch (err) {
+      console.error('Error uploading image:', err);
+    }
+  };
+  
+  
+  
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
@@ -1093,6 +1218,23 @@ function Inventory() {
                 <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='edit' size={15} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
            
+              <TouchableOpacity
+  style={{ marginBottom: 30, width: 40 }}
+  onPress={() => uploadImage(item._id)}
+>
+  <AntDesign
+    style={{
+      color: 'black',
+      backgroundColor: 'white',
+      height: 30,
+      fontSize: 20,
+      borderRadius: 50,
+      textAlign: 'center',
+    }}
+    name="upload"
+    size={15}
+  />
+</TouchableOpacity>
 
               <TouchableOpacity style={{marginBottom:30,width:40}}>
               <AntDesign style={{color:'black',backgroundColor:'white',height:30,fontSize:20,borderRadius:50,textAlign:'center'}} name='delete' size={15} onPress={() => deleteProduct(item._id)}/>
@@ -1123,7 +1265,7 @@ function Inventory() {
                   borderRadius: 10,
                   
                 }}
-                source={{ uri: item.adminallimages[0] }}
+                source={{ uri: item.adminallimage }}
               />
               <View style={{ flex: 1, justifyContent: 'space-between', padding: 5 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

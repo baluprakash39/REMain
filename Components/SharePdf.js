@@ -17,7 +17,7 @@ const SharePdf = ({route}) => {
     roadtax,
     Vehiclecolor,
     EngineCC,
-    adminallimages,
+    adminallimage,
     vehiclename,
     model,
     companyaddress,
@@ -32,14 +32,14 @@ const SharePdf = ({route}) => {
     streetname,
     website,
     Basic,
-    Nildip,
+    isNilldip,
     EP,
     RTI,
     YES,
     NO,
-    fouryears,
-    fiveyears,
-    fiveyearsplusRSA,
+    four,
+    five,
+    fiveRsa,
     selectedMirrorstext, 
     selectedMirrorsvalue,
     selectedOilFillerCapText,
@@ -335,7 +335,7 @@ const SharePdf = ({route}) => {
       </div>
    <!-- EnquiryandVehicle closed -->
      <div class="vehicleimage">
-       <img src=${adminallimages[0]} alt="Example Image" class="bike" 
+       <img src=${adminallimage} alt="Example Image" class="bike" 
             style="object-fit: scale-down;
                    align-self: stretch;
                    border-radius: 10px;
@@ -488,7 +488,7 @@ const SharePdf = ({route}) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${Basic}}</p>
+                     line-height: 0.1px;"></p>
          </div>
          <!-- value closed -->
        </div>
@@ -512,7 +512,7 @@ const SharePdf = ({route}) => {
             style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600;">Insurance</p>
+                   font-weight: 600;">{}</p>
        </div>
        <!-- subheadings closed -->
        <div class="symbol1"
@@ -542,7 +542,7 @@ const SharePdf = ({route}) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${EP}</p>
+                     line-height: 0.1px;">{}</p>
          </div>
          <!-- value closed -->
        </div>
@@ -566,7 +566,7 @@ const SharePdf = ({route}) => {
             style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600;">Insurance</p>
+                   font-weight: 600;">Hypothication</p>
        </div>
        <!-- subheadings closed -->
        <div class="symbol1"
@@ -596,13 +596,68 @@ const SharePdf = ({route}) => {
                      font-size: 10px;
                      font-style: normal;
                      font-weight: 700;
-                     line-height: 0.1px;">${RTI}</p>
+                     line-height: 0.1px;"></p>
          </div>
          <!-- value closed -->
        </div>
        <!-- symbol 1 closed -->
      </div>
      <!-- container 5 closed -->
+     <!-- Hypothication -->
+     <div class="container5"
+          style="display: flex;
+                 height: 20px;
+                 flex-direction: row;
+                 justify-content: space-between;
+                 border-bottom: 0.5px solid #D7DAE0;
+                 align-items: center;
+                 align-self: stretch;
+                 flex-shrink: 0;">
+       <div class="subheadings"
+            style="display: flex;
+                   padding: 0px 10px;
+                   align-items: flex-start;
+                   flex: 1 0 0;">
+         <p class="onroadsubText"
+            style="color: #1A1C21;
+                   font-family: 'Inter', sans-serif;
+                   font-size: 10px;
+                   font-weight: 600;">{}</p>
+       </div>
+       <!-- subheadings closed -->
+       <div class="symbol1"
+            style="display: flex;
+                   flex-direction: row;
+                   align-items: center;
+                   margin-left: 3px;">
+         <div class="rupeessymbol">
+           <p class= "symbolText"
+              style="color: #5E6470;
+                     fontFamily: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-weight: 800;
+                     align-content: center;
+                     textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+         </div>
+         <!-- rupeessymbol closed -->
+         <div class="value"
+              style="display: flex;
+                     padding: 0px 10px;
+                     justify-content: center;
+                     align-items: center;">
+           <p class="pricesubText"
+              style="color: var(--gray-600, #5E6470);
+                     text-align: right;
+                     font-family: 'Inter', sans-serif;
+                     font-size: 10px;
+                     font-style: normal;
+                     font-weight: 700;
+                     line-height: 0.1px;">{}</p>
+         </div>
+         <!-- value closed -->
+       </div>
+       <!-- symbol 1 closed -->
+     </div>
      <!-- RTO Charges -->
      <div class="container5"
           style="display: flex;
@@ -2043,7 +2098,7 @@ const SharePdf = ({route}) => {
     </View> 
   </View> 
 </View>
-<Image source={{ uri: adminallimages[0] }} style={styles.bike} />
+<Image source={{ uri: adminallimage }} style={styles.bike} />
 </View>
   <View style={styles.quotationbody}>   
   <View style={styles.onroadpricecontainer}>    
@@ -2069,10 +2124,49 @@ const SharePdf = ({route}) => {
     </View>
 <View style={styles.symbol1}>         
 <View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}></Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}></Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.onroadsubText}></Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
      <Text style={styles.symbolText}>₹</Text>
      </View>
      <View style={styles.value}>
-     <Text style={styles.pricesubText}>11,032.00</Text>
+     <Text style={styles.pricesubText}></Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.onroadsubText}>Hypothication</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}></Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}></Text>
+     </View>
+     </View> 
+     </View>
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.onroadsubText}></Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}></Text>
      </View>
      </View> 
      </View>

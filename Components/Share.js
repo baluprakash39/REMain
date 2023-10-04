@@ -805,9 +805,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../ThemeContext'
 
 
-const Share = () => {
+const Share = ({route}) => {
+  const { vehicleId } = route.params;
+  console.log(vehicleId)
+  const { isDarkTheme } = useTheme();
   const navigation = useNavigation();
   const [customername, setCustomerName] = useState('');
   const [address, setAddress] = useState('');
@@ -824,9 +828,9 @@ const Share = () => {
   const[RTI,setRTI]=useState(false);
   const [YES,setYes]=useState(false);
   const[NO,setNo]=useState(false);
-  const[four,setfour]=useState(false);
-  const[five,setfive]=useState(false);
-  const[fiveRsa,setfiveRsa]=useState(false);
+  const[four,setFour]=useState(false);
+  const[five,setFive]=useState(false);
+  const[fiveRsa,setFiveRsa]=useState(false);
   
   
     
@@ -867,12 +871,106 @@ const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useS
 console.log(selectedSafetyAccessoriesText)
 console.log(selectedSafetyAccessoriesValue)
 
+
+const [selectedOption, setSelectedOption] = useState('');
+
+//checkboxes
+// hype
+const [hype,sethype]=useState(0);
+// insu
+const [ins,setins]=useState(0);
+
+
+// for count
+const [onroad,setexprice]=useState('')
+
+const totalonroad=onroad+parseFloat(ins)+parseFloat(hype)
+const grandtotal=totalonroad+parseFloat(selectedMirrorsvalue)+parseFloat(selectedOption)+
+parseFloat(selectedOilFillerCapValue)+parseFloat(selectedHeadLightValue)+parseFloat(selectedWindshieldsValue)+
+parseFloat(selectedPanniersValue)+parseFloat(selectedSeatsValue)+parseFloat(selectedBackrestValue)+
+parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFloat(selectedSumpGuardsValue)+parseFloat(selectedSafetyAccessoriesValue)
+
+console.log("x",totalonroad)
+console.log("y",grandtotal)
+
+console.log(selectedOption)
+console.log(dataArray)
+console.log(selectedMirrorsvalue,selectedMirrorstext)
+ 
+console.log(selectedMirrorsvalue)
+const handleFourChange = (out) => {
+  setFour(true);
+  setFive(false);
+  setFiveRsa(false);
+  setSelectedOption(out)
+};
+
+const handleFiveChange = (out) => {
+  setFour(false);
+  setFive(true);
+  setFiveRsa(false);
+  setSelectedOption(out)
+};
+
+const handleFiveRsaChange = (out) => {
+  setFour(false);
+  setFive(false);
+  setFiveRsa(true);
+setSelectedOption(out)
+};
+const handleYes=(out)=>{
+setYes(true)
+setNo(false)
+sethype(out)
+}
+
+const handleNo=(out)=>{
+setYes(false)
+setNo(true);
+sethype(out)
+}
+
+const handlebasic=(out)=>{
+setSelection(true);
+setnilldip(false);
+setEP(false);
+setRTI(false);
+setins(out)
+
+}
+
+const handleNill=(out)=>{
+setSelection(false);
+setnilldip(true);
+setEP(false);
+setRTI(false);
+setins(out)
+
+}
+const handleEP=(out)=>{
+setSelection(false);
+setnilldip(false);
+setEP(true);
+setRTI(false);
+setins(out)
+
+}
+
+const handleRTI=(out)=>{
+setSelection(false);
+setnilldip(false);
+setEP(false);
+setRTI(true);
+setins(out)
+
+}
+
 // data
 const [exShowroomPrice, setExShowroomPrice] = useState('');
 const [roadtax, setRoadtax] = useState('');
 const [Vehiclecolor,setvehiclecolor]=useState('');
 const [EngineCC,setEngineCC]=useState('');
-const [adminallimages,setadminallimages]=useState('');
+const [adminallimage,setadminallimage]=useState('');
 const [vehiclename,setvehiclename]=useState('');
 const [model,setmodel]=useState('');
 
@@ -954,7 +1052,7 @@ console.log("adress",companyaddress)
         roadtax,
         Vehiclecolor,
         EngineCC,
-        adminallimages,
+        adminallimage,
         vehiclename,
         model,
         companyaddress,
@@ -968,6 +1066,14 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
+        isNilldip,
+        EP,
+        RTI,
+        YES,
+        NO,
+        four,
+        five,
+        fiveRsa,
         selectedMirrorstext,
         selectedMirrorsvalue,
         selectedOilFillerCapText,
@@ -997,24 +1103,34 @@ console.log("adress",companyaddress)
     }
   };
 
-  const removeQuotes = (str) => {
-    return str.replace(/["']/g, '');
-  };
-  const fetchBikeDetails = async (id) => {
-    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${id}`;
+  useEffect(() => {
+ 
+  
+    fetchBikeDetails(vehicleId);
+   
+  }, []);
+  const fetchBikeDetails = async (vehicleId) => {
+    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
 
     try {
       const response = await axios.get(url);
       const bike = response.data;
+      const{exShowroomPrice,roadtax,registration}=bike
+      const exShowroompriceNumber = parseFloat(exShowroomPrice.replace(/,/g, ''));
+     const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
+     const registrationnumber = parseFloat(registration.replace(/,/g, ''));
+
+     const totalPrice = exShowroompriceNumber + roadtaxNumber+registrationnumber;
+      setexprice(totalPrice);
       console.log(response)
-      const { exShowroomPrice, roadtax,vehiclecolor,EngineCC,adminallimages,vehiclename,model } = bike;
+      const { vehiclecolor,EngineCC,adminallimage,vehiclename,model } = bike;
 
       // Filter and store exShowroomPrice and roadtax in separate useState variables
       setExShowroomPrice(exShowroomPrice);
       setRoadtax(roadtax);
       setvehiclecolor(vehiclecolor);
       setEngineCC(EngineCC);
-      setadminallimages(adminallimages);
+      setadminallimage(adminallimage);
       setvehiclename(vehiclename);
       setmodel(model);
       
@@ -1064,25 +1180,6 @@ console.log("adress",companyaddress)
       }
     };
     
-
-
-
-  useEffect(() => {
-    
-    // Retrieve 'homedata' from AsyncStorage
-    AsyncStorage.getItem('homedata')
-      .then((id) => {
-        if (id !== null) {
-          const formattedId = removeQuotes(id);
-          // Call fetchBikeDetails with the formattedId
-          fetchBikeDetails(formattedId);
-        }
-      })
-      .catch((error) => {
-        console.error('Error retrieving homedata from AsyncStorage:', error);
-      });
-  }, []);
-
   //date//
   const getCurrentDate = () => {
     const now = new Date();
@@ -1097,8 +1194,186 @@ console.log("adress",companyaddress)
     const date = getCurrentDate();
     setEnquiryDate(date);
   }, []);
-
-
+   
+  const styles = StyleSheet.create({
+    backgroundImage: {
+     flex: 1,
+     resizeMode: 'cover',
+   },
+   dropdown: {
+     height: 50,
+     width: '80%',
+     justifyContent: 'center', // Center the text vertically
+     paddingLeft: 10, // Add some padding to align text properly
+     backgroundColor: 'white',
+     borderRadius: 10,
+     marginBottom: 25,
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   tab: {
+     color: 'black',
+     fontSize: 18,
+     fontWeight: 'bold',
+     padding: 10,
+     margin: 5,
+     borderRadius: 10,
+     textAlign: 'center', // Center the text horizontally
+     alignItems: 'center', // Center the text vertically
+     width: 150,
+     height: 50,
+     marginLeft: 50,
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   accessoriesText: {
+     color: 'white',
+     fontSize: 22,
+     fontWeight: '500',
+     marginTop: 100,
+     marginBottom: 30,
+     // backgroundColor:'rgba(151, 151, 151, 0.3)',
+     borderRadius: 50,
+     height: 800,
+     
+ 
+   },
+   centeredContainer: {
+     flex: 1,
+     resizeMode: 'cover',
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   dropdown: {
+     height: 40,
+     width:'100%',
+     justifyContent: 'center', // Center the text vertically
+     paddingVertical: 5, // Add some padding to align text properly
+     backgroundColor:'#F9F9F9',
+     borderRadius:5,
+     marginHorizontal:5,
+     marginVertical:5,
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   header:{
+     gap: 130,
+     height: 40,
+     alignItems: 'center',
+     borderRadius: 20,
+     width: 'auto',
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+ 
+   },
+   extendedLine: {
+     borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
+     borderBottomColor: '#F9F9F9',
+     marginBottom: 20, // Add spacing between the line and the next content
+   },
+ 
+   priceContainer: {
+     flexDirection: 'row',
+     justifyContent: 'space-between',
+     borderBottomWidth: 1,
+     borderBottomColor: '#F9F9F9',
+     marginBottom: 20, // Add spacing between the line and the next content
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+     // columnGap: 100
+   },
+   container: {
+     paddingHorizontal: 8,
+     paddingTop: 10,
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   line: {
+     height: 1,
+     backgroundColor: '#F9F9F9',
+     width: '100%',
+   },
+   title: {
+     color: '#f9f9f9',
+     fontWeight: 'bold',
+     fontSize: 18,
+     textAlign: 'left',
+   },
+   logo: {
+     width: 180,
+     borderRadius: 10,
+     height: 60,
+     marginTop: 10,
+   },
+   card: {
+     flexDirection:'column',
+     borderWidth: 1,
+     borderColor: '#f9f9f9',
+     borderRadius: 10,
+     height: 200,
+     width: '100%', // Adjust the width as needed
+     backgroundColor: 'black',
+     marginTop: 10, // Add margin between sections
+     paddingHorizontal: 5, // Add padding inside the card
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   cardContent: {
+     height: 40,
+     flexDirection: 'row',
+     alignItems: 'center',
+     marginVertical: 5, // Add vertical margin between items
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   labelText: {
+     color: '#f9f9f9',
+     width: 100,
+     fontSize: 12,
+     fontWeight: '400',
+     letterSpacing: 0.4,
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   input: {
+     flex: 1, // To allow TextInput to expand
+     color: '#868687',
+     backgroundColor: '#cbcbca',
+     borderRadius:5,
+     paddingLeft: 10, // Add left padding for better appearance
+    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
+   },
+   imageCard: {
+     alignItems: 'center',
+     marginBottom: 5,
+     marginTop: 10,
+     height: 200,
+   },
+   customerImage: {
+     width: '100%',
+     height: 180,
+     resizeMode: 'cover',
+     borderRadius: 10,
+   },
+   datacard: {
+     width: 800,
+     height: 2000,
+     backgroundColor: 'rgba(151, 151, 151, 0.3)',
+     // alignItems: 'center',
+     borderRadius: 10,
+   },
+   datacardtext: {
+     color: '#f9f9f9',
+     fontSize: 18,
+     textDecorationLine: 'underline',
+     marginBottom: 20,
+     textAlign: 'center',
+ 
+   }, shareButton: {
+     backgroundColor: 'gray',
+     padding: 10,
+     borderRadius: 10,
+     alignItems: 'center',
+     marginTop: 20,
+     width: 200
+   },
+   shareButtonText: {
+     color: '#f9f9f9',
+     fontSize: 18,
+     fontWeight: '500',
+     textAlign:'center',
+   },
+ });
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
@@ -1169,10 +1444,10 @@ console.log("adress",companyaddress)
           </View>
         </View>
         <View style={styles.imageCard}>
-            {data.adminallimages && data.adminallimages.length > 0 && (
+            {data.adminallimage && data.adminallimage.length > 0 && (
               <Image
                 style={styles.customerImage}
-                source={{ uri: data.adminallimages[0] }}
+                source={{ uri: data.adminallimage }}
               />
             )}
           </View>
@@ -1191,309 +1466,361 @@ console.log("adress",companyaddress)
                   <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1, marginLeft: 30 }}>RTO Charges</Text>
                   <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right', marginRight: 30 }}>₹  500</Text>
                 </View>
-                <View >
-                  <Text style={{ marginLeft: 30, display: 'flex', justifyContent: 'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, marginBottom: 10 }}>Insurence</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row' }}>
-                    {/* Basic */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Basic</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* Nilldip */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>Nildip</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
+                <View > 
 
-                    {/* EP */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>EP</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* RTI */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>RTI</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
+{/* Insurence */}
+<Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
+{data.insurance.map((insu)=>(
+     <View style={{display:'flex',flexDirection:'row'}}>
+     {/* Basic */}
+      <View style={{display:'flex',flexDirection:'row'}}>
+      <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Basic({insu.Basic}-/-)</Text>
+      <CheckBox
+   value={isSelected}
+   onValueChange={()=>handlebasic(insu.Basic)}
+   style={styles.checkbox}
+ />
+     </View> 
+     {/* Nilldip */}
+     <View style={{display:'flex',flexDirection:'row'}}>
+      <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Nildip({insu.Nildip}-/-)</Text>
+      <CheckBox
+   value={isNilldip}
+   onValueChange={()=>handleNill(insu.Nildip)}
+   style={styles.checkbox}
+ />
+     </View>
+     
+     {/* EP */}
+     <View style={{display:'flex',flexDirection:'row'}}>
+      <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>EP({insu.Ep}-/-)</Text>
+      <CheckBox
+   value={EP}
+   onValueChange={()=>handleEP(insu.Ep)}
+   style={styles.checkbox}
+ />
+     </View>
+     {/* RTI */}
+     <View style={{display:'flex',flexDirection:'row'}}>
+      <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>RTI({insu.RTI}-/-)</Text>
+      <CheckBox
+   value={RTI}
+   onValueChange={()=>handleRTI(insu.RTI)}
+   style={styles.checkbox}
+ />
+     </View>
+      
+     </View>
+))}
+<View style={styles.priceContainer}>
 
-                  </View>
-                  <View style={styles.priceContainer}>
-                    <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1, marginLeft: 30, marginTop: 20, marginBottom: 10 }}>Registartion(Fixed)</Text>
-                    <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right', marginRight: 30 }}>₹  1000</Text>
-                  </View>
-                  <Text style={{ marginLeft: 30, display: 'flex', justifyContent: 'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, marginBottom: 10 }}>Hypothiccation</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row' }}>
-                    {/* YES */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 30, marginLeft: 30 }}>YES</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* NO */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>NO</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                  </View>
-                  <View style={styles.priceContainer}>
-                    <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1, marginLeft: 30 }}>OnRoad Price</Text>
-                    <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right', marginRight: 30 }}>₹  3,50,000</Text>
-                  </View>
-                  <Text style={{ marginLeft: 30, display: 'flex', justifyContent: 'flex-start', color: '#F9F9F9', fontSize: 22, marginBottom: 10, fontWeight: 600 }}>Optional Add Ons/Products</Text>
-                  <Text style={{ marginLeft: 30, display: 'flex', justifyContent: 'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, marginBottom: 10 }}>Extended Warrenty</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row' }}>
-                    {/* 4 */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>4Years</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* 5 */}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* 5+RSA*/}
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5Years+RSA</Text>
-                      <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-                    </View>
-                    {/* style,comfort,safty tabs */}
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹{ins}</Text>
+</View>
 
-                  </View>
 
-                  <View style={styles.accessoriesText}>
-  <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-    <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
-      Style
-    </Text>
-    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
-      Comfort
-    </Text>
-    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
-      Protection
-    </Text>
-  </View>
-  <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-    {selectedTab === 'Style' && (
-      <>
-        {/* Show mirrors dropdown */}
-        <View style={styles.dropdown}>
-          <Picker
-            selectedValue={selectedMirrorstext}
-            onValueChange={(itemValue) => {
-              const selectedMirror = data.mirrors.find(
-                (mirror) => mirror.mirrorstext === itemValue
-              );
-              setSelectedMirrorstext(selectedMirror ? selectedMirror.mirrorstext : '');
-              setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : '');
-            }}
-          >
-            <Picker.Item label="select Mirrors" value="" />
-            {data.mirrors.map((mirror) => (
-              <Picker.Item
-                key={mirror._id}
-                label={`${mirror.mirrorstext} (${mirror.mirrorsvalue})`}
-                value={mirror.mirrorstext}
-              />
-            ))}
-          </Picker>
-        </View>
-        {/* Show oil filler dropdown */}
-        <View style={styles.dropdown}>
-          <Picker
-            selectedValue={selectedOilFillerCapText}
-            onValueChange={(itemValue) => {
-              const selectedoil = data.oilfillercap.find(
-                (oil) => oil.oilfillercaptext === itemValue
-              );
-              setSelectedOilFillerCapText(selectedoil ? selectedoil.oilfillercaptext : '');
-              setSelectedOilFillerCapValue(selectedoil ? selectedoil.oilfillercapvalue : '');
-            }}
-          >
-            <Picker.Item label="select Oilfiller cap" value="" />
-            {data.oilfillercap.map((oil) => (
-              <Picker.Item
-                key={oil._id}
-                label={`${oil.oilfillercaptext} (${oil.oilfillercapvalue})`}
-                value={oil.oilfillercaptext}
-              />
-            ))}
-          </Picker>
-        </View>
-        {/* Show headlight dropdown */}
-        <View style={styles.dropdown}>
-          <Picker
-            selectedValue={selectedHeadLightText}
-            onValueChange={(itemValue) => {
-              const selectedHeadLight = data.headlight.find(
-                (headlight) => headlight.headlighttext === itemValue
-              );
-              setSelectedHeadLightText(selectedHeadLight ? selectedHeadLight.headlighttext : '');
-              setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : '');
-            }}
-          >
-            <Picker.Item label="select Headlight" value="" />
-            {data.headlight.map((headlight) => (
-              <Picker.Item
-                key={headlight._id}
-                label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
-                value={headlight.headlighttext}
-              />
-            ))}
-          </Picker>
-        </View>
-      </>
-    )}
+
+
+
+
+
+
+<View style={styles.priceContainer}>
+<Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30,marginTop:20,marginBottom:10 }}>Registartion(Fixed)</Text>
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹ {data.registration}</Text>
+</View>
+
+
+{/* hypothication */}
+<Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Hypothiccation</Text>
+{data.hypothication.map((hype)=>(
+<View style={{display:'flex',flexDirection:'row'}}>
+{/* YES */}
+<View style={{display:'flex',flexDirection:'row'}}>
+<Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>YES({hype.Yes}-/-)</Text>
+<CheckBox
+value={YES}
+onValueChange={()=>handleYes(hype.Yes)}
+style={styles.checkbox}
+/>
+</View> 
+
+
+{/* NO */}
+<View style={{display:'flex',flexDirection:'row'}}>
+<Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>NO({hype.No})</Text>
+<CheckBox
+value={NO}
+onValueChange={()=>handleNo(hype.No)}
+style={styles.checkbox}
+/>
+</View>
+
+</View>
+
+
+
+))}
+<View style={styles.priceContainer}>
+
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {hype}</Text>
+</View>
+
+
+
+
+
+
+<View style={styles.priceContainer}>
+<Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>OnRoad Price</Text>
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {totalonroad}</Text>
+</View>
+
+
+<Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: '#F9F9F9', fontSize: 22 ,marginBottom:10,fontWeight:600}}>Optional Add Ons/Products</Text>
+<Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Extended Warrenty</Text>
+{/* extendedwarranty */}
+<>
+{data.extendedwarranty.map((ans) => (
+<View key={index} style={{ flexDirection: 'row' }}>
+{/* 4 */}
+<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+<Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>4 Years({ans.fouryears}-/-)</Text>
+<CheckBox
+value={four}
+onValueChange={()=>handleFourChange(ans.fouryears)}
+style={styles.checkbox}
+/>
+</View>
+{/* 5 */}
+<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+<Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5 Years({ans.fiveyears}-/-)</Text>
+<CheckBox
+value={five}
+onValueChange={()=>handleFiveChange(ans.fiveyears)}
+style={styles.checkbox}
+/>
+</View>
+
+{/* 5+RSA */}
+<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+<Text style={{ color: 'white', fontSize: 20, marginLeft: 20, marginLeft: 30 }}>5 Years+RSA({ans.fiveplusRSAyears}-/-)</Text>
+
+<CheckBox
+value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
+onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
+style={styles.checkbox}
+/>
+
+</View>
+
+
+</View>
+
+))}
+<View style={styles.priceContainer}>
+
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {selectedOption}</Text>
+</View>
+</>
+
+<View style={styles.accessoriesText}>
+<View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+<Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
+Style
+</Text>
+<Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Comfort')}>
+Comfort
+</Text>
+<Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Protection')}>
+Protection
+</Text>
+</View>
+<View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+{selectedTab === 'Style' && (
+<>
+{/* Show mirrors dropdown */}
+<View style={styles.dropdown}>
+<Picker
+selectedValue={selectedMirrorstext}
+onValueChange={(itemValue) => {
+const selectedMirror = data.mirrors.find(
+(mirror) => mirror.mirrorstext === itemValue
+);
+setSelectedMirrorstext(selectedMirror ? selectedMirror.mirrorstext : '');
+setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : '');
+}}
+>
+<Picker.Item label="select Mirrors" value="" />
+{data.mirrors.map((mirror) => (
+<Picker.Item
+key={mirror._id}
+label={`${mirror.mirrorstext} (${mirror.mirrorsvalue})`}
+value={mirror.mirrorstext}
+/>
+))}
+</Picker>
+</View>
+{/* Show oil filler dropdown */}
+<View style={styles.dropdown}>
+<Picker
+selectedValue={selectedOilFillerCapText}
+onValueChange={(itemValue) => {
+const selectedoil = data.oilfillercap.find(
+(oil) => oil.oilfillercaptext === itemValue
+);
+setSelectedOilFillerCapText(selectedoil ? selectedoil.oilfillercaptext : '');
+setSelectedOilFillerCapValue(selectedoil ? selectedoil.oilfillercapvalue : '');
+}}
+>
+<Picker.Item label="select Oilfiller cap" value="" />
+{data.oilfillercap.map((oil) => (
+<Picker.Item
+key={oil._id}
+label={`${oil.oilfillercaptext} (${oil.oilfillercapvalue})`}
+value={oil.oilfillercaptext}
+/>
+))}
+</Picker>
+</View>
+{/* Show headlight dropdown */}
+<View style={styles.dropdown}>
+<Picker
+selectedValue={selectedHeadLightText}
+onValueChange={(itemValue) => {
+const selectedHeadLight = data.headlight.find(
+(headlight) => headlight.headlighttext === itemValue
+);
+setSelectedHeadLightText(selectedHeadLight ? selectedHeadLight.headlighttext : '');
+setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : '');
+}}
+>
+<Picker.Item label="select Headlight" value="" />
+{data.headlight.map((headlight) => (
+<Picker.Item
+key={headlight._id}
+label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
+value={headlight.headlighttext}
+/>
+))}
+</Picker>
+</View>
+</>
+)}
 
 
 {selectedTab === 'Comfort' && (
-  <>
+<>
 {/* Windshields */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedWindshieldsText}
-    onValueChange={(itemValue) => {
-      const selectedWindshield = data.windshields.find(
-        (windshield) => windshield.windshieldstext === itemValue
-      );
-      setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
-      setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Windshields" value="" />
-    {data.windshields.map((windshield) => (
-      <Picker.Item
-        key={windshield._id}
-        label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
-        value={windshield.windshieldstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedWindshieldsText}
+onValueChange={(itemValue) => {
+const selectedWindshield = data.windshields.find(
+(windshield) => windshield.windshieldstext === itemValue
+);
+setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
+setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
+}}
+>
+<Picker.Item label="Select Windshields" value="" />
+{data.windshields.map((windshield) => (
+<Picker.Item
+key={windshield._id}
+label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
+value={windshield.windshieldstext}
+/>
+))}
+</Picker>
 </View>
 {/* Panniers */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedPanniersText}
-    onValueChange={(itemValue) => {
-      const selectedPannier = data.panniers.find(
-        (pannier) => pannier.pannierstext === itemValue
-      );
-      setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
-      setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Panniers" value="" />
-    {data.panniers.map((pannier) => (
-      <Picker.Item
-        key={pannier._id}
-        label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
-        value={pannier.pannierstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedPanniersText}
+onValueChange={(itemValue) => {
+const selectedPannier = data.panniers.find(
+(pannier) => pannier.pannierstext === itemValue
+);
+setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
+setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
+}}
+>
+<Picker.Item label="Select Panniers" value="" />
+{data.panniers.map((pannier) => (
+<Picker.Item
+key={pannier._id}
+label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
+value={pannier.pannierstext}
+/>
+))}
+</Picker>
 </View>
 
 {/* Seats */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSeatsText}
-    onValueChange={(itemValue) => {
-      const selectedSeat = data.seats.find(
-        (seat) => seat.seatstext === itemValue
-      );
-      setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
-      setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Seats" value="" />
-    {data.seats.map((seat) => (
-      <Picker.Item
-        key={seat._id}
-        label={`${seat.seatstext} (${seat.seatsvalue})`}
-        value={seat.seatstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedSeatsText}
+onValueChange={(itemValue) => {
+const selectedSeat = data.seats.find(
+(seat) => seat.seatstext === itemValue
+);
+setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
+setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
+}}
+>
+<Picker.Item label="Select Seats" value="" />
+{data.seats.map((seat) => (
+<Picker.Item
+key={seat._id}
+label={`${seat.seatstext} (${seat.seatsvalue})`}
+value={seat.seatstext}
+/>
+))}
+</Picker>
 </View>
 
 {/* Backrest */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedBackrestText}
-    onValueChange={(itemValue) => {
-      const selectedBackrest = data.backrests.find(
-        (backrest) => backrest.backreststext === itemValue
-      );
-      setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
-      setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Backrest" value="" />
-    {data.backrests.map((backrest) => (
-      <Picker.Item
-        key={backrest._id}
-        label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
-        value={backrest.backreststext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedBackrestText}
+onValueChange={(itemValue) => {
+const selectedBackrest = data.backrests.find(
+(backrest) => backrest.backreststext === itemValue
+);
+setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
+setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
+}}
+>
+<Picker.Item label="Select Backrest" value="" />
+{data.backrests.map((backrest) => (
+<Picker.Item
+key={backrest._id}
+label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
+value={backrest.backreststext}
+/>
+))}
+</Picker>
 </View>
 {/* Foot Pegs */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedFootPegsText}
-    onValueChange={(itemValue) => {
-      const selectedFootPeg = data.footpegs.find(
-        (footpeg) => footpeg.footpegstext === itemValue
-      );
-      setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
-      setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Foot Pegs" value="" />
-    {data.footpegs.map((footpeg) => (
-      <Picker.Item
-        key={footpeg._id}
-        label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
-        value={footpeg.footpegstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedFootPegsText}
+onValueChange={(itemValue) => {
+const selectedFootPeg = data.footpegs.find(
+(footpeg) => footpeg.footpegstext === itemValue
+);
+setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
+setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
+}}
+>
+<Picker.Item label="Select Foot Pegs" value="" />
+{data.footpegs.map((footpeg) => (
+<Picker.Item
+key={footpeg._id}
+label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
+value={footpeg.footpegstext}
+/>
+))}
+</Picker>
 </View>
 </>
 )}
@@ -1504,98 +1831,110 @@ console.log("adress",companyaddress)
 
 {/* Engine Guards */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedEngineGuardsText}
-    onValueChange={(itemValue) => {
-      const selectedEngineGuard = data.enginegaurds.find(
-        (engineGuard) => engineGuard.enginegaurdstext === itemValue
-      );
-      setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
-      setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Engine Guards" value="" />
-    {data.enginegaurds.map((engineGuard) => (
-      <Picker.Item
-        key={engineGuard._id}
-        label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
-        value={engineGuard.enginegaurdstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedEngineGuardsText}
+onValueChange={(itemValue) => {
+const selectedEngineGuard = data.enginegaurds.find(
+(engineGuard) => engineGuard.enginegaurdstext === itemValue
+);
+setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
+setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
+}}
+>
+<Picker.Item label="Select Engine Guards" value="" />
+{data.enginegaurds.map((engineGuard) => (
+<Picker.Item
+key={engineGuard._id}
+label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
+value={engineGuard.enginegaurdstext}
+/>
+))}
+</Picker>
 </View>
 
 {/* Sump Guards */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSumpGuardsText}
-    onValueChange={(itemValue) => {
-      const selectedSumpGuard = data.sumpgaurds.find(
-        (sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
-      );
-      setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
-      setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
-    }}
-  >
-    <Picker.Item label="Select Sump Guards" value="" />
-    {data.sumpgaurds.map((sumpGuard) => (
-      <Picker.Item
-        key={sumpGuard._id}
-        label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
-        value={sumpGuard.sumpgaurdstext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedSumpGuardsText}
+onValueChange={(itemValue) => {
+const selectedSumpGuard = data.sumpgaurds.find(
+(sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
+);
+setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
+setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
+}}
+>
+<Picker.Item label="Select Sump Guards" value="" />
+{data.sumpgaurds.map((sumpGuard) => (
+<Picker.Item
+key={sumpGuard._id}
+label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
+value={sumpGuard.sumpgaurdstext}
+/>
+))}
+</Picker>
 </View>
 
 {/* Other Dropdowns */}
 {/* Add more Picker components for other dropdowns here */}
 
- {/* Safety Accessories */}
+{/* Safety Accessories */}
 <View style={styles.dropdown}>
-  <Picker
-    selectedValue={selectedSafetyAccessoriesText}
-    onValueChange={(itemValue) => {
-      const selectedSafetyAccessory = data.safetyaccessories.find(
-        (safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
-      );
-      setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
-      setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
-    }}
-  >
-    <Picker.Item label="Select Safety Accessories" value="" />
-    {data.safetyaccessories.map((safetyAccessory) => (
-      <Picker.Item
-        key={safetyAccessory._id}
-        label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
-        value={safetyAccessory.safetyaccessoriestext}
-      />
-    ))}
-  </Picker>
+<Picker
+selectedValue={selectedSafetyAccessoriesText}
+onValueChange={(itemValue) => {
+const selectedSafetyAccessory = data.safetyaccessories.find(
+(safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
+);
+setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
+setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
+}}
+>
+<Picker.Item label="Select Safety Accessories" value="" />
+{data.safetyaccessories.map((safetyAccessory) => (
+<Picker.Item
+key={safetyAccessory._id}
+label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
+value={safetyAccessory.safetyaccessoriestext}
+/>
+))}
+</Picker>
 </View>
+
+
 
 </>
 )}
 
-  </View>
+
 </View>
 
-                </View>
-                {/* Add a separate view for the extended line */}
-                {/* <View style={styles.extendedLine} /> */}
+<View style={styles.priceContainer1}>
+<Text style={{ color: 'white', fontSize: 30, flex: 1,marginLeft:30 }}>GrandTotal</Text>
+<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {grandtotal}</Text>
+</View>
+</View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</View>
+               
               </View>
             </View>
             <View style={styles.centeredContainer}>
 
-              {/* <TouchableOpacity
-                style={styles.shareButton}
-                onPress={() => {
-                  // Handle the share functionality here
-                  navigation.navigate('SharePdf');
-                }}
-              >
-                <Text style={styles.shareButtonText}>Share Screen</Text>
-              </TouchableOpacity> */}
+              
               <TouchableOpacity
                 style={styles.shareButton}
                 onPress={handleShare} // Call handleShare when the button is pressed
@@ -1613,172 +1952,6 @@ console.log("adress",companyaddress)
     </ImageBackground>
   );
 };
-const styles = StyleSheet.create({
-   backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  dropdown: {
-    height: 50,
-    width: '80%',
-    justifyContent: 'center', // Center the text vertically
-    paddingLeft: 10, // Add some padding to align text properly
-    backgroundColor: 'white',
-    borderRadius: 10,
-    marginBottom: 25
-  },
-  tab: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: 'bold',
-    padding: 10,
-    margin: 5,
-    borderRadius: 10,
-    textAlign: 'center', // Center the text horizontally
-    alignItems: 'center', // Center the text vertically
-    width: 150,
-    height: 50,
-    marginLeft: 50,
-  },
-  accessoriesText: {
-    color: 'white',
-    fontSize: 22,
-    fontWeight: '500',
-    marginTop: 100,
-    marginBottom: 30,
-    // backgroundColor:'rgba(151, 151, 151, 0.3)',
-    borderRadius: 50,
-    height: 800,
 
-  },
-  centeredContainer: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  dropdown: {
-    height: 40,
-    width:'100%',
-    justifyContent: 'center', // Center the text vertically
-    paddingVertical: 5, // Add some padding to align text properly
-    backgroundColor:'#F9F9F9',
-    borderRadius:5,
-    marginHorizontal:5,
-    marginVertical:5,
-  },
-  header:{
-    gap: 130,
-    height: 40,
-    alignItems: 'center',
-    borderRadius: 20,
-    width: 'auto'
-
-  },
-  extendedLine: {
-    borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
-    borderBottomColor: '#F9F9F9',
-    marginBottom: 20, // Add spacing between the line and the next content
-  },
-
-  priceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F9F9F9',
-    marginBottom: 20, // Add spacing between the line and the next content
-    // columnGap: 100
-  },
-  container: {
-    paddingHorizontal: 8,
-    paddingTop: 10,
-  },
-  line: {
-    height: 1,
-    backgroundColor: '#F9F9F9',
-    width: '100%',
-  },
-  title: {
-    color: '#f9f9f9',
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'left',
-  },
-  logo: {
-    width: 180,
-    borderRadius: 10,
-    height: 60,
-    marginTop: 10,
-  },
-  card: {
-    flexDirection:'column',
-    borderWidth: 1,
-    borderColor: '#f9f9f9',
-    borderRadius: 10,
-    height: 200,
-    width: '100%', // Adjust the width as needed
-    backgroundColor: 'black',
-    marginTop: 10, // Add margin between sections
-    paddingHorizontal: 5, // Add padding inside the card
-  },
-  cardContent: {
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 5, // Add vertical margin between items
-  },
-  labelText: {
-    color: '#f9f9f9',
-    width: 100,
-    fontSize: 12,
-    fontWeight: '400',
-    letterSpacing: 0.4,
-  },
-  input: {
-    flex: 1, // To allow TextInput to expand
-    color: '#868687',
-    backgroundColor: '#cbcbca',
-    borderRadius:5,
-    paddingLeft: 10, // Add left padding for better appearance
-  },
-  imageCard: {
-    alignItems: 'center',
-    marginBottom: 5,
-    marginTop: 10,
-    height: 200,
-  },
-  customerImage: {
-    width: '100%',
-    height: 180,
-    resizeMode: 'cover',
-    borderRadius: 10,
-  },
-  datacard: {
-    width: 800,
-    height: 2000,
-    backgroundColor: 'rgba(151, 151, 151, 0.3)',
-    // alignItems: 'center',
-    borderRadius: 10,
-  },
-  datacardtext: {
-    color: '#f9f9f9',
-    fontSize: 18,
-    textDecorationLine: 'underline',
-    marginBottom: 20,
-    textAlign: 'center',
-
-  }, shareButton: {
-    backgroundColor: 'gray',
-    padding: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 20,
-    width: 200
-  },
-  shareButtonText: {
-    color: '#f9f9f9',
-    fontSize: 18,
-    fontWeight: '500',
-    textAlign:'center',
-  },
-});
 
 export default Share;
