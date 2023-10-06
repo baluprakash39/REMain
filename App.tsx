@@ -121,7 +121,7 @@ const App = () => {
   return (
     <ThemeProvider> 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Inventory'>
+      <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen
           name="Otp"
           component={Otp}

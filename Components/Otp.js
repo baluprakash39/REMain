@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         //     borderBottomWidth: 2,
         marginBottom: 5,
         textAlign: 'center',
-        //     color: '#fff',
+            color: '#fff',
         height: 40,
         margin: 12,
         borderWidth: 1,

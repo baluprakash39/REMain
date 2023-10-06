@@ -1,799 +1,4 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ScrollView} from 'react-native'; // Import ScrollView for scrolling if needed
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import axios from 'axios';
-// import CheckBox from '@react-native-community/checkbox';
-// import { Dropdown } from 'react-native-element-dropdown';
-// import { useNavigation } from '@react-navigation/native';
 
-// const dataa = [
-//     { label: 'Item 1', value: '1' },
-//     { label: 'Item 2', value: '2' },
-//     { label: 'Item 3', value: '3' },
-//     { label: 'Item 4', value: '4' },
-//     { label: 'Item 5', value: '5' },
-//     { label: 'Item 6', value: '6' },
-//     { label: 'Item 7', value: '7' },
-//     { label: 'Item 8', value: '8' },
-//   ];
-// // import CheckBox from 'react-native-check-box'
-// const Share = () => {
-//   const navigation = useNavigation();
-//     const [selectedStyle, setSelectedStyle] = useState(null);
-
-//   const [value, setValue] = useState(null);
-//   const [dataArray, setDataArray] = useState([]);
-//   const [customername, setCustomerName] = useState('');
-//   const [address, setAddress] = useState('');
-//   const [mobilenumber, setMobileNumber] = useState('');
-//   const [emailid, setEmailId] = useState('');
-
-//   const [isSelected, setSelection] = useState(false);
-//   const [isNilldip,setnilldip]=useState(false);
-//   const [EP,setEP]=useState(false);
-//   const[RTI,setRTI]=useState(false);
-//   const [YES,setYes]=useState(false);
-//   const[NO,setNo]=useState(false);
-//   const[four,setfour]=useState(false);
-//   const[five,setfive]=useState(false);
-//   const[fiveRsa,setfiveRsa]=useState(false);
-//   const [selectedTab, setSelectedTab] = useState('Style');
-
-
-// const [oilFillerCap, setOilFillerCap] = useState(null);
-// const [headlight, setHeadlight] = useState(null);
-// const [windshields, setWindshields] = useState(null);
-// const [panniers, setPanniers] = useState(null);
-// const [seats, setSeats] = useState(null);
-// const [backrest, setBackrest] = useState(null);
-// const [footpegs, setFootpegs] = useState(null);
-// const [engineGuards, setEngineGuards] = useState(null);
-// const [sumpGuards, setSumpGuards] = useState(null);
-// const [safetyAccessories, setSafetyAccessories] = useState(null);
-
-// const handleShare = async () => {
-//   try {
-//     // Prepare the formData object with customer details and other data
-//     const formData = {
-//       customername,
-//       address,
-//       mobilenumber,
-//       emailid,
-//       // Add other data you want to store
-//       value,
-//       oilFillerCap,
-//       headlight,
-//       windshields,
-//       panniers,
-//       seats,
-//       backrest,
-//       footpegs,
-//       engineGuards,
-//       sumpGuards,
-//       safetyAccessories,
-//     };
-
-//     // Convert formData to JSON string
-//     const formDataJSON = JSON.stringify(formData);
-
-//     // Store the formData in AsyncStorage
-//     await AsyncStorage.setItem('formData', formDataJSON);
-
-//     // Navigate to the SharePdf screen
-//     navigation.navigate('SharePdf');
-//   } catch (error) {
-//     console.error('Error storing formData:', error);
-//   }
-// };
-
-//   const removeQuotes = (str) => {
-//     return str.replace(/["']/g, '');
-//   };
-
-//   useEffect(() => {
-//     // Retrieve 'homedata' from AsyncStorage
-//     AsyncStorage.getItem('homedata')
-//       .then((id) => {
-//         if (id !== null) {
-//           const formattedId = removeQuotes(id);
-//           fetchBikeDetails(formattedId);
-//         }
-//       })
-//       .catch((error) => {
-//         console.error('Error retrieving homedata from AsyncStorage:', error);
-//       });
-//   }, []);
-
-//   const fetchBikeDetails = async (id) => {
-//     const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${id}`;
-
-//     try {
-//       const response = await axios.get(url);
-//       const bike = response.data;
-//       setDataArray([]);
-//       setDataArray((prevDataArray) => [...prevDataArray, bike]);
-//       await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-//       console.log('Bike data stored successfully',bike);
-//     } catch (error) {
-//       console.error('Error fetching bike details:', error);
-//     }
-//   };
-
-//   return (
-//     <ImageBackground
-//     source={require('../assets/red.jpg')} // Replace with your image path
-//     style={styles.container}
-//   >
-//     <ScrollView contentContainerStyle={styles.container}>
-//     {dataArray.map((data, index) => (
-//       <View key={index} style={styles.content}>
-//        <TouchableOpacity
-//           onPress={() => {
-//             // Navigate back to the 'Home' screen
-//             navigation.navigate('Home');
-//           }}
-//         >
-//           <Text style={{ color: 'white', fontSize: 20 }}>Back</Text>
-//         </TouchableOpacity>
-//         <View style={styles.hr} />
-//         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-//           <Text style={{ textAlign: 'left', color: 'white', fontSize: 30, flex: 1 }}>
-//             Quotation
-//           </Text>
-//           <Image
-//             style={styles.logo}
-//             source={{
-//               uri: 'https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg',
-//             }}
-//           />
-//         </View>
-
-//         {/* Add Customer Details Section Below */}
-//         <Text style={styles.title}>Customer details</Text>
-//         <View style={styles.card}>
-//           <View style={styles.cardContent}>
-//             <Text style={styles.labelText}>Customer Name :</Text>
-//             <TextInput
-//               style={styles.input}
-//               value={customername}
-//               onChangeText={setCustomerName}
-//               placeholder="Enter customer name"
-//             />
-//           </View>
-//           <View style={styles.cardContent}>
-//             <Text style={styles.labelText}>Address :</Text>
-//             <TextInput
-//               style={styles.input}
-//               value={address}
-//               onChangeText={setAddress}
-//               placeholder="Enter address"
-//             />
-//           </View>
-//           <View style={styles.cardContent}>
-//             <Text style={styles.labelText}>Mobilenumber :</Text>
-//             <TextInput
-//               style={styles.input}
-//               value={mobilenumber}
-//               onChangeText={setMobileNumber}
-//               placeholder="Enter Mobile"
-//             />
-//           </View>
-//           <View style={styles.cardContent}>
-//             <Text style={styles.labelText}>emailid :</Text>
-//             <TextInput
-//               style={styles.input}
-//               value={emailid}
-//               onChangeText={setEmailId}
-//               placeholder="Enter mailId"
-//             />
-//           </View>
-//         </View>
-//         <View style={styles.imageCard}>
-//             {data.adminallimages && data.adminallimages.length > 0 && (
-//               <Image
-//                 style={styles.customerImage}
-//                 source={{ uri: data.adminallimages[0] }}
-//               />
-//             )}
-//           </View>
-
-//           {/* Center the datacard container */}
-//           <View style={styles.centeredContainer}>
-//             <View style={styles.datacard}>
-//               <Text style={styles.datacardtext}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
-
-//               <View style={styles.priceContainer}>
-//                 <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>Ex.showroom price (including GST)</Text>
-//                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {data.exShowroomPrice}</Text>
-//               </View>
-
-//               <View style={styles.priceContainer}>
-//                 <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>RTO Charges</Text>
-//                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  500</Text>
-//               </View>
-//               <View > 
-//                 <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Insurence</Text>
-//              <View style={{display:'flex',flexDirection:'row'}}>
-//             {/* Basic */}
-//              <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Basic</Text>
-//              <CheckBox
-//           value={isSelected}
-//           onValueChange={setSelection}
-//           style={styles.checkbox}
-//         />
-//             </View> 
-//             {/* Nilldip */}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>Nildip</Text>
-//              <CheckBox
-//           value={isNilldip}
-//           onValueChange={setnilldip}
-//           style={styles.checkbox}
-//         />
-//             </View>
-
-//             {/* EP */}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>EP</Text>
-//              <CheckBox
-//           value={EP}
-//           onValueChange={setEP}
-//           style={styles.checkbox}
-//         />
-//             </View>
-//             {/* RTI */}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>RTI</Text>
-//              <CheckBox
-//           value={RTI}
-//           onValueChange={setRTI}
-//           style={styles.checkbox}
-//         />
-//             </View>
-
-//             </View>
-//             <View style={styles.priceContainer}>
-//                 <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30,marginTop:20,marginBottom:10 }}>Registartion(Fixed)</Text>
-//                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  1000</Text>
-//               </View>
-//               <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Hypothiccation</Text>
-//               <View style={{display:'flex',flexDirection:'row'}}>
-//             {/* YES */}
-//              <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:30,marginLeft:30}}>YES</Text>
-//              <CheckBox
-//           value={YES}
-//           onValueChange={setYes}
-//           style={styles.checkbox}
-//         />
-//             </View> 
-
-
-//             {/* NO */}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>NO</Text>
-//              <CheckBox
-//           value={NO}
-//           onValueChange={setNo}
-//           style={styles.checkbox}
-//         />
-//             </View>
-
-//             </View>
-//             <View style={styles.priceContainer}>
-//                 <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1,marginLeft:30 }}>OnRoad Price</Text>
-//                 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  3,50,000</Text>
-//               </View>
-
-
-//               <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: '#F9F9F9', fontSize: 22 ,marginBottom:10,fontWeight:600}}>Optional Add Ons/Products</Text>
-//               <Text style={{ marginLeft:30,display:'flex',justifyContent:'flex-start', color: 'rgba(249, 249, 249, 0.7)', fontSize: 22 ,marginBottom:10}}>Extended Warrenty</Text>
-//              <View style={{display:'flex',flexDirection:'row'}}>
-//             {/* 4 */}
-//              <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>4Years</Text>
-//              <CheckBox
-//           value={four}
-//           onValueChange={setfour}
-//           style={styles.checkbox}
-//         />
-//             </View> 
-//             {/* 5 */}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>5Years</Text>
-//              <CheckBox
-//           value={five}
-//           onValueChange={setfive}
-//           style={styles.checkbox}
-//         />
-//             </View>
-
-//             {/* 5+RSA*/}
-//             <View style={{display:'flex',flexDirection:'row'}}>
-//              <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>5Years+RSA</Text>
-//              <CheckBox
-//           value={fiveRsa}
-//           onValueChange={setfiveRsa}
-//           style={styles.checkbox}
-//         />
-//             </View>
-
-//          {/* style,comfort,safty tabs */}
-
-
-
-//             </View>
-
-
-//             <View style={styles.accessoriesText}>
-//   <View style={{ display:'flex',flexDirection:'row',justifyContent:'center' }}>
-//     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Style')}>
-//       Style
-//     </Text>
-//     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Comfort' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Comfort')}>
-//       Comfort
-//     </Text>
-//     <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Protection' ? 'white' : 'rgba(249, 249, 249, 0.5)' }} onPress={() => setSelectedTab('Protection')}>
-//       Protection
-//     </Text>
-//     {/* Show dropdowns based on the selected tab */}
-
-
-
-
-
-
-
-
-//   </View>
-
-//   <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-//               {/* Show dropdowns based on the selected tab */}
-//               {selectedTab === 'Style' && (
-//                 // Add your dropdown components for Style here
-
-//                 <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5,width:500 }}>
-//                   {/* Mirrors */}
-//                 <Dropdown
-//                   style={styles.dropdown}
-//                   placeholderStyle={styles.placeholderStyle}
-//                   selectedTextStyle={styles.selectedTextStyle}
-//                   inputSearchStyle={styles.inputSearchStyle}
-//                   data={dataa}
-//                   search
-//                   maxHeight={400}
-//                   labelField="label"
-//                   valueField="value"
-//                   placeholder="Select Mirrors"
-//                   searchPlaceholder="Search..."
-//                   value={value}
-//                   onChange={(item) => {
-//                     setValue(item.value);
-//                   }}
-//                 />
-
-//                  {/* Oil Filler Cap */}
-//       <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Oil Filler Cap"
-//       searchPlaceholder="Search..."
-//       value={oilFillerCap}
-//       onChange={(item) => {
-//         setOilFillerCap(item.value);
-//       }}
-//     />  
-
-//     {/* Headlight */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Headlight"
-//       searchPlaceholder="Search..."
-//       value={headlight}
-//       onChange={(item) => {
-//         setHeadlight(item.value);
-//       }}
-//     />
-//               </View>
-
-//               )}
-
-// {selectedTab === 'Comfort' && (
-//     <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5,width:500 }}>
-//       {/* Windshields */}
-//       <Dropdown
-//         style={styles.dropdown}
-//         placeholderStyle={styles.placeholderStyle}
-//         selectedTextStyle={styles.selectedTextStyle}
-//         inputSearchStyle={styles.inputSearchStyle}
-//         data={dataa}
-//         search
-//         maxHeight={400}
-//         labelField="label"
-//         valueField="value"
-//         placeholder="Select Windshields"
-//         searchPlaceholder="Search..."
-//         value={windshields} // Create a state variable for windshields
-//         onChange={(item) => {
-//           setWindshields(item.value); // Create a state variable and set its value
-//         }}
-//       />
-
-//       {/* Panniers */}
-//       <Dropdown
-//         style={styles.dropdown}
-//         placeholderStyle={styles.placeholderStyle}
-//         selectedTextStyle={styles.selectedTextStyle}
-//         inputSearchStyle={styles.inputSearchStyle}
-//         data={dataa}
-//         search
-//         maxHeight={400}
-//         labelField="label"
-//         valueField="value"
-//         placeholder="Select Panniers"
-//         searchPlaceholder="Search..."
-//         value={panniers} // Create a state variable for panniers
-//         onChange={(item) => {
-//           setPanniers(item.value); // Create a state variable and set its value
-//         }}
-//       />
-//            {/* Seats */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Seats"
-//       searchPlaceholder="Search..."
-//       value={seats}
-//       onChange={(item) => {
-//         setSeats(item.value);
-//       }}
-//     />
-
-//     {/* Backrest */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Backrest"
-//       searchPlaceholder="Search..."
-//       value={backrest}
-//       onChange={(item) => {
-//         setBackrest(item.value);
-//       }}
-//     />
-
-//     {/* Footpegs */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Footpegs"
-//       searchPlaceholder="Search..."
-//       value={footpegs}
-//       onChange={(item) => {
-//         setFootpegs(item.value);
-//       }}
-//     />
-
-
-//     </View>
-//   )}
-// {selectedTab === 'Protection' && (
-//   <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5, width: 500 }}>
-//     {/* Engine Guards */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Engine Guards"
-//       searchPlaceholder="Search..."
-//       value={engineGuards}
-//       onChange={(item) => {
-//         setEngineGuards(item.value);
-//       }}
-//     />
-
-//     {/* Sump Guards */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Sump Guards"
-//       searchPlaceholder="Search..."
-//       value={sumpGuards}
-//       onChange={(item) => {
-//         setSumpGuards(item.value);
-//       }}
-//     />
-
-//     {/* Safety Accessories */}
-//     <Dropdown
-//       style={styles.dropdown}
-//       placeholderStyle={styles.placeholderStyle}
-//       selectedTextStyle={styles.selectedTextStyle}
-//       inputSearchStyle={styles.inputSearchStyle}
-//       data={dataa}
-//       search
-//       maxHeight={400}
-//       labelField="label"
-//       valueField="value"
-//       placeholder="Select Safety Accessories"
-//       searchPlaceholder="Search..."
-//       value={safetyAccessories}
-//       onChange={(item) => {
-//         setSafetyAccessories(item.value);
-//       }}
-//     />
-//   </View>
-// )}
-
-
-
-//             </View>
-
-
-
-
-
-
-
-// </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//              </View>
-
-
-
-
-
-
-
-//               {/* Add a separate view for the extended line */}
-//               {/* <View style={styles.extendedLine} /> */}
-//             </View>
-//           </View>
-//           <View style={styles.centeredContainer}>
-
-//               {/* <TouchableOpacity
-//                 style={styles.shareButton}
-//                 onPress={() => {
-//                   // Handle the share functionality here
-//                   navigation.navigate('SharePdf');
-//                 }}
-//               >
-//                 <Text style={styles.shareButtonText}>Share Screen</Text>
-//               </TouchableOpacity> */}
-//        <TouchableOpacity
-//           style={styles.shareButton}
-//           onPress={handleShare} // Call handleShare when the button is pressed
-//         >
-//           <Text style={styles.shareButtonText}>Share Screen</Text>
-//         </TouchableOpacity>
-
-//             </View>
-//       </View>
-//     ))}
-//   </ScrollView>
-//   </ImageBackground>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//     dropdown: {
-//         height: 50,
-//         width: '110%',
-//         justifyContent: 'center', // Center the text vertically
-//         paddingLeft: 10, // Add some padding to align text properly
-//         backgroundColor:'white',
-//         borderRadius:10,
-//         marginBottom:25
-//       },
-//     tab: {
-//         color: 'black',
-//         fontSize: 18,
-//         fontWeight: 'bold',
-//         padding: 10,
-//         margin: 5,
-//         borderRadius: 10,
-//         textAlign: 'center', // Center the text horizontally
-//         alignItems: 'center', // Center the text vertically
-//         width: 150,
-//         height:50,
-//         marginLeft:50,
-//       },
-//     accessoriesText: {
-//         color: 'white',
-//         fontSize: 22,
-//         fontWeight: '500',
-//         marginTop: 100,
-//         marginBottom: 30,
-//         // backgroundColor:'rgba(151, 151, 151, 0.3)',
-//         borderRadius:50,
-//         height:800,
-
-//       },
-//   centeredContainer: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     borderRadius:20,
-//     width:'auto'
-
-//   },
-//   extendedLine: {
-//     borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
-//     borderBottomColor: 'white',
-//     marginBottom: 20, // Add spacing between the line and the next content
-//   },
-
-//   priceContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     borderBottomWidth: 1,
-//     borderBottomColor: 'white',
-//     marginBottom: 20, // Add spacing between the line and the next content
-//     // columnGap: 100
-//   },
-
-//   container: {
-//     cardContent: {
-//       flexDirection: 'row',
-//       justifyContent: 'space-between',
-//       alignItems: 'center',
-//       paddingHorizontal: 20, // Add horizontal padding as needed
-//       marginBottom: 10, // Add margin at the bottom as needed
-//     },
-
-//     flexGrow: 1, // To make sure content can be scrolled if needed
-//     paddingVertical: 20, // Add some padding at the top and bottom
-//     paddingHorizontal: 10, // Add horizontal padding
-//   },
-//   content: {
-//     marginVertical: 10,
-//   },
-//   hr: {
-//     borderWidth: 1,
-//     borderColor: 'white',
-//     width: '100%',
-//   },
-//   title: {
-//     color: 'white',
-//     fontWeight: 'bold',
-//     fontSize: 25,
-//     textAlign: 'center',
-//   },
-//   logo: {
-//     height: 80,
-//     width: 180,
-//     borderRadius: 10,
-//     height: 60,
-//     marginTop: 10,
-//   },
-//   card: {
-//     borderWidth: 1,
-//     borderColor: 'white',
-//     width: '100%', // Adjust the width as needed
-//     backgroundColor: 'black',
-//     marginTop: 10, // Add margin between sections
-//     padding: 10, // Add padding inside the card
-//   },
-//   cardContent: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginVertical: 5, // Add vertical margin between items
-//   },
-//   labelText: {
-//     color: 'white',
-//     fontSize: 18,
-//     fontWeight: '700',
-//     flex: 1, // To allow text to expand and push TextInput to the right
-//   },
-//   input: {
-//     flex: 2, // To allow TextInput to expand
-//     color: 'black',
-//     backgroundColor: 'rgba(217, 217, 217, 1)',
-//     paddingLeft: 10, // Add left padding for better appearance
-//   },
-//   imageCard: {
-//     alignItems: 'center',
-//     marginBottom: 10,
-//     marginTop: 50,
-//     height: 600
-//   },
-//   customerImage: {
-//     width: 800,
-//     height: 500,
-//     resizeMode: 'cover',
-//     borderRadius: 10,
-//   },
-//   datacard: {
-//     width: 800,
-//     height: 2000,
-//     backgroundColor: 'rgba(151, 151, 151, 0.3)',
-//     // alignItems: 'center',
-//     borderRadius: 10,
-//   },
-//   datacardtext: {
-//     color: 'white',
-//     fontSize: 30,
-//     textDecorationLine: 'underline',
-//     marginBottom: 20,
-//     textAlign:'center',
-
-//   },shareButton: {
-//     backgroundColor: 'gray',
-//     padding: 10,
-//     borderRadius: 10,
-//     alignItems: 'center',
-//     marginTop: 20,
-//     width:200
-//   },
-//   shareButtonText: {
-//     color: 'white',
-//     fontSize: 18,
-//   },
-// });
-
-// export default Share;
 
 // WORKING CODE//
 import React, { useState, useEffect } from 'react';
@@ -803,16 +8,19 @@ import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
-import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../ThemeContext'
+import { Picker } from '@react-native-picker/picker';
 
 
 const Share = ({route}) => {
   const { vehicleId } = route.params;
   console.log(vehicleId)
-  const { isDarkTheme } = useTheme();
+  // const { isDarkTheme } = useTheme();
   const navigation = useNavigation();
+    const [selectedStyle, setSelectedStyle] = useState(null);
+
+  const [value, setValue] = useState(null);
+  // const [dataArray, setDataArray] = useState([]);
   const [customername, setCustomerName] = useState('');
   const [address, setAddress] = useState('');
   const [mobilenumber, setMobileNumber] = useState('');
@@ -828,141 +36,170 @@ const Share = ({route}) => {
   const[RTI,setRTI]=useState(false);
   const [YES,setYes]=useState(false);
   const[NO,setNo]=useState(false);
-  const[four,setFour]=useState(false);
-  const[five,setFive]=useState(false);
-  const[fiveRsa,setFiveRsa]=useState(false);
-  
-  
-    
-  
-  const [selectedValue, setSelectedValue] = useState('default');
+  const [four, setFour] = useState(false);
+  const [five, setFive] = useState(false);
+  const [fiveRsa, setFiveRsa] = useState(false);
+  // const [selectedTab, setSelectedTab] = useState('Style');
+  const [selectedValue, setSelectedValue] = useState('default'); // Initialize
 
- 
-// dropdown
+const [oilFillerCap, setOilFillerCap] = useState(null);
+const [headlight, setHeadlight] = useState(null);
+const [windshields, setWindshields] = useState(null);
+const [panniers, setPanniers] = useState(null);
+const [seats, setSeats] = useState(null);
+const [backrest, setBackrest] = useState(null);
+const [footpegs, setFootpegs] = useState(null);
+const [engineGuards, setEngineGuards] = useState(null);
+const [sumpGuards, setSumpGuards] = useState(null);
+const [safetyAccessories, setSafetyAccessories] = useState(null);
+//image usesatate
+const [reimage, setreimage] = useState('https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg')
+console.log('r', reimage)
+// dropdowns
 const [selectedMirrorstext, setSelectedMirrorstext] = useState(''); // Initialize with a default value
-const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState('');
-const [selectedOilFillerCapText, setSelectedOilFillerCapText] = useState(''); // Initialize with a default value for oilfillercap
-const [selectedOilFillerCapValue, setSelectedOilFillerCapValue] = useState('');
-const [selectedHeadLightText, setSelectedHeadLightText] = useState('');
-const [selectedHeadLightValue, setSelectedHeadLightValue] = useState('');
+  const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState(0);
+  const [selectedOilFillerCapText, setSelectedOilFillerCapText] = useState(''); // Initialize with a default value for oilfillercap
+  const [selectedOilFillerCapValue, setSelectedOilFillerCapValue] = useState(0);
+  const [selectedHeadLightText, setSelectedHeadLightText] = useState('');
+const [selectedHeadLightValue, setSelectedHeadLightValue] = useState(0);
 const [selectedWindshieldsText, setSelectedWindshieldsText] = useState('');
-const [selectedWindshieldsValue, setSelectedWindshieldsValue] = useState('');
+const [selectedWindshieldsValue, setSelectedWindshieldsValue] = useState(0);
 const [selectedPanniersText, setSelectedPanniersText] = useState('');
-const [selectedPanniersValue, setSelectedPanniersValue] = useState('');
+const [selectedPanniersValue, setSelectedPanniersValue] = useState(0);
 const [selectedSeatsText, setSelectedSeatsText] = useState('');
-const [selectedSeatsValue, setSelectedSeatsValue] = useState('');
+const [selectedSeatsValue, setSelectedSeatsValue] = useState(0);
 
 const [selectedBackrestText, setSelectedBackrestText] = useState('');
-const [selectedBackrestValue, setSelectedBackrestValue] = useState('');
+const [selectedBackrestValue, setSelectedBackrestValue] = useState(0);
 
 const [selectedFootPegsText, setSelectedFootPegsText] = useState('');
-const [selectedFootPegsValue, setSelectedFootPegsValue] = useState('');
+const [selectedFootPegsValue, setSelectedFootPegsValue] = useState(0);
 
 const [selectedEngineGuardsText, setSelectedEngineGuardsText] = useState('');
-const [selectedEngineGuardsValue, setSelectedEngineGuardsValue] = useState('');
+const [selectedEngineGuardsValue, setSelectedEngineGuardsValue] = useState(0);
 
 const [selectedSumpGuardsText, setSelectedSumpGuardsText] = useState('');
-const [selectedSumpGuardsValue, setSelectedSumpGuardsValue] = useState('');
+const [selectedSumpGuardsValue, setSelectedSumpGuardsValue] = useState(0);
 
 
 const [selectedSafetyAccessoriesText, setSelectedSafetyAccessoriesText] = useState('');
-const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useState('');
-
-console.log(selectedSafetyAccessoriesText)
-console.log(selectedSafetyAccessoriesValue)
-
-
-const [selectedOption, setSelectedOption] = useState('');
-
+const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useState(0);
+// Add state variables for other dropdowns here
+console.log("S",selectedSafetyAccessoriesText)
+const [selectedOption, setSelectedOption] = useState(0);
+const [exwarrantytext, setextext] = useState('');
 //checkboxes
 // hype
 const [hype,sethype]=useState(0);
+const[hypetext,sethypetext]=useState('')
 // insu
 const [ins,setins]=useState(0);
+const [instext,settext]=useState('')
 
 
 // for count
 const [onroad,setexprice]=useState('')
+const zero =parseFloat(0)
+const totalonroad=onroad+parseFloat(ins)+zero+parseFloat(hype)+zero
 
-const totalonroad=onroad+parseFloat(ins)+parseFloat(hype)
-const grandtotal=totalonroad+parseFloat(selectedMirrorsvalue)+parseFloat(selectedOption)+
-parseFloat(selectedOilFillerCapValue)+parseFloat(selectedHeadLightValue)+parseFloat(selectedWindshieldsValue)+
+const grandtotal=totalonroad+parseFloat(selectedMirrorsvalue)+parseFloat(selectedOilFillerCapValue)+parseFloat(selectedHeadLightValue)+parseFloat(selectedOption)
++parseFloat(selectedWindshieldsValue)+
 parseFloat(selectedPanniersValue)+parseFloat(selectedSeatsValue)+parseFloat(selectedBackrestValue)+
 parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFloat(selectedSumpGuardsValue)+parseFloat(selectedSafetyAccessoriesValue)
+
+
+
+
+
 
 console.log("x",totalonroad)
 console.log("y",grandtotal)
 
 console.log(selectedOption)
 console.log(dataArray)
-console.log(selectedMirrorsvalue,selectedMirrorstext)
+console.log("mirrorvlue",parseFloat(selectedMirrorsvalue))
  
 console.log(selectedMirrorsvalue)
-const handleFourChange = (out) => {
-  setFour(true);
-  setFive(false);
-  setFiveRsa(false);
-  setSelectedOption(out)
-};
+  useEffect(() => {
+ 
+  
+    fetchBikeDetails(vehicleId);
+   
+  }, []);
 
-const handleFiveChange = (out) => {
+ 
+
+
+  const handleFourChange = (out,text) => {
+    setFour(true);
+    setFive(false);
+    setFiveRsa(false);
+    setSelectedOption(out);
+    setextext(text)
+  };
+
+const handleFiveChange = (out,text) => {
   setFour(false);
   setFive(true);
   setFiveRsa(false);
-  setSelectedOption(out)
+  setSelectedOption(out);
+  setextext(text)
 };
 
-const handleFiveRsaChange = (out) => {
+const handleFiveRsaChange = (out,text) => {
   setFour(false);
   setFive(false);
   setFiveRsa(true);
-setSelectedOption(out)
+setSelectedOption(out);
+setextext(text)
 };
-const handleYes=(out)=>{
+const handleYes=(out,text)=>{
 setYes(true)
 setNo(false)
 sethype(out)
+sethypetext(text)
 }
 
-const handleNo=(out)=>{
+const handleNo=(out,text)=>{
 setYes(false)
 setNo(true);
-sethype(out)
+sethype(out);
+sethypetext(text)
 }
 
-const handlebasic=(out)=>{
+const handlebasic=(out,text)=>{
 setSelection(true);
 setnilldip(false);
 setEP(false);
 setRTI(false);
 setins(out)
-
+settext(text)
 }
 
-const handleNill=(out)=>{
+const handleNill=(out,text)=>{
 setSelection(false);
 setnilldip(true);
 setEP(false);
 setRTI(false);
 setins(out)
-
+settext(text)
 }
-const handleEP=(out)=>{
+const handleEP=(out,text)=>{
 setSelection(false);
 setnilldip(false);
 setEP(true);
 setRTI(false);
 setins(out)
-
+settext(text)
 }
 
-const handleRTI=(out)=>{
+const handleRTI=(out,text)=>{
 setSelection(false);
 setnilldip(false);
 setEP(false);
 setRTI(true);
 setins(out)
-
+settext(text)
 }
 
 // data
@@ -1066,14 +303,15 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
-        isNilldip,
-        EP,
-        RTI,
-        YES,
-        NO,
-        four,
-        five,
-        fiveRsa,
+        ins,
+        instext,
+        hype,
+        hypetext,
+        exwarrantytext,
+        reimage,
+        totalonroad,
+        grandtotal,
+        selectedOption,
         selectedMirrorstext,
         selectedMirrorsvalue,
         selectedOilFillerCapText,
@@ -1096,6 +334,7 @@ console.log("adress",companyaddress)
         selectedSumpGuardsValue,
         selectedSafetyAccessoriesText,
         selectedSafetyAccessoriesValue,
+
  
       });
     } catch (error) {
@@ -1196,207 +435,186 @@ console.log("adress",companyaddress)
   }, []);
    
   const styles = StyleSheet.create({
-    backgroundImage: {
-     flex: 1,
-     resizeMode: 'cover',
-   },
-   dropdown: {
-     height: 50,
-     width: '80%',
-     justifyContent: 'center', // Center the text vertically
-     paddingLeft: 10, // Add some padding to align text properly
-     backgroundColor: 'white',
-     borderRadius: 10,
-     marginBottom: 25,
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   tab: {
-     color: 'black',
-     fontSize: 18,
-     fontWeight: 'bold',
-     padding: 10,
-     margin: 5,
-     borderRadius: 10,
-     textAlign: 'center', // Center the text horizontally
-     alignItems: 'center', // Center the text vertically
-     width: 150,
-     height: 50,
-     marginLeft: 50,
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   accessoriesText: {
-     color: 'white',
-     fontSize: 22,
-     fontWeight: '500',
-     marginTop: 100,
-     marginBottom: 30,
-     // backgroundColor:'rgba(151, 151, 151, 0.3)',
-     borderRadius: 50,
-     height: 800,
-     
- 
-   },
-   centeredContainer: {
-     flex: 1,
-     resizeMode: 'cover',
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   dropdown: {
-     height: 40,
-     width:'100%',
-     justifyContent: 'center', // Center the text vertically
-     paddingVertical: 5, // Add some padding to align text properly
-     backgroundColor:'#F9F9F9',
-     borderRadius:5,
-     marginHorizontal:5,
-     marginVertical:5,
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   header:{
-     gap: 130,
-     height: 40,
-     alignItems: 'center',
-     borderRadius: 20,
-     width: 'auto',
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
- 
-   },
-   extendedLine: {
-     borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
-     borderBottomColor: '#F9F9F9',
-     marginBottom: 20, // Add spacing between the line and the next content
-   },
- 
-   priceContainer: {
-     flexDirection: 'row',
-     justifyContent: 'space-between',
-     borderBottomWidth: 1,
-     borderBottomColor: '#F9F9F9',
-     marginBottom: 20, // Add spacing between the line and the next content
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-     // columnGap: 100
-   },
-   container: {
-     paddingHorizontal: 8,
-     paddingTop: 10,
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   line: {
-     height: 1,
-     backgroundColor: '#F9F9F9',
-     width: '100%',
-   },
-   title: {
-     color: '#f9f9f9',
-     fontWeight: 'bold',
-     fontSize: 18,
-     textAlign: 'left',
-   },
-   logo: {
-     width: 180,
-     borderRadius: 10,
-     height: 60,
-     marginTop: 10,
-   },
-   card: {
-     flexDirection:'column',
-     borderWidth: 1,
-     borderColor: '#f9f9f9',
-     borderRadius: 10,
-     height: 200,
-     width: '100%', // Adjust the width as needed
-     backgroundColor: 'black',
-     marginTop: 10, // Add margin between sections
-     paddingHorizontal: 5, // Add padding inside the card
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   cardContent: {
-     height: 40,
-     flexDirection: 'row',
-     alignItems: 'center',
-     marginVertical: 5, // Add vertical margin between items
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   labelText: {
-     color: '#f9f9f9',
-     width: 100,
-     fontSize: 12,
-     fontWeight: '400',
-     letterSpacing: 0.4,
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   input: {
-     flex: 1, // To allow TextInput to expand
-     color: '#868687',
-     backgroundColor: '#cbcbca',
-     borderRadius:5,
-     paddingLeft: 10, // Add left padding for better appearance
-    //  backgroundColor: isDarkTheme ? '#333' : '#3498db',
-   },
-   imageCard: {
-     alignItems: 'center',
-     marginBottom: 5,
-     marginTop: 10,
-     height: 200,
-   },
-   customerImage: {
-     width: '100%',
-     height: 180,
-     resizeMode: 'cover',
-     borderRadius: 10,
-   },
-   datacard: {
-     width: 800,
-     height: 2000,
-     backgroundColor: 'rgba(151, 151, 151, 0.3)',
-     // alignItems: 'center',
-     borderRadius: 10,
-   },
-   datacardtext: {
-     color: '#f9f9f9',
-     fontSize: 18,
-     textDecorationLine: 'underline',
-     marginBottom: 20,
-     textAlign: 'center',
- 
-   }, shareButton: {
-     backgroundColor: 'gray',
-     padding: 10,
-     borderRadius: 10,
-     alignItems: 'center',
-     marginTop: 20,
-     width: 200
-   },
-   shareButtonText: {
-     color: '#f9f9f9',
-     fontSize: 18,
-     fontWeight: '500',
-     textAlign:'center',
-   },
- });
+    dropdown: {
+        height: 50,
+        width: '80%',
+        justifyContent: 'center', // Center the text vertically
+        paddingLeft: 10, // Add some padding to align text properly
+        backgroundColor:'white',
+        borderRadius:10,
+        marginBottom:25
+      },
+    tab: {
+        color: 'black',
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 10,
+        margin: 5,
+        borderRadius: 10,
+        textAlign: 'center', // Center the text horizontally
+        alignItems: 'center', // Center the text vertically
+        width: 150,
+        height:50,
+        marginLeft:50,
+      },
+    accessoriesText: {
+        color: 'white',
+        fontSize: 22,
+        fontWeight: '500',
+        marginTop: 100,
+        marginBottom: 30,
+        // backgroundColor:'rgba(151, 151, 151, 0.3)',
+        borderRadius:50,
+        height:800,
+       
+      },
+  centeredContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:20,
+    width:'auto'
+    
+  },
+  extendedLine: {
+    borderBottomWidth: 100, // Set the desired length (e.g., 50 pixels)
+    borderBottomColor: 'white',
+    marginBottom: 20, // Add spacing between the line and the next content
+  },
+  
+  priceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    marginBottom: 20, // Add spacing between the line and the next content
+    // columnGap: 100
+  },
+  priceContainer1: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    marginTop:70,
+    marginBottom: 20, // Add spacing between the line and the next content
+    // columnGap: 100
+  },
+  container: {
+    cardContent: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 20, // Add horizontal padding as needed
+      marginBottom: 10, // Add margin at the bottom as needed
+    },
+  
+    flexGrow: 1, // To make sure content can be scrolled if needed
+    paddingVertical: 20, // Add some padding at the top and bottom
+    paddingHorizontal: 10, // Add horizontal padding
+  },
+  content: {
+    marginVertical: 10,
+  },
+  hr: {
+    borderWidth: 1,
+    borderColor: 'white',
+    width: '100%',
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 25,
+    textAlign: 'center',
+  },
+  logo: {
+    height: 80,
+    width: 180,
+    borderRadius: 10,
+    height: 60,
+    marginTop: 10,
+  },
+  card: {
+    borderWidth: 1,
+    borderColor: 'white',
+    width: '100%', // Adjust the width as needed
+    backgroundColor: 'black',
+    marginTop: 10, // Add margin between sections
+    padding: 10, // Add padding inside the card
+  },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5, // Add vertical margin between items
+  },
+  labelText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    flex: 1, // To allow text to expand and push TextInput to the right
+  },
+  input: {
+    flex: 2, // To allow TextInput to expand
+    color: 'black',
+    backgroundColor: 'rgba(217, 217, 217, 1)',
+    paddingLeft: 10, // Add left padding for better appearance
+  },
+  imageCard: {
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 50,
+    height: 600
+  },
+  customerImage: {
+    width: 800,
+    height: 500,
+    resizeMode: 'cover',
+    borderRadius: 10,
+  },
+  datacard: {
+    width: 800,
+    height: 1400,
+    backgroundColor: 'rgba(151, 151, 151, 0.3)',
+    // alignItems: 'center',
+    borderRadius: 10,
+  },
+  datacardtext: {
+    color: 'white',
+    fontSize: 30,
+    textDecorationLine: 'underline',
+    marginBottom: 20,
+    textAlign:'center',
+  
+  },shareButton: {
+    backgroundColor: 'gray',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+    width:200
+  },
+  shareButtonText: {
+    color: 'white',
+    fontSize: 18,
+  },
+  });
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
       <ScrollView contentContainerStyle={styles.container}>
         {dataArray.map((data, index) => (
         <View key={index} style={styles.content}>
-          {/* <TouchableOpacity
-              onPress={() => {
-                // Navigate back to the 'Home' screen
-                navigation.navigate('Home');
-              }}
-            >
-              <Text style={{ color: '#F9F9F9', fontSize: 20 }}>Back</Text>
-            </TouchableOpacity> */}
+          
           <View style={styles.header}>
-            <View style={{ alignContent: 'center'}}>
-              <TouchableOpacity onPress={() => {
-              // Navigate back to the 'Home' screen
-              navigation.navigate('Home');
-              }} style={styles.backButton}>
-                <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
-              </TouchableOpacity>
-            </View>
+          <View >
+  <TouchableOpacity onPress={() => {
+    // Navigate back to the 'Home' screen
+    navigation.navigate('Home');
+  }} style={styles.backButton}>
+    <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
+  </TouchableOpacity>
+</View>
+
+
               <View style={{ alignContent: 'center'}}>
                 <Text style={styles.headertitle}>Quotation</Text>
               </View>
@@ -1464,7 +682,7 @@ console.log("adress",companyaddress)
 
                 <View style={styles.priceContainer}>
                   <Text style={{ color: 'rgba(249, 249, 249, 0.7)', fontSize: 22, flex: 1, marginLeft: 30 }}>RTO Charges</Text>
-                  <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right', marginRight: 30 }}>₹  500</Text>
+                  <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right', marginRight: 30 }}>₹ {data.roadtax}</Text>
                 </View>
                 <View > 
 
@@ -1643,14 +861,19 @@ Protection
 <Picker
 selectedValue={selectedMirrorstext}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedMirrorsvalue(0);
+} else {
 const selectedMirror = data.mirrors.find(
 (mirror) => mirror.mirrorstext === itemValue
 );
-setSelectedMirrorstext(selectedMirror ? selectedMirror.mirrorstext : '');
-setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : '');
+setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
+}
+setSelectedMirrorstext(itemValue);
 }}
 >
-<Picker.Item label="select Mirrors" value="" />
+<Picker.Item label="Select Mirrors" value="" />
 {data.mirrors.map((mirror) => (
 <Picker.Item
 key={mirror._id}
@@ -1660,19 +883,25 @@ value={mirror.mirrorstext}
 ))}
 </Picker>
 </View>
+
 {/* Show oil filler dropdown */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedOilFillerCapText}
 onValueChange={(itemValue) => {
-const selectedoil = data.oilfillercap.find(
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedOilFillerCapValue(0);
+} else {
+const selectedOilFillerCap = data.oilfillercap.find(
 (oil) => oil.oilfillercaptext === itemValue
 );
-setSelectedOilFillerCapText(selectedoil ? selectedoil.oilfillercaptext : '');
-setSelectedOilFillerCapValue(selectedoil ? selectedoil.oilfillercapvalue : '');
+setSelectedOilFillerCapValue(selectedOilFillerCap ? selectedOilFillerCap.oilfillercapvalue : 0);
+}
+setSelectedOilFillerCapText(itemValue);
 }}
 >
-<Picker.Item label="select Oilfiller cap" value="" />
+<Picker.Item label="Select Oilfiller Cap" value="" />
 {data.oilfillercap.map((oil) => (
 <Picker.Item
 key={oil._id}
@@ -1682,19 +911,25 @@ value={oil.oilfillercaptext}
 ))}
 </Picker>
 </View>
+
 {/* Show headlight dropdown */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedHeadLightText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedHeadLightValue(0);
+} else {
 const selectedHeadLight = data.headlight.find(
 (headlight) => headlight.headlighttext === itemValue
 );
-setSelectedHeadLightText(selectedHeadLight ? selectedHeadLight.headlighttext : '');
-setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : '');
+setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue : 0);
+}
+setSelectedHeadLightText(itemValue);
 }}
 >
-<Picker.Item label="select Headlight" value="" />
+<Picker.Item label="Select Headlight" value="" />
 {data.headlight.map((headlight) => (
 <Picker.Item
 key={headlight._id}
@@ -1704,6 +939,7 @@ value={headlight.headlighttext}
 ))}
 </Picker>
 </View>
+
 </>
 )}
 
@@ -1715,11 +951,16 @@ value={headlight.headlighttext}
 <Picker
 selectedValue={selectedWindshieldsText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedWindshieldsValue(0);
+} else {
 const selectedWindshield = data.windshields.find(
 (windshield) => windshield.windshieldstext === itemValue
 );
-setSelectedWindshieldsText(selectedWindshield ? selectedWindshield.windshieldstext : '');
-setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : '');
+setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsvalue : 0);
+}
+setSelectedWindshieldsText(itemValue);
 }}
 >
 <Picker.Item label="Select Windshields" value="" />
@@ -1732,16 +973,22 @@ value={windshield.windshieldstext}
 ))}
 </Picker>
 </View>
+
 {/* Panniers */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedPanniersText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedPanniersValue(0);
+} else {
 const selectedPannier = data.panniers.find(
 (pannier) => pannier.pannierstext === itemValue
 );
-setSelectedPanniersText(selectedPannier ? selectedPannier.pannierstext : '');
-setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : '');
+setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : 0);
+}
+setSelectedPanniersText(itemValue);
 }}
 >
 <Picker.Item label="Select Panniers" value="" />
@@ -1755,16 +1002,22 @@ value={pannier.pannierstext}
 </Picker>
 </View>
 
+
 {/* Seats */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedSeatsText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedSeatsValue(0);
+} else {
 const selectedSeat = data.seats.find(
 (seat) => seat.seatstext === itemValue
 );
-setSelectedSeatsText(selectedSeat ? selectedSeat.seatstext : '');
-setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : '');
+setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : 0);
+}
+setSelectedSeatsText(itemValue);
 }}
 >
 <Picker.Item label="Select Seats" value="" />
@@ -1778,16 +1031,22 @@ value={seat.seatstext}
 </Picker>
 </View>
 
+
 {/* Backrest */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedBackrestText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedBackrestValue(0);
+} else {
 const selectedBackrest = data.backrests.find(
 (backrest) => backrest.backreststext === itemValue
 );
-setSelectedBackrestText(selectedBackrest ? selectedBackrest.backreststext : '');
-setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : '');
+setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : 0);
+}
+setSelectedBackrestText(itemValue);
 }}
 >
 <Picker.Item label="Select Backrest" value="" />
@@ -1800,16 +1059,22 @@ value={backrest.backreststext}
 ))}
 </Picker>
 </View>
+
 {/* Foot Pegs */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedFootPegsText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedFootPegsValue(0);
+} else {
 const selectedFootPeg = data.footpegs.find(
 (footpeg) => footpeg.footpegstext === itemValue
 );
-setSelectedFootPegsText(selectedFootPeg ? selectedFootPeg.footpegstext : '');
-setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : '');
+setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : 0);
+}
+setSelectedFootPegsText(itemValue);
 }}
 >
 <Picker.Item label="Select Foot Pegs" value="" />
@@ -1822,6 +1087,7 @@ value={footpeg.footpegstext}
 ))}
 </Picker>
 </View>
+
 </>
 )}
 
@@ -1834,11 +1100,16 @@ value={footpeg.footpegstext}
 <Picker
 selectedValue={selectedEngineGuardsText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedEngineGuardsValue(0);
+} else {
 const selectedEngineGuard = data.enginegaurds.find(
 (engineGuard) => engineGuard.enginegaurdstext === itemValue
 );
-setSelectedEngineGuardsText(selectedEngineGuard ? selectedEngineGuard.enginegaurdstext : '');
-setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : '');
+setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegaurdsvalue : 0);
+}
+setSelectedEngineGuardsText(itemValue);
 }}
 >
 <Picker.Item label="Select Engine Guards" value="" />
@@ -1852,16 +1123,22 @@ value={engineGuard.enginegaurdstext}
 </Picker>
 </View>
 
+
 {/* Sump Guards */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedSumpGuardsText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedSumpGuardsValue(0);
+} else {
 const selectedSumpGuard = data.sumpgaurds.find(
 (sumpGuard) => sumpGuard.sumpgaurdstext === itemValue
 );
-setSelectedSumpGuardsText(selectedSumpGuard ? selectedSumpGuard.sumpgaurdstext : '');
-setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue: '');
+setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue : 0);
+}
+setSelectedSumpGuardsText(itemValue);
 }}
 >
 <Picker.Item label="Select Sump Guards" value="" />
@@ -1875,19 +1152,24 @@ value={sumpGuard.sumpgaurdstext}
 </Picker>
 </View>
 
-{/* Other Dropdowns */}
-{/* Add more Picker components for other dropdowns here */}
+
+
 
 {/* Safety Accessories */}
 <View style={styles.dropdown}>
 <Picker
 selectedValue={selectedSafetyAccessoriesText}
 onValueChange={(itemValue) => {
+if (itemValue === "") {
+// If the selected value is an empty string, set the state to 0
+setSelectedSafetyAccessoriesValue(0);
+} else {
 const selectedSafetyAccessory = data.safetyaccessories.find(
 (safetyAccessory) => safetyAccessory.safetyaccessoriestext === itemValue
 );
-setSelectedSafetyAccessoriesText(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriestext : '');
-setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : '');
+setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccessory.safetyaccessoriesvalue : 0);
+}
+setSelectedSafetyAccessoriesText(itemValue);
 }}
 >
 <Picker.Item label="Select Safety Accessories" value="" />
@@ -1903,6 +1185,7 @@ value={safetyAccessory.safetyaccessoriestext}
 
 
 
+
 </>
 )}
 
@@ -1914,19 +1197,6 @@ value={safetyAccessory.safetyaccessoriestext}
 <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {grandtotal}</Text>
 </View>
 </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </View>
                

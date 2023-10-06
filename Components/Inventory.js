@@ -1024,94 +1024,30 @@ function Inventory() {
   // };
  
 
-  // const openImagePicker = (Id) => {
-  //   const options = {
-  //     title: 'Select Images',
-  //     mediaType: 'photo',
-  //     storageOptions: {
-  //       path: 'image',
-  //     },
-  //   };
-  
-  //   launchImageLibrary(options, (response) => {
-  //     console.log('Response = ', response);
-  
-  //     if (response.didCancel) {
-  //       console.log('User cancelled image picker');
-  //     } else if (response.error) {
-  //       console.log('ImagePicker Error: ', response.error);
-  //     } else {
-  //       // Handle the selected image here
-  //       const { uri, fileName } = response;
-  //       const file = {
-  //         uri,
-  //         name: fileName,
-  //         type: 'image/jpeg', // Adjust the type as needed
-  //       };
-  //       setSelectedFiles([...selectedFiles, file]);
-  //       uploadImage(Id);
-  //     }
-  //   });
-  // };
 
-  // const uploadImage = async (Id) => {
-  //   console.log(Id)
-  //   try {
-     
 
-  //     const formData = new FormData();
-
-  //     selectedFiles.forEach((file) => {
-  //       console.log("file",file)
-  //       body.append('photo', {uri: imagePath,name: 'photo.png',filename :'imageName.png',type: 'image/png'});
-  //     });
-  
-  //    console.log(formData)
-  //     const response = await fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/upload/upload/${Id}`, {
-  //       method: 'POST',
-  //       body: formData,
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       // Handle success
-  //       console.log('Image uploaded successfully');
-  //     } else {
-  //       // Handle error
-  //       console.log('Image upload failed');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //   }
-  // };
+ 
 
   const uploadImage = async (Id) => {
     try {
       const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images], // Specify the allowed file types (images)
+        type: [DocumentPicker.types.images],
       });
   
-      if (!result) {
-        // User canceled the picker
-        console.log('User canceled image picker');
-        return;
-      }
-  
-      if (!result.uri) {
-        console.error('Empty or invalid file URI');
+      if (!result || !result[0].uri) {
+        // User canceled the picker or the URI is empty
+        console.log('User canceled image picker or empty URI');
         return;
       }
   
       // Log the URI for debugging
-      console.log('Selected file URI:', result.uri);
+      console.log('Selected file URI:', result[0].uri);
   
       const formData = new FormData();
-      formData.append('photo', {
-        uri: result.uri,
-        type: result.type,
-        name: result.name,
+      formData.append('adminallimage', {
+        uri: result[0].uri,
+        type: result[0].type,
+        name: result[0].name,
       });
   
       const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/upload/upload/${Id}`;
@@ -1127,18 +1063,33 @@ function Inventory() {
       if (response.ok) {
         // Handle success
         console.log('Image uploaded successfully');
+        fetchBikeDetails(Id);
         // You may want to trigger a refresh or update here if needed
       } else {
         // Handle error
         console.error('Image upload failed');
       }
-    } catch (err) {
-      console.error('Error uploading image:', err);
+  
+      // Ensure that the selected file is an image
+      if (
+        result[0].name.endsWith('.jpg') ||
+        result[0].name.endsWith('.jpeg') ||
+        result[0].name.endsWith('.png')
+      ) {
+        const fileURI = result[0].uri;
+        // Now you have a valid image file URI (e.g., file:///path/to/selected/image.jpg)
+        // You can use this URI to upload or display the image.
+        console.log('File URI:', fileURI);
+      } else {
+        console.error('Invalid file type. Please select a valid image.');
+      }
+    } catch (error) {
+      console.error('Error picking or uploading an image:', error);
     }
   };
   
   
-  
+
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
