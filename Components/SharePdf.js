@@ -87,9 +87,9 @@ const SharePdf = ({route}) => {
   
     </head>
     <div class="bodypage" 
-    style="width: 595px;
-           height: 500px;
+    style=" page-break-inside:avoid;
            display: flex;
+           margin-bottom: 10px;
            flex-direction: column;
            justify-content: space-between;
            align-items: flex-start;">
@@ -97,8 +97,8 @@ const SharePdf = ({route}) => {
       style="display: flex;
              width: 100%;
              height: 174px;
-             padding-top: 6px;
-             padding-bottom: 10px;
+             padding-top: 4px;
+             padding-bottom: 4px;
              padding-left: 10px ;
              padding-right: 10px;
              flex-direction: column;
@@ -131,6 +131,7 @@ const SharePdf = ({route}) => {
             style="display: flex;
                    width: 170px;
                    height: 70px;
+                   margin-right: 10px;
                    flex-direction: row;
                    justify-content: space-between;
                    align-items: flex-end;
@@ -142,7 +143,7 @@ const SharePdf = ({route}) => {
    <div class="container2"
         style="display: flex;
                width: 100%;
-               padding: 0px 16px;
+               padding: 0px 12px;
                justify-content: space-between;
                align-items: center;">
      <div class="customerdetailscontainer"
@@ -203,6 +204,7 @@ const SharePdf = ({route}) => {
      <div class="companydetailscontainer"
           style="  display: flex;
                  flex-direction: column;
+                 margin-right: 10px;
                  align-items: flex-end;">
        <p 
           style=" color: var(--indigo-500, #4C63ED);
@@ -244,7 +246,7 @@ const SharePdf = ({route}) => {
   </div>
   <div class="enqvehimage"
       style="display: flex;
-             width: 595px;
+             width: 100%;
              padding-left: 16px;
              justify-content: space-between;
              align-items: flex-start;
@@ -337,8 +339,10 @@ const SharePdf = ({route}) => {
      <div class="vehicleimage">
        <img src=${adminallimage} alt="Example Image" class="bike" 
             style="object-fit: scale-down;
+                  padding-right: 16px;
                    align-self: stretch;
                    border-radius: 10px;
+                   margin-right:10px;
                    height: 100px;
                    flex-shrink: 0;"/>
      </div>
@@ -347,8 +351,7 @@ const SharePdf = ({route}) => {
   <!-- enqandvehimage closed-->
   <div class="quotationbody"
       style="display: flex;
-             width: 595px;
-             padding:0px 16px;
+             padding:0px 10px;
              justify-content: space-between;
              align-content: center;
              gap: 5px;
@@ -366,7 +369,7 @@ const SharePdf = ({route}) => {
                border: 1px solid #D7DAE0;">
      <div class="quotationhead"
           style="display: flex;
-                 height: 20px;
+                 height: 18px;
                  padding: 5px;
                  align-items: center;
                  flex-shrink: 0;
@@ -385,7 +388,7 @@ const SharePdf = ({route}) => {
      <!-- Ex-showroom Price -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -440,7 +443,7 @@ const SharePdf = ({route}) => {
      </div>
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -496,7 +499,7 @@ const SharePdf = ({route}) => {
      <!-- Hypothication -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -551,7 +554,7 @@ const SharePdf = ({route}) => {
      <!-- RTO Charges -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  align-items: center;
@@ -606,7 +609,7 @@ const SharePdf = ({route}) => {
      <!-- On-road Price Total (A) -->
      <div class="container8"
           style="display: flex;
-                 height: 34px;
+                 height: 30px;
                  flex-direction: row;
                  justify-content: space-between;
                  align-items: center;
@@ -678,7 +681,7 @@ const SharePdf = ({route}) => {
                border: 1px solid #D7DAE0;">
      <div class="quotationhead"
           style="display: flex;
-                 height: 20px;
+                 height: 18px;
                  padding: 5px;
                  align-items: center;
                  flex-shrink: 0;
@@ -696,7 +699,7 @@ const SharePdf = ({route}) => {
      <!-- quotationhead closed -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -753,7 +756,7 @@ const SharePdf = ({route}) => {
                       <!-- Mirrors -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -812,7 +815,7 @@ const SharePdf = ({route}) => {
      <!-- Engine Guard -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  border-bottom: 0.5px solid #D7DAE0;
@@ -869,7 +872,7 @@ const SharePdf = ({route}) => {
 <!-- windsheilds-->
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -925,7 +928,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -981,7 +984,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1037,7 +1040,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1093,7 +1096,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1149,7 +1152,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1205,7 +1208,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1261,7 +1264,7 @@ const SharePdf = ({route}) => {
 
 <div class="container5"
      style="display: flex;
-            height: 20px;
+            height: 16px;
             flex-direction: row;
             justify-content: space-between;
             border-bottom: 0.5px solid #D7DAE0;
@@ -1318,7 +1321,7 @@ const SharePdf = ({route}) => {
      <!-- 4 years extended warranty -->
      <div class="container5"
           style="display: flex;
-                 height: 20px;
+                 height: 16px;
                  flex-direction: row;
                  justify-content: space-between;
                  align-items: center;
@@ -1373,7 +1376,7 @@ const SharePdf = ({route}) => {
      <!-- Optional Add-on's price total (B) -->
      <div class="container8"
           style="display: flex;
-                 height: 34px;
+                 height: 30px;
                  flex-direction: row;
                  justify-content: space-between;
                  align-items: center;
@@ -1436,9 +1439,8 @@ const SharePdf = ({route}) => {
    <!-- Terms & Conditions Container -->
    <div class="termsandgrandcontainer"
         style="display:flex;
-               width:595px;
-  
-               margin-top: 5px;
+              width: 400%;
+               margin-top: 2px;
                flex-direction: row;
                justify-content: space-between;
                align-content: center;">
@@ -1703,7 +1705,7 @@ const SharePdf = ({route}) => {
            <!-- Employeename and Company authorization -->
   <div class="namecompany"
       style="display: flex;
-             width: 595px;
+            width: 100%;
              padding:0px 16px;
              justify-content: space-between;
              align-items: center;">
@@ -1773,7 +1775,7 @@ const SharePdf = ({route}) => {
              <!-- Employeecontact and GSTIN -->
   <div class="contactgst"
       style="display: flex;
-             width: 595px;
+              width: 100%;
              padding:0px 16px;
              justify-content: space-between;
              align-items: center;">
@@ -1856,7 +1858,7 @@ const SharePdf = ({route}) => {
                  <!-- Footer -->
   <div class="footer"
       style="display: flex;
-             width: 595px;
+              width: 100%;
              height: 30px;
              padding-left: 16px;
              padding-right: 16px;
@@ -2404,6 +2406,8 @@ const styles = StyleSheet.create({
     padding:5,
     width: 595,
     height: 1065,
+    justifyContent: 'center',
+    marginLeft:90,
     backgroundColor: '#ffffff',
   },
   heading: {
