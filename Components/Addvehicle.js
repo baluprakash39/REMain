@@ -540,7 +540,7 @@ const AddVehicle = () => {
         <View style={{ flexDirection: 'column', marginTop: 20}}>
           <View style={{ flexDirection: 'row', alignItems: 'center',}}>
             <Text style={styles.subtitle}>Select Section</Text>
-            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: 5 }}>
+            {/* <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: 5 }}>
               <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -559,7 +559,31 @@ const AddVehicle = () => {
                   setSectionError(''); // Clear the error message
                 }}
               />
-            </View>
+            </View> */}
+            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: 5 }}>
+  <Dropdown
+    style={styles.dropdown}
+    placeholderStyle={styles.placeholderStyle}
+    selectedTextStyle={styles.selectedTextStyle}
+    inputSearchStyle={styles.inputSearchStyle}
+    data={sections
+      .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
+      .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
+    }
+    search
+    maxHeight={300}
+    labelField="label"
+    valueField="value"
+    placeholder="Select Section"
+    searchPlaceholder="Search..."
+    value={value}
+    onChange={(item) => {
+      setValue(item.value);
+      setSectionError(''); // Clear the error message
+    }}
+  />
+</View>
+
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
 

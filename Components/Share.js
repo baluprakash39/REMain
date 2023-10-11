@@ -1247,12 +1247,58 @@ const Share = ({route}) => {
   const navigation = useNavigation();
     const [selectedStyle, setSelectedStyle] = useState(null);
 
+    const [customername, setCustomerName] = useState('');
+    const [address, setAddress] = useState('');
+    const [mobilenumber, setMobileNumber] = useState('');
+    const [emailid, setEmailId] = useState('');
+    console.log("c",customername,address)
+ 
+    // errors for customer
+   const [customernameErr, setCustomerNameErr]=useState('');
+   console.log(customernameErr)
+   const [adressseErr,setadressErr]=useState('');
+   console.log(adressseErr)
+   const[mobileErr,setmobileErr]=useState('');
+   const[emailErr,setemailErr]=useState('');
+
+
+
+
+
+   
+// customerdetails
+
+const handlecustomername=(text)=>{
+  if (/\d/.test(text)) {
+    setCustomerName('')
+    setCustomerNameErr('Numbers are not allowed');
+  } else {
+   setCustomerName(text);
+   setCustomerNameErr('');
+  }
+}
+const handleadresss = (text) => {
+  setAddress(text);
+  setadressErr('');
+}
+
+const handlemobile=(text)=>{
+  if (/\d/.test(text)) {
+   setMobileNumber(text)
+  setmobileErr();
+  } else {
+  setMobileNumber('')
+    setmobileErr("Enter number only");
+  }
+}
+
+
+
+
+
+
   const [value, setValue] = useState(null);
-  // const [dataArray, setDataArray] = useState([]);
-  const [customername, setCustomerName] = useState('');
-  const [address, setAddress] = useState('');
-  const [mobilenumber, setMobileNumber] = useState('');
-  const [emailid, setEmailId] = useState('');
+ 
   
   //date//
   const [enquiryDate, setEnquiryDate] = useState('');
@@ -1336,6 +1382,12 @@ parseFloat(selectedPanniersValue)+parseFloat(selectedSeatsValue)+parseFloat(sele
 parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFloat(selectedSumpGuardsValue)+parseFloat(selectedSafetyAccessoriesValue)
 
 
+const B=parseFloat(selectedMirrorsvalue)+parseFloat(selectedOilFillerCapValue)+parseFloat(selectedHeadLightValue)+parseFloat(selectedOption)
++parseFloat(selectedWindshieldsValue)+
+parseFloat(selectedPanniersValue)+parseFloat(selectedSeatsValue)+parseFloat(selectedBackrestValue)+
+parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFloat(selectedSumpGuardsValue)+parseFloat(selectedSafetyAccessoriesValue)
+
+console.log("B",B)
 
 
 
@@ -1502,7 +1554,23 @@ console.log("adress",companyaddress)
 
   const handleShare = async () => {
     try {
-      // Store the formData in AsyncStorage
+     
+    // Validation checks for each input field
+    if (!customername) {
+      setCustomerNameErr('Please enter customer name');
+    }
+    if (!address) {
+      setadressErr('Please enter address');
+    }
+
+    if (!mobilenumber) {
+      setmobileErr('Please enter mobile number');
+    }
+
+    if (!emailid) {
+      setemailErr('Please enter email');
+    }
+    else{ // Store the formData in AsyncStorage
       await AsyncStorage.setItem('formData', JSON.stringify(formData));
 
       // Navigate to the SharePdf screen and pass formData as a parameter
@@ -1565,11 +1633,14 @@ console.log("adress",companyaddress)
 
  
       });
+    }
     } catch (error) {
       console.error('Error storing formData:', error);
     }
   };
 
+
+  
   useEffect(() => {
  
   
@@ -1628,7 +1699,7 @@ console.log("adress",companyaddress)
         // Extract the data from the response
         const responseData = response.data.user[0];
         console.log("data",responseData)
-        const {companyaddress,companyname,city,contactnumber,country,dealeremailid,pincode,state,streetname,website}=responseData
+        const {companyaddress,companyname,city,contactnumber,country,dealeremailid,gstin,pincode,state,streetname,website}=responseData
         setcopmapnyadress(companyaddress)
         setcompanyname(companyname)
         setcity(city)
@@ -1661,72 +1732,85 @@ console.log("adress",companyaddress)
     const date = getCurrentDate();
     setEnquiryDate(date);
   }, []);
-   
- 
+
+
+
+
+
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundimage} >
       <ScrollView contentContainerStyle={styles.container}>
+       
         {dataArray.map((data, index) => (
         <View key={index} style={styles.content}>
           
           <View style={styles.header}>
-          <View style={{ alignContent: 'center'}}>
-  <TouchableOpacity onPress={() => {
-    // Navigate back to the 'Home' screen
-    navigation.navigate('Home');
-  }} style={styles.backButton}>
-     <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'}/>
-  </TouchableOpacity>
-</View>
-
-
-              <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
-                <Text style={styles.headertitle}>Quotation</Text>
-              </View>
+            <View style={{ alignContent: 'center'}}>
+              <TouchableOpacity onPress={() => {
+                  // Navigate back to the 'Home' screen
+                  navigation.navigate('Home');
+                  }} style={styles.backButton}>
+                  <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'}/>
+                </TouchableOpacity>
+            </View>
+            <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
+              <Text style={styles.headertitle}>Quotation</Text>
+            </View>
           </View>
 
         <View style={styles.line}></View>
         {/* Add Customer Details Section Below */}
-        <Text style={styles.title}>Customer details</Text>
+        <Text style={styles.title}>Enter Customer details :</Text>
         <View style={styles.card}>
-          <View style={styles.cardContent}>
-            <Text style={styles.labelText}>Customer Name :</Text>
-            <TextInput
-              style={styles.input}
-              value={customername}
-              onChangeText={setCustomerName}
-              placeholder="Enter name"
-            />
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.labelText}>Address :</Text>
-            <TextInput
-              style={styles.input}
-              value={address}
-              onChangeText={setAddress}
-              placeholder="Enter address"
-            />
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.labelText}>Mobilenumber :</Text>
-            <TextInput
-              style={styles.input}
-              value={mobilenumber}
-              onChangeText={setMobileNumber}
-              placeholder="Enter mobile number"
-            />
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.labelText}>Email-id :</Text>
-            <TextInput
-              style={styles.input}
-              value={emailid}
-              onChangeText={setEmailId}
-              placeholder="example@email.com"
-            />
-          </View>
-        </View>
+  <View style={styles.cardContent}>
+    <Text style={styles.labelText}>Customer Name :</Text>
+    <TextInput
+      style={styles.input}
+      value={customername}
+      onChangeText={(text) => handlecustomername(text)}
+      placeholder="Enter name"
+    />
+ 
+  </View>
+  {customernameErr ? <Text style={styles.errorText}>{customernameErr}</Text> : null}
+  <View style={styles.cardContent}>
+    <Text style={styles.labelText}>Address :</Text>
+    <TextInput
+      style={styles.input}
+      value={address}
+      onChangeText={(text) => handleadresss(text)}
+      placeholder="Enter address"
+    />
+   
+  </View>
+  {adressseErr? <Text style={styles.errorText}>{adressseErr}</Text> : null}
+  <View style={styles.cardContent}>
+    <Text style={styles.labelText}>Mobilenumber :</Text>
+    <TextInput
+      style={styles.input}
+      value={mobilenumber}
+      onChangeText={(text) => handlemobile(text)}
+      placeholder="Enter mobile number"
+    />
+   
+  </View>
+  {mobileErr? <Text style={styles.errorText}>{mobileErr}</Text> : null}
+  <View style={styles.cardContent}>
+    <Text style={styles.labelText}>Email-id :</Text>
+    <TextInput
+      style={styles.input}
+      value={emailid}
+      onChangeText={setEmailId}
+      placeholder="example@email.com"
+    />
+    
+  </View>
+  {emailErr? <Text style={styles.errorText}>{emailErr}</Text> : null}
+</View>
+
+
+
         <View style={styles.imageCard}>
             {data.adminallimage && data.adminallimage.length > 0 && (
               <Image
@@ -1742,204 +1826,178 @@ console.log("adress",companyaddress)
                 <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),}}>
-                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'  }}>Ex.showroom price (including GST)</Text>
-                  <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>
+                  <Text style={{color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'}}>Ex.showroom price (including GST)</Text>
+                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),paddingVertical:5}}>
-                  <Text style={{  color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>RTO Charges</Text>
+                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>RTO Charges</Text>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.roadtax}</Text>
                 </View>
-                <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}>
-                  
- <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
-{/* Insurence */}
+              <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}> 
+                  <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
+
+{/* Insurance */}
 <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Insurance</Text>
 {data.insurance.map((insu)=>(
      <View style={{display:'flex',flexDirection:'row'}}>
      {/* Basic */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic({insu.Basic}-/-)</Text>
+      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
       <CheckBox
    value={isSelected}
    onValueChange={()=>handlebasic(insu.Basic)}
-                            style={{ borderColor: 'red',}} // Change the box color here
-                            tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
+   style={styles.checkbox}
  />
      </View> 
      {/* Nilldip */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip({insu.Nildip}-/-)</Text>
+      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
       <CheckBox
    value={isNilldip}
    onValueChange={()=>handleNill(insu.Nildip)}
-  style={{ borderColor: 'red',}} // Change the box color here
-  tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
+   style={styles.checkbox}
  />
      </View>
      
      {/* EP */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP({insu.Ep}-/-)</Text>
+      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
       <CheckBox
    value={EP}
    onValueChange={()=>handleEP(insu.Ep)}
-                          style={{ borderColor: 'red',}} // Change the box color here
-                          tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
+   style={styles.checkbox}
  />
      </View>
      {/* RTI */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'white',fontSize:20,marginLeft:20,marginLeft:30}}>RTI({insu.RTI}-/-)</Text>
+      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
       <CheckBox
    value={RTI}
    onValueChange={()=>handleRTI(insu.RTI)}
-                          style={{ borderColor: 'red',}} // Change the box color here
-                          tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
+   style={styles.checkbox}
  />
      </View>
       
      </View>
 ))}
-{/* <View style={styles.priceContainer}> */}
-<Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
+
 </View>
- <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),paddingVertical:5}}>
-
-
-
-
-
-
-
-{/* <View style={styles.priceContainer}> */}
-<Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>Registartion(Fixed)</Text>
-<Text style={{  color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.registration}</Text>
+<Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
 </View>
-              <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}> 
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),paddingVertical:5}}>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>Registartion(Fixed)</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.registration}</Text>
+            </View>
+            <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}> 
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
-{/* hypothication */}
-<Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Hypothiccation</Text>
-{data.hypothication.map((hype)=>(
-<View style={{display:'flex',flexDirection:'row'}}>
-{/* YES */}
-<View style={{alignItems:'center',flexDirection:'row'}}>
-<Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES({hype.Yes}-/-)</Text>
-<CheckBox
-value={YES}
-onValueChange={()=>handleYes(hype.Yes)}
-                              style={{ borderColor: 'red',}} // Change the box color here
-                              tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
-/>
-</View> 
 
+  {/* hypothication */}
+  <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Hypothecation</Text>
+    {data.hypothication.map((hype)=>(
+  <View style={{display:'flex',flexDirection:'row'}}>
+    {/* YES */}
+      <View style={{alignItems:'center',flexDirection:'row'}}>
+        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
+          <CheckBox
+            value={YES}
+            onValueChange={()=>handleYes(hype.Yes)}
+            style={styles.checkbox}
+          />
+      </View> 
 
-{/* NO */}
-<View style={{alignItems:'center',flexDirection:'row'}}>
-<Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO({hype.No})</Text>
-<CheckBox
-value={NO}
-onValueChange={()=>handleNo(hype.No)}
-                            style={{ borderColor: 'red',}} // Change the box color here
-                            tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
-/>
-</View>
- </View>
-
-
-
-
+    {/* NO */}
+      <View style={{alignItems:'center',flexDirection:'row'}}>
+        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
+          <CheckBox
+            value={NO}
+            onValueChange={()=>handleNo(hype.No)}
+            style={styles.checkbox}
+          />
+      </View>
+  </View>
 ))}
-{/* <View style={styles.priceContainer}> */}
-
-<Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center'  }}>₹  {hype}</Text>
 </View>
-         
 
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {hype}</Text>
+              </View>
 
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between',height: verticalScale(50),paddingVertical:verticalScale(5)}}>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(16), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4), fontWeight: '600',marginTop:moderateScale(14) }}>OnRoad Price total :</Text>
 
-
-<View style={{flexDirection: 'row', justifyContent: 'space-between',height: verticalScale(40),paddingVertical:verticalScale(5)}}>
-<Text style={{color: '#F9F9F9', fontSize: moderateScale(16), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4), fontWeight: '600'}}>OnRoad Price</Text>
-<Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {totalonroad}</Text>
-</View>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center'  }}>₹  {totalonroad}</Text>
               </View>
               </View>
- <View style={styles.optionaladdoncontainer}>
+              </View>
+              <View style={styles.optionaladdoncontainer}>
               <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>Optional Add Ons/Products</Text>
           <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}>
 {/* extendedwarranty */}
-<>
+
 {data.extendedwarranty.map((ans) => (
-<View key={index} style={{ flexDirection: 'row' }}>
-                <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Extended Warranty</Text>
+              <View key={index} style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
+                <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Extended Warranty</Text>
                   <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
-{/* 4 */}
-<View style={{ alignItems:'center',flexDirection:'row' }}>
-<Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years({ans.fouryears}-/-)</Text>
-<CheckBox
-value={four}
-onValueChange={()=>handleFourChange(ans.fouryears)}
-                          style={{ borderColor: 'red',}} // Change the box color here
-                          tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
-/>
-</View>
-{/* 5 */}
-<View style={{ alignItems:'center',flexDirection:'row' }}>
-<Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4) }}>5 Years({ans.fiveyears}-/-)</Text>
-<CheckBox
-value={five}
-onValueChange={()=>handleFiveChange(ans.fiveyears)}
-                          style={{ borderColor: 'red',}} // Change the box color here
-                          tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
-/>
-</View>
+                  {/* 4 */}
+                  <View style={{alignItems:'center',flexDirection:'row'}}>
+                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
+                      <CheckBox
+                        value={four}
+                        onValueChange={()=>handleFourChange(ans.fouryears)}
+                        style={styles.checkbox}
+                        />
+                    </View>
+                  {/* 5 */}
+                  <View style={{alignItems:'center',flexDirection:'row'}}>
+                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
+                      <CheckBox
+                        value={five}
+                        onValueChange={()=>handleFiveChange(ans.fiveyears)}
+                        style={styles.checkbox}
+                      />
+                    </View>
 
-{/* 5+RSA */}
-<View style={{ alignItems:'center',flexDirection:'row' }}>
-<Text style={{ color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4) }}>5 Years+RSA({ans.fiveplusRSAyears}-/-)</Text>
+                  {/* 5+RSA */}
+                  <View style={{alignItems:'center',flexDirection:'row'}}>
+                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
 
-<CheckBox
-value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
-onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
-                          style={{ borderColor: 'red',}} // Change the box color here
-                          tintColors={{ true: 'red', false: '#f9f9f9' }} // Change the checkmark color here
-/>
- </View>
-</View>
+                      <CheckBox
+                        value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
+                        onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
+                        style={styles.checkbox}
+                      />
+                    </View>
+                </View>
 
 
-</View>
+              </View>
 
 ))}
-<View style={styles.priceContainer}>
-
-<Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {selectedOption}</Text>
-</View>
-</>
-
+            <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {selectedOption}</Text>
+          </View>
+{/* style,comfort,safty tabs */}
 <View style={{ margin:scale(4),borderRadius:moderateScale(2),padding:scale(3), flexDirection:'row' ,borderRadius:scale(6), backgroundColor:'#111111'}}>
-<View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch' }}>
-<Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
-Style
-</Text>
-<Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
-Comfort
-</Text>
-<Text style={{...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
-Protection
-</Text>
-</View>
-<View style={{flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',width:scale(225),marginHorizontal:moderateScale(2), }}>
-{selectedTab === 'Style' && (
-<>
-{/* Show mirrors dropdown */}
-<View style={styles.dropdown}>
-<Picker
+  <View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch'}}>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
+      Style
+    </Text>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
+      Comfort
+    </Text>
+    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
+      Protection
+    </Text>
+  </View>
+  <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',width:scale(225),marginHorizontal:moderateScale(2),}}>
+    {selectedTab === 'Style' && (
+      <>
+        {/* Show mirrors dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
             backgroundColor={'#111111'}
             borderColor={'#f9f9f9'}
-selectedValue={selectedMirrorstext}
-onValueChange={(itemValue) => {
+            selectedValue={selectedMirrorstext}
+            onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedMirrorsvalue(0);
@@ -1952,22 +2010,21 @@ setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
 setSelectedMirrorstext(itemValue);
 }}
 >
-<Picker.Item label="Select Mirrors" value="" />
-{data.mirrors.map((mirror) => (
-<Picker.Item
-key={mirror._id}
-label={`${mirror.mirrorstext} (${mirror.mirrorsvalue})`}
-value={mirror.mirrorstext}
-/>
-))}
-</Picker>
-</View>
-
-{/* Show oil filler dropdown */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedOilFillerCapText}
-onValueChange={(itemValue) => {
+            <Picker.Item label="Mirrors"  value="" />
+            {data.mirrors.map((mirror) => (
+              <Picker.Item
+                key={mirror._id}
+                label={`${mirror.mirrorstext} - ₹ ${mirror.mirrorsvalue}`}
+                value={mirror.mirrorstext}
+              />
+            ))}
+          </Picker>
+          </View>
+        {/* Show oil filler dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedOilFillerCapText}
+            onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedOilFillerCapValue(0);
@@ -1980,22 +2037,21 @@ setSelectedOilFillerCapValue(selectedOilFillerCap ? selectedOilFillerCap.oilfill
 setSelectedOilFillerCapText(itemValue);
 }}
 >
-<Picker.Item label="Select Oilfiller Cap" value="" />
-{data.oilfillercap.map((oil) => (
-<Picker.Item
-key={oil._id}
-label={`${oil.oilfillercaptext} (${oil.oilfillercapvalue})`}
-value={oil.oilfillercaptext}
-/>
-))}
-</Picker>
-</View>
-
-{/* Show headlight dropdown */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedHeadLightText}
-onValueChange={(itemValue) => {
+            <Picker.Item label="Oilfiller cap" value="" />
+            {data.oilfillercap.map((oil) => (
+              <Picker.Item
+                key={oil._id}
+                label={`${oil.oilfillercaptext} - ₹ ${oil.oilfillercapvalue}`}
+                value={oil.oilfillercaptext}
+              />
+            ))}
+          </Picker>
+          </View>
+      {/* Show headlight dropdown */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedHeadLightText}
+            onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedHeadLightValue(0);
@@ -2008,28 +2064,28 @@ setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue :
 setSelectedHeadLightText(itemValue);
 }}
 >
-<Picker.Item label="Select Headlight" value="" />
-{data.headlight.map((headlight) => (
-<Picker.Item
-key={headlight._id}
-label={`${headlight.headlighttext} (${headlight.headlightvalue})`}
-value={headlight.headlighttext}
-/>
-))}
-</Picker>
-</View>
+              <Picker.Item label="Headlight" value="" />
+              {data.headlight.map((headlight) => (
+                <Picker.Item
+                  key={headlight._id}
+                  label={`${headlight.headlighttext} - ₹ ${headlight.headlightvalue}`}
+                  value={headlight.headlighttext}
+                />
+                ))}
+              </Picker>
+              </View>
+          </>
+        )}
 
-</>
-)}
 
+            {selectedTab === 'Comfort' && (
+              <>
+              {/* Windshields */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedWindshieldsText}
+                  onValueChange={(itemValue) => {
 
-{selectedTab === 'Comfort' && (
-<>
-{/* Windshields */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedWindshieldsText}
-onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedWindshieldsValue(0);
@@ -2042,22 +2098,24 @@ setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsv
 setSelectedWindshieldsText(itemValue);
 }}
 >
-<Picker.Item label="Select Windshields" value="" />
-{data.windshields.map((windshield) => (
-<Picker.Item
-key={windshield._id}
-label={`${windshield.windshieldstext} (${windshield.windshieldsvalue})`}
-value={windshield.windshieldstext}
-/>
-))}
-</Picker>
-</View>
+                  <Picker.Item label="Windshields" value="" />
+                  {data.windshields.map((windshield) => (
+                    <Picker.Item
+                      key={windshield._id}
+                      label={`${windshield.windshieldstext} - ₹ ${windshield.windshieldsvalue}`}
+                      value={windshield.windshieldstext}
+                    />
+                  ))}
+                </Picker>
+                </View>
 
-{/* Panniers */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedPanniersText}
-onValueChange={(itemValue) => {
+
+              {/* Panniers */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedPanniersText}
+                  onValueChange={(itemValue) => {
+
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedPanniersValue(0);
@@ -2070,23 +2128,25 @@ setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : 0);
 setSelectedPanniersText(itemValue);
 }}
 >
-<Picker.Item label="Select Panniers" value="" />
-{data.panniers.map((pannier) => (
-<Picker.Item
-key={pannier._id}
-label={`${pannier.pannierstext} (${pannier.panniersvalue})`}
-value={pannier.pannierstext}
-/>
-))}
-</Picker>
-</View>
+                  <Picker.Item label="Panniers" value="" />
+                  {data.panniers.map((pannier) => (
+                    <Picker.Item
+                      key={pannier._id}
+                      label={`${pannier.pannierstext} - ₹ ${pannier.panniersvalue}`}
+                      value={pannier.pannierstext}
+                    />
+                  ))}
+                </Picker>
+                </View>
 
 
-{/* Seats */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedSeatsText}
-onValueChange={(itemValue) => {
+
+              {/* Seats */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedSeatsText}
+                  onValueChange={(itemValue) => {
+
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedSeatsValue(0);
@@ -2099,23 +2159,25 @@ setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : 0);
 setSelectedSeatsText(itemValue);
 }}
 >
-<Picker.Item label="Select Seats" value="" />
-{data.seats.map((seat) => (
-<Picker.Item
-key={seat._id}
-label={`${seat.seatstext} (${seat.seatsvalue})`}
-value={seat.seatstext}
-/>
-))}
-</Picker>
-</View>
+                  <Picker.Item label="Seats" value="" />
+                  {data.seats.map((seat) => (
+                    <Picker.Item
+                      key={seat._id}
+                      label={`${seat.seatstext} - ₹ ${seat.seatsvalue}`}
+                      value={seat.seatstext}
+                    />
+                  ))}
+                </Picker>
+                </View>
 
 
-{/* Backrest */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedBackrestText}
-onValueChange={(itemValue) => {
+
+              {/* Backrest */}
+              <View style={styles.dropdown}>
+                <Picker
+                  selectedValue={selectedBackrestText}
+                  onValueChange={(itemValue) => {
+
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedBackrestValue(0);
@@ -2128,22 +2190,24 @@ setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : 0)
 setSelectedBackrestText(itemValue);
 }}
 >
-<Picker.Item label="Select Backrest" value="" />
-{data.backrests.map((backrest) => (
-<Picker.Item
-key={backrest._id}
-label={`${backrest.backreststext} (${backrest.backrestsvalue})`}
-value={backrest.backreststext}
-/>
-))}
-</Picker>
-</View>
+                  <Picker.Item label="Backrest" value="" />
+                  {data.backrests.map((backrest) => (
+                    <Picker.Item
+                      key={backrest._id}
+                      label={`${backrest.backreststext} - ₹ ${backrest.backrestsvalue}`}
+                      value={backrest.backreststext}
+                    />
+                  ))}
+                </Picker>
+                </View>
 
-{/* Foot Pegs */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedFootPegsText}
-onValueChange={(itemValue) => {
+
+          {/* Foot Pegs */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedFootPegsText}
+              onValueChange={(itemValue) => {
+
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedFootPegsValue(0);
@@ -2156,29 +2220,29 @@ setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : 0);
 setSelectedFootPegsText(itemValue);
 }}
 >
-<Picker.Item label="Select Foot Pegs" value="" />
-{data.footpegs.map((footpeg) => (
-<Picker.Item
-key={footpeg._id}
-label={`${footpeg.footpegstext} (${footpeg.footpegsvalue})`}
-value={footpeg.footpegstext}
-/>
-))}
-</Picker>
-</View>
+              <Picker.Item label="Foot Pegs" value="" />
+              {data.footpegs.map((footpeg) => (
+                <Picker.Item
+                  key={footpeg._id}
+                  label={`${footpeg.footpegstext} - ₹ ${footpeg.footpegsvalue}`}
+                  value={footpeg.footpegstext}
+                />
+              ))}
+            </Picker>
+          </View>
+      </>
+      )}
 
-</>
-)}
 
+          {selectedTab==='Protection'&&(
+          <>
 
-{selectedTab==='Protection'&&(
-<>
+          {/* Engine Guards */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedEngineGuardsText}
+              onValueChange={(itemValue) => {
 
-{/* Engine Guards */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedEngineGuardsText}
-onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedEngineGuardsValue(0);
@@ -2191,23 +2255,23 @@ setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegau
 setSelectedEngineGuardsText(itemValue);
 }}
 >
-<Picker.Item label="Select Engine Guards" value="" />
-{data.enginegaurds.map((engineGuard) => (
-<Picker.Item
-key={engineGuard._id}
-label={`${engineGuard.enginegaurdstext} (${engineGuard.enginegaurdsvalue})`}
-value={engineGuard.enginegaurdstext}
-/>
-))}
-</Picker>
-</View>
+              <Picker.Item label="Engine Guards" value="" />
+              {data.enginegaurds.map((engineGuard) => (
+                <Picker.Item
+                  key={engineGuard._id}
+                  label={`${engineGuard.enginegaurdstext} - ₹ ${engineGuard.enginegaurdsvalue}`}
+                  value={engineGuard.enginegaurdstext}
+                />
+              ))}
+            </Picker>
+          </View>
 
+          {/* Sump Guards */}
+          <View style={styles.dropdown}>
+            <Picker
+              selectedValue={selectedSumpGuardsText}
+              onValueChange={(itemValue) => {
 
-{/* Sump Guards */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedSumpGuardsText}
-onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedSumpGuardsValue(0);
@@ -2220,25 +2284,26 @@ setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue
 setSelectedSumpGuardsText(itemValue);
 }}
 >
-<Picker.Item label="Select Sump Guards" value="" />
-{data.sumpgaurds.map((sumpGuard) => (
-<Picker.Item
-key={sumpGuard._id}
-label={`${sumpGuard.sumpgaurdstext} (${sumpGuard.sumpgaurdsvalue})`}
-value={sumpGuard.sumpgaurdstext}
-/>
-))}
-</Picker>
-</View>
+              <Picker.Item label="Sump Guards" value="" />
+              {data.sumpgaurds.map((sumpGuard) => (
+                <Picker.Item
+                  key={sumpGuard._id}
+                  label={`${sumpGuard.sumpgaurdstext} - ₹ ${sumpGuard.sumpgaurdsvalue}`}
+                  value={sumpGuard.sumpgaurdstext}
+                />
+              ))}
+            </Picker>
+            </View>
 
 
 
 
-{/* Safety Accessories */}
-<View style={styles.dropdown}>
-<Picker
-selectedValue={selectedSafetyAccessoriesText}
-onValueChange={(itemValue) => {
+
+        {/* Safety Accessories */}
+        <View style={styles.dropdown}>
+          <Picker
+            selectedValue={selectedSafetyAccessoriesText}
+            onValueChange={(itemValue) => {
 if (itemValue === "") {
 // If the selected value is an empty string, set the state to 0
 setSelectedSafetyAccessoriesValue(0);
@@ -2251,36 +2316,29 @@ setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccess
 setSelectedSafetyAccessoriesText(itemValue);
 }}
 >
-<Picker.Item label="Select Safety Accessories" value="" />
-{data.safetyaccessories.map((safetyAccessory) => (
-<Picker.Item
-key={safetyAccessory._id}
-label={`${safetyAccessory.safetyaccessoriestext} (${safetyAccessory.safetyaccessoriesvalue})`}
-value={safetyAccessory.safetyaccessoriestext}
-/>
-))}
-</Picker>
-</View>
+            <Picker.Item label="Safety Accessories" value="" />
+            {data.safetyaccessories.map((safetyAccessory) => (
+              <Picker.Item
+                key={safetyAccessory._id}
+                label={`${safetyAccessory.safetyaccessoriestext} - ₹ ${safetyAccessory.safetyaccessoriesvalue}`}
+                value={safetyAccessory.safetyaccessoriestext}
+                  />
+                ))}
+          </Picker>
+          </View>
 
+        </>
+        )}
 
+        </View>
+  
 
-
-</>
-)}
-
-
-</View>
-
-<View style={styles.priceContainer1}>
-<Text style={{ color: 'white', fontSize: 30, flex: 1,marginLeft:30 }}>GrandTotal</Text>
-<Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {grandtotal}</Text>
-</View>
-</View>
-
-</View>
-               
-              </View>
-            </View>
+    </View>
+    <View style={styles.priceContainer1}>
+          <Text style={{ color: 'white', fontSize: 30, flex: 1,marginLeft:30 }}>GrandTotal</Text>
+          <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {grandtotal}</Text>
+        </View>
+  </View>
             <View style={styles.bottombuttonscontainer}>
 
               
@@ -2288,25 +2346,25 @@ value={safetyAccessory.safetyaccessoriestext}
                 style={styles.shareButton}
                 onPress={handleShare} // Call handleShare when the button is pressed
               >
-                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20,}}>
-                  <Ionicons name='document-text' size={moderateScale(20)} color={'#f9f9f9'}  />
+                                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <Ionicons name='document-text' size={moderateScale(20)} color={'#f9f9f9'} />
                   <Text style={styles.shareButtonText}>Preview & Share Doc</Text>
                 </View>
-                
               </TouchableOpacity>
-
             </View>
-          </View>
-          
-        
-  
-          </View>
-        ))}      
-</ScrollView>
-</ImageBackground>
+      </View>
+      
+        ))}
+       
+        </ScrollView>
+        </ImageBackground>
   );
 };
+
 const styles = StyleSheet.create({
+  horizontalcontainer:{
+flexDirection:'row'
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -2315,41 +2373,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(10),
     paddingTop: verticalScale(10),
   },
-  dropdown: {
+    dropdown: {
     height: scale(30),
-    width:scale(220),
+    width:scale(200),
     justifyContent: 'center', // Center the text vertically
     paddingVertical: verticalScale(5), // Add some padding to align text properly
     backgroundColor:'#F9F9F9',
     borderRadius:scale(2),
     margin: moderateScale(3),
-  },
-  header:{
+    },
+header:{
     alignItems: 'center',
     flexDirection: 'row',
     marginBottom: verticalScale(10),
     width: scale(335),
     height: verticalScale(30),
   },
-  backButton:{
+backButton:{
     alignItems: 'center',
     width:scale(20),
     height:verticalScale(20),
     justifyContent:'center',
   },
-  headertitle: {
+headertitle: {
     color: '#F9F9F9',
     fontSize: moderateScale(16),
     fontWeight: 'semibold',
     textAlign: 'center',
     letterSpacing: moderateScale(0.5),
   },
-  line: {
+line: {
     height: verticalScale(1),
     backgroundColor: '#F9F9F9',
-    width: scale(335),
+    // width: scale(335),
   },
-  tab: {
+tab: {
     color:'#F9F9F9',
     fontSize: moderateScale(16),
     fontWeight: '700',
@@ -2374,10 +2432,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: moderateScale(1),
     borderBottomColor: '#F9F9F9',
-    marginBottom: moderateScale(20), // Add spacing between the line and the next content
-    // columnGap: 100
+    marginBottom: moderateScale(20),
   },
-  title: {
+  priceContainer1: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderTopWidth: moderateScale(1),
+    borderTopColor: '#F9F9F9',
+    marginTop: moderateScale(30),
+    marginBottom: moderateScale(40), // Add spacing between the line and the next content
+  },
+title: {
     color: '#f9f9f9',
     fontSize: moderateScale(16),
     fontWeight: '600',
@@ -2386,19 +2451,19 @@ const styles = StyleSheet.create({
     letterSpacing: moderateScale(0.4),
     alignItems: 'center',
     alignSelf: 'stretch',
-  },
+    },
   card: {
     flexDirection:'column',
     borderWidth: moderateScale(1),
     borderColor: '#f9f9f9',
     borderRadius: scale(6),
     justifyContent:'center',
-    height: verticalScale(210),
-    width: scale(335), // Adjust the width as needed
+    height: verticalScale(250),
+    // width: scale(335), // Adjust the width as needed
     backgroundColor: 'black',
     marginTop: verticalScale(5), // Add margin between sections
     paddingHorizontal: moderateScale(5), // Add padding inside the card
-  },
+    },
   cardContent: {
     height: scale(35),
     flexDirection: 'row',
@@ -2410,7 +2475,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     fontWeight: '400',
     letterSpacing: moderateScale(0.4),
-  },
+    },
   input: {
     flex: 1, // To allow TextInput to expand
     height:scale(30),
@@ -2428,7 +2493,7 @@ const styles = StyleSheet.create({
     borderWidth:scale(1),
     borderColor:'#979797',
     borderRadius:scale(6),
-    justifyContent:'center',
+    justifyContent:'center'
   },
   customerImage: {
     width: scale(150),
@@ -2436,18 +2501,25 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     borderRadius: moderateScale(6),
     borderWidth:scale(1),
-    borderColor:'#979797',
+    borderColor:'#979797'
   },
-  centeredContainer: {
-    height: scale(225),
-    width: scale(335),
+centeredContainer: {
+    height: scale(250),
+    // width: scale(335),
     borderRadius:moderateScale(6),
     backgroundColor:'#434242',
     marginBottom: verticalScale(5),
     gap: scale(5),
     borderColor:'#f9f9f9',
     borderWidth: moderateScale(0.5),
-  },
+    },
+  // datacard: {
+  //   width: 800,
+  //   height: 1400,
+  //   backgroundColor: 'rgba(151, 151, 151, 0.3)',
+  //   // alignItems: 'center',
+  //   borderRadius: 10,
+  // },
   datacardtext: {
     color: '#f9f9f9',
     fontSize: moderateScale(16),
@@ -2455,9 +2527,9 @@ const styles = StyleSheet.create({
     marginLeft:moderateScale(5),
     marginBottom: verticalScale(4),
     textAlign:'center',
-  },
+    },
   optionaladdoncontainer:{
-    width:scale(335),
+    // width:scale(335),
     // alignItems: 'center',
     borderRadius: moderateScale(6) ,
     gap: scale(5),
@@ -2469,20 +2541,20 @@ const styles = StyleSheet.create({
   },
   bottombuttonscontainer:{
     alignItems:'center',
-    width:scale(335), 
+    // width:scale(335), 
     height:scale(40), 
     marginTop: verticalScale(30),
     marginBottom:verticalScale(20),
   },
   shareButton: {
     borderColor: '#f9f9f9',
-    backgroundColor:'#453F3F',
+    backgroundColor:'crimson',
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(6),
-    width:scale(180),
+    width:scale(250),
     height: scale(40),
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent:'center'
   },
   shareButtonText: {
     color: '#f9f9f9',
@@ -2490,6 +2562,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign:'center',
   },
-});
+  errorText: {
+    color: 'red',
+    marginTop: 0,
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom:15,
+    letterSpacing: 0.2,
+    fontWeight: '500'
+  },
+  });
 
 export default Share;

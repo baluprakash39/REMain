@@ -10,6 +10,7 @@ const SharePdf = ({route}) => {
   const { formData,
     customername,
     address,
+    B,
     mobilenumber,
     emailid,
     enquiryDate,
@@ -63,7 +64,7 @@ const SharePdf = ({route}) => {
     selectedSafetyAccessoriesText,
     selectedSafetyAccessoriesValue } = route.params;
 
-  
+  const Url='https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg'
   useEffect(() => {
     // Retrieve 'formData' from AsyncStorage
     AsyncStorage.getItem('formData')
@@ -1427,7 +1428,7 @@ const SharePdf = ({route}) => {
                      font-size: 12px;
                      font-style: normal;
                      font-weight: 700;
-                     letter-spacing: 0.2px;">${grandtotal}</p>
+                     letter-spacing: 0.2px;">${B}</p>
          </div>
          <!-- ruppesvalue closed -->
        </div>
@@ -1631,7 +1632,7 @@ const SharePdf = ({route}) => {
                        font-size: 12px;
                        font-style: normal;
                        font-weight: 700;
-                       letter-spacing: 0.2px;">${grandtotal}</p>
+                       letter-spacing: 0.2px;">${B}</p>
            </div>
            <!-- ruppesvalue closed -->
          </div>
@@ -1937,15 +1938,18 @@ const SharePdf = ({route}) => {
     }
   };
  return(
-  <View>
+  
+     <ScrollView horizontal={true}>
+          <View style={{flexDirection:'row'}}>
       <ScrollView contentContainerStyle={styles.page}>
+        
       <View style={styles.bodypage}> 
     <View style={styles.heading}>     
     <View style={styles.container1}>  
     <View style={styles.header}> 
       <Text style={styles.headerText}>Quotation</Text>
     </View> 
-<Image source={reimage} style={styles.relogo}/> 
+    <Image source={{ uri: Url }} style={styles.relogo} />
   </View> 
   <View style={styles.container2}>  
     <View style={styles.customerdetailscontainer}>  
@@ -1974,7 +1978,7 @@ const SharePdf = ({route}) => {
     </View>
     <View style={styles.eqnum}>    
       <Text style={styles.subText}>Enquiry Number</Text>
-      <Text style={styles.dateText}>AB2324-01</Text>
+      <Text style={styles.dateText}></Text>
     </View> 
   </View>   
   <View style={styles.container4}>        
@@ -2326,7 +2330,7 @@ const SharePdf = ({route}) => {
      <Text style={styles.rupeesinr}>INR.</Text>
      </View>
      <View style={styles.rupeesvalue}>
-     <Text style={styles.AandBtotal}>13,000.00</Text>
+     <Text style={styles.AandBtotal}>{B}</Text>
      </View>
    </View>
    </View>
@@ -2380,7 +2384,7 @@ const SharePdf = ({route}) => {
     <Text style={styles.gstinText}>GSTIN :</Text>
     </View>
     <View style={styles.gstinnumbercontainer}>
-    <Text style={styles.gstinText}>37AAEFL2826R1ZR</Text>
+    <Text style={styles.gstinText}>{gstin}</Text>
     </View>
    </View>
 </View>
@@ -2397,7 +2401,9 @@ const SharePdf = ({route}) => {
   {/* Share Button */}
   <Button title="Share as PDF" onPress={handleSharePDF} />
   </ScrollView>
-</View>
+  </View>
+</ScrollView>
+
  )
 }
 

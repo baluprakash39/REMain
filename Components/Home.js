@@ -479,7 +479,7 @@ function Home() {
               <TouchableOpacity
                 key={index}
                 style={{
-                  backgroundColor: selectedSection === sec.Sectionname ? 'gray' : 'white',
+                  backgroundColor: selectedSection === sec.Sectionname ? 'white' : 'gray',
                   // backgroundColor: isDarkTheme ? '#333' : '#3498db',
                   borderWidth: 1,
                   borderColor: '#F9F9F9',
@@ -533,11 +533,19 @@ function Home() {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={{ color: '#FFFFFF', fontWeight: 600, textTransform: 'uppercase'}}>{item.vehiclename}</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
+                    <View style={{flexDirection:'row'}}>
                     <Ionicons name="speedometer-outline" size={15} color="#FFFFFF" />
                     <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
                       {item.EngineCC} CC
                     </Text>
+                    </View>
+                    <View style={{flexDirection:'row'}}>
+                    <Ionicons name="color-palette" size={15} color="#FFFFFF" />
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                      {item.vehiclecolor} 
+                    </Text>
+                   </View>
                   </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>

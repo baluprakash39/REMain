@@ -1865,7 +1865,7 @@ return (
                   alignItems:'flex-start',
                   justifyContent:'space-between',}}>
             <View style={{flexDirection:'row', justifyContent:'space-between',width:scale(310)}}>
-              <View style={{flexDirection:'column', paddingBottom:moderateScale(2),}}>
+              <View style={{flexDirection:'column'}}>
                 <TextInput
                   style={styles.inputField}
                   placeholder="Enter Text"
@@ -1875,7 +1875,7 @@ return (
                 />
                   {input17Error ? <Text style={styles.errorText}>{input17Error}</Text> : null}
               </View>
-              <View style={{flexDirection:'column', paddingBottom:moderateScale(2)}}>
+              <View style={{flexDirection:'column'}}>
                 <TextInput
                   style={styles.inputField2}
                   placeholder="Enter Value"
@@ -1938,7 +1938,7 @@ return (
                 flexDirection: 'column',
                 alignItems:'flex-start',
                 justifyContent:'space-between',}}>
-          <View style={{flexDirection:'row', justifyContent:'space-between',width:scale(310)}}>
+          <View style={{flexDirection:'row', justifyContent:'space-between',width:scale(310), alignItems:'center'}}>
               <View style={{flexDirection:'column', paddingBottom:moderateScale(2),}}>
                 <TextInput
                   style={styles.inputField}
@@ -2089,7 +2089,7 @@ dropdownText: {
 
 inputField: {
   height: verticalScale(40),
-  width: moderateScale(210),
+  width: moderateScale(180),
   fontSize: moderateScale(12),
   letterSpacing:moderateScale(0.4),
   color: '#111111',
@@ -2102,7 +2102,7 @@ inputField: {
 },
 inputField2: {
   height: verticalScale(40),
-  width: moderateScale(130),
+  width: moderateScale(80),
   fontSize: moderateScale(12),
   letterSpacing:moderateScale(0.4),
   color: '#111111',

@@ -127,18 +127,7 @@ const App = () => {
           component={Otp}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
-          name="Theme"
-          options={{ headerShown: false }}
-        >
-          {({ navigation }) => (
-            <Theme
-              isDarkTheme={isDarkTheme}
-              toggleTheme={toggleTheme}
-              navigation={navigation}
-            />
-          )}
-        </Stack.Screen> */}
+        
         <Stack.Screen
           name="Care"
           component={Care}
