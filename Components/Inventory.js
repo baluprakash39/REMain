@@ -2208,7 +2208,9 @@ function Inventory() {
               margin: moderateScale(3),
               borderRadius: scale(10),
               height:scale(200),
-              width: scale(165),
+              width: scale(164),
+              justifyContent: 'space-between',
+              
             }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
@@ -2244,7 +2246,7 @@ function Inventory() {
               <Image
                 style={{
                   height: scale(90),
-                  width: scale(163),
+                  width: scale(162),
                   resizeMode:'cover',
 
                 }}

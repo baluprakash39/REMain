@@ -7,7 +7,7 @@ import firebase from "firebase/compat/app";
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import PhoneInput from 'react-native-phone-number-input';
-
+import DeviceInfo from'react-native-device-info';
 const Otp = () => {
     const navigation = useNavigation();
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,65 +18,89 @@ const Otp = () => {
     const phoneInput = useRef(null);
     const [codeError, setCodeError] = useState('');
 
-    const allowedPhoneNumbers = ['+919515258896', '+919696966685', '+917200615948', '+919705143767', '+917992591090', '+919182624157'];
+    const [phoneNumberError, setPhoneNumberError] = useState('')
+const [deviceId,setDeviceId]=React.useState('');
+ 
+   
 
     const getPhoneNumber = () => {
         // Alert.alert(phoneNumber)
     }
 
-    // const sendVerification = () => {
-    //     if (!phoneNumber) {
-    //         setError('Please enter a phone number.');
-    //         return;
-    //     }
+   
+    
+    const sendVerification = async() => {
+      if (!phoneNumber) {
+        setPhoneNumberError('Please enter a phone number.'); // Set the phone number error if it's empty
+        return;
+    }
 
-    //     if (phoneNumber.replace(/[^0-9]/g, '').length !== 12) {
-    //         setError('Phone number must have exactly 10 digits.');
-    //         return;
-    //     }
-
-    //     if (phoneNumber !== defaultPhoneNumber) {
-    //         console.log(phoneNumber)
-    //         setError('You don\'t have access.');
-    //         return;
-    //     }
-
-    //     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    //     phoneProvider
-    //         .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
-    //         .then(setVerificationId)
-    //         .catch((error) => {
-    //             setError(error.message);
-    //         });
-    //     setPhoneNumber('');
-    //     setError('');
-    // };
-    const sendVerification = () => {
-        if (!phoneNumber) {
-          setError('Please enter a phone number.');
-          return;
-        }
+    setPhoneNumberError('');
       
-        if (phoneNumber.replace(/[^0-9]/g, '').length !== 12) {
-          setError('Phone number must have exactly 10 digits.');
-          return;
-        }
+        let uniqueId=await DeviceInfo.getUniqueId();
+       setDeviceId(uniqueId)
+     
+          // const deviceId="9b78dea501c6a3d1"
+          const number=phoneNumber.replace('+91', '')
+        
+          // Replace with your actual server URL
+          const serverUrl = 'https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/checkPhoneNumberAndDevice';
+          // Replace with the actual phone number and device ID you want to check
       
-        if (!allowedPhoneNumbers.includes(phoneNumber)) {
-          setError('You don\'t have access.');
-          return;
-        }
+        
+          fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
+           
+            method: 'GET',
+            headers: {
+             "Access-Control-Allow-Origin":"*",
+            },
+            
+          })
+         
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.success) {
+                if (data.status === 'allowed') {
+                  // Phone number and device ID are allowed
+                  console.log('Allowed', data);
+                  
+                  console.log(data.data.adminaccept)
+                  if(data.data.adminaccept == true){
+
       
         const phoneProvider = new firebase.auth.PhoneAuthProvider();
         phoneProvider
-          .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+          .verifyPhoneNumber("+91"+number, recaptchaVerifier.current)
           .then(setVerificationId)
           .catch((error) => {
             setError(error.message);
           });
         setPhoneNumber('');
         setError('');
+                  }else if(data.data.adminaccept == false){
+                    Alert.alert('Admin not Accepted')
+                  }
+                } else if (data.status === 'not allowed') {
+                  // Phone number and device ID are not allowed
+                  Alert.alert('Admin not Accepted')
+                  console.log('Not Allowed');
+                }
+              } else {
+                console.error('Check failed:', data.message);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+     
       };
+
     const showAlert = () => {
         Alert.alert(
             'Login to',
@@ -88,6 +112,10 @@ const Otp = () => {
             }]
         )
     }
+
+
+
+
     const confirmCode = () => {
         if (code.length !== 6) {
             setCodeError('Code must be exactly 6 digits.');
@@ -109,7 +137,7 @@ const Otp = () => {
     }
 
     return (
-        <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
             <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headertext}>Login</Text>
@@ -122,7 +150,7 @@ const Otp = () => {
 
                 <View style={styles.contain}>
                 <PhoneInput
-    ref={phoneInput}
+   ref={phoneInput}
     defaultValue={phoneNumber}
     containerStyle={styles.phoneContainer}
     textContainerStyle={{ ...styles.texInput, backgroundColor: 'transparent' }}
@@ -136,7 +164,7 @@ const Otp = () => {
     autoFocus
 />
 
-                    {error ? <Text style={styles.errorText}>{error}</Text> : null}
+{phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
                 </View>
 
                 <TouchableOpacity style={{ ...styles.sendVerification, backgroundColor: 'crimson' }} onPress={() => { sendVerification(); getPhoneNumber() }}>
@@ -149,7 +177,7 @@ const Otp = () => {
                     placeholder="Confirm code"
                     onChangeText={setCode}
                     keyboardType='number-pad'
-                    style={{ ...styles.textInput, backgroundColor: 'transparent' }}
+                    style={{ ...styles.textInput, backgroundColor: '#111111', borderRadius:5 }}
                     placeholderTextColor="gray"
                 />
                 {codeError ? <Text style={styles.errorText}>{codeError}</Text> : error ? (
@@ -161,6 +189,19 @@ const Otp = () => {
                         Login
                     </Text>
                 </TouchableOpacity>
+  
+
+                <View style={styles.container2}>
+      <Text style={{ fontSize: 25, color: 'white', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
+        Do not have an account?
+      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+        <Text style={{ color: 'orangered', fontSize: 25 ,marginLeft:20}}>Register</Text>
+      </TouchableOpacity>
+    </View>
+
+
+
             </View>
         </ImageBackground>
     )
@@ -169,6 +210,11 @@ const Otp = () => {
 export default Otp;
 
 const styles = StyleSheet.create({
+  container2: {
+    marginTop:40,
+    flexDirection: 'row', // This ensures they appear in a straight line
+    alignItems: 'center', // Align items vertically
+  },
     errorText: {
         color: 'red',
         marginTop: 5,
@@ -182,7 +228,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        rowGap: scale(15)
+        rowGap: scale(15),        
+        backgroundColor:'#11111190'
     },
   header:{
     width:'100%',

@@ -1843,40 +1843,44 @@ console.log("adress",companyaddress)
      <View style={{display:'flex',flexDirection:'row'}}>
      {/* Basic */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
+      
       <CheckBox
    value={isSelected}
    onValueChange={()=>handlebasic(insu.Basic)}
    style={styles.checkbox}
  />
+ <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
      </View> 
      {/* Nilldip */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
+     
       <CheckBox
    value={isNilldip}
    onValueChange={()=>handleNill(insu.Nildip)}
    style={styles.checkbox}
  />
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
      </View>
      
      {/* EP */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
+      
       <CheckBox
    value={EP}
    onValueChange={()=>handleEP(insu.Ep)}
    style={styles.checkbox}
  />
+ <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
      </View>
      {/* RTI */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
-      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
+      
       <CheckBox
    value={RTI}
    onValueChange={()=>handleRTI(insu.RTI)}
    style={styles.checkbox}
  />
+ <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
      </View>
       
      </View>
@@ -1898,22 +1902,24 @@ console.log("adress",companyaddress)
   <View style={{display:'flex',flexDirection:'row'}}>
     {/* YES */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
-        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
+        
           <CheckBox
             value={YES}
             onValueChange={()=>handleYes(hype.Yes)}
             style={styles.checkbox}
           />
+          <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
       </View> 
 
     {/* NO */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
-        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
+       
           <CheckBox
             value={NO}
             onValueChange={()=>handleNo(hype.No)}
             style={styles.checkbox}
           />
+           <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
       </View>
   </View>
 ))}
@@ -1940,32 +1946,33 @@ console.log("adress",companyaddress)
                   <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
                   {/* 4 */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
-                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
+                    
                       <CheckBox
                         value={four}
                         onValueChange={()=>handleFourChange(ans.fouryears)}
                         style={styles.checkbox}
                         />
+                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
                     </View>
                   {/* 5 */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
-                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
+                   
                       <CheckBox
                         value={five}
                         onValueChange={()=>handleFiveChange(ans.fiveyears)}
                         style={styles.checkbox}
                       />
+                       <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
                     </View>
 
                   {/* 5+RSA */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
-                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
-
                       <CheckBox
                         value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
                         onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
                         style={styles.checkbox}
                       />
+                      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
                     </View>
                 </View>
 

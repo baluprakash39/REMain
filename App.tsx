@@ -103,6 +103,8 @@ import MyDropdown from './Components/Dropdown';
 import Dropdown from './Components/Dropdown';
 import SharePdf from './Components/SharePdf';
 import Otp from './Components/Otp';
+import Getstarted from './Components/Getstarted';
+import Registration from './Components/Registration';
 import Login from './Components/Login';
 import Theme from './Components/Theme';
 import { ThemeProvider } from './ThemeContext'; 
@@ -121,13 +123,23 @@ const App = () => {
   return (
     <ThemeProvider> 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Getstarted'>
+      <Stack.Screen
+          name="Getstarted"
+          component={Getstarted}
+          options={{ headerShown: false }}
+        />
+        
         <Stack.Screen
           name="Otp"
           component={Otp}
           options={{ headerShown: false }}
         />
-        
+        <Stack.Screen
+          name="Registration"
+          component={Registration}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Care"
           component={Care}
