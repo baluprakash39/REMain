@@ -10,7 +10,15 @@ const firebaseConfig = {
   appId: '1:600370283825:web:073b4ea5aab2de92c95c10',
 };
 
-
+// const firebaseConfig={
+//   apiKey: "AIzaSyDM4C1YRZ14Lx_8NzbDnChklv9VInrgUmw",
+//   authDomain: "otplogin-c4da2.firebaseapp.com",
+//   projectId: "otplogin-c4da2",
+//   storageBucket: "otplogin-c4da2.appspot.com",
+//   messagingSenderId: "783500853422",
+//   appId: "1:783500853422:web:9b813df9ba59a87c31ad3f",
+//   measurementId: "G-69272HMPPD"
+// }
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }

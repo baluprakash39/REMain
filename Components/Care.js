@@ -20,19 +20,27 @@ const Care = ({route}) => {
   }, []);
 
   const fetchBikeDetails = async (vehicleId) => {
-    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
-
     try {
-      const response = await axios.get(url);
+      // Retrieve the JWT token from AsyncStorage
+      const token = await AsyncStorage.getItem('token');
+  
+      const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+  
+      const response = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
       const bike = response.data;
       setDataArray([]);
       setDataArray((prevDataArray) => [...prevDataArray, bike]);
-      // await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-      console.log('Bike data stored successfully',bike);
+      console.log('Bike data stored successfully', bike);
     } catch (error) {
       console.error('Error fetching bike details:', error);
     }
   };
+  
 
 
   const navigation = useNavigation();
@@ -128,6 +136,7 @@ const Care = ({route}) => {
   
     try {
       // Prepare the data to be sent in the POST request
+      const token = await AsyncStorage.getItem('token');
       const data = {
         Basic,
         Nildip,
@@ -143,7 +152,12 @@ const Care = ({route}) => {
       // Make the POST request to your API endpoint
       const response = await axios.post(
         `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/uploadcare/${vehicleId}`,
-        data
+        data,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
       );
   
       // Handle the response as needed

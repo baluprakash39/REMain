@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { scale, moderateScale, verticalScale} from './scaling';
 import { color } from 'react-native-elements/dist/helpers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Accessories = ({route}) => {
@@ -118,116 +119,138 @@ const Accessories = ({route}) => {
     setShowSafetyAccessoriesDropdown(!showSafetyAccessoriesDropdown);
   };
 
-const selectSafetyAccessoriesValue = (Id) => {
-  if (!input1 || !input2) {
-    setInput1Error('This field is required');
-    setInput2Error('This field is required');
-    return;
-  }
-  const usersdata = {
-    safetyaccessories: [
-      {
-        safetyaccessoriestext: input1,
-        safetyaccessoriesvalue: input2,
+  const selectSafetyAccessoriesValue = async (Id) => {
+    if (!input1 || !input2) {
+      setInput1Error('This field is required');
+      setInput2Error('This field is required');
+      return;
+    }
+  
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+  
+    const usersdata = {
+      safetyaccessories: [
+        {
+          safetyaccessoriestext: input1,
+          safetyaccessoriesvalue: input2,
+        },
+      ],
+    };
+  
+    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/acc?_id=${Id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
-    ],
+      body: JSON.stringify(usersdata),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setInput1('');
+        setInput2('');
+        fetchBikeDetails(Id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  
+    setInput1Error(''); // Clear error when value is selected
+    setInput2Error(''); // Clear error when value is selected
+    toggleSafetyAccessoriesDropdown();
   };
+  
 
-  fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/acc?_id=${Id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(usersdata),
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      setInput1('');
-      setInput2('');
-      fetchBikeDetails(Id)
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  setInput1Error(''); // Clear error when value is selected
-  setInput2Error(''); // Clear error when value is selected
-  toggleSafetyAccessoriesDropdown();
-};
 
-const selectMirrorsValue = (Id) => {
-  if (!input19 || !input20) {
-    setInput19Error('This field is required');
-    setInput20Error('This field is required');
-    return;
-  }
-  const mirrorsData = {
-    mirrors: [
-      {
-        mirrorstext:input19,
-        mirrorsvalue: input20,
+  const selectMirrorsValue = async (Id) => {
+    if (!input19 || !input20) {
+      setInput19Error('This field is required');
+      setInput20Error('This field is required');
+      return;
+    }
+  
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+  
+    const mirrorsData = {
+      mirrors: [
+        {
+          mirrorstext: input19,
+          mirrorsvalue: input20,
+        },
+      ],
+    };
+  
+    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/mirrors?_id=${Id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
-    ],
+      body: JSON.stringify(mirrorsData),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setInput19('');
+        setInput20('');
+        fetchBikeDetails(Id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  
+    setInput19Error('');
+    setInput20Error('');
+    toggleMirrorsDropdown();
   };
+  
 
-  fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/mirrors?_id=${Id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(mirrorsData),
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      setInput19('');
-      setInput20('');
-      fetchBikeDetails(Id)
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  setInput19Error('');
-  setInput20Error('');
-  toggleMirrorsDropdown();
-};
-
-const selectOilFillerCapValue = (Id) => {
-  if (!input21 || !input22) {
-    setInput21Error('This field is required');
-    setInput22Error('This field is required');
-    return;
-  }
-  const oilFilterCapsData = {
-    oilfillercap: [
-      {
-        oilfillercaptext: input21,
-        oilfillercapvalue:input22,
+  const selectOilFillerCapValue = (Id) => {
+    if (!input21 || !input22) {
+      setInput21Error('This field is required');
+      setInput22Error('This field is required');
+      return;
+    }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
+    const oilFilterCapsData = {
+      oilfillercap: [
+        {
+          oilfillercaptext: input21,
+          oilfillercapvalue: input22,
+        },
+      ],
+    };
+  
+    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/oil?_id=${Id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
-    ],
+      body: JSON.stringify(oilFilterCapsData),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setInput21('');
+        setInput22('');
+        fetchBikeDetails(Id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  
+    setInput21Error('');
+    setInput22Error('');
+    toggleOilFillerCapDropdown();
   };
-
-  fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/oil?_id=${Id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(oilFilterCapsData),
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      setInput21('');
-      setInput22('');
-      fetchBikeDetails(Id)
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  setInput21Error('');
-  setInput22Error('');
-  toggleOilFillerCapDropdown();
-};
+  
 
   const toggleWindshieldDropdown = () => {
     setShowWindshieldDropdown(!showWindshieldDropdown);
@@ -240,6 +263,10 @@ const selectOilFillerCapValue = (Id) => {
       setInput4Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
     const windata = {
       windshields: [
         {
@@ -253,25 +280,26 @@ const selectOilFillerCapValue = (Id) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(windata),
-      })
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         setInput3('');
         setInput4('');
-        fetchBikeDetails(Id)
-       
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
       });
-   
-      setInput3Error('');
-      setInput4Error('');
-      toggleWindshieldDropdown();
-    };
+  
+    setInput3Error('');
+    setInput4Error('');
+    toggleWindshieldDropdown();
+  };
+  
   
   const toggleSeatsDropdown = () => {
     setShowSeatsDropdown(!showSeatsDropdown);
@@ -284,6 +312,9 @@ const selectOilFillerCapValue = (Id) => {
       setInput6Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
     const seatsdata = {
       seats: [
         {
@@ -297,24 +328,26 @@ const selectOilFillerCapValue = (Id) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(seatsdata),
-      })
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         setInput5('');
         setInput6('');
-        fetchBikeDetails(Id)
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
       });
-   
+  
     setInput5Error('');
     setInput6Error('');
     toggleSeatsDropdown();
   };
+  
   
   const toggleBackrestsDropdown = () => {
     setShowBackrestsDropdown(!showBackrestsDropdown);
@@ -325,6 +358,10 @@ const selectOilFillerCapValue = (Id) => {
       setInput8Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
     const backrestdata = {
       backrests: [
         {
@@ -338,23 +375,26 @@ const selectOilFillerCapValue = (Id) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(backrestdata),
-      })
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         setInput7('');
         setInput8('');
-        fetchBikeDetails(Id)
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
       });
+  
     setInput7Error('');
     setInput8Error('');
     toggleBackrestsDropdown();
   };
+  
   
   const togglePanniersDropdown = () => {
     setShowPanniersDropdown(!showPanniersDropdown);
@@ -366,6 +406,10 @@ const selectOilFillerCapValue = (Id) => {
       setInput12Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
     const panniersData = {
       panniers: [
         {
@@ -379,15 +423,16 @@ const selectOilFillerCapValue = (Id) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(panniersData),
-      })
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         setInput11('');
         setInput12('');
-        fetchBikeDetails(Id)
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
@@ -397,6 +442,7 @@ const selectOilFillerCapValue = (Id) => {
     setInput12Error('');
     togglePanniersDropdown();
   };
+  
   
 
   const toggleFootpegsDropdown = () => {
@@ -409,6 +455,10 @@ const selectOilFillerCapValue = (Id) => {
       setInput14Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
     const footPegsData = {
       footpegs: [
         {
@@ -422,60 +472,73 @@ const selectOilFillerCapValue = (Id) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(footPegsData),
-      })
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         setInput13('');
         setInput14('');
-        fetchBikeDetails(Id)
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
       });
+  
     setInput13Error('');
     setInput14Error('');
     toggleFootpegsDropdown();
   };
   
+  
   const toggleEngineGuardsDropdown = () => {
     setShowEngineGuardsDropdown(!showEngineGuardsDropdown);
   };
   const selectEngineGuardsValue = (Id) => {
-   if (!enginegaurdstext || !enginegaurdsvalue) {
+    if (!enginegaurdstext || !enginegaurdsvalue) {
       setInput15Error('This field is required');
       setInput16Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
     const enginedata = {
-      enginegaurds:[{
-      enginegaurdstext: enginegaurdstext,
-      enginegaurdsvalue: enginegaurdsvalue,
-      }]
+      enginegaurds: [
+        {
+          enginegaurdstext: enginegaurdstext,
+          enginegaurdsvalue: enginegaurdsvalue,
+        },
+      ],
     };
+  
     fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/engine?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(enginedata),
     })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        fetchBikeDetails(Id)
+        fetchBikeDetails(Id);
       })
       .catch((error) => {
         console.error(error);
       });
+  
     setInput15('');
     setInput16('');
     setInput15Error('');
     setInput16Error('');
     toggleEngineGuardsDropdown();
   };
+  
  
   const toggleSumpGuardsDropdown = () => {
     setShowSumpGuardsDropdown(!showSumpGuardsDropdown);
@@ -492,36 +555,42 @@ const selectOilFillerCapValue = (Id) => {
       setInput18Error('This field is required');
       return;
     }
+  
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
     const sumpgaurdsdata = {
       sumpgaurds: [
         {
-          sumpgaurdstext:input17,
+          sumpgaurdstext: input17,
           sumpgaurdsvalue: input18,
         },
       ],
     };
-
-  fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/sump?_id=${Id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(sumpgaurdsdata),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      setInput17('');
-      setInput18('');
-      fetchBikeDetails(Id)
+  
+    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/sump?_id=${Id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(sumpgaurdsdata),
     })
-    .catch((error) => {
-      console.error(error);
-    });
-      setInput17Error(''); // Clear error when value is selected
-      setInput18Error(''); // Clear error when value is selected
-      toggleSumpGuardsDropdown();
-    };
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setInput17('');
+        setInput18('');
+        fetchBikeDetails(Id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  
+    setInput17Error(''); // Clear error when value is selected
+    setInput18Error(''); // Clear error when value is selected
+    toggleSumpGuardsDropdown();
+  };
+  
   const toggleHeadlightDropdown = () => {
     setShowHeadlightDropdown(!showHeadlightDropdown);
   };
@@ -531,38 +600,43 @@ const selectOilFillerCapValue = (Id) => {
       setInput24Error('This field is required');
       return;
     }
-  const headlightsData = {
-    headlight: [
-      {
-        headlighttext: input23,
-        headlightvalue: input24,
-      },
-    ],
-  };
-
-  fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/headlight?_id=${Id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(headlightsData),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      setInput23('');
-      setInput24('');
-      fetchBikeDetails(Id)
-    })
-    .catch((error) => {
-      console.error(error);
-    });
   
-  setInput23Error('');
-  setInput24Error('');
-  toggleHeadlightDropdown();
-};
-
+    // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
+    const token = AsyncStorage.getItem('token');
+  
+    const headlightsData = {
+      headlight: [
+        {
+          headlighttext: input23,
+          headlightvalue: input24,
+        },
+      ],
+    };
+  
+    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/headlight?_id=${Id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(headlightsData),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setInput23('');
+        setInput24('');
+        fetchBikeDetails(Id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  
+    setInput23Error('');
+    setInput24Error('');
+    toggleHeadlightDropdown();
+  };
+  
 useEffect(() => {
  
   
@@ -570,21 +644,37 @@ useEffect(() => {
  
 }, []);
 
-const fetchBikeDetails = async (vehicleId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
 
+
+const fetchBikeDetails = async (vehicleId) => {
   try {
-    const response = await axios.get(url);
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     const bike = response.data;
     setDataArray([]);
     setDataArray((prevDataArray) => [...prevDataArray, bike]);
     // await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-    console.log('Bike data stored successfully',bike);
+    console.log('Bike data stored successfully', bike);
   } catch (error) {
     console.error('Error fetching bike details:', error);
   }
 };
 
+//start below
 const handleRemovesafty = (objId, safetyAccessoryId) => {
   const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/acc/${objId}/${safetyAccessoryId}`;
 

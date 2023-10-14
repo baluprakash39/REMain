@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'; // Import Image component
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
+import DeviceInfo from 'react-native-device-info';
 function Getstarted() {
-  const handleButtonPress = () => {
-    // Your button press logic here
-    console.log('Button pressed');
-  };
+ 
 const navigation = useNavigation()
 
-const handlegetstart = () => {
-  navigation.navigate('Otp')
+
+const handlegetstart = async() => {
+
+  let uniqueId=await DeviceInfo.getUniqueId();
+  console.log("i",uniqueId)
+  navigation.navigate('Otp',{deviceId:uniqueId})
 }
   return (
     <View style={styles.container}>

@@ -1647,22 +1647,66 @@ console.log("adress",companyaddress)
     fetchBikeDetails(vehicleId);
    
   }, []);
+  // const fetchBikeDetails = async (vehicleId) => {
+  //   const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+
+  //   try {
+  //     const response = await axios.get(url);
+  //     const bike = response.data;
+  //     const{exShowroomPrice,roadtax,registration}=bike
+  //     const exShowroompriceNumber = parseFloat(exShowroomPrice.replace(/,/g, ''));
+  //    const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
+  //    const registrationnumber = parseFloat(registration.replace(/,/g, ''));
+
+  //    const totalPrice = exShowroompriceNumber + roadtaxNumber+registrationnumber;
+  //     setexprice(totalPrice);
+  //     console.log(response)
+  //     const { vehiclecolor,EngineCC,adminallimage,vehiclename,model } = bike;
+
+  //     // Filter and store exShowroomPrice and roadtax in separate useState variables
+  //     setExShowroomPrice(exShowroomPrice);
+  //     setRoadtax(roadtax);
+  //     setvehiclecolor(vehiclecolor);
+  //     setEngineCC(EngineCC);
+  //     setadminallimage(adminallimage);
+  //     setvehiclename(vehiclename);
+  //     setmodel(model);
+      
+      
+  //     // Append the bike details to the dataArray state
+  //     setDataArray([...dataArray, bike]);
+
+  //     // Store the bike data in AsyncStorage (optional)
+  //     await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
+  //     console.log('Bike data stored successfully', bike);
+  //   } catch (error) {
+  //     console.error('Error fetching bike details:', error);
+  //   }
+  // };
   const fetchBikeDetails = async (vehicleId) => {
-    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
-
     try {
-      const response = await axios.get(url);
+      // Retrieve the JWT token from AsyncStorage
+      const token = await AsyncStorage.getItem('token');
+  
+      const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+      
+      const response = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
       const bike = response.data;
-      const{exShowroomPrice,roadtax,registration}=bike
+      const { exShowroomPrice, roadtax, registration } = bike;
       const exShowroompriceNumber = parseFloat(exShowroomPrice.replace(/,/g, ''));
-     const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
-     const registrationnumber = parseFloat(registration.replace(/,/g, ''));
-
-     const totalPrice = exShowroompriceNumber + roadtaxNumber+registrationnumber;
+      const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
+      const registrationnumber = parseFloat(registration.replace(/,/g, ''));
+  
+      const totalPrice = exShowroompriceNumber + roadtaxNumber + registrationnumber;
       setexprice(totalPrice);
-      console.log(response)
-      const { vehiclecolor,EngineCC,adminallimage,vehiclename,model } = bike;
-
+      console.log(response);
+      const { vehiclecolor, EngineCC, adminallimage, vehiclename, model } = bike;
+  
       // Filter and store exShowroomPrice and roadtax in separate useState variables
       setExShowroomPrice(exShowroomPrice);
       setRoadtax(roadtax);
@@ -1671,11 +1715,10 @@ console.log("adress",companyaddress)
       setadminallimage(adminallimage);
       setvehiclename(vehiclename);
       setmodel(model);
-      
-      
+  
       // Append the bike details to the dataArray state
       setDataArray([...dataArray, bike]);
-
+  
       // Store the bike data in AsyncStorage (optional)
       await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
       console.log('Bike data stored successfully', bike);
@@ -1691,33 +1734,78 @@ console.log("adress",companyaddress)
   }, []);
   
     // Define a function to fetch the data
+    // const fetchData = async () => {
+    //   try {
+    //     // Make a GET request to your API endpoint
+    //     const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers');
+        
+    //     // Extract the data from the response
+    //     const responseData = response.data.user[0];
+    //     console.log("data",responseData)
+    //     const {companyaddress,companyname,city,contactnumber,country,dealeremailid,gstin,pincode,state,streetname,website}=responseData
+    //     setcopmapnyadress(companyaddress)
+    //     setcompanyname(companyname)
+    //     setcity(city)
+    //     setgstin(gstin)
+    //     setcontactnumber(contactnumber)
+    //     setcountry(country)
+    //     setdealeremailid(dealeremailid)
+    //     setpincode(pincode)
+    //     setstate(state)
+    //     setstreetname(streetname)
+    //     setwebsite(website)
+    //     // Update the state with the fetched data
+    //     setData([...dataaa,responseData]);
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
     const fetchData = async () => {
       try {
-        // Make a GET request to your API endpoint
-        const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers');
-        
+        // Retrieve the JWT token from AsyncStorage
+        const token = await AsyncStorage.getItem('token');
+    
+        // Make a GET request to your API endpoint with the token in the headers
+        const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+    
         // Extract the data from the response
         const responseData = response.data.user[0];
-        console.log("data",responseData)
-        const {companyaddress,companyname,city,contactnumber,country,dealeremailid,gstin,pincode,state,streetname,website}=responseData
-        setcopmapnyadress(companyaddress)
-        setcompanyname(companyname)
-        setcity(city)
-        setgstin(gstin)
-        setcontactnumber(contactnumber)
-        setcountry(country)
-        setdealeremailid(dealeremailid)
-        setpincode(pincode)
-        setstate(state)
-        setstreetname(streetname)
-        setwebsite(website)
+        console.log("data", responseData);
+        const { companyaddress, companyname, city, contactnumber, country, dealeremailid, gstin, pincode, state, streetname, website } = responseData;
+    
+        setcopmapnyadress(companyaddress);
+        setcompanyname(companyname);
+        setcity(city);
+        setgstin(gstin);
+        setcontactnumber(contactnumber);
+        setcountry(country);
+        setdealeremailid(dealeremailid);
+        setpincode(pincode);
+        setstate(state);
+        setstreetname(streetname);
+        setwebsite(website);
+    
         // Update the state with the fetched data
-        setData([...dataaa,responseData]);
+        setData([...dataaa, responseData]);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     
+
+
+
+
+
+
+
+
+
+
   //date//
   const getCurrentDate = () => {
     const now = new Date();

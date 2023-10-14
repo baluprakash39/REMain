@@ -5,8 +5,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info'; // Import the DeviceInfo module
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Registration = () => {
+
+const Registration = ({route}) => {
+  const {deviceId}=route.params
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -39,39 +42,39 @@ const[registrationErr,setRegistrationError]=useState('')
     }
   };
 
-//   const handleAddDetails = () => {
-    
+
+// const handleAddDetails = () => {
 //     // Reset error messages
 //     setNameError('');
 //     setCompanyNameError('');
 //     setContactNumberError('');
 //     setEmailError('');
-
+//     setRegistrationError(''); // Add a new state variable for registration error
+  
 //     let isValid = true;
-
+  
 //     if (!name) {
 //       setNameError('Name is required');
 //       isValid = false;
 //     }
-
+  
 //     if (!companyName) {
 //       setCompanyNameError('Company Name is required');
 //       isValid = false;
 //     }
-
+  
 //     if (!contactNumber) {
 //       setContactNumberError('Contact Number is required');
 //       isValid = false;
 //     }
-
+  
 //     if (!email) {
 //       setEmailError('Email is required');
 //       isValid = false;
 //     }
-
+  
 //     if (isValid) {
 //       // If all fields are valid, you can proceed with saving the details
-//       navigation.navigate('Otp')
 //       // Prepare the data to send to the backend, including deviceUniqueId
 //       const data = {
 //         name: name,
@@ -80,7 +83,7 @@ const[registrationErr,setRegistrationError]=useState('')
 //         email: email,
 //         deviceId: deviceUniqueid, // Use the deviceUniqueId
 //       };
-//    console.log("data",data)
+  
 //       fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/registerPhoneNumber', {
 //         method: 'POST',
 //         headers: {
@@ -88,77 +91,87 @@ const[registrationErr,setRegistrationError]=useState('')
 //         },
 //         body: JSON.stringify(data),
 //       })
-//         .then(response => response.json())
+       
 //         .then(data => {
+//            if(data.status===400) {
+//             setRegistrationError('Details already exist. Please try again.');
+//            }else{
 //           console.log('data', data);
-
 //           // Example: Show an alert upon successful registration
 //           Alert.alert('Success', 'Details saved successfully');
-
 //           // You can navigate to another screen or perform additional actions here
+//           setCompanyName('');
+//           setName('');
+//           setEmail('');
+//           setContactNumber('');
+//           navigation.navigate("Getstarted")
+//            }
 //         })
+    
 //         .catch(error => {
 //           console.error(error);
-
 //           // Example: Show an alert for registration failure
 //           Alert.alert('Error', 'Failed to save details. Please try again.');
 //         });
 //     }
 //   };
-const handleAddDetails = () => {
-    // Reset error messages
-    setNameError('');
-    setCompanyNameError('');
-    setContactNumberError('');
-    setEmailError('');
-    setRegistrationError(''); // Add a new state variable for registration error
-  
-    let isValid = true;
-  
-    if (!name) {
-      setNameError('Name is required');
-      isValid = false;
-    }
-  
-    if (!companyName) {
-      setCompanyNameError('Company Name is required');
-      isValid = false;
-    }
-  
-    if (!contactNumber) {
-      setContactNumberError('Contact Number is required');
-      isValid = false;
-    }
-  
-    if (!email) {
-      setEmailError('Email is required');
-      isValid = false;
-    }
-  
-    if (isValid) {
-      // If all fields are valid, you can proceed with saving the details
-      // Prepare the data to send to the backend, including deviceUniqueId
-      const data = {
-        name: name,
-        companyname: companyName,
-        phoneNumber: contactNumber,
-        email: email,
-        deviceId: deviceUniqueid, // Use the deviceUniqueId
-      };
-  
-      fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/registerPhoneNumber', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-       
-        .then(data => {
-           if(data.status===400) {
-            setRegistrationError('Details already exist. Please try again.');
-           }else{
-          console.log('data', data);
+const handleAddDetails = async () => {
+  // Reset error messages
+  setNameError('');
+  setCompanyNameError('');
+  setContactNumberError('');
+  setEmailError('');
+  setRegistrationError('');
+
+  let isValid = true;
+
+  if (!name) {
+    setNameError('Name is required');
+    isValid = false;
+  }
+
+  if (!companyName) {
+    setCompanyNameError('Company Name is required');
+    isValid = false;
+  }
+
+  if (!contactNumber) {
+    setContactNumberError('Contact Number is required');
+    isValid = false;
+  }
+
+  if (!email) {
+    setEmailError('Email is required');
+    isValid = false;
+  }
+
+  if (isValid) {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    // If all fields are valid, you can proceed with saving the details
+    // Prepare the data to send to the backend, including deviceUniqueId
+    const data = {
+      name: name,
+      companyname: companyName,
+      phoneNumber: contactNumber,
+      email: email,
+      deviceId: deviceUniqueid, // Use the deviceUniqueId
+    };
+
+    fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/registerPhoneNumber', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Include the token in the headers
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.status === 400) {
+          setRegistrationError('Details already exist. Please try again.');
+        } else {
+          console.log('data', response);
           // Example: Show an alert upon successful registration
           Alert.alert('Success', 'Details saved successfully');
           // You can navigate to another screen or perform additional actions here
@@ -166,24 +179,24 @@ const handleAddDetails = () => {
           setName('');
           setEmail('');
           setContactNumber('');
-          navigation.navigate("Otp")
-           }
-        })
-    
-        .catch(error => {
-          console.error(error);
-          // Example: Show an alert for registration failure
-          Alert.alert('Error', 'Failed to save details. Please try again.');
-        });
-    }
-  };
-  
+          navigation.navigate('Getstarted');
+        
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        // Example: Show an alert for registration failure
+        Alert.alert('Error', 'Failed to save details. Please try again.');
+      });
+  }
+};
+
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={{ height: '100%', alignContent: 'center' }}>
-            <TouchableOpacity onPress={() => navigation.navigate('Otp')} style={styles.backButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('Otp',{deviceId})} style={styles.backButton}>
               <MaterialIcons name="arrow-back" size={20} color="#F9F9F9" />
             </TouchableOpacity>
           </View>
