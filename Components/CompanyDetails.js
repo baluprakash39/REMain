@@ -109,7 +109,7 @@ const CompanyDetails = () => {
       try {
         const token = await AsyncStorage.getItem('token');
         // Send a POST request to your server's /dealerdetails endpoint
-        const response = await fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/dealerdetails', {
+        const response = await fetch('https://vast-newt-crown.cyclic.app/dealerdetails/dealerdetails', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ console.log('response',response)
           <View style={styles.line}></View>
 
           {/* Company Name */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 , marginTop: 10 }}>
             <Text style={styles.subtitle}>Company Name</Text>
             <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
             <TextInput

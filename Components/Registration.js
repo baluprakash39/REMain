@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info'; // Import the DeviceInfo module
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const Registration = ({route}) => {
@@ -84,7 +85,7 @@ const[registrationErr,setRegistrationError]=useState('')
 //         deviceId: deviceUniqueid, // Use the deviceUniqueId
 //       };
   
-//       fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/registerPhoneNumber', {
+//       fetch('https://vast-newt-crown.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -159,7 +160,7 @@ const handleAddDetails = async () => {
       deviceId: deviceUniqueid, // Use the deviceUniqueId
     };
 
-    fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/registerPhoneNumber/registerPhoneNumber', {
+    fetch('https://vast-newt-crown.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -169,7 +170,7 @@ const handleAddDetails = async () => {
     })
       .then(response => {
         if (response.status === 400) {
-          setRegistrationError('Details already exist. Please try again.');
+            setRegistrationError('Your registration request already sent, please contact owner.');
         } else {
           console.log('data', response);
           // Example: Show an alert upon successful registration
@@ -179,7 +180,7 @@ const handleAddDetails = async () => {
           setName('');
           setEmail('');
           setContactNumber('');
-          navigation.navigate('Getstarted');
+          navigation.navigate('Otp',{deviceId});
         
         }
       })
@@ -193,44 +194,51 @@ const handleAddDetails = async () => {
 
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={{ height: '100%', alignContent: 'center' }}>
-            <TouchableOpacity onPress={() => navigation.navigate('Otp',{deviceId})} style={styles.backButton}>
-              <MaterialIcons name="arrow-back" size={20} color="#F9F9F9" />
-            </TouchableOpacity>
-          </View>
+    <ScrollView>
+     <View style={styles.container}>
+       <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
+         <View style={styles.header}>
+            <View style={{alignContent: 'center' }}>
+               <TouchableOpacity onPress={() => navigation.navigate('Otp', {deviceId})} style={styles.backButton}>
+                 <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
+               </TouchableOpacity>
+           </View>
+          <View style={{ justifyContent: 'center',  height:verticalScale(25)}}>
+             <Text style={styles.title}>Registration</Text>
+           </View>
+          <View></View>
         </View>
-        <Text style={{ fontSize: 20, color: 'white', textAlign: 'center' }}>Register Details</Text>
         <View style={styles.line}></View>
-
+        </View>
+        <View style={{marginBottom:verticalScale(100), paddingHorizontal:moderateScale(10)}}>
         {/* Name */}
         <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(30)}}>Personal Information</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, marginTop: 40 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: scale(20) }}>
         
-          <Text style={styles.subtitle}>Name</Text>
-          <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>: </Text>
+          {/* <Text style={styles.subtitle}>Name</Text> */}
+          {/* <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField, color: 'black' }} 
-            placeholder="Enter Name"
+            style={{ ...styles.inputField, color: '#F9F9F9' }} 
+            placeholder="Enter your full name"
             selectionColor="red"
-            placeholderTextColor="#111111"
-            backgroundColor="#CBCBCA"
+            placeholderTextColor="#979797"
+            backgroundColor="#6E6E6E40"
             value={name}
             onChangeText={setName}
           />
         </View>
         {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
                 {/* Contact Number */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={styles.subtitle}>Contact Number</Text>
-          <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>: </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+          {/* <Text style={styles.subtitle}>Contact Number</Text>
+          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-             style={{ ...styles.inputField, color: 'black' }} 
+             style={{ ...styles.inputField, color: 'white' }} 
             placeholder="Enter Contact Number"
+            keyboardType='number-pad'
             selectionColor="red"
-            placeholderTextColor="#111111"
-            backgroundColor="#CBCBCA"
+            placeholderTextColor="#979797"
+            backgroundColor="#6E6E6E40"
             value={contactNumber}
             onChangeText={setContactNumber}
           />
@@ -238,15 +246,15 @@ const handleAddDetails = async () => {
         {contactNumberError ? <Text style={styles.errorText}>{contactNumberError}</Text> : null}
 
         {/* Email Id */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={styles.subtitle}>Email Id</Text>
-          <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>: </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+          {/* <Text style={styles.subtitle}>Email Id</Text>
+          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField, color: 'black' }} 
+            style={{ ...styles.inputField, color: 'white' }} 
             placeholder="Enter Email Id"
             selectionColor="red"
-            placeholderTextColor="#111111"
-            backgroundColor="#CBCBCA"
+            placeholderTextColor="#979797"
+            backgroundColor="#6E6E6E40"
             value={email}
             onChangeText={setEmail}
           />
@@ -255,34 +263,37 @@ const handleAddDetails = async () => {
 
         {/* Company Name */}
         <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(30)}}>Company Information</Text>
-        <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom: 10, marginTop: 40  }}>
-          <Text style={styles.subtitle}>Company Name</Text>
-          <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>: </Text>
+        <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: scale(20)  }}>
+          {/* <Text style={styles.subtitle}>Company Name</Text>
+          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-             style={{ ...styles.inputField, color: 'black' }} 
+             style={{ ...styles.inputField, color: 'white' }} 
             placeholder="Enter Company Name"
             selectionColor="red"
-            placeholderTextColor="#111111"
-            backgroundColor="#CBCBCA"
+            placeholderTextColor="#979797"
             value={companyName}
             onChangeText={setCompanyName}
           />
         </View>
         {companyNameError ? <Text style={styles.errorText}>{companyNameError}</Text> : null}
+        </View>
 
-
-
+        <View style={{ marginTop:verticalScale(60), gap:scale(5)}}>
+        {registrationErr ? <Text style={{...styles.errorText, width:scale(210), marginLeft:scale(65)}}>{registrationErr}</Text> : null}
         <View style={styles.bottombuttons}>
           <TouchableOpacity style={styles.button} onPress={handleAddDetails}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-              <FontAwesome6 name="address-card" size={20} color="#f9f9f9" />
-              <Text style={styles.buttonText}>Add Details</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(20) }}>
+              <FontAwesome6 name="address-card" size={moderateScale(20)} color="#f9f9f9" />
+              <Text style={styles.buttonText }>Register</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.errorText}>{registrationErr}</Text>
+
         </View>
+
       </View>
-    </ImageBackground>
+      </View>
+      </ScrollView>
+      </ImageBackground>
   );
 };
 
@@ -293,67 +304,98 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    backgroundColor:'#11111190'
+    // paddingTop:moderateScale(10),
+    // paddingHorizontal: moderateScale(10),
+    backgroundColor:'#11111199',
+    justifyContent:'space-between'
   },
-  header: {
-    gap: 110,
+  header:{
     alignItems: 'center',
     flexDirection: 'row',
+    paddingTop:verticalScale(10),
+    marginBottom: verticalScale(10),
+    // borderBottomWidth:verticalScale(1),
+    // borderBottomColor:'#f9f9f9',
+    // width: moderateScale(335),
+    height: verticalScale(35),
+    justifyContent:'space-between',
+  },
+  backButton:{
+    paddingLeft:moderateScale(10),
+    alignItems: 'center',
+    width:moderateScale(30),
+    height:verticalScale(20),
+    justifyContent:'center',
+  },
+  title: {
+    color: '#F9F9F9',
+    fontSize: moderateScale(16),
+    fontWeight: 'semibold',
+    textAlign: 'center',
+    letterSpacing: moderateScale(0.5),
   },
   subtitle: {
-    width: scale(70),
-    marginRight: moderateScale(10),
-    color: '#F9F9F9',
-    fontSize: moderateScale(12),
+    width: scale(90),
+    marginRight: moderateScale(5),
+    color: '#AAAAAA',
+    fontSize: moderateScale(14),
     fontWeight: '400',
-    letterSpacing: 0.2,
+    letterSpacing: moderateScale(0.2),
   },
   inputField: {
     flex: 1,
-    height: scale(25),
-    backgroundColor: '#979797',
-    borderRadius: 5,
-    paddingLeft: 10,
-    // color: '#868687',
+    height: verticalScale(35),
+    backgroundColor: '#6e6e6e40',
+    borderBottomWidth:1,
+    borderColor:'#979797',
+    fontSize:moderateScale(14),
+    textAlignVertical:'center',
+    color:'#ffffff',
+    fontWeight:'500',
+    letterSpacing:moderateScale(0.4),
+    borderRadius: scale(3),
+    paddingLeft: moderateScale(5),
   },
-  line: {
-    height: 1,
-    backgroundColor: 'white',
-    width: '100%',
-  },
+  // line: {
+  //   height: verticalScale(1),
+  //   backgroundColor: 'white',
+  //   width: moderateScale(335),
+  // },
   bottombuttons: {
     alignItems: 'center',
+    alignContent:'center',
     width:scale(300),
     height: scale(40),
     marginHorizontal: verticalScale(30),
-    marginTop:verticalScale(80),
-    marginBottom:verticalScale(30),
+    marginTop:verticalScale(1),
+    marginBottom:verticalScale(40),
     paddingHorizontal:scale(5),
   },
   button: {
     borderColor: '#f9f9f9',
-    backgroundColor: '#453F3F',
-    borderWidth: 1,
-    borderRadius: 6,
-    width: '80%',
+    backgroundColor: 'crimson',
+    borderWidth: moderateScale(1),
+    borderRadius: scale(3),
+    width: scale(200),
     height: scale(30),
     alignItems: 'center',
     justifyContent:'center'
   },
   buttonText: {
     color: '#f9f9f9',
-    fontSize: 18,
-    fontWeight: '500',
+    fontSize: scale(10),
+    fontWeight: '600',
     textAlign: 'center',
   },
   errorText: {
-    color: 'red',
-    marginTop: 5,
-    fontSize: 14,
-    textAlign: 'center',
-    marginLeft: 150, // Adjust the left margin for error text
+    color: '#f9f9f9',
+    marginVertical: scale(1),
+    fontSize: moderateScale(10),
+    textAlign: 'left',
+    paddingLeft:scale(5),
+    backgroundColor:'#B70404',
+    marginLeft: scale(110), // Adjust the left margin for error text
+    width:scale(100),
   },
 });
 

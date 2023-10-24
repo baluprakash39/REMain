@@ -349,7 +349,7 @@
    
 //   }, []);
 //   const fetchBikeDetails = async (vehicleId) => {
-//     const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+//     const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
 
 //     try {
 //       const response = await axios.get(url);
@@ -395,7 +395,7 @@
 //     const fetchData = async () => {
 //       try {
 //         // Make a GET request to your API endpoint
-//         const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers');
+//         const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers');
         
 //         // Extract the data from the response
 //         const responseData = response.data.user[0];
@@ -1241,7 +1241,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 
 
 const Share = ({route}) => {
-  const { vehicleId } = route.params;
+  const { vehicleId, deviceId } = route.params;
   console.log(vehicleId)
   // const { isDarkTheme } = useTheme();
   const navigation = useNavigation();
@@ -1607,6 +1607,7 @@ console.log("adress",companyaddress)
         reimage,
         totalonroad,
         grandtotal,
+        B,
         selectedOption,
         selectedMirrorstext,
         selectedMirrorsvalue,
@@ -1640,55 +1641,12 @@ console.log("adress",companyaddress)
   };
 
 
-  
-  useEffect(() => {
- 
-  
-    fetchBikeDetails(vehicleId);
-   
-  }, []);
-  // const fetchBikeDetails = async (vehicleId) => {
-  //   const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
-
-  //   try {
-  //     const response = await axios.get(url);
-  //     const bike = response.data;
-  //     const{exShowroomPrice,roadtax,registration}=bike
-  //     const exShowroompriceNumber = parseFloat(exShowroomPrice.replace(/,/g, ''));
-  //    const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
-  //    const registrationnumber = parseFloat(registration.replace(/,/g, ''));
-
-  //    const totalPrice = exShowroompriceNumber + roadtaxNumber+registrationnumber;
-  //     setexprice(totalPrice);
-  //     console.log(response)
-  //     const { vehiclecolor,EngineCC,adminallimage,vehiclename,model } = bike;
-
-  //     // Filter and store exShowroomPrice and roadtax in separate useState variables
-  //     setExShowroomPrice(exShowroomPrice);
-  //     setRoadtax(roadtax);
-  //     setvehiclecolor(vehiclecolor);
-  //     setEngineCC(EngineCC);
-  //     setadminallimage(adminallimage);
-  //     setvehiclename(vehiclename);
-  //     setmodel(model);
-      
-      
-  //     // Append the bike details to the dataArray state
-  //     setDataArray([...dataArray, bike]);
-
-  //     // Store the bike data in AsyncStorage (optional)
-  //     await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-  //     console.log('Bike data stored successfully', bike);
-  //   } catch (error) {
-  //     console.error('Error fetching bike details:', error);
-  //   }
-  // };
   const fetchBikeDetails = async (vehicleId) => {
     try {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+      const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
       
       const response = await axios.get(url, {
         headers: {
@@ -1737,7 +1695,7 @@ console.log("adress",companyaddress)
     // const fetchData = async () => {
     //   try {
     //     // Make a GET request to your API endpoint
-    //     const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers');
+    //     const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers');
         
     //     // Extract the data from the response
     //     const responseData = response.data.user[0];
@@ -1766,7 +1724,7 @@ console.log("adress",companyaddress)
         const token = await AsyncStorage.getItem('token');
     
         // Make a GET request to your API endpoint with the token in the headers
-        const response = await axios.get('https://dull-plum-woodpecker-veil.cyclic.cloud/dealerdetails/getdealers', {
+        const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -1796,16 +1754,6 @@ console.log("adress",companyaddress)
       }
     };
     
-
-
-
-
-
-
-
-
-
-
   //date//
   const getCurrentDate = () => {
     const now = new Date();
@@ -1837,7 +1785,7 @@ console.log("adress",companyaddress)
             <View style={{ alignContent: 'center'}}>
               <TouchableOpacity onPress={() => {
                   // Navigate back to the 'Home' screen
-                  navigation.navigate('Home');
+                  navigation.navigate('Home',{deviceId});
                   }} style={styles.backButton}>
                   <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'}/>
                 </TouchableOpacity>

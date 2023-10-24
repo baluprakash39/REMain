@@ -18,14 +18,16 @@ const handlegetstart = async() => {
 }
   return (
     <View style={styles.container}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={['#000000', '#000000']} // Change colors to black
         style={styles.linearGradient}
-      >
+      > */}
 
         <Swiper style={styles.wrapper} showsButtons={false}
           autoplay={true} // Enable auto-play
-          autoplayTimeout={3} //  time interval (in seconds) between slides
+          autoplayTimeout={4} //  time interval (in seconds) between slides
+          dot={<View style={styles.dot} />}
+          activeDot={<View style={styles.activeDot} />}
         >
           
           <View style={styles.slide}>
@@ -62,7 +64,7 @@ const handlegetstart = async() => {
               style={styles.image3}
               resizeMode="cover"
             />
-           <Text style={styles.subtext}>You can effortlessly exchange detailed information about vehicles, including specifications and pricing details. This user-friendly feature simplifies the process, making it convenient for users to access and share essential information about various vehicles quickly and efficiently.</Text>
+           <Text style={styles.subtext1}>You can effortlessly exchange detailed information about vehicles, including specifications and pricing details. This user-friendly feature simplifies the process, making it convenient for users to access and share essential information about various vehicles quickly and efficiently.</Text>
           </View>
         </Swiper>
       
@@ -74,25 +76,94 @@ const handlegetstart = async() => {
             <Text style={styles.buttonText}>Let's start</Text>
           </TouchableOpacity>
         </View>
-      </LinearGradient>
+      {/* </LinearGradient> */}
     </View>
 
   );
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-       
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
   container: {
-    justifyContent: 'center'
+      flex:1,
+      backgroundColor:'#111111'
   },
-
   linearGradient: {
-    height: '100%'
-
+      height: '100%',
+  },
+  wrapper: {
+    // marginTop:scale(30),
+    // height:scale(300),
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    // borderWidth:1,
+    // borderColor:'red'
+  },
+  dot: {
+    backgroundColor: 'gray',
+    width: moderateScale(10),
+    height: verticalScale(2),
+    borderRadius: scale(4),
+    marginHorizontal: moderateScale(3),
+    marginTop: verticalScale(10), 
+  },
+  activeDot: {
+    backgroundColor: 'red', // Active dot color
+    width: moderateScale(20),
+    height: verticalScale(2),
+    borderRadius: scale(4),
+    marginHorizontal: moderateScale(3),
+    marginTop: verticalScale(10), 
+  },
+  slide: {
+    marginTop:scale(30),
+    rowGap: scale(50),
+    flex:1,
+    height:verticalScale(200),
+    alignItems: 'center',
+    // justifyContent: 'center',
+    paddingBottom: scale(20),
+  },
+  images: {
+    width: moderateScale(200),
+    height: verticalScale(200),
+    borderRadius:scale(12)
+  },
+  headings:{
+    fontSize:moderateScale(20),
+    color:'white',
+    letterSpacing:0.5,
+  },
+  image3: {
+    width: moderateScale(200),
+    height: verticalScale(180),
+    borderRadius:scale(12)
+  },
+  subtext:{
+    width:moderateScale(330),
+    fontSize:moderateScale(14),
+    color:'white', 
+    fontWeight:'400', 
+    letterSpacing:0.2,
+  },
+  subtext1:{
+    width:moderateScale(330),
+    fontSize:moderateScale(12),
+    color:'white', 
+    fontWeight:'400', 
+    letterSpacing:0.3,
+  },
+  buttonContainer:{
+    alignItems:'center',
+    padding: scale(10),
+    marginBottom:verticalScale(50),
+  },
+  button: {
+    backgroundColor: 'white',
+    justifyContent:'center',
+    borderRadius: scale(4),
+    height: verticalScale(30),
+    width: moderateScale(250),
+    shadowColor: '#000000',
   },
   buttonText: {
     color: 'black',
@@ -101,46 +172,6 @@ const styles = StyleSheet.create({
     textAlignVertical:'center',
     fontWeight: 'bold',
     fontFamily: 'Outfit-Regular'
-  },
-
-  wrapper: {},
-  slide: {
-    marginTop:scale(30),
-    height:scale(300),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  images: {
-    width: scale(200),
-    height: scale(200),
-    borderRadius:scale(12)
-  },
-headings:{
-    fontSize:moderateScale(20),
-    color:'white',
-    letterSpacing:0.5,
-},
-  image3: {
-    width: scale(200),
-    height: scale(150),
-    borderRadius:scale(12)
-  },
-  subtext:{
-    width:scale(300),
-    fontSize:moderateScale(14),
-    color:'white', 
-    fontWeight:'400', 
-    letterSpacing:0.2,
-},
-  button: {
-    backgroundColor: 'white',
-    justifyContent:'center',
-    borderRadius: scale(10),
-    height: scale(30),
-    width: scale(200),
-    shadowColor: '#000000',
-    marginBottom:scale(50),
   },
 
 });

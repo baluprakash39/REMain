@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,12 +7,13 @@ import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
-import { useTheme } from '../ThemeContext'
+import { useTheme } from '../ThemeContext';
+import { scale, moderateScale, verticalScale} from './scaling';
 
 
 
-function Home() {
- const deviceId=AsyncStorage.getItem('deviceId')
+function Home({route}) {
+const {deviceId} = route.params
  
   // const { isDarkTheme } = useTheme(); // Access the theme
   const [search, setSearch] = useState('');
@@ -31,6 +30,7 @@ function Home() {
   const [selectedModel, setSelectedModel] = useState('');
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
     fetchSections();
@@ -54,11 +54,6 @@ function Home() {
     setFilteredProductData(filteredData);
   };
   
-
-  
-
-  
-
   const fetchSections = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
@@ -70,7 +65,7 @@ function Home() {
         return;
       }
   
-      const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';
+      const url = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
   
       fetch(url, {
         headers: {
@@ -95,7 +90,7 @@ function Home() {
   // const fetchBikeDetails = async() => {
   //   const token = await AsyncStorage.getItem('token');
   //   console.log("token",token)
-  //   const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes`;
+  //   const url = `https://vast-newt-crown.cyclic.app/formdetails/getbikes`;
   
 
   //   axios
@@ -119,7 +114,7 @@ function Home() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes';
+      const apiUrl = 'https://vast-newt-crown.cyclic.app/formdetails/getbikes';
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -136,14 +131,18 @@ function Home() {
     }
   };
   const carddata = (Id) => {
-    navigation.navigate('Share',{vehicleId:Id})
+    navigation.navigate('Share',{vehicleId:Id, deviceId:deviceId})
     console.log(Id)
   };
+
+  const handleInventory = () =>{
+    navigation.navigate('Inventory')
+  }
 
   const products = (section) => {
     setSelectedSection(section);
     setAcc(section);
-    axios.get(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes/${section}`, {
+    axios.get(`https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`, {
       
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -160,6 +159,26 @@ function Home() {
       });
   };
 
+  const handlelogout = async () => {
+    setIsLoading(true); // Display loader
+    const zero=0
+    const randomValue = Math.random();
+  
+    try {
+      // Execute the logout logic here
+      await AsyncStorage.setItem('isloggedIn', 'false');
+      await AsyncStorage.removeItem('token');
+      route.params.onLoginClick(zero);
+      setIsLoading(false); // Hide loader
+      console.log("device", deviceId);
+  
+      // Navigate to the OTP screen
+      navigation.navigate('Otp', { deviceId });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      setIsLoading(false); // Hide loader in case of an error
+    }
+  };
   const navigation = useNavigation(); // Get the navigation object
   const styles = StyleSheet.create({
     backgroundImage: {
@@ -170,56 +189,83 @@ function Home() {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 10,
-      marginHorizontal: 5,
+      height: verticalScale(50),
+      marginTop: verticalScale(10),
+      marginHorizontal: moderateScale(5),
       // backgroundColor: isDarkTheme ? 'black' : 'white',
-    },
+    },  
     searchInput: {
-      height: 35,
-      marginTop: 32,
-      marginRight: 16,
-      color: 'white',
-      padding: 4,
-      fontSize: 16,
-      width: 250,
+      height: verticalScale(35),
       color: '#868687',
-      padding: 2,
-      borderRadius: 10,
-      backgroundColor: 'transparent', // Transparent background
-      borderColor: 'white', // White border
-      borderWidth: 1, // 1 pixel border width
-      // backgroundColor: isDarkTheme ? 'black' : 'white',
+      fontSize: moderateScale(16),
+      width: moderateScale(200),
     },
     searchcontainer:{
-      width: 250,
-      height: 35,
+      width: moderateScale(220),
+      height: verticalScale(35),
+      gap:scale(2),
+      paddingLeft:moderateScale(4),
       flexDirection: 'row',
-      alignItems:'center',
-      padding: 4,
-      borderRadius: 5,
+      alignItems:'stretch',
+      justifyContent:'space-between',
+      borderRadius: moderateScale(6),
       backgroundColor: '#3D3C3C',
-      borderColor: 'rgba(249, 249, 249, 0.50)', // White border
-      borderWidth: 1, // 1 pixel border width
-      // backgroundColor: isDarkTheme ? 'black' : 'white',
+      borderColor: '#979797', // White border
+      borderWidth: moderateScale(1), // 1 pixel border width
     },
-    searchInput: {
-      color: '#868687',
-      padding: 2,
-      fontSize: 16,
-      // backgroundColor: isDarkTheme ? 'black' : 'white',
-    },
+    // searchInput: {
+    //   height: 35,
+    //   marginTop: 32,
+    //   marginRight: 16,
+    //   color: 'white',
+    //   padding: 4,
+    //   fontSize: 16,
+    //   width: 250,
+    //   color: '#868687',
+    //   padding: 2,
+    //   borderRadius: 10,
+    //   backgroundColor: 'transparent', // Transparent background
+    //   borderColor: 'white', // White border
+    //   borderWidth: 1, // 1 pixel border width
+    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
+    // },
+    // searchcontainer:{
+    //   width: 250,
+    //   height: 35,
+    //   flexDirection: 'row',
+    //   alignItems:'center',
+    //   padding: 4,
+    //   borderRadius: 5,
+    //   backgroundColor: '#3D3C3C',
+    //   borderColor: 'rgba(249, 249, 249, 0.50)', // White border
+    //   borderWidth: 1, // 1 pixel border width
+    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
+    // },
+    // searchInput: {
+    //   color: '#868687',
+    //   padding: 2,
+    //   fontSize: 16,
+    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
+    // },
     loginButton: {
-      backgroundColor: '#F9F9F9', // Use the same background color as searchInput
-      paddingVertical: 4,
-      paddingHorizontal: 16,
-      borderRadius: 6,
+      backgroundColor: '#3A3A3A', // Use the same background color as searchInput
+      // paddingVertical: 4,
+      // paddingHorizontal: 16,
+      height:verticalScale(35),
+      width:moderateScale(50),
+      gap:scale(2),
+      borderRadius: scale(4),
       justifyContent: 'center',
       alignItems: 'center',
+      borderWidth:moderateScale(1),
+      borderColor:'#979797'
       // backgroundColor: isDarkTheme ? 'black' : 'white',
     },
     loginButtonText: {
-      color: 'black', // Change the text color as needed
-      fontWeight: 'bold',
+      color: '#f9f9f9', // Change the text color as needed
+      fontWeight: '600',
+      letterSpacing:moderateScale(0.4),
+      fontSize:moderateScale(10),
       // color: isDarkTheme ? 'white' : 'black',
     },
   
@@ -228,25 +274,30 @@ function Home() {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-            
         <View style={styles.searchcontainer}>
-              <Ionicons name="search" size={15} color="#F9f9f9" />
+        <View style={{justifyContent:'center'}}>
+              <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
+              </View>
                     <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
                       value={search}
                       selectionColor="red"
                       onChangeText={setSearch}/>
           </View>
-          <TouchableOpacity
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+                      onPress={handleInventory}>
+                        {/* navigation.navigate('Inventory');
+                        console.log('Clicked on settings');
+                      }}> */}
+              <Ionicons style={{color:'#f9f9f9'}} name='settings-outline' size={scale(20)} />
+              </TouchableOpacity>
+              <TouchableOpacity
             style={styles.loginButton}
-            onPress={() => {
-              navigation.navigate('Otp',{deviceId});
-              AsyncStorage.removeItem('token')
-              const a=AsyncStorage.setItem('bool','false')
-            console.log("a",a)
-            }}
+            onPress={ handlelogout}
           >
             <Text style={styles.loginButtonText}>Logout</Text>
           </TouchableOpacity>
+          </View>
         </View>
         <View style={{ flexDirection: 'row', borderRadius: 10, marginTop: 10 }}>
           {sections
@@ -341,4 +392,3 @@ function Home() {
 }
 
 export default Home;
-

@@ -108,7 +108,7 @@ const Update = () => {
     //   // All required fields are filled, you can send the PUT request here
     //   const id = localdata._id;
     //   console.log(id) // Replace with the ID you want to update
-    //   const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/updatebikes/${id}`;
+    //   const url = `https://vast-newt-crown.cyclic.app/formdetails/updatebikes/${id}`;
 
     //   fetch(url, {
     //     method: 'PUT',
@@ -135,36 +135,39 @@ const Update = () => {
     //     });
     // }
     
-  if (!hasErrors) {
-    const id = localdata._id;
-    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/updatebikes/${id}`;
-
-    try {
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(localdata),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    if (!hasErrors) {
+      const id = localdata._id;
+      const url = `https://vast-newt-crown.cyclic.app/formdetails/updatebikes/${id}`;
+  
+      try {
+        const token = await AsyncStorage.getItem('token');
+  
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, 
+          },
+          body: JSON.stringify(localdata),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        // Update the data in AsyncStorage
+        await AsyncStorage.setItem('Bikes', JSON.stringify(localdata));
+  
+        // Update the state to reflect the changes
+        setLocalData(localdata); // Update the local state with the updated data
+  
+        // Handle the response here if needed
+        navigation.navigate('Inventory');
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle the error here
       }
-
-      // Update the data in AsyncStorage
-      await AsyncStorage.setItem('Bikes', JSON.stringify(localdata));
-
-      // Update the state to reflect the changes
-      setLocalData(localdata); // Update the local state with the updated data
-
-      // Handle the response here if needed
-      navigation.navigate('Inventory');
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle the error here
     }
-  }
     
   };
 

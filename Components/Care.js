@@ -24,7 +24,7 @@ const Care = ({route}) => {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+      const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
   
       const response = await axios.get(url, {
         headers: {
@@ -151,7 +151,7 @@ const Care = ({route}) => {
   
       // Make the POST request to your API endpoint
       const response = await axios.post(
-        `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/uploadcare/${vehicleId}`,
+        `https://vast-newt-crown.cyclic.app/formdetails/uploadcare/${vehicleId}`,
         data,
         {
           headers: {
@@ -162,6 +162,7 @@ const Care = ({route}) => {
   
       // Handle the response as needed
       console.log('Response:', response.data);
+      navigation.navigate('Inventory')
       // You can add logic here to handle success or navigate to another screen.
   
     } catch (error) {

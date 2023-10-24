@@ -138,7 +138,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/acc?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/acc?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/mirrors?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/mirrors?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ const Accessories = ({route}) => {
   };
   
 
-  const selectOilFillerCapValue = (Id) => {
+  const selectOilFillerCapValue = async (Id) => {
     if (!input21 || !input22) {
       setInput21Error('This field is required');
       setInput22Error('This field is required');
@@ -216,7 +216,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const oilFilterCapsData = {
       oilfillercap: [
@@ -227,7 +227,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/oil?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/oil?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -257,7 +257,7 @@ const Accessories = ({route}) => {
   };
 
  
-  const selectWindshieldValue = (Id) => {
+  const selectWindshieldValue = async (Id) => {
     if (!input3 || !input4) {
       setInput3Error('This field is required');
       setInput4Error('This field is required');
@@ -265,7 +265,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const windata = {
       windshields: [
@@ -276,7 +276,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/wind?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/wind?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -306,7 +306,7 @@ const Accessories = ({route}) => {
   };
 
 
-  const selectSeatsValue = (Id) => {
+  const selectSeatsValue = async (Id) => {
     if (!input5 || !input6) {
       setInput5Error('This field is required');
       setInput6Error('This field is required');
@@ -314,7 +314,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
     const seatsdata = {
       seats: [
         {
@@ -324,7 +324,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/seats?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/seats?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -352,7 +352,7 @@ const Accessories = ({route}) => {
   const toggleBackrestsDropdown = () => {
     setShowBackrestsDropdown(!showBackrestsDropdown);
   };
-  const selectBackrestsValue = (Id) => {
+  const selectBackrestsValue = async (Id) => {
     if (!input7 || !input8) {
       setInput7Error('This field is required');
       setInput8Error('This field is required');
@@ -360,7 +360,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const backrestdata = {
       backrests: [
@@ -371,7 +371,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/back?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/back?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -400,7 +400,7 @@ const Accessories = ({route}) => {
     setShowPanniersDropdown(!showPanniersDropdown);
   };
 
-  const selectPanniersValue = (Id) => {
+  const selectPanniersValue = async (Id) => {
     if (!input11 || !input12) {
       setInput11Error('This field is required');
       setInput12Error('This field is required');
@@ -408,7 +408,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const panniersData = {
       panniers: [
@@ -419,7 +419,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/pan?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/pan?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -449,7 +449,7 @@ const Accessories = ({route}) => {
     setShowFootpegsDropdown(!showFootpegsDropdown);
   };
 
-  const selectFootpegsValue = (Id) => {
+  const selectFootpegsValue = async (Id) => {
     if (!input13 || !input14) {
       setInput13Error('This field is required');
       setInput14Error('This field is required');
@@ -457,7 +457,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const footPegsData = {
       footpegs: [
@@ -468,7 +468,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/foot?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/foot?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -496,7 +496,7 @@ const Accessories = ({route}) => {
   const toggleEngineGuardsDropdown = () => {
     setShowEngineGuardsDropdown(!showEngineGuardsDropdown);
   };
-  const selectEngineGuardsValue = (Id) => {
+  const selectEngineGuardsValue = async (Id) => {
     if (!enginegaurdstext || !enginegaurdsvalue) {
       setInput15Error('This field is required');
       setInput16Error('This field is required');
@@ -504,7 +504,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const enginedata = {
       enginegaurds: [
@@ -515,7 +515,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/engine?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/engine?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -549,7 +549,7 @@ const Accessories = ({route}) => {
   const toggleOilFillerCapDropdown = () => {
     setShowOilFillerCapDropdown(!showOilFillerCapDropdown);
   };
-  const selectSumpGuardsValue = (Id) => {
+  const selectSumpGuardsValue = async (Id) => {
     if (!input17 || !input18) {
       setInput17Error('This field is required');
       setInput18Error('This field is required');
@@ -557,7 +557,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
     const sumpgaurdsdata = {
       sumpgaurds: [
         {
@@ -567,7 +567,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/sump?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/sump?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -594,7 +594,7 @@ const Accessories = ({route}) => {
   const toggleHeadlightDropdown = () => {
     setShowHeadlightDropdown(!showHeadlightDropdown);
   };
-  const selectHeadlightValue = (Id) => {
+  const selectHeadlightValue = async (Id) => {
     if (!input23 || !input24) {
       setInput23Error('This field is required');
       setInput24Error('This field is required');
@@ -602,7 +602,7 @@ const Accessories = ({route}) => {
     }
   
     // Replace 'your_token_here' with the actual JWT token or your token retrieval logic
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
   
     const headlightsData = {
       headlight: [
@@ -613,7 +613,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/headlight?_id=${Id}`, {
+    fetch(`https://vast-newt-crown.cyclic.app/formdetails/headlight?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -651,7 +651,7 @@ const fetchBikeDetails = async (vehicleId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbike/${vehicleId}`;
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -675,225 +675,400 @@ const fetchBikeDetails = async (vehicleId) => {
 };
 
 //start below
-const handleRemovesafty = (objId, safetyAccessoryId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/acc/${objId}/${safetyAccessoryId}`;
+const handleRemovesafty = async (objId, safetyAccessoryId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Deleted safety accessory:', data);
-      
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting safety accessory:', error);
-      // Handle error
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/acc/${objId}/${safetyAccessoryId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     });
+
+    if (response.status === 200) {
+      console.log('Deleted safety accessory successfully');
+      fetchBikeDetails(objId); // Fetch updated bike details
+    } else {
+      console.error('Error deleting safety accessory:', response.statusText);
+      // Handle error
+    }
+  } catch (error) {
+    console.error('Error deleting safety accessory:', error);
+  }
 };
 
-const deleteSeats = (objId, seatId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/seats/${objId}/${seatId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deleteSeats = async (objId, seatId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/seats/${objId}/${seatId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted seat:', data);
-      fetchBikeDetails(objId);
+      fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
-    })
-    .catch((error) => {
-      console.error('Error deleting seat:', error);
+    } else {
+      console.error('Error deleting seat:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting seat:', error);
+  }
 };
-const deleteWindshield = (objId, windshieldId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/wind/${objId}/${windshieldId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deleteWindshield = async (objId, windshieldId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/wind/${objId}/${windshieldId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted windshield:', data);
-      fetchBikeDetails(objId)
+      fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
-    })
-    .catch((error) => {
-      console.error('Error deleting windshield:', error);
+    } else {
+      console.error('Error deleting windshield:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting windshield:', error);
+  }
 };
-const deleteBackrest = (objId, backrestId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/back/${objId}/${backrestId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deleteBackrest = async (objId, backrestId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/back/${objId}/${backrestId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted backrest:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting backrest:', error);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting backrest:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting backrest:', error);
+  }
 };
 
-const deleteEngine = (objId, engineId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/engine/${objId}/${engineId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deleteEngine = async (objId, engineId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/engine/${objId}/${engineId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted engine:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting engine:', error);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting engine:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting engine:', error);
+  }
 };
-const deletesumpguard = (objId, sumpId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/sump/${objId}/${sumpId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deletesumpguard = async (objId, sumpId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/sump/${objId}/${sumpId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted sump guard:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting sump guard:', error);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting sump guard:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting sump guard:', error);
+  }
 };
-const deletefoot = (objId, footpegId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/foot/${objId}/${footpegId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+const deletefoot = async (objId, footpegId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/foot/${objId}/${footpegId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted footpeg accessory:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting footpeg accessory:', error);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting footpeg accessory:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting footpeg accessory:', error);
+  }
 };
 
-const deletepanniers = (objId, panId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/pan/${objId}/${panId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Deleted footpeg accessory:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting footpeg accessory:', error);
-      // Handle error
+const deletepanniers = async (objId, panId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/pan/${objId}/${panId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log('Deleted panniers accessory:', data);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting panniers accessory:', response.statusText);
+      // Handle error
+    }
+  } catch (error) {
+    console.error('Error deleting panniers accessory:', error);
+  }
 };
 
-const deleteMirrors = (objId, mirrorId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/mirrors/${objId}/${mirrorId}`;
+const deleteMirrors = async (objId, mirrorId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/mirrors/${objId}/${mirrorId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
       console.log('Deleted mirrors accessory:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting mirrors accessory:', error);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting mirrors accessory:', response.statusText);
       // Handle error
+    }
+  } catch (error) {
+    console.error('Error deleting mirrors accessory:', error);
+  }
+};
+const deleteoilfiller = async (objId, oilId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/oil/${objId}/${oilId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log('Deleted oil filler accessory:', data);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting oil filler accessory:', response.statusText);
+      // Handle error
+    }
+  } catch (error) {
+    console.error('Error deleting oil filler accessory:', error);
+  }
 };
 
-const deleteoilfiller = (objId, oilId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/oil/${objId}/${oilId}`;
 
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Deleted mirrors accessory:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting mirrors accessory:', error);
-      // Handle error
+const deletheadlight = async (objId, headId) => {
+  try {
+    // Retrieve the JWT token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+
+    const url = `https://vast-newt-crown.cyclic.app/formdetails/headlight/${objId}/${headId}`;
+
+    if (!token) {
+      // Handle the case where the token is missing
+      console.error('Token is missing. Please log in or fetch the token.');
+      return;
+    }
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     });
-};
 
-const deletheadlight = (objId, headId) => {
-  const url = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/headlight/${objId}/${headId}`;
-
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Deleted mirrors accessory:', data);
-      fetchBikeDetails(objId)
-    })
-    .catch((error) => {
-      console.error('Error deleting mirrors accessory:', error);
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log('Deleted headlight accessory:', data);
+      fetchBikeDetails(objId); // Fetch updated bike details
+      // Perform any desired actions after successful deletion
+      // For example, update your app's state or UI accordingly
+    } else {
+      console.error('Error deleting headlight accessory:', response.statusText);
       // Handle error
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting headlight accessory:', error);
+  }
 };
 const navigateToInventory=()=>{
   navigation.navigate('Inventory')

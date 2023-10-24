@@ -38,7 +38,7 @@ const AddVehicle = () => {
 
   // const fetchSections = async () => {
   //   try {
-  //     const response = await fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes');
+  //     const response = await fetch('https://vast-newt-crown.cyclic.app/bikes/bikes');
   //     if (!response.ok) {
   //       throw new Error('Network response was not ok');
   //     }
@@ -65,7 +65,7 @@ const AddVehicle = () => {
         return;
       }
   
-      const response = await fetch('https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes', {
+      const response = await fetch('https://vast-newt-crown.cyclic.app/bikes/bikes', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -156,7 +156,7 @@ const AddVehicle = () => {
         }
   
         // All required fields are filled, so you can send the POST request here
-        const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/uploadbikes';
+        const url = 'https://vast-newt-crown.cyclic.app/formdetails/uploadbikes';
   
         const userData = {
           vehiclename: vehicleName,

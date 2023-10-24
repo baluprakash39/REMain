@@ -20,6 +20,7 @@ import Care from './Care';
 import Accessories from './Accessories';
 import Update from './Update';
 import { scale, moderateScale, verticalScale} from './scaling';
+import DeviceInfo from 'react-native-device-info';
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -28,24 +29,25 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: moderateScale(8),
-    paddingTop: verticalScale(5),
+    // paddingHorizontal: moderateScale(8),
+    // paddingTop: verticalScale(5),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: verticalScale(50),
     marginTop: verticalScale(10),
-    marginHorizontal: moderateScale(5)
+    marginHorizontal: moderateScale(5),
     },
   searchInput: {
     height: verticalScale(35),
     color: '#868687',
     fontSize: moderateScale(16),
-    width: scale(200),
+    width: moderateScale(200),
   },
   searchcontainer:{
-    width: scale(220),
+    width: moderateScale(220),
     height: verticalScale(35),
     gap:scale(2),
     paddingLeft:moderateScale(4),
@@ -58,19 +60,22 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(1), // 1 pixel border width
   },
   loginButton: {
-    backgroundColor: '#F9F9F9', // Use the same background color as searchInput
-    paddingVertical: verticalScale(4),
-    paddingHorizontal: moderateScale(16),
-    borderRadius: moderateScale(6),
-    justifyContent: 'center',
-    alignItems: 'center',
+    // backgroundColor: '#F9F9F9', // Use the same background color as searchInput
+    // paddingVertical: verticalScale(4),
+    // paddingHorizontal: moderateScale(16),
+    // borderRadius: moderateScale(6),
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // height: verticalScale(35),
+    // borderWidth:1,
+    // borderColor:'red'
   },
-  loginButtonText: {
-    color: '#111111', // Change the text color as needed
-    fontWeight: 'bold',
-    fontSize: moderateScale(12),
+  // loginButtonText: {
+    // color: '#111111', // Change the text color as needed
+    // fontWeight: 'bold',
+    // fontSize: moderateScale(12),
     // marginRight: moderateScale(2),
-  },
+  // },
   vehiclevalue:{
     flexDirection: 'row',
     paddingRight: 2,
@@ -97,6 +102,7 @@ function Inventory() {
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
+  const [deviceId, setDeviceId] = useState(null)
 
   const [docId, setDocId] = useState(null);
   // const [selectedFiles, setSelectedFiles] = useState([]);
@@ -112,7 +118,18 @@ function Inventory() {
      fetchBikeDetails(); // Replace with the function that fetches your data
     }, [])
   );
- 
+  useEffect(() => {
+    getDeviceInfo();
+  }, []);
+
+  const getDeviceInfo = async () => {
+    try {
+      const uniqueId = await DeviceInfo.getUniqueId();
+      setDeviceId(uniqueId);
+    } catch (error) {
+      console.error('Error getting device info:', error);
+    }
+  };
 
 
   useEffect(() => {
@@ -133,7 +150,7 @@ function Inventory() {
   };
 
   // const fetchSections = () => {
-  //   const url = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';
+  //   const url = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
 
   //   fetch(url)
   //     .then((response) => response.json())
@@ -153,7 +170,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-plum-woodpecker-veil.cyclic.cloud/bikes/bikes';
+      const apiUrl = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
   
       // Make the API request with the 'Authorization' header
       const response = await fetch(apiUrl, {
@@ -183,7 +200,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes';
+      const apiUrl = 'https://vast-newt-crown.cyclic.app/formdetails/getbikes';
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -214,7 +231,7 @@ function Inventory() {
   //     fetchBikeDetails();
   //   } else {
   //     axios
-  //       .get(`https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes/${section}`, {
+  //       .get(`https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`, {
   //         headers: {
   //           'Access-Control-Allow-Origin': '*',
   //           'Content-Type': 'application/json',
@@ -246,7 +263,7 @@ const products = (section) => {
         const token = await AsyncStorage.getItem('token');
         
         // Set the API endpoint URL
-        const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/getbikes/${section}`;
+        const apiUrl = `https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`;
 
         // Make the API request with the 'Authorization' header
         axios
@@ -310,7 +327,7 @@ const products = (section) => {
               text: 'Delete',
               onPress: () => {
                 // Define your API endpoint URL
-                const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/formdetails/deletebikes/${Id}`;
+                const apiUrl = `https://vast-newt-crown.cyclic.app/formdetails/deletebikes/${Id}`;
   
                 // Send a DELETE request to the API endpoint with the token in headers
                 fetch(apiUrl, {
@@ -363,13 +380,6 @@ const products = (section) => {
       });
   }
 
-  
- 
-
-
-
- 
-
   const uploadImage = async (Id) => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -393,7 +403,7 @@ const products = (section) => {
         name: result[0].name,
       });
   
-      const apiUrl = `https://dull-plum-woodpecker-veil.cyclic.cloud/upload/upload/${Id}`;
+      const apiUrl = `https://vast-newt-crown.cyclic.app/upload/upload/${Id}`;
   
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -432,9 +442,6 @@ const products = (section) => {
     }
   };
   
-  
-
-
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -449,20 +456,20 @@ const products = (section) => {
                       onChangeText={setSearch}/>
           </View>
 
-          <View style={{flexDirection:'row', alignContent:'center', justifyContent:'center'}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15),}}>
-              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-sharp' size={scale(29)} onPress={()=>navigation.navigate('CompanyDetails')}/>
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}>
+              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
               </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.loginButton}
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
             onPress={() => {
               // Handle login button press here
               // You can navigate to the login screen or perform the desired action.
-              navigation.navigate('Home'); 
+              navigation.navigate('Home', {deviceId}); 
               console.log('Login button pressed');
             }}
           >
-            <Text style={styles.loginButtonText}>Logout</Text>
+            {/* <Text style={styles.loginButtonText}>Logout</Text> */}
+            <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
           </TouchableOpacity>
           </View>
         </View>
@@ -514,10 +521,10 @@ const products = (section) => {
             }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
-              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
+              <TouchableOpacity style={{ height:verticalScale(30), width: moderateScale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
-              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
+              <TouchableOpacity style={{ height:verticalScale(30), width: moderateScale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name="upload" size={scale(10)} onPress={() => uploadImage(item._id)}/>
               </TouchableOpacity>
               <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
