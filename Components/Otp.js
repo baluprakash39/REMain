@@ -379,14 +379,11 @@ const Otp = ({ route }) => {
   console.log("h", deviceId);
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [code, setCode] = useState('');
-  const [verificationId, setVerificationId] = useState(null);
   const [error, setError] = useState('');
   const recaptchaVerifier = useRef(null);
   const phoneInput = useRef(null);
-  const codeInput = useRef(null); // Create a ref for the "Confirm code" input field
-  const [codeError, setCodeError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  // const [isOtpSent, setIsOtpSent] = useState(false);
 
   const getPhoneNumber = () => {
     // Alert.alert(phoneNumber)
@@ -441,10 +438,12 @@ const Otp = ({ route }) => {
               await AsyncStorage.setItem("deviceId", deviceId);
               await AsyncStorage.setItem("verificationId", verificationId);
               await AsyncStorage.setItem('phoneNo',number)
+              setPhoneNumber('')
     
   
               // Navigate to the OTP verification screen
               navigation.navigate('Otp2', {deviceId,verificationId});
+              // setIsOtpSent(true);
               setPhoneNumber('');
               setError('');
             } catch (error) {
@@ -497,6 +496,8 @@ const Otp = ({ route }) => {
           <PhoneInput
             ref={phoneInput}
             defaultValue={phoneNumber}
+            placeholder="Enter Phone Number"
+            placeholderTextColor='#979797'
             containerStyle={styles.phoneContainer}
             textContainerStyle={{ ...styles.texInput, backgroundColor: 'transparent' }}
             onChangeFormattedText={text => {
@@ -510,9 +511,14 @@ const Otp = ({ route }) => {
           />
           {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
         </View>
-        <TouchableOpacity style={{ ...styles.sendVerification, backgroundColor: 'crimson' }} onPress={() => { sendVerification(); getPhoneNumber() }}>
+                <View style={styles.sendbutton}>
+                    <TouchableOpacity style={{ ...styles.sendVerification}} onPress={() => { sendVerification(); getPhoneNumber() }}>
+
+                 
+                  
           <Text style={styles.buttonText}>Send OTP</Text>
         </TouchableOpacity>
+          </View>
         {/* <TextInput
           ref={codeInput} // Attach the ref to the "Confirm code" input field
           placeholder="Confirm code"
@@ -528,11 +534,11 @@ const Otp = ({ route }) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity> */}
         <View style={styles.container2}>
-          <Text style={{ fontSize: 25, color: 'white', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
-            Do not have an account?
+          <Text style={{ fontSize: moderateScale(16), color: '#f9f9f9', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
+            Don't have an account?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Registration',{deviceId})}>
-            <Text style={{ color: 'orangered', fontSize: 25, marginLeft: 20 }}>Register</Text>
+            <Text style={{ color: 'orangered', fontSize: moderateScale(16), marginLeft: moderateScale(5), fontWeight: '600'  }}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -544,118 +550,96 @@ export default Otp;
 
 
 const styles = StyleSheet.create({
-  container2: {
-    marginTop:verticalScale(40),
-    flexDirection: 'row', // This ensures they appear in a straight line
-    alignItems: 'center', // Align items vertically
-  },
-    errorText: {
-        color: 'red',
-        marginTop: verticalScale(5),
-        textAlign: 'center'
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        rowGap: scale(15),        
-        backgroundColor:'#11111190'
-    },
-  header:{
+container2: {
     width:'100%',
-    paddingLeft:'10%',
+    marginTop:verticalScale(20),
+    flexDirection: 'row', // This ensures they appear in a straight line
+    // alignItems: 'center', // Align items vertically
+    // alignContent:'center',
+    justifyContent:'center',
+},
+errorText: {
+    color: 'red',
+    marginTop: verticalScale(5),
+    textAlign: 'center'
+},
+backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+},
+container: {
+    flex: 1,
+    // alignItems: 'center',
+    backgroundColor:'#11111190',
+    // justifyContent: 'center',
+    // rowGap: scale(15),
+},
+header:{
+    paddingLeft:moderateScale(30),
     gap:scale(10),
+    marginTop:verticalScale(100),
     marginBottom: verticalScale(30),
-    width: scale(335),
+    width: '100%',
+    // width: scale(335),
     height: verticalScale(30),
-  },
-  headertext:{
+},
+headertext:{
     color:'#f9f9f9',
     fontSize:moderateScale(18),
     fontWeight:'600',
     letterSpacing:moderateScale(0.5),
-  },
-  headersubtext:{
+},
+headersubtext:{
     color:'#f9f9f9',
     fontSize:moderateScale(12),
     fontWeight:'400',
     letterSpacing:moderateScale(0.5),
-  },
-    contain: {
-      padding:scale(10),
-      gap: scale(15),
-      width:scale(250),
-      color:'#f9f9f9',
-    },
-    textInput: {
-      //    paddingTop: 40,
-      //     paddingBottom: 20,
-      paddingHorizontal: moderateScale(30),
-      fontSize: moderateScale(20),
-      //    borderBottomColor: "#fff",
-      //     borderBottomWidth: 2,
-      marginBottom: verticalScale(5),
-      textAlign: 'center',
-      textAlignVertical:'center',
-      color: '#ffffff',
-      height: verticalScale(50),
-      gap:scale(15),
-      margin: scale(12),
-      borderWidth: moderateScale(2),
-      padding: scale(10),
-      borderColor: '#fff',
-      backgroundColor:'#111111',
-      fontSize:moderateScale(12)
-    
-    },
-    phoneContainer: {
-      width: moderateScale(300),
-      height: verticalScale(50),
-      borderBottomColor:'#f9f9f9',
-      color:'#f9f9f9',
-      borderRadius:moderateScale(6)
-      },
-    sendVerification: {
-      padding: 10,
-      backgroundColor: '#3498db',
-      borderRadius: 10,
-      width:200,
-       
-    },
-    sendCode: {
-      padding: 10,
-      backgroundColor: '#9b59b6',
-      borderRadius: 10,
-      width:200,
-        
-    },
-    buttonText: {
-        textAlign: "center",
-        color: '#fff',
-        fontWeight: "600",
-        fontSize:20
-        
-    },
-    otpText: {
-        fontSize: 24,
-        fontWeight: "bold",
-      color: '#fff',
-      margin: 20
-       
-    },
-    text: {
-        color: 'white',
-        fontWeight: '600'
-    },
-    texInput: {
-        paddingVertical: 0,
-      backgroundColor:'transparent',
-      color:'#f9f9f9'
-    }
+},
+contain: {
+    // padding:scale(10),
+    // gap: scale(15),
+    // width: scale(335),
+    width: '100%',
+    color:'#111111',
+},
+phoneContainer: {
+    marginHorizontal:moderateScale(30),
+    // paddingLeft:moderateScale(10),
+    marginTop:verticalScale(30),
+    // width: moderateScale(330),
+    height: verticalScale(50),
+    backgroundColor:'white',
+    color:'#111111',
+    borderRadius:moderateScale(6),
+},
+sendbutton:{
+    // width: scale(335),
+    width: '100%',
+    alignItems:'center',
+    marginTop:verticalScale(100),
+},
+sendVerification: {
+    paddingHorizontal: moderateScale(70),
+    height:verticalScale(35),
+    // backgroundColor: '#3498db',
+    backgroundColor: 'crimson',
+    borderRadius: scale(4),
+    marginHorizontal:moderateScale(20),
+    alignItems:'center',
+    justifyContent:'center'
+},
+buttonText: {
+    textAlign: 'center',
+    textAlignVertical:'center',
+    color: '#f9f9f9',
+    fontWeight: "600",
+    fontSize:moderateScale(14)
+},
+texInput: {
+    paddingVertical: 0,
+    backgroundColor:'transparent',
+    color:'#f9f9f9'
+},
 });
 
 

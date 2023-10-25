@@ -174,7 +174,7 @@ const handleAddDetails = async () => {
         } else {
           console.log('data', response);
           // Example: Show an alert upon successful registration
-          Alert.alert('Success', 'Details saved successfully');
+          Alert.alert('Success', 'Request sent successfully');
           // You can navigate to another screen or perform additional actions here
           setCompanyName('');
           setName('');
@@ -218,11 +218,11 @@ const handleAddDetails = async () => {
           {/* <Text style={styles.subtitle}>Name</Text> */}
           {/* <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField, color: '#F9F9F9' }} 
+            style={{ ...styles.inputField}} 
             placeholder="Enter your full name"
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#6E6E6E40"
+            backgroundColor="#e6e6e6"
             value={name}
             onChangeText={setName}
           />
@@ -233,12 +233,12 @@ const handleAddDetails = async () => {
           {/* <Text style={styles.subtitle}>Contact Number</Text>
           <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-             style={{ ...styles.inputField, color: 'white' }} 
+             style={{ ...styles.inputField}} 
             placeholder="Enter Contact Number"
             keyboardType='number-pad'
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#6E6E6E40"
+            backgroundColor="#e6e6e6"
             value={contactNumber}
             onChangeText={setContactNumber}
           />
@@ -250,11 +250,11 @@ const handleAddDetails = async () => {
           {/* <Text style={styles.subtitle}>Email Id</Text>
           <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField, color: 'white' }} 
+            style={{ ...styles.inputField}} 
             placeholder="Enter Email Id"
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#6E6E6E40"
+            backgroundColor="#e6e6e6"
             value={email}
             onChangeText={setEmail}
           />
@@ -267,7 +267,7 @@ const handleAddDetails = async () => {
           {/* <Text style={styles.subtitle}>Company Name</Text>
           <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-             style={{ ...styles.inputField, color: 'white' }} 
+             style={{ ...styles.inputField}} 
             placeholder="Enter Company Name"
             selectionColor="red"
             placeholderTextColor="#979797"
@@ -345,12 +345,12 @@ const styles = StyleSheet.create({
   inputField: {
     flex: 1,
     height: verticalScale(35),
-    backgroundColor: '#6e6e6e40',
+    backgroundColor: '#e6e6e6',
     borderBottomWidth:1,
     borderColor:'#979797',
     fontSize:moderateScale(14),
     textAlignVertical:'center',
-    color:'#ffffff',
+    color:'#111111',
     fontWeight:'500',
     letterSpacing:moderateScale(0.4),
     borderRadius: scale(3),

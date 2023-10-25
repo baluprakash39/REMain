@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, S
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
-
+import { scale, moderateScale, verticalScale} from './scaling';
 const CompanyDetails = () => {
   const navigation = useNavigation();
 
@@ -144,13 +144,16 @@ console.log('response',response)
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.header}>
-            <View style={{ height: '100%', alignContent: 'center' }}>
+            <View style={{alignContent: 'center' }}>
               <TouchableOpacity onPress={() => { handleBackPress(); navigation.navigate('Inventory'); }} style={styles.backButton}>
-                <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'} />
+                <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'} />
               </TouchableOpacity>
             </View>
+          
+          <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
+          <Text style={styles.title}>Company Details</Text>
           </View>
-          <Text style={{ fontSize: 20, color: 'white', textAlign: 'center' }}>Company Details</Text>
+          </View>
           <View style={styles.line}></View>
 
           {/* Company Name */}
@@ -161,7 +164,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter your Company name"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.companyname}
               onChangeText={(text) => handleInputChange('companyname', text)}
@@ -179,7 +182,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Address Name"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.companyaddress}
               onChangeText={(text) => handleInputChange('companyaddress', text)}
@@ -195,7 +198,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Street Name"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.streetname}
               onChangeText={(text) => handleInputChange('streetname', text)}
@@ -211,7 +214,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter City Name"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.city}
               onChangeText={(text) => handleInputChange('city', text)}
@@ -227,7 +230,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Pincode"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.pincode}
               onChangeText={(text) => handleInputChange('pincode', text)}
@@ -243,7 +246,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Statename"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.state}
               onChangeText={(text) => handleInputChange('state', text)}
@@ -259,7 +262,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Country Name"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.country}
               onChangeText={(text) => handleInputChange('country', text)}
@@ -280,7 +283,7 @@ console.log('response',response)
   style={styles.inputField}
   placeholder="Enter GST Number"
   selectionColor="red"
-  placeholderTextColor="#303030"
+  placeholderTextColor="#979797"
   backgroundColor="#CBCBCA"
   value={formData.gstin}
   onChangeText={(text) => handleInputChange('gstin', text)}
@@ -304,7 +307,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Contact Number"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.contactnumber}
               onChangeText={(text) => handleInputChange('contactnumber', text)}
@@ -326,7 +329,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Email Id"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.emailid}
               onChangeText={(text) => handleInputChange('emailid', text)}
@@ -342,7 +345,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Website"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#979797"
               backgroundColor="#CBCBCA"
               value={formData.website}
               onChangeText={(text) => handleInputChange('website', text)}
@@ -377,10 +380,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
   },
-  header: {
-    gap: 110,
+  header:{
     alignItems: 'center',
     flexDirection: 'row',
+    marginBottom: verticalScale(10),
+    width: scale(335),
+    height: verticalScale(30),
+  },
+  backButton:{
+    alignItems: 'center',
+    width:scale(20),
+    height:verticalScale(20),
+    justifyContent:'center',
+  },
+  title: {
+    color: '#F9F9F9',
+    fontSize: moderateScale(16),
+    fontWeight: 'semibold',
+    textAlign: 'center',
+    letterSpacing: moderateScale(0.5),
+  },
+  line: {
+    height: verticalScale(1),
+    backgroundColor: 'white',
+    width: scale(335),
   },
   subtitle: {
     width: 120,
@@ -396,12 +419,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     paddingLeft: 10,
-    color: '#868687',
-  },
-  line: {
-    height: 1,
-    backgroundColor: 'white',
-    width: '100%',
+    color: '#111111',
   },
   bottombuttons: {
     alignItems: 'center',

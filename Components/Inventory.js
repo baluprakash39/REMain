@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
   searchInput: {
     height: verticalScale(35),
-    color: '#868687',
+    color: '#f9f9f9',
     fontSize: moderateScale(16),
     width: moderateScale(200),
   },
@@ -457,10 +457,10 @@ const products = (section) => {
           </View>
 
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}>
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}>
               <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
               </TouchableOpacity>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
             onPress={() => {
               // Handle login button press here
               // You can navigate to the login screen or perform the desired action.
@@ -521,10 +521,10 @@ const products = (section) => {
             }}>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
-              <TouchableOpacity style={{ height:verticalScale(30), width: moderateScale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
+              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
-              <TouchableOpacity style={{ height:verticalScale(30), width: moderateScale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
+              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name="upload" size={scale(10)} onPress={() => uploadImage(item._id)}/>
               </TouchableOpacity>
               <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>

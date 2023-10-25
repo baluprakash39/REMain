@@ -42,16 +42,15 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
   const[timer,setTimer]=useState(0)
   const [clickedValue, setClickedValue] = useState(0);
   console.log('click',clickedValue)
-    // Callback function to receive the clicked value from Otp component
-    const handleLoginClick = (value,zero) => {
-      setClickedValue(value);
-      setTimer(zero)
-    };
+      // Callback function to receive the clicked value from Otp component
+      const handleLoginClick = (value,zero) => {
+        setClickedValue(value);
+        setTimer(zero)
+      };
   
-  
- console.log("islogged islogged",isLoggedIn)
+ console.log("islogged",isLoggedIn)
  console.log('timer',timer)
- 
+
  
  const openLogoutPopup = () => {
   setShowLogoutPopup(true);
@@ -74,48 +73,8 @@ const closeLogoutPopup = () => {
           .then((value) => {
             if (value === 'true') {
               setIsLoggedIn(true);
-              const updateTimerOnStart = async () => {
-                const token = await AsyncStorage.getItem('token');
-                if (token) {
-                  const tokenData = jwtDecode(token);
-                  const currentTimestamp = Math.floor(Date.now() / 1000);
-                  const tokenExpiry = tokenData.exp;
-                  const timeRemainingInSeconds = tokenExpiry - currentTimestamp;
-                  setTimer(timeRemainingInSeconds);
-                  console.log('Token Expiry Time Remaining (seconds):', timeRemainingInSeconds);
-                }
-              };
-              updateTimerOnStart();
-              let unique: any; 
-     
-              unique = setInterval(async () => {
-                setTimer((prevTimer) => {
-                 
-                  const newTimer = prevTimer - 1;
-                  
-                  // Check if the timer has reached 86300 seconds (23 hours and 58 minutes)
-                  if (newTimer <= 86300) {
-                    openLogoutPopup(); // Open the modal
-                  
-                  } if (newTimer <= 86200) {
-                    clearInterval(unique); // Stop the interval
-                    setIsLoading(true); // Show loading indicator
-                    
-                    // Perform the logout actions
-                    (async () => {
-                      await AsyncStorage.setItem('isloggedIn', 'false');
-                      await AsyncStorage.removeItem('token');
-                     
-                      setIsLoggedIn(false);
-                      setIsLoading(false); // Hide loading indicator
-                      closeLogoutPopup()
-                    })();
-                    
-                  }
-          
-                  return newTimer;
-                });
-              }, 1000);
+
+
             } else {
               setIsLoggedIn(false);
             }
@@ -128,7 +87,64 @@ const closeLogoutPopup = () => {
       }, [isLoggedIn,clickedValue]);
 
 
+     //useffect
+      useEffect(() => {
+        if (isLoggedIn) {
+          // Retrieve the token and update the timer upon app start
+          const updateTimerOnStart = async () => {
+            const token = await AsyncStorage.getItem('token');
+            if (token) {
+              const tokenData = jwtDecode(token);
+              const currentTimestamp = Math.floor(Date.now() / 1000);
+              const tokenExpiry = tokenData.exp;
+              const timeRemainingInSeconds = tokenExpiry - currentTimestamp;
+              setTimer(timeRemainingInSeconds);
+              console.log('Token Expiry Time Remaining (seconds):', timeRemainingInSeconds);
+            }
+          };
+          
+          updateTimerOnStart();
+        }
+      }, [isLoggedIn,clickedValue]);
+
+
  
+
+// usefect3
+useEffect(() => {
+  if (isLoggedIn) {
+    let unique: any; 
+     
+    unique = setInterval(async () => {
+      setTimer((prevTimer) => {
+       
+        const newTimer = prevTimer - 1;
+        
+        // Check if the timer has reached 86300 seconds (23 hours and 58 minutes)
+        if (newTimer <= 86300) {
+          openLogoutPopup(); // Open the modal
+        
+        } if (newTimer <= 86200) {
+          clearInterval(unique); // Stop the interval
+          setIsLoading(true); // Show loading indicator
+          
+          // Perform the logout actions
+          (async () => {
+            await AsyncStorage.setItem('isloggedIn', 'false');
+            await AsyncStorage.removeItem('token');
+           
+            setIsLoggedIn(false);
+            setIsLoading(false); // Hide loading indicator
+            closeLogoutPopup()
+          })();
+          
+        }
+
+        return newTimer;
+      });
+    }, 1000);
+  }
+}, [isLoggedIn,clickedValue]);
 
      
 
@@ -141,7 +157,7 @@ const closeLogoutPopup = () => {
 
 
 
-  
+  //function that generate token every time and set to assync storage when click wait. 
   
  
   const handleWait = async () => {
@@ -186,7 +202,7 @@ const closeLogoutPopup = () => {
     }
   };
   
-  const updateTimerBasedOnToken = (newToken: any) => {
+  const updateTimerBasedOnToken = (newToken) => {
     const tokenData = jwtDecode(newToken);
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const tokenExpiry = tokenData.exp;
@@ -225,7 +241,7 @@ const closeLogoutPopup = () => {
   };
   
 
-  function formatTime(timeInSeconds: number) {
+  function formatTime(timeInSeconds) {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = timeInSeconds % 60;
@@ -348,7 +364,7 @@ if (isLoading) {
           <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>
             <Text style={{color:'red',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Continue</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'red',justifyContent:'center',borderRadius:scale(5)}} onPress={handleLogout}>
+          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'crimson',justifyContent:'center',borderRadius:scale(5)}} onPress={handleLogout}>
             <Text style={{color:'white',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Logout</Text>
           </TouchableOpacity>
           </View>

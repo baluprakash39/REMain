@@ -196,7 +196,7 @@ const {deviceId} = route.params
     },  
     searchInput: {
       height: verticalScale(35),
-      color: '#868687',
+      color: '#f9f9f9',
       fontSize: moderateScale(16),
       width: moderateScale(200),
     },
@@ -284,7 +284,7 @@ const {deviceId} = route.params
                       onChangeText={setSearch}/>
           </View>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: verticalScale(35), width: moderateScale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
                       onPress={handleInventory}>
                         {/* navigation.navigate('Inventory');
                         console.log('Clicked on settings');

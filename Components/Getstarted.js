@@ -35,7 +35,7 @@ const handlegetstart = async() => {
                 <Text style={styles.headings}>Welcome to the Vehicle Guide App!</Text>
             </View>
               <Image
-              source={require('../assets/Re2.jpeg')}
+              source={require('../assets/Re2.jpg')}
               style={styles.images}
               resizeMode="cover"
             />
@@ -49,7 +49,7 @@ const handlegetstart = async() => {
                 <Text style={styles.headings}>One - Stop Shop for Vehicle Information</Text>
             </View>
             <Image
-              source={require('../assets/Re1.jpeg')}
+              source={require('../assets/Re1.jpg')}
               style={styles.images}
               resizeMode="cover"
             />
@@ -60,7 +60,7 @@ const handlegetstart = async() => {
                 <Text style={styles.headings}>Easily Share Vehicle Info & Prices</Text>
             </View>
             <Image
-              source={require('../assets/Re.jpeg')}
+              source={require('../assets/Re.jpg')}
               style={styles.image3}
               resizeMode="cover"
             />
