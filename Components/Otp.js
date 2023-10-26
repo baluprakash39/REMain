@@ -191,9 +191,9 @@
 //           <Text style={styles.headersubtext}>Enter mobile number for OTP</Text>
 //         </View>
 //         {/* <FirebaseRecaptchaVerifierModal
-//           ref={recaptchaVerifier}
+//           ref={recaptchaVerifier} */}
 //           firebaseConfig={firebaseConfig}
-//         /> */}
+        
 //         <View style={styles.contain}>
 //           <PhoneInput
 //             ref={phoneInput}
@@ -388,9 +388,6 @@ const Otp = ({ route }) => {
   const getPhoneNumber = () => {
     // Alert.alert(phoneNumber)
   }
-
- 
-
   const sendVerification = async () => {
     if (!phoneNumber) {
       setPhoneNumberError('Please enter a phone number.');
@@ -491,6 +488,7 @@ const Otp = ({ route }) => {
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}
+          attemptInvisibleVerification={true}
         />
         <View style={styles.contain}>
           <PhoneInput
