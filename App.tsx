@@ -121,10 +121,10 @@ useEffect(() => {
         const newTimer = prevTimer - 1;
         
         // Check if the timer has reached 86300 seconds (23 hours and 58 minutes)
-        if (newTimer <= 46300) {
+        if (newTimer <= 120) {
           openLogoutPopup(); // Open the modal
-        
-        } if (newTimer <= 46200) {
+        //86200
+        } if (newTimer <= 0) {
           clearInterval(unique); // Stop the interval
           setIsLoading(true); // Show loading indicator
           
