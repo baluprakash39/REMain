@@ -21,6 +21,18 @@ import Accessories from './Accessories';
 import Update from './Update';
 import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -29,11 +41,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    rowGap:verticalScale(20),
     // paddingHorizontal: moderateScale(8),
     // paddingTop: verticalScale(5),
+    // borderWidth:2,
+    // borderColor:'red'
   },
   header: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     height: verticalScale(50),
@@ -47,17 +62,19 @@ const styles = StyleSheet.create({
     width: moderateScale(200),
   },
   searchcontainer:{
-    width: moderateScale(220),
+    // width: moderateScale(220),
+    width:'100%',
     height: verticalScale(35),
     gap:scale(2),
     paddingLeft:moderateScale(4),
     flexDirection: 'row',
     alignItems:'stretch',
-    justifyContent:'space-between',
+    // justifyContent:'space-between',
     borderRadius: moderateScale(6),
     backgroundColor: '#3D3C3C',
     borderColor: '#979797', // White border
     borderWidth: moderateScale(1), // 1 pixel border width
+    marginBottom:verticalScale(10),
   },
   loginButton: {
     // backgroundColor: '#F9F9F9', // Use the same background color as searchInput
@@ -78,13 +95,14 @@ const styles = StyleSheet.create({
   // },
   vehiclevalue:{
     flexDirection: 'row',
-    paddingRight: 2,
-    gap: 3,
+    paddingRight: moderateScale(2),
+    gap: scale(3),
     alignItems: 'flex-end',
   },
 });
 
 function Inventory() {
+  const {t} = useTranslation();
   const ans=AsyncStorage.getItem('token')
   console.log("ans",ans)
   const [search, setSearch] = useState('');
@@ -446,6 +464,25 @@ const products = (section) => {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.header}>
+          <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),alignItems:'center',justifyContent:'space-between'}}>
+          <TouchableOpacity style={{marginHorizontal: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}>
+              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
+              <Text style={{color:'#f9f9f9',fontSize:moderateScale(10)}}>Profile</Text>
+              </TouchableOpacity>
+          <Text style={{color:'#f9f9f9',fontSize:moderateScale(24),paddingHorizontal:moderateScale(10)}}>Inventory</Text>
+          <TouchableOpacity style={{marginLeft: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}
+            onPress={() => {
+              // Handle login button press here
+              // You can navigate to the login screen or perform the desired action.
+              navigation.navigate('Home', {deviceId}); 
+              console.log('Login button pressed');
+            }}
+          >
+            <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
+            <Text style={{color:'#f9f9f9'}}>Home</Text>
+          </TouchableOpacity>
+          </View>
+          {/* <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),justifyContent:'space-between'}}> */}
           <View style={styles.searchcontainer}>
           <View style={{justifyContent:'center'}}>
               <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
@@ -455,12 +492,13 @@ const products = (section) => {
                       selectionColor="red"
                       onChangeText={setSearch}/>
           </View>
-
+          
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}>
+          {/* <TouchableOpacity style={{marginHorizontal: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}>
               <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
-              </TouchableOpacity>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15),height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+              <Text style={{color:'#f9f9f9'}}>Profile</Text>
+              </TouchableOpacity> */}
+          {/* <TouchableOpacity style={{marginLeft: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}
             onPress={() => {
               // Handle login button press here
               // You can navigate to the login screen or perform the desired action.
@@ -468,37 +506,38 @@ const products = (section) => {
               console.log('Login button pressed');
             }}
           >
-            {/* <Text style={styles.loginButtonText}>Logout</Text> */}
             <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
-          </TouchableOpacity>
+            <Text style={{color:'#f9f9f9'}}>Home</Text>
+          </TouchableOpacity> */}
           </View>
+          {/* </View> */}
         </View>
-        <View style={{ flexDirection: 'row', borderRadius: 10, marginTop: verticalScale(10) }}>
-  {sections
-    .filter((sec) => sec.Sectionname === 'Accesories' || sec.Sectionname === 'Care')
-    .map((sec, index) => (
-      <TouchableOpacity
-        key={index}
-        style={{
-          backgroundColor: selectedSection === sec.Sectionname ? '#F9F9F9' : '#868687',
-          borderWidth: scale(1),
-          borderColor: '#F9F9F9',
-          borderRadius: scale(10),
-          margin: scale(5),
-          width: scale(90),
-          height: verticalScale(40),
-          marginBottom: verticalScale(10),
-          justifyContent: 'center', // Center the content vertically
-          alignItems: 'center', // Center the content Horizontally
-        }}
-        
-        
-        onPress={() => products(sec.Sectionname)}
-      >
-        <Text style={{color: '#111111',fontSize:moderateScale(12),fontWeight:'700' }}>{sec.Sectionname}</Text>
-      </TouchableOpacity>
-    ))}
-</View>
+        <View style={{ flexDirection: 'row', borderRadius: scale(5), marginTop: verticalScale(10)}}>
+            {sections
+              .filter((sec) => sec.Sectionname === 'Accesories' || sec.Sectionname === 'Care')
+              .map((sec, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    backgroundColor: selectedSection === sec.Sectionname ? '#F9F9F9' : '#868687',
+                    borderWidth: scale(1),
+                    borderColor: '#F9F9F9',
+                    borderRadius: scale(10),
+                    marginHorizontal: scale(10),
+                    width: moderateScale(150),
+                    height: verticalScale(40),
+                    // marginBottom: verticalScale(10),
+                    justifyContent: 'center', // Center the content vertically
+                    alignItems: 'center', // Center the content Horizontally
+                  }}
+                  
+                  
+                  onPress={() => products(sec.Sectionname)}
+                >
+                <Text style={{color: '#111111',fontSize:moderateScale(12),fontWeight:'700' }}>{sec.Sectionname}</Text>
+              </TouchableOpacity>
+              ))}
+          </View>
 
         <FlatList
         
@@ -512,11 +551,12 @@ const products = (section) => {
               borderColor:'#979797',
               borderWidth: scale(1),
               backgroundColor: '#11111190',
-              margin: moderateScale(3),
+              margin: moderateScale(5),
               borderRadius: scale(10),
-              height:verticalScale(310),
-              width: moderateScale(232),
-              // justifyContent: 'space-between',
+              height:verticalScale(200),
+              width:'47%',
+              // width: moderateScale(232),
+              justifyContent: 'space-between',
               
             }}>
 
@@ -552,8 +592,10 @@ const products = (section) => {
             <View style={{justifyContent: 'space-between',flexDirection: 'column'}}>
               <Image
                 style={{
-                  height: verticalScale(180),
-                  width: moderateScale(228),
+                  // height: verticalScale(120),
+                  height:'65%',
+                  // width: moderateScale(228),
+                  width:'100%',
                   resizeMode:'cover',
 
                 }}
@@ -595,7 +637,7 @@ const products = (section) => {
         style={{
             backgroundColor: '#f9f9f9',
             borderWidth:moderateScale(0.5),
-            borderColor:'red',
+            // borderColor:'red',
             borderRadius: scale(100), // Make it round
             justifyContent: 'center',
             alignItems: 'center',
@@ -612,7 +654,7 @@ const products = (section) => {
         }}
        >
           
-            <MaterialIcons name='add-circle' size={scale(30)} color='#111111' />
+            <MaterialIcons name='add-circle' size={scale(40)} color='#111111' />
    
       </TouchableOpacity>
       </View>

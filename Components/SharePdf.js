@@ -4,9 +4,22 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 const SharePdf = ({route}) => {
+  const {t} = useTranslation();
   const { formData,
     customername,
     address,

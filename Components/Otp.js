@@ -371,10 +371,24 @@ import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import PhoneInput from 'react-native-phone-number-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
+
 
 
 
 const Otp = ({ route }) => {
+  const {t} = useTranslation();
   const { deviceId } = route.params;
   console.log("h", deviceId);
   const navigation = useNavigation();
@@ -485,8 +499,8 @@ const Otp = ({ route }) => {
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headertext}>Login</Text>
-          <Text style={styles.headersubtext}>Enter mobile number for OTP</Text>
+          <Text style={styles.headertext}>{t('otpheader')}</Text>
+          <Text style={styles.headersubtext}>{t('otphdsubtext')}</Text>
         </View>
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
@@ -511,12 +525,20 @@ const Otp = ({ route }) => {
           />
           {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
         </View>
+        <View style={styles.container2}>
+          <Text style={{ fontSize: moderateScale(14), color: '#f9f9f9', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
+            {t('otpbottomtxt1')}
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Registration',{deviceId})}>
+            <Text style={{ color: 'orangered', fontSize: moderateScale(14), marginLeft: moderateScale(5), fontWeight: '600'  }}>{t('otpbottomtxt2')}</Text>
+          </TouchableOpacity>
+        </View>
                 <View style={styles.sendbutton}>
                     <TouchableOpacity style={{ ...styles.sendVerification}} onPress={() => { sendVerification(); getPhoneNumber() }}>
 
                  
                   
-          <Text style={styles.buttonText}>Send OTP</Text>
+          <Text style={styles.buttonText}>{t('otpbtntext')}</Text>
         </TouchableOpacity>
           </View>
         {/* <TextInput
@@ -533,14 +555,7 @@ const Otp = ({ route }) => {
         <TouchableOpacity style={{ ...styles.sendCode, backgroundColor: 'crimson' }} onPress={confirmCode}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity> */}
-        <View style={styles.container2}>
-          <Text style={{ fontSize: moderateScale(16), color: '#f9f9f9', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
-            Don't have an account?
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Registration',{deviceId})}>
-            <Text style={{ color: 'orangered', fontSize: moderateScale(16), marginLeft: moderateScale(5), fontWeight: '600'  }}>Register</Text>
-          </TouchableOpacity>
-        </View>
+
       </View>
     </ImageBackground>
   );
@@ -552,11 +567,12 @@ export default Otp;
 const styles = StyleSheet.create({
 container2: {
     width:'100%',
-    marginTop:verticalScale(20),
+    // marginTop:verticalScale(40),
     flexDirection: 'row', // This ensures they appear in a straight line
     // alignItems: 'center', // Align items vertically
     // alignContent:'center',
     justifyContent:'center',
+    marginTop:verticalScale(180),
 },
 errorText: {
     color: 'red',
@@ -616,22 +632,27 @@ sendbutton:{
     // width: scale(335),
     width: '100%',
     alignItems:'center',
-    marginTop:verticalScale(100),
+    marginTop:verticalScale(20),
+    // borderWidth:1,
+    // borderColor:'red'
 },
 sendVerification: {
-    paddingHorizontal: moderateScale(70),
+    // width:'100%',
+    paddingHorizontal: moderateScale(100),
     height:verticalScale(35),
     // backgroundColor: '#3498db',
-    backgroundColor: 'crimson',
+    backgroundColor: '#f9f9f9',
     borderRadius: scale(4),
-    marginHorizontal:moderateScale(20),
+    // marginHorizontal:moderateScale(50),
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    // borderWidth:1,
+    // borderColor:'red'
 },
 buttonText: {
     textAlign: 'center',
     textAlignVertical:'center',
-    color: '#f9f9f9',
+    color: '#111111',
     fontWeight: "600",
     fontSize:moderateScale(14)
 },

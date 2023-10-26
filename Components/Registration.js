@@ -6,10 +6,23 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info'; // Import the DeviceInfo module
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 
 const Registration = ({route}) => {
+  const {t} = useTranslation();
   const {deviceId}=route.params
   const navigation = useNavigation();
   const [name, setName] = useState('');
@@ -194,7 +207,7 @@ const handleAddDetails = async () => {
 
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
-    <ScrollView>
+
      <View style={styles.container}>
        <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
          <View style={styles.header}>
@@ -210,10 +223,11 @@ const handleAddDetails = async () => {
         </View>
         <View style={styles.line}></View>
         </View>
+        <ScrollView>
         <View style={{marginBottom:verticalScale(100), paddingHorizontal:moderateScale(10)}}>
         {/* Name */}
-        <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(30)}}>Personal Information</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: scale(20) }}>
+        <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(15)}}>Personal Information</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
         
           {/* <Text style={styles.subtitle}>Name</Text> */}
           {/* <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
@@ -222,7 +236,7 @@ const handleAddDetails = async () => {
             placeholder="Enter your full name"
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#e6e6e6"
+            backgroundColor="#111111"
             value={name}
             onChangeText={setName}
           />
@@ -238,7 +252,7 @@ const handleAddDetails = async () => {
             keyboardType='number-pad'
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#e6e6e6"
+            backgroundColor="#111111"
             value={contactNumber}
             onChangeText={setContactNumber}
           />
@@ -254,7 +268,7 @@ const handleAddDetails = async () => {
             placeholder="Enter Email Id"
             selectionColor="red"
             placeholderTextColor="#979797"
-            backgroundColor="#e6e6e6"
+            backgroundColor="#111111"
             value={email}
             onChangeText={setEmail}
           />
@@ -263,7 +277,7 @@ const handleAddDetails = async () => {
 
         {/* Company Name */}
         <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(30)}}>Company Information</Text>
-        <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: scale(20)  }}>
+        <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20)  }}>
           {/* <Text style={styles.subtitle}>Company Name</Text>
           <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
@@ -283,7 +297,7 @@ const handleAddDetails = async () => {
         <View style={styles.bottombuttons}>
           <TouchableOpacity style={styles.button} onPress={handleAddDetails}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(20) }}>
-              <FontAwesome6 name="address-card" size={moderateScale(20)} color="#f9f9f9" />
+              <FontAwesome6 name="address-card" size={scale(15)} color="#111111" />
               <Text style={styles.buttonText }>Register</Text>
             </View>
           </TouchableOpacity>
@@ -291,8 +305,8 @@ const handleAddDetails = async () => {
         </View>
 
       </View>
-      </View>
       </ScrollView>
+      </View>
       </ImageBackground>
   );
 };
@@ -345,12 +359,12 @@ const styles = StyleSheet.create({
   inputField: {
     flex: 1,
     height: verticalScale(35),
-    backgroundColor: '#e6e6e6',
-    borderBottomWidth:1,
+    backgroundColor: '#111111',
+    borderWidth:scale(1),
     borderColor:'#979797',
     fontSize:moderateScale(14),
     textAlignVertical:'center',
-    color:'#111111',
+    color:'#f9f9f9',
     fontWeight:'500',
     letterSpacing:moderateScale(0.4),
     borderRadius: scale(3),
@@ -364,26 +378,32 @@ const styles = StyleSheet.create({
   bottombuttons: {
     alignItems: 'center',
     alignContent:'center',
-    width:scale(300),
-    height: scale(40),
-    marginHorizontal: verticalScale(30),
+    // width:scale(300),
+    width:'100%',
+    height: verticalScale(40),
+    // marginHorizontal: verticalScale(30),
     marginTop:verticalScale(1),
     marginBottom:verticalScale(40),
-    paddingHorizontal:scale(5),
+    // paddingHorizontal:scale(5),
+    // borderWidth:1,
+    // borderColor:'red'
   },
   button: {
-    borderColor: '#f9f9f9',
-    backgroundColor: 'crimson',
-    borderWidth: moderateScale(1),
-    borderRadius: scale(3),
-    width: scale(200),
-    height: scale(30),
-    alignItems: 'center',
-    justifyContent:'center'
+    // width:'100%',
+    paddingHorizontal: moderateScale(100),
+    height:verticalScale(40),
+    // backgroundColor: '#3498db',
+    backgroundColor: '#f9f9f9',
+    borderRadius: scale(4),
+    // marginHorizontal:moderateScale(50),
+    alignItems:'center',
+    justifyContent:'center',
+    // borderWidth:1,
+    // borderColor:'red'
   },
   buttonText: {
-    color: '#f9f9f9',
-    fontSize: scale(10),
+    color: '#111111',
+    fontSize: moderateScale(14),
     fontWeight: '600',
     textAlign: 'center',
   },
