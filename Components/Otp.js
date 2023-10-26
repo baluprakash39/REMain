@@ -1,6 +1,6 @@
 // import React, { useRef, useState } from "react";
 // import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity, ImageBackground } from 'react-native';
-// import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+// // import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 // import { firebaseConfig } from "../config";
 // import firebase from "firebase/compat/app";
 // import { useNavigation } from '@react-navigation/native';
@@ -120,12 +120,12 @@
 //       if (data.status === 'allowed') {
 //         if (data.data.adminaccept === true) {
 //           const phoneProvider = new firebase.auth.PhoneAuthProvider();
-//           phoneProvider
-//             .verifyPhoneNumber(("+91" + number), recaptchaVerifier.current)
-//             .then(setVerificationId)
-//             .catch((error) => {
-//               setError(error.message);
-//             });
+// phoneProvider
+//   .verifyPhoneNumber("+91" + number)
+//   .then(setVerificationId)
+//   .catch((error) => {
+//     setError(error.message);
+//   });
 
 //           // Set AsyncStorage values
 //           await AsyncStorage.setItem('token', data.token);
@@ -190,10 +190,10 @@
 //           <Text style={styles.headertext}>Login</Text>
 //           <Text style={styles.headersubtext}>Enter mobile number for OTP</Text>
 //         </View>
-//         <FirebaseRecaptchaVerifierModal
+//         {/* <FirebaseRecaptchaVerifierModal
 //           ref={recaptchaVerifier}
 //           firebaseConfig={firebaseConfig}
-//         />
+//         /> */}
 //         <View style={styles.contain}>
 //           <PhoneInput
 //             ref={phoneInput}
