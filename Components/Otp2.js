@@ -6,10 +6,23 @@ import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from "firebase/compat/app";
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 
 const Otp2 = ({ route }) => {
+  const {t} = useTranslation();
   const { deviceId } = route.params;
   const { verificationId } = route.params;
   const [code, setCode] = useState('');
@@ -64,10 +77,11 @@ const Otp2 = ({ route }) => {
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headertext}>Enter OTP</Text>
-          <Text style={styles.headersubtext}>6 digit OTP sent to your number</Text>
+          <Text style={styles.headertext}>{t('otp2header')}</Text>
+          <Text style={styles.headersubtext}>{t('otp2hdsubtext')}</Text>
         </View>
         <View style={styles.contain}>
+          <View style={styles.OTPcontainer}>
           <OtpInputs
             numberOfInputs={6}
             inputStyles={styles.otpInputField}
@@ -75,16 +89,19 @@ const Otp2 = ({ route }) => {
               setCode(code);
             }}
             keyboardType="number-pad"
-            inputContainerStyles={{ backgroundColor: 'transparent', height: verticalScale(40), width: moderateScale(40), marginHorizontal: moderateScale(10), borderColor: 'transparent', borderWidth: 0, marginTop: verticalScale(80) }}
+            inputContainerStyles={{ backgroundColor: 'transparent', height: verticalScale(40), width: moderateScale(40), marginHorizontal: moderateScale(4), borderColor: 'transparent', borderWidth: 0 }}
           />
           {codeError && <Text style={styles.errorText}>{codeError}</Text>}
+          </View>
         </View>
+        <View style={styles.sendbutton}>
         <TouchableOpacity
-          style={{ ...styles.sendCode, backgroundColor: 'crimson' }}
+          style={{ ...styles.sendVerification}}
           onPress={confirmCode}
         >
-          <Text style={styles.buttonText}>Verify OTP</Text>
+          <Text style={styles.buttonText}>{t('otp2btntext')}</Text>
         </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -95,37 +112,44 @@ export default Otp2;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     // rowGap: scale(15),        
     backgroundColor:'#11111190'
 },
 header:{
-width:'100%',
-paddingLeft:'10%',
-gap:scale(10),
-marginBottom: verticalScale(30),
-width: scale(335),
-height: verticalScale(30),
+// width:'100%',
+// paddingLeft:'10%',
+// gap:scale(10),
+// marginBottom: verticalScale(30),
+// width: scale(335),
+// height: verticalScale(30),
+    paddingLeft:moderateScale(30),
+    gap:scale(10),
+    marginTop:verticalScale(100),
+    marginBottom: verticalScale(30),
+    width: '100%',
+    // width: scale(335),
+    height: verticalScale(30),
 },
 headertext:{
-color:'#f9f9f9',
-fontSize:moderateScale(18),
-fontWeight:'600',
-letterSpacing:moderateScale(0.5),
+    color:'#f9f9f9',
+    fontSize:moderateScale(18),
+    fontWeight:'600',
+    letterSpacing:moderateScale(0.5),
 },
 headersubtext:{
-color:'#f9f9f9',
-fontSize:moderateScale(12),
-fontWeight:'400',
-letterSpacing:moderateScale(0.5),
+    color:'#f9f9f9',
+    fontSize:moderateScale(12),
+    fontWeight:'400',
+    letterSpacing:moderateScale(0.5),
 },
   // container2: {
   //   marginTop:scale(10),
   //   flexDirection: 'row', // This ensures they appear in a straight line
   //   alignItems: 'center', // Align items vertically
   // },
-  errorText: {
+errorText: {
     // color: 'red',
     // marginTop: 5,
     textAlign: 'center',
@@ -145,11 +169,12 @@ letterSpacing:moderateScale(0.5),
     resizeMode: 'cover',
   },
   contain: {
-    height:verticalScale(250),
-    width:moderateScale(370),
+    height:verticalScale(70),
+    // width:moderateScale(370),
+    width:'100%',
     alignItems:'center',
-    marginTop:verticalScale(20),
-    marginBottom:verticalScale(40),
+    marginTop:verticalScale(50),
+    marginBottom:verticalScale(90),
     justifyContent:'center',
     // borderWidth:1,
     // borderColor:'white'
@@ -159,7 +184,14 @@ letterSpacing:moderateScale(0.5),
     // width:scale(250),
     // color:'#f9f9f9',
     // backgroundColor:'white',
-    },  
+    },
+OTPcontainer:{
+    height:verticalScale(70),
+    backgroundColor:'#FBF6FA',
+    borderRadius:scale(10),
+    alignItems:'center',
+    justifyContent:'center'
+},
     // otp: {
     //   marginBottom: verticalScale(14),
     //   padding: scale(10),
@@ -167,24 +199,29 @@ letterSpacing:moderateScale(0.5),
     //   justifyContent: 'center',
     //   alignItems: 'center',
     // },
-  sendCode: {
-    alignItems:'center',
-    justifyContent:'center',
-    backgroundColor: '#9b59b6',
-    borderRadius: scale(4),
-    height:verticalScale(35),
-    width:moderateScale(250),
-    marginTop:verticalScale(5),
-    marginBottom:verticalScale(40)
-  },
-  buttonText: {
-    textAlign: "center",
-    color: '#fff',
-    fontWeight: '600',
-    fontSize:moderateScale(14),
-    letterSpacing: moderateScale(0.5),
-    textTransform:'uppercase'
-  },
+  // sendCode: {
+    // alignItems:'center',
+    // justifyContent:'center',
+    // backgroundColor: '#9b59b6',
+    // // backgroundColor: 'crimson',
+    // borderRadius: scale(4),
+    // height:verticalScale(35),
+    // // width:moderateScale(250),
+    // width:'100%',
+    // marginTop:verticalScale(5),
+    // marginBottom:verticalScale(40)
+  //   width: '100%',
+  //   alignItems:'center',
+  //   marginTop:verticalScale(20),
+  // },
+  // buttonText: {
+  //   textAlign: "center",
+  //   color: '#fff',
+  //   fontWeight: '600',
+  //   fontSize:moderateScale(14),
+  //   letterSpacing: moderateScale(0.5),
+  //   textTransform:'uppercase'
+  // },
   // texInput: {
   //   paddingVertical: 0,
   //   backgroundColor:'transparent',
@@ -204,12 +241,13 @@ letterSpacing:moderateScale(0.5),
     backgroundColor:'transparent',
     height: verticalScale(40),
     width:moderateScale(40),
-    borderBottomWidth: verticalScale(2),
-    borderBottomColor: 'white',
+    // borderBottomWidth: verticalScale(2),
+    // borderBottomColor: 'white',
     fontSize: moderateScale(20),
+    fontWeight:'600',
     letterSpacing: moderateScale(0.5),
     textAlign: 'center',
-    color: 'white',
+    color: '#111111',
   },
   // otpInputHighlight: {
   //   borderBottomColor: 'green',
@@ -228,6 +266,34 @@ letterSpacing:moderateScale(0.5),
     // backgroundColor: 'white',
     // width: moderateScale(50),
   },
+  sendbutton:{
+    // width: scale(335),
+    width: '100%',
+    alignItems:'center',
+    marginTop:verticalScale(20),
+    // borderWidth:1,
+    // borderColor:'red'
+},
+sendVerification: {
+    // width:'100%',
+    paddingHorizontal: moderateScale(100),
+    height:verticalScale(35),
+    // backgroundColor: '#3498db',
+    backgroundColor: '#f9f9f9',
+    borderRadius: scale(4),
+    // marginHorizontal:moderateScale(50),
+    alignItems:'center',
+    justifyContent:'center',
+    // borderWidth:1,
+    // borderColor:'red'
+},
+buttonText: {
+    textAlign: 'center',
+    textAlignVertical:'center',
+    color: '#111111',
+    fontWeight: "600",
+    fontSize:moderateScale(14)
+},
   });
 
 // import React, { useState , useRef} from 'react';

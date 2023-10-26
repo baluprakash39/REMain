@@ -5,10 +5,22 @@ import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 function Getstarted() {
  
 const navigation = useNavigation()
-
+const {t} = useTranslation();
 
 const handlegetstart = async() => {
 
@@ -32,7 +44,7 @@ const handlegetstart = async() => {
           
           <View style={styles.slide}>
             <View >
-                <Text style={styles.headings}>Welcome to the Vehicle Guide App!</Text>
+                <Text style={styles.headings}>{t('gsheader1')}</Text>
             </View>
               <Image
               source={require('../assets/Re2.jpg')}
@@ -41,30 +53,30 @@ const handlegetstart = async() => {
             />
             <View >
         
-            <Text style={styles.subtext}>This app will streamline your experience in all aspects related to vehicles. You can browse through a variety of vehicles and models, along with their pricing details.</Text>
+            <Text style={styles.subtext}>{t('getstart1')}</Text>
             </View>
             </View>
             <View style={styles.slide}>
             <View >
-                <Text style={styles.headings}>One - Stop Shop for Vehicle Information</Text>
+                <Text style={styles.headings}>{t('gsheader2')}</Text>
             </View>
             <Image
               source={require('../assets/Re1.jpg')}
               style={styles.images}
               resizeMode="cover"
             />
-            <Text style={styles.subtext}>With our comprehensive database, you can find information on any make or model of vehicle and pricing details.</Text>
+            <Text style={styles.subtext}>{t('getstart2')}</Text>
           </View>
           <View style={styles.slide}>
           <View >
-                <Text style={styles.headings}>Easily Share Vehicle Info & Prices</Text>
+                <Text style={styles.headings}>{t('gsheader3')}</Text>
             </View>
             <Image
               source={require('../assets/Re.jpg')}
               style={styles.image3}
               resizeMode="cover"
             />
-           <Text style={styles.subtext1}>You can effortlessly exchange detailed information about vehicles, including specifications and pricing details. This user-friendly feature simplifies the process, making it convenient for users to access and share essential information about various vehicles quickly and efficiently.</Text>
+           <Text style={styles.subtext1}>{t('getstart3')}</Text>
           </View>
         </Swiper>
       
@@ -73,7 +85,7 @@ const handlegetstart = async() => {
             style={styles.button}
             onPress={handlegetstart}
           >
-            <Text style={styles.buttonText}>Let's start</Text>
+            <Text style={styles.buttonText}>{t('gsbottontext')}</Text>
           </TouchableOpacity>
         </View>
       {/* </LinearGradient> */}

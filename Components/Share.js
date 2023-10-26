@@ -1238,9 +1238,22 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { scale, moderateScale, verticalScale} from './scaling';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 const Share = ({route}) => {
+  const {t} = useTranslation();
   const { vehicleId, deviceId } = route.params;
   console.log(vehicleId)
   // const { isDarkTheme } = useTheme();
@@ -1799,51 +1812,51 @@ console.log("adress",companyaddress)
         {/* Add Customer Details Section Below */}
         <Text style={styles.title}>Enter Customer details :</Text>
         <View style={styles.card}>
-  <View style={styles.cardContent}>
-    <Text style={styles.labelText}>Customer Name :</Text>
-    <TextInput
-      style={styles.input}
-      value={customername}
-      onChangeText={(text) => handlecustomername(text)}
-      placeholder="Enter name"
-    />
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Customer Name :</Text>
+            <TextInput
+              style={styles.input}
+              value={customername}
+              onChangeText={(text) => handlecustomername(text)}
+              placeholder="Enter name"
+            />
  
-  </View>
-  {customernameErr ? <Text style={styles.errorText}>{customernameErr}</Text> : null}
-  <View style={styles.cardContent}>
-    <Text style={styles.labelText}>Address :</Text>
-    <TextInput
-      style={styles.input}
-      value={address}
-      onChangeText={(text) => handleadresss(text)}
-      placeholder="Enter address"
-    />
-   
-  </View>
-  {adressseErr? <Text style={styles.errorText}>{adressseErr}</Text> : null}
-  <View style={styles.cardContent}>
-    <Text style={styles.labelText}>Mobilenumber :</Text>
-    <TextInput
-      style={styles.input}
-      value={mobilenumber}
-      onChangeText={(text) => handlemobile(text)}
-      placeholder="Enter mobile number"
-    />
-   
-  </View>
-  {mobileErr? <Text style={styles.errorText}>{mobileErr}</Text> : null}
-  <View style={styles.cardContent}>
-    <Text style={styles.labelText}>Email-id :</Text>
-    <TextInput
-      style={styles.input}
-      value={emailid}
-      onChangeText={setEmailId}
-      placeholder="example@email.com"
-    />
-    
-  </View>
-  {emailErr? <Text style={styles.errorText}>{emailErr}</Text> : null}
-</View>
+          </View>
+           {customernameErr ? <Text style={styles.errorText}>{customernameErr}</Text> : null}
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Address :</Text>
+            <TextInput
+              style={styles.input}
+              value={address}
+              onChangeText={(text) => handleadresss(text)}
+              placeholder="Enter address"
+            />
+          
+          </View>
+            {adressseErr? <Text style={styles.errorText}>{adressseErr}</Text> : null}
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Mobilenumber :</Text>
+            <TextInput
+              style={styles.input}
+              value={mobilenumber}
+              onChangeText={(text) => handlemobile(text)}
+              placeholder="Enter mobile number"
+            />
+          
+          </View>
+            {mobileErr? <Text style={styles.errorText}>{mobileErr}</Text> : null}
+          <View style={styles.cardContent}>
+            <Text style={styles.labelText}>Email-id :</Text>
+            <TextInput
+              style={styles.input}
+              value={emailid}
+              onChangeText={setEmailId}
+              placeholder="example@email.com"
+            />
+            
+          </View>
+          {emailErr? <Text style={styles.errorText}>{emailErr}</Text> : null}
+      </View>
 
 
 
@@ -1861,12 +1874,12 @@ console.log("adress",companyaddress)
               <View style={styles.datacard}>
                 <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),}}>
                   <Text style={{color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'}}>Ex.showroom price (including GST)</Text>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),paddingVertical:5}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>RTO Charges</Text>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.roadtax}</Text>
                 </View>
@@ -1925,11 +1938,11 @@ console.log("adress",companyaddress)
 </View>
 <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
 </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(30),paddingVertical:5}}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>Registartion(Fixed)</Text>
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.registration}</Text>
             </View>
-            <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}> 
+            <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(40),alignItems:'center'}}> 
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
 
   {/* hypothication */}
@@ -2460,8 +2473,8 @@ tab: {
     marginVertical:verticalScale(5),
     borderRadius: scale(6),
     textAlign: 'center',
-    height:verticalScale(70),
-    width:moderateScale(120),
+    height:scale(70),
+    width:scale(100),
     alignItems:'center',
     alignContent:'center',
     borderColor: '#F9F9F9',
@@ -2501,7 +2514,7 @@ title: {
     borderColor: '#f9f9f9',
     borderRadius: scale(6),
     justifyContent:'center',
-    height: verticalScale(250),
+    height: scale(250),
     // width: scale(335), // Adjust the width as needed
     backgroundColor: 'black',
     marginTop: verticalScale(5), // Add margin between sections
@@ -2526,7 +2539,7 @@ title: {
     backgroundColor: '#cbcbca',
     borderRadius:scale(5),
     paddingLeft: moderateScale(10), // Add left padding for better appearance
-    fontSize:moderateScale(12),
+    fontSize:scale(12),
   },
   imageCard: {
     alignItems: 'center',
@@ -2608,10 +2621,10 @@ centeredContainer: {
   errorText: {
     color: 'red',
     marginTop: 0,
-    fontSize: 12,
+    fontSize: moderateScale(10),
     textAlign: 'center',
-    marginBottom:15,
-    letterSpacing: 0.2,
+    marginBottom:verticalScale(5),
+    letterSpacing: moderateScale(0.2),
     fontWeight: '500'
   },
   });

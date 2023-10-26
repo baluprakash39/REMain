@@ -7,7 +7,21 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { scale, moderateScale, verticalScale} from './scaling';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
+
 const Care = ({route}) => {
+  const {t} = useTranslation();
   const { vehicleId } = route.params;
   console.log('vehicle',vehicleId)
   const [dataArray, setDataArray] = useState([]);

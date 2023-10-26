@@ -8,8 +8,21 @@ import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import  FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scale, moderateScale, verticalScale} from './scaling';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 const AddVehicle = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const [sections, setSections] = useState([]);
   const [value, setValue] = useState(null);
@@ -229,6 +242,8 @@ const AddVehicle = () => {
         </View>
 
         <View style={styles.line}></View> */}
+
+        <View>
                <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
                   <View style={styles.header}>
                       <View style={{alignContent: 'center' }}>
@@ -243,7 +258,9 @@ const AddVehicle = () => {
                   </View>
                   <View style={styles.line}></View>
                 </View>
-<ScrollView>
+        </View>
+        <ScrollView>
+        <View>
         <View style={{ flexDirection: 'column', marginTop: verticalScale(10),marginHorizontal:moderateScale(10)}}>
           <View style={{ flexDirection: 'row', alignItems: 'center',}}>
             <Text style={styles.subtitle}>Select Section</Text>
@@ -397,18 +414,21 @@ const AddVehicle = () => {
 
           
         </View>
+        </View>
+        </ScrollView>
         <View style={styles.bottombuttons}>
           <TouchableOpacity
               style={styles.button}
               onPress={addVehicle} // Add the addVehicle function to the onPress handler
             >
                 <View style={{ flexDirection: 'row', alignItems: 'center',gap: scale(20)}}>
-                  <FontAwesome6 name='motorcycle' size={scale(15)} color={'#f9f9f9'} />
+                  <FontAwesome6 name='motorcycle' size={scale(15)} color={'#111111'} />
                   <Text style={styles.buttonText}>Add Vehicle</Text>
                 </View>
             </TouchableOpacity>
         </View>
-        </ScrollView>
+
+
 
       </View>
     </ImageBackground>
@@ -469,7 +489,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#F9F9F9',
-    fontSize: moderateScale(16),
+    fontSize: scale(16),
     fontWeight: 'semibold',
     textAlign: 'center',
     letterSpacing: moderateScale(0.5),
@@ -485,16 +505,16 @@ const styles = StyleSheet.create({
     paddingLeft: moderateScale(5), // Add some padding to align text properly
   },
   subtitle:{ 
-    width: moderateScale(150),
+    width: moderateScale(140),
     marginRight: moderateScale(5),
     color: '#F9F9F9',
-    fontSize: moderateScale(12),
+    fontSize: scale(14),
     fontWeight: '400',
     letterSpacing: moderateScale(0.2),
   },
   placeholderStyle:{
     color:'#111111',
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(12),
     fontWeight:'500',
   },
   selectedTextStyle:{
@@ -513,7 +533,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(2),
     paddingLeft: moderateScale(5),
     color: 'black',
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(12),
     fontWeight:'500',
     letterSpacing: moderateScale(0.2),
   },
@@ -522,21 +542,24 @@ const styles = StyleSheet.create({
     width:'100%', 
     height:verticalScale(40), 
     marginVertical: verticalScale(20),
+    // borderColor:'red',
+    // borderWidth:1
   },
   button: {
-    borderColor: '#f9f9f9',
-    backgroundColor:'#453F3F',
+    // borderColor: '#f9f9f9',
+    backgroundColor:'#f9f9f9',
     borderWidth: scale(1),
     borderRadius: scale(2),
     width:'70%',
     height: verticalScale(40),
-    padding: scale(5),
-    alignItems: 'center'
+    // padding: scale(5),
+    alignItems: 'center',
+    justifyContent:'center'
   },
   buttonText: {
-    color: '#f9f9f9',
+    color: '#111111',
     fontSize: moderateScale(16),
-    fontWeight: '500',
+    fontWeight: '600',
     textAlign:'center',
   },
   errorText: {

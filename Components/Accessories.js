@@ -9,9 +9,22 @@ import axios from 'axios';
 import { scale, moderateScale, verticalScale} from './scaling';
 import { color } from 'react-native-elements/dist/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 const Accessories = ({route}) => {
+  const {t} = useTranslation();
   const {vehicleId} =route.params
   console.log("v",vehicleId)
   

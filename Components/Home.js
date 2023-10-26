@@ -9,11 +9,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
 import { useTheme } from '../ThemeContext';
 import { scale, moderateScale, verticalScale} from './scaling';
+import {initReactI18next, useTranslation} from 'react-i18next';
+import i18n from 'i18next';
+import en from './locales/en.json';
+
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: en},
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+});
 
 
 
 function Home({route}) {
-const {deviceId} = route.params
+  const {t} = useTranslation();
+  const {deviceId} = route.params
  
   // const { isDarkTheme } = useTheme(); // Access the theme
   const [search, setSearch] = useState('');
@@ -48,6 +61,7 @@ const {deviceId} = route.params
   //   setFilteredProductData(filteredData);
   // };
   const filterProductData = () => {
+
     const filteredData = productData.filter((data) =>
       data.vehiclename?.toLowerCase().includes(search.toLowerCase())
     );
