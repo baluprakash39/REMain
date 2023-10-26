@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,ScrollView, ImageBackground, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { Dropdown } from 'react-native-element-dropdown';
 import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import  FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scale, moderateScale, verticalScale} from './scaling';
 
 const AddVehicle = () => {
   const navigation = useNavigation();
@@ -216,7 +217,7 @@ const AddVehicle = () => {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
      
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <View style={{ height:'100%', alignContent: 'center'}}>
             <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
               <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
@@ -227,35 +228,50 @@ const AddVehicle = () => {
             </View>
         </View>
 
-        <View style={styles.line}></View>
-
-        <View style={{ flexDirection: 'column', marginTop: 20}}>
+        <View style={styles.line}></View> */}
+               <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
+                  <View style={styles.header}>
+                      <View style={{alignContent: 'center' }}>
+                        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+                          <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ justifyContent: 'center',  height:verticalScale(25)}}>
+                      <Text style={styles.title}>Add Vehicle</Text>
+                    </View>
+                    <View></View>
+                  </View>
+                  <View style={styles.line}></View>
+                </View>
+<ScrollView>
+        <View style={{ flexDirection: 'column', marginTop: verticalScale(10),marginHorizontal:moderateScale(10)}}>
           <View style={{ flexDirection: 'row', alignItems: 'center',}}>
             <Text style={styles.subtitle}>Select Section</Text>
 
-            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: 5 }}>
-  <Dropdown
-    style={styles.dropdown}
-    placeholderStyle={styles.placeholderStyle}
-    selectedTextStyle={styles.selectedTextStyle}
-    inputSearchStyle={styles.inputSearchStyle}
-    data={sections
-      .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
-      .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
-    }
-    search
-    maxHeight={300}
-    labelField="label"
-    valueField="value"
-    placeholder="Select Section"
-    searchPlaceholder="Search..."
-    value={value}
-    onChange={(item) => {
-      setValue(item.value);
-      setSectionError(''); // Clear the error message
-    }}
-  />
-</View>
+            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                dropdownTextStyle={{ color: '#111111', backgroundColor:'red' }}
+                inputSearchStyle={styles.inputSearchStyle}
+                data={sections
+                  .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
+                  .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
+                }
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder="Select Section"
+                searchPlaceholder="Search..."
+                value={value}
+                onChange={(item) => {
+                  setValue(item.value);
+                  setSectionError(''); // Clear the error message
+                }}
+              />
+            </View>
 
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
@@ -386,12 +402,13 @@ const AddVehicle = () => {
               style={styles.button}
               onPress={addVehicle} // Add the addVehicle function to the onPress handler
             >
-                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
-                  <FontAwesome6 name='motorcycle' size={20} color={'#f9f9f9'} />
+                <View style={{ flexDirection: 'row', alignItems: 'center',gap: scale(20)}}>
+                  <FontAwesome6 name='motorcycle' size={scale(15)} color={'#f9f9f9'} />
                   <Text style={styles.buttonText}>Add Vehicle</Text>
                 </View>
             </TouchableOpacity>
         </View>
+        </ScrollView>
 
       </View>
     </ImageBackground>
@@ -403,99 +420,132 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
   },
+  // container: {
+  //   flex: 1,
+  //   padding: 16,
+  // },
   container: {
     flex: 1,
-    padding: 16,
+    // paddingTop:moderateScale(10),
+    // paddingHorizontal: moderateScale(10),
+    backgroundColor:'#11111199',
+    justifyContent:'space-between'
   },
+  // header:{
+  //   gap: 110,
+  //   alignItems: 'center',
+  //   flexDirection: 'row',
+  // },
+  // title: {
+  //   color: '#F9F9F9',
+  //   fontSize: 18,
+  //   fontWeight: 'bold',
+  //   textAlign: 'center',
+  //   marginBottom: 16,
+  //   letterSpacing: 0.5,
+  // },
+  // line: {
+  //   height: 1,
+  //   backgroundColor: '#F9F9F9',
+  //   width: '100%',
+  // },
   header:{
-    gap: 110,
     alignItems: 'center',
     flexDirection: 'row',
+    paddingTop:verticalScale(10),
+    marginBottom: verticalScale(10),
+    // borderBottomWidth:verticalScale(1),
+    // borderBottomColor:'#f9f9f9',
+    // width: moderateScale(335),
+    height: verticalScale(35),
+    justifyContent:'space-between',
+  },
+  backButton:{
+    paddingLeft:moderateScale(10),
+    alignItems: 'center',
+    width:moderateScale(30),
+    height:verticalScale(20),
+    justifyContent:'center',
   },
   title: {
     color: '#F9F9F9',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: moderateScale(16),
+    fontWeight: 'semibold',
     textAlign: 'center',
-    marginBottom: 16,
-    letterSpacing: 0.5,
-  },
-  line: {
-    height: 1,
-    backgroundColor: '#F9F9F9',
-    width: '100%',
+    letterSpacing: moderateScale(0.5),
   },
   dropdown: {
-    height: 40,
-    width: '100%',
+    flex:1,
+    height:verticalScale(40),
+    // width: '100%',
     color:'#303030',
-    borderRadius:5,
+    borderRadius:moderateScale(2),
     backgroundColor: '#CBCBCA',
     justifyContent: 'center', // Center the text vertically
-    paddingLeft: 10, // Add some padding to align text properly
+    paddingLeft: moderateScale(5), // Add some padding to align text properly
   },
   subtitle:{ 
-    width: 120,
-    marginRight: 10,
+    width: moderateScale(150),
+    marginRight: moderateScale(5),
     color: '#F9F9F9',
-    fontSize: 14,
+    fontSize: moderateScale(12),
     fontWeight: '400',
-    letterSpacing: 0.2,
+    letterSpacing: moderateScale(0.2),
   },
   placeholderStyle:{
-    color:'#303030',
-    fontSize: 14,
-    fontWeight:'500'
+    color:'#111111',
+    fontSize: moderateScale(10),
+    fontWeight:'500',
   },
   selectedTextStyle:{
-    color:'#303030',
+    color:'#111111',
   },
   inputSearchStyle:{
-    color:'#303030',
-    borderRadius:5,
-    fontSize: 14,
-    fontWeight:'500'
+    color:'#111111',
+    borderRadius:moderateScale(2),
+    fontSize: moderateScale(12),
+    fontWeight:'500',
   },
   inputField: {
     flex: 1,
-    height: 40,
+    height: verticalScale(40),
     backgroundColor: '#F9F9F9',
-    borderRadius: 5,
-    paddingLeft: 10,
+    borderRadius: scale(2),
+    paddingLeft: moderateScale(5),
     color: 'black',
-    fontSize: 12,
+    fontSize: moderateScale(10),
     fontWeight:'500',
-    letterSpacing: 0.4,
+    letterSpacing: moderateScale(0.2),
   },
   bottombuttons:{ 
     alignItems:'center',
     width:'100%', 
-    height:50, 
-    marginTop: 50,
+    height:verticalScale(40), 
+    marginVertical: verticalScale(20),
   },
   button: {
     borderColor: '#f9f9f9',
     backgroundColor:'#453F3F',
-    borderWidth: 1,
-    borderRadius: 6,
+    borderWidth: scale(1),
+    borderRadius: scale(2),
     width:'70%',
-    height: 50,
-    padding: 10,
+    height: verticalScale(40),
+    padding: scale(5),
     alignItems: 'center'
   },
   buttonText: {
     color: '#f9f9f9',
-    fontSize: 18,
+    fontSize: moderateScale(16),
     fontWeight: '500',
     textAlign:'center',
   },
   errorText: {
     color: 'red',
     marginTop: 0,
-    fontSize: 12,
+    fontSize: moderateScale(8),
     textAlign: 'center',
-    marginBottom:15,
-    letterSpacing: 0.2,
+    marginBottom:verticalScale(7),
+    letterSpacing: moderateScale(0.2),
     fontWeight: '500'
   },
 });

@@ -514,9 +514,9 @@ const products = (section) => {
               backgroundColor: '#11111190',
               margin: moderateScale(3),
               borderRadius: scale(10),
-              height:scale(200),
-              width: scale(164),
-              justifyContent: 'space-between',
+              height:verticalScale(310),
+              width: moderateScale(232),
+              // justifyContent: 'space-between',
               
             }}>
 
@@ -552,26 +552,26 @@ const products = (section) => {
             <View style={{justifyContent: 'space-between',flexDirection: 'column'}}>
               <Image
                 style={{
-                  height: scale(90),
-                  width: scale(162),
+                  height: verticalScale(180),
+                  width: moderateScale(228),
                   resizeMode:'cover',
 
                 }}
                 source={{ uri: item.adminallimage }}
                 />
-                <View style={{height:scale(48), paddingHorizontal: moderateScale(5),flexDirection: 'column'}}>
+                <View style={{ paddingHorizontal: moderateScale(5),flexDirection: 'column', marginVertical:verticalScale(3)}}>
                 <View style={{  flexDirection: 'column',gap:scale(4) }}>
                   <Text style={{ fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
-                    <View style={{flexDirection:'row'}}>
-                    <Ionicons name="speedometer-outline" size={15} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <Ionicons name="speedometer-outline" size={scale(10)} color="#FFFFFF" />
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12) }}>
                       {item.EngineCC} CC
                     </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
-                    <Ionicons name="color-palette" size={15} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)  }}>
                       {item.vehiclecolor} 
                     </Text>
                    </View>

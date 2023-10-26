@@ -281,7 +281,7 @@ const  handleHypochange = (text) => {
 
   return (
    
-    <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
+    <ImageBackground source={require('../assets/bg.jpg')} style={styles.backgroundImage}>
         <ScrollView contentContainerStyle={styles.page}>
         {dataArray.map((bike, index) => (
       <View key={index} style={styles.container}>
