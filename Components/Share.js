@@ -1873,33 +1873,30 @@ console.log("adress",companyaddress)
 
             {/* Center the datacard container */}
             <View style={styles.centeredContainer}>
-              <View style={styles.datacard}>
-                <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),}}>
-                  <Text style={{color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'}}>Ex.showroom price (including GST)</Text>
-                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
-                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>RTO Charges</Text>
-                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.roadtax}</Text>
-                </View>
+              {/* <View style={styles.datacard}> */}
+              <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),}}>
+                <Text style={{color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'}}>Ex.showroom price (including GST)</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>RTO Charges</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.roadtax}</Text>
+              </View>
               <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}> 
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
 
-{/* Insurance */}
-<Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Insurance</Text>
-{data.insurance.map((insu)=>(
-     <View style={{display:'flex',flexDirection:'row'}}>
-     {/* Basic */}
-      <View style={{alignItems:'center',flexDirection:'row'}}>
-      
-      {/* <CheckBox
-   value={isSelected}
-   onValueChange={()=>handlebasic(insu.Basic)}
-   style={styles.checkbox}
- /> */}
+                    {/* Insurance */}
+                    <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Insurance</Text>
+                    {data.insurance.map((insu)=>(
+                        <View style={{display:'flex',flexDirection:'row'}}>
+                            {/* Basic */}
+                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                                    {/* <CheckBox
+                                      value={isSelected}
+                                      onValueChange={()=>handlebasic(insu.Basic)}
+                                      style={styles.checkbox}
+                                    /> */}
   <RadioButton
   value="isSelected"
   status={checked === 'isSelected' ? 'checked' : 'unchecked'}
@@ -1913,15 +1910,14 @@ console.log("adress",companyaddress)
   }}
 />
 
- <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
-     </View> 
-     {/* Nilldip */}
-     <View style={{alignItems:'center',flexDirection:'row'}}>
-     
-      {/* <CheckBox
-   value={isNilldip}
-   onValueChange={()=>handleNill(insu.Nildip)}
-   style={styles.checkbox}
+                                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
+                              </View> 
+                              {/* Nilldip */}
+                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                                    {/* <CheckBox
+                                      value={isNilldip}
+                                      onValueChange={()=>handleNill(insu.Nildip)}
+                                      style={styles.checkbox}
  /> */}
   <RadioButton
   value="isNilldip"
@@ -1934,17 +1930,15 @@ console.log("adress",companyaddress)
     }
     handleNill(insu.Nildip); // Trigger your custom logic
   }}
-/>
-  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
-     </View>
-     
-     {/* EP */}
-     <View style={{alignItems:'center',flexDirection:'row'}}>
-      
-      {/* <CheckBox
-   value={EP}
-   onValueChange={()=>handleEP(insu.Ep)}
-   style={styles.checkbox}
+                                   />
+                                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
+                              </View>
+                              {/* EP */}
+                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                                    {/* <CheckBox
+                                      value={EP}
+                                      onValueChange={()=>handleEP(insu.Ep)}
+                                      style={styles.checkbox}
  /> */}
    <RadioButton
   value="EP"
@@ -1957,16 +1951,15 @@ console.log("adress",companyaddress)
     }
     handleEP(insu.Ep); // Trigger your custom logic
   }}
-/>
- <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
-     </View>
-     {/* RTI */}
-     <View style={{alignItems:'center',flexDirection:'row'}}>
-      
-      {/* <CheckBox
-   value={RTI}
-   onValueChange={()=>handleRTI(insu.RTI)}
-   style={styles.checkbox}
+                                   />
+                                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
+                              </View>
+                              {/* RTI */}
+                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                                    {/* <CheckBox
+                                        value={RTI}
+                                        onValueChange={()=>handleRTI(insu.RTI)}
+                                        style={styles.checkbox}
  /> */}
  <RadioButton
   value="RTI"
@@ -1979,35 +1972,33 @@ console.log("adress",companyaddress)
     }
     handleRTI(insu.RTI); // Trigger your custom logic
   }}
-/>
- <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
-     </View>
-      
-     </View>
-))}
-
-</View>
-<Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
-</View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
-                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>Registartion(Fixed)</Text>
-                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.registration}</Text>
-            </View>
-            <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(40),alignItems:'center'}}> 
+                                     />
+                                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
+                              </View>
+                        </View>
+                        ))}
+                  </View>
+                  <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>
+                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center' }}>Registartion(Fixed)</Text>
+                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.registration}</Text>
+              </View>
+              <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(40),alignItems:'center'}}> 
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
 
-  {/* hypothication */}
-  <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Hypothecation</Text>
-    {data.hypothication.map((hype)=>(
-  <View style={{display:'flex',flexDirection:'row'}}>
-    {/* YES */}
-      <View style={{alignItems:'center',flexDirection:'row'}}>
-        
-          {/* <CheckBox
-            value={YES}
-            onValueChange={()=>handleYes(hype.Yes)}
-            style={styles.checkbox}
-          /> */}
+                    {/* hypothication */}
+                    <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Hypothecation</Text>
+                      {data.hypothication.map((hype)=>(
+                    <View style={{display:'flex',flexDirection:'row'}}>
+                      {/* YES */}
+                        <View style={{alignItems:'center',flexDirection:'row'}}>
+                          
+                            {/* <CheckBox
+                              value={YES}
+                              onValueChange={()=>handleYes(hype.Yes)}
+                              style={styles.checkbox}
+                            /> */}
            <RadioButton
   value="Yes"
   status={checked === 'Yes' ? 'checked' : 'unchecked'}
@@ -2020,16 +2011,15 @@ console.log("adress",companyaddress)
     handleYes(hype.Yes); // Trigger your custom logic
   }}
 />
-          <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
-      </View> 
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
+                        </View> 
 
-    {/* NO */}
-      <View style={{alignItems:'center',flexDirection:'row'}}>
-       
-          {/* <CheckBox
-            value={NO}
-            onValueChange={()=>handleNo(hype.No)}
-            style={styles.checkbox}
+                      {/* NO */}
+                        <View style={{alignItems:'center',flexDirection:'row'}}>
+                          {/* <CheckBox
+                              value={NO}
+                              onValueChange={()=>handleNo(hype.No)}
+                              style={styles.checkbox}
           /> */}
               <RadioButton
   value="NO"
@@ -2042,40 +2032,37 @@ console.log("adress",companyaddress)
     }
     handleNo(hype.No); // Trigger your custom logic
   }}
-/>
-           <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
-      </View>
-  </View>
-))}
-</View>
-
+                  />
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
+                        </View>
+                    </View>
+                  ))}
+                  </View>
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {hype}</Text>
               </View>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between',height: verticalScale(50),paddingVertical:verticalScale(5)}}>
-                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(16), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4), fontWeight: '600',marginTop:moderateScale(14) }}>OnRoad Price total :</Text>
+              <View style={{ flexDirection: 'row',alignItems:'center', justifyContent: 'space-between',height: verticalScale(50)}}>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(16), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4), fontWeight: '600'}}>OnRoad Price total :</Text>
 
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center'  }}>₹  {totalonroad}</Text>
               </View>
-              </View>
+              {/* </View> */}
               </View>
               <View style={styles.optionaladdoncontainer}>
-              <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>Optional Add Ons/Products</Text>
-          <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}>
-{/* extendedwarranty */}
-
-{data.extendedwarranty.map((ans) => (
-              <View key={index} style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
-                <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Extended Warranty</Text>
-                  <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
-                  {/* 4 */}
-                  <View style={{alignItems:'center',flexDirection:'row'}}>
-                    
-                      {/* <CheckBox
-                        value={four}
-                        onValueChange={()=>handleFourChange(ans.fouryears)}
-                        style={styles.checkbox}
-                        /> */}
+                <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>Optional Add Ons/Products</Text>
+                <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: scale(40),alignItems:'center'}}>
+                  {/* extendedwarranty */}
+                      {data.extendedwarranty.map((ans) => (
+                    <View key={index} style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
+                      <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Extended Warranty</Text>
+                        <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
+                        {/* 4 */}
+                        <View style={{alignItems:'center',flexDirection:'row'}}>
+                          
+                            {/* <CheckBox
+                              value={four}
+                              onValueChange={()=>handleFourChange(ans.fouryears)}
+                              style={styles.checkbox}
+                              /> */}
                             <RadioButton
   value="four"
   status={checked === 'four' ? 'checked' : 'unchecked'}
@@ -2088,16 +2075,16 @@ console.log("adress",companyaddress)
     handleFourChange(ans.fouryears); // Trigger your custom logic
   }}
 />
-                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
-                    </View>
-                  {/* 5 */}
-                  <View style={{alignItems:'center',flexDirection:'row'}}>
-                   
-                      {/* <CheckBox
-                        value={five}
-                        onValueChange={()=>handleFiveChange(ans.fiveyears)}
-                        style={styles.checkbox}
-                      /> */}
+                              <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
+                          </View>
+                        {/* 5 */}
+                        <View style={{alignItems:'center',flexDirection:'row'}}>
+                        
+                            {/* <CheckBox
+                              value={five}
+                              onValueChange={()=>handleFiveChange(ans.fiveyears)}
+                              style={styles.checkbox}
+                            /> */}
   <RadioButton
   value="five"
   status={checked === 'five' ? 'checked' : 'unchecked'}
@@ -2110,15 +2097,15 @@ console.log("adress",companyaddress)
     handleFiveChange(ans.fiveyears); // Trigger your custom logic
   }}
 />
-                       <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
-                    </View>
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
+                          </View>
 
-                  {/* 5+RSA */}
-                  <View style={{alignItems:'center',flexDirection:'row'}}>
-                      {/* <CheckBox
-                        value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
-                        onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
-                        style={styles.checkbox}
+                        {/* 5+RSA */}
+                        <View style={{alignItems:'center',flexDirection:'row'}}>
+                            {/* <CheckBox
+                              value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
+                              onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
+                              style={styles.checkbox}
                       /> */}
                        <RadioButton
   value={fiveRsa}
@@ -2132,31 +2119,28 @@ console.log("adress",companyaddress)
     }
     handleFiveRsaChange(ans.fiveplusRSAyears); // Trigger your custom logic
   }}
-/>
-                      <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
+      />
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
+                          </View>
+                      </View>
                     </View>
+                    ))}
+                  <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {selectedOption}</Text>
                 </View>
-
-
-              </View>
-
-))}
-            <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {selectedOption}</Text>
-          </View>
-{/* style,comfort,safty tabs */}
-<View style={{ margin:scale(4),borderRadius:moderateScale(2),padding:scale(3), flexDirection:'row' ,borderRadius:scale(6), backgroundColor:'#111111'}}>
-  <View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch'}}>
-    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
-      Style
-    </Text>
-    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
-      Comfort
-    </Text>
-    <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
-      Protection
-    </Text>
-  </View>
-  <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',width:scale(225),marginHorizontal:moderateScale(2),}}>
+      {/* style,comfort,safty tabs */}
+      <View style={{ margin:scale(4),padding:scale(3), flexDirection:'row' ,borderRadius:scale(6), backgroundColor:'#111111'}}>
+        <View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch'}}>
+          <Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
+            Style
+          </Text>
+          <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
+            Comfort
+          </Text>
+          <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
+            Protection
+          </Text>
+        </View>
+  <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',width:scale(210),marginHorizontal:moderateScale(2)}}>
     {selectedTab === 'Style' && (
       <>
         {/* Show mirrors dropdown */}
@@ -2499,33 +2483,24 @@ setSelectedSafetyAccessoriesText(itemValue);
         )}
 
         </View>
-  
-
-    </View>
-    <View style={styles.priceContainer1}>
-          <Text style={{ color: 'white', fontSize: 30, flex: 1,marginLeft:30 }}>GrandTotal</Text>
-          <Text style={{ color: 'white', fontSize: 30, flex: 1, textAlign: 'right',marginRight:30 }}>₹  {grandtotal}</Text>
-        </View>
-  </View>
+      </View>
+            <View style={styles.priceContainer1}>
+                    <Text style={{ color: '#f9f9f9', fontSize: moderateScale(22), flex: 1,marginLeft:moderateScale(15) }}>GrandTotal</Text>
+                    <Text style={{ color: '#f9f9f9', fontSize: moderateScale(22), flex: 1, textAlign: 'right',marginRight:moderateScale(30) }}>₹  {grandtotal}</Text>
+                  </View>
+            </View>
             <View style={styles.bottombuttonscontainer}>
-
-              
-              <TouchableOpacity
-                style={styles.shareButton}
-                onPress={handleShare} // Call handleShare when the button is pressed
-              >
-                                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
-                  <Ionicons name='document-text' size={moderateScale(20)} color={'#f9f9f9'} />
+              <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
+                <View style={{ flexDirection: 'row', alignItems: 'center',gap: 20}}>
+                  <Ionicons name='document-text' size={moderateScale(20)} color={'#111111'} />
                   <Text style={styles.shareButtonText}>Preview & Share Doc</Text>
                 </View>
               </TouchableOpacity>
             </View>
       </View>
-      
-        ))}
-       
-        </ScrollView>
-        </ImageBackground>
+    ))}
+  </ScrollView>
+</ImageBackground>
   );
 };
 
@@ -2585,6 +2560,7 @@ tab: {
     marginVertical:verticalScale(5),
     borderRadius: scale(6),
     textAlign: 'center',
+    textAlignVertical:'center',
     height:scale(70),
     width:scale(100),
     alignItems:'center',
@@ -2603,12 +2579,14 @@ tab: {
     marginBottom: moderateScale(20),
   },
   priceContainer1: {
+    height:verticalScale(70),
+    alignItems:'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderTopWidth: moderateScale(1),
     borderTopColor: '#F9F9F9',
     marginTop: moderateScale(30),
-    marginBottom: moderateScale(40), // Add spacing between the line and the next content
+    // marginBottom: moderateScale(40), // Add spacing between the line and the next content
   },
 title: {
     color: '#f9f9f9',
@@ -2633,7 +2611,8 @@ title: {
     paddingHorizontal: moderateScale(5), // Add padding inside the card
     },
   cardContent: {
-    height: scale(35),
+    flex:1,
+    // height: scale(35),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -2672,7 +2651,7 @@ title: {
     borderColor:'#979797'
   },
 centeredContainer: {
-    height: scale(250),
+    height: verticalScale(320),
     // width: scale(335),
     borderRadius:moderateScale(6),
     backgroundColor:'#434242',
@@ -2680,6 +2659,7 @@ centeredContainer: {
     gap: scale(5),
     borderColor:'#f9f9f9',
     borderWidth: moderateScale(0.5),
+    justifyContent:'space-between'
     },
   // datacard: {
   //   width: 800,
@@ -2699,7 +2679,6 @@ centeredContainer: {
   optionaladdoncontainer:{
     // width:scale(335),
     // alignItems: 'center',
-    borderRadius: moderateScale(6) ,
     gap: scale(5),
     borderRadius:moderateScale(6),
     backgroundColor: '#434242',
@@ -2715,8 +2694,8 @@ centeredContainer: {
     marginBottom:verticalScale(20),
   },
   shareButton: {
-    borderColor: '#f9f9f9',
-    backgroundColor:'crimson',
+    // borderColor: '#f9f9f9',
+    backgroundColor:'#f9f9f9',
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(6),
     width:scale(250),
@@ -2725,7 +2704,7 @@ centeredContainer: {
     justifyContent:'center'
   },
   shareButtonText: {
-    color: '#f9f9f9',
+    color: '#111111',
     fontSize: moderateScale(18),
     fontWeight: '500',
     textAlign:'center',

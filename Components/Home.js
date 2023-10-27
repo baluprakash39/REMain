@@ -209,14 +209,14 @@ function Home({route}) {
       // backgroundColor: isDarkTheme ? 'black' : 'white',
     },  
     searchInput: {
-      height: verticalScale(35),
+      height: scale(30),
       color: '#f9f9f9',
       fontSize: moderateScale(16),
       width: moderateScale(200),
     },
     searchcontainer:{
       width: moderateScale(220),
-      height: verticalScale(35),
+      height: scale(30),
       gap:scale(2),
       paddingLeft:moderateScale(4),
       flexDirection: 'row',
@@ -265,7 +265,7 @@ function Home({route}) {
       backgroundColor: '#3A3A3A', // Use the same background color as searchInput
       // paddingVertical: 4,
       // paddingHorizontal: 16,
-      height:verticalScale(35),
+      height:scale(30),
       width:moderateScale(50),
       gap:scale(2),
       borderRadius: scale(4),
@@ -290,7 +290,7 @@ function Home({route}) {
         <View style={styles.header}>
         <View style={styles.searchcontainer}>
         <View style={{justifyContent:'center'}}>
-              <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
+              <Ionicons name="search" size={verticalScale(20)} color="#F9f9f9" />
               </View>
                     <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
                       value={search}
@@ -298,7 +298,7 @@ function Home({route}) {
                       onChangeText={setSearch}/>
           </View>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(35), width: scale(35),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(30), width: scale(30),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
                       onPress={handleInventory}>
                         {/* navigation.navigate('Inventory');
                         console.log('Clicked on settings');
@@ -351,6 +351,7 @@ function Home({route}) {
             style={{
               
               borderWidth: 1,
+              borderColor:'#979797',
               backgroundColor: '#11111190',
               // backgroundColor: isDarkTheme ? 'black' : 'white',
               height: 250,

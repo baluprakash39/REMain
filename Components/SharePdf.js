@@ -356,7 +356,7 @@ const SharePdf = ({route}) => {
                   padding-right: 16px;
                    align-self: stretch;
                    border-radius: 10px;
-                   margin-right:10px;
+                   margin-right:15px;
                    height: 100px;
                    flex-shrink: 0;"/>
      </div>

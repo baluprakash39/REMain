@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    rowGap:scale(30),
+    // rowGap:verticalScale(20),
     // paddingHorizontal: moderateScale(8),
     // paddingTop: verticalScale(5),
     // borderWidth:2,
     // borderColor:'red'
+    justifyContent:'space-between'
   },
   header: {
     flexDirection: 'column',
@@ -510,7 +511,7 @@ const products = (section) => {
           </View>
           {/* </View> */}
         </View>
-        <View style={{ flexDirection: 'row', borderRadius: scale(5), marginTop: verticalScale(10)}}>
+        <View style={{ flexDirection: 'row', marginTop: verticalScale(50)}}>
             {sections
               .filter((sec) => sec.Sectionname === 'Accesories' || sec.Sectionname === 'Care')
               .map((sec, index) => (
@@ -520,7 +521,7 @@ const products = (section) => {
                     backgroundColor: selectedSection === sec.Sectionname ? '#F9F9F9' : '#868687',
                     borderWidth: scale(1),
                     borderColor: '#F9F9F9',
-                    borderRadius: scale(10),
+                    borderRadius: scale(4),
                     marginHorizontal: scale(10),
                     width: moderateScale(150),
                     height: verticalScale(40),
@@ -546,7 +547,7 @@ const products = (section) => {
             
             
             <View    style={{
-              // borderColor:'#979797',
+              borderColor:'#979797',
               // borderWidth: scale(1),
               // backgroundColor: '#11111190',
               // margin: moderateScale(5),
@@ -556,13 +557,14 @@ const products = (section) => {
               // // width: moderateScale(232),
               // justifyContent: 'space-between',
               borderWidth: 1,
-              backgroundColor: '#11111190',
+              backgroundColor: 'r#11111199',
               // backgroundColor: isDarkTheme ? 'black' : 'white',
-              height: 300,
+              height: scale(210),
               flex: 1,
               margin: 5,
               borderRadius: 10,
               width: 100,
+              marginTop:scale(5)
               
             }}>
 
@@ -596,17 +598,20 @@ const products = (section) => {
             // }}
           >
             <View style={{justifyContent: 'space-between',flexDirection: 'column'}}>
+              <View style={{height:'65%',width:'100%'}}>
               <Image
                 style={{
+                  flex:1,
                   // height: verticalScale(120),
-                  height:'65%',
+                  // height:'65%',
                   // width: moderateScale(228),
-                  width:'100%',
+                  // width:'100%',
                   resizeMode:'cover',
 
                 }}
                 source={{ uri: item.adminallimage }}
                 />
+                </View>
                 <View style={{ paddingHorizontal: moderateScale(5),flexDirection: 'column', marginVertical:verticalScale(3)}}>
                 <View style={{  flexDirection: 'column',gap:scale(4) }}>
                   <Text style={{ fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
@@ -637,33 +642,26 @@ const products = (section) => {
             </TouchableOpacity>
             </View>
           )}
-        />       
-        <TouchableOpacity
-          
-        style={{
-            backgroundColor: '#f9f9f9',
-            borderWidth:moderateScale(0.5),
-            // borderColor:'red',
-            borderRadius: scale(100), // Make it round
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute', // Position it absolutely
-            bottom: scale(20), // Adjust the distance from the bottom as needed
-            right: '50%', // Center it horizontally
-            transform: [{ translateX: 25 }],
-
-        }}
-        onPress={() => {
-          // Handle the "+" button press here
-          // You can navigate to the "AddVehicle" screen
-          navigation.navigate('Addvehicle'); 
-        }}
-       >
-          
-            <MaterialIcons name='add-circle' size={scale(40)} color='#111111' />
-   
-      </TouchableOpacity>
-      </View>
+        />     
+        <TouchableOpacity style={{
+                                    backgroundColor: '#f9f9f9',
+                                    borderWidth:moderateScale(0.5),
+                                    // borderColor:'red',
+                                    borderRadius: scale(100),
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    position: 'absolute', // Position it absolutely
+                                    bottom: scale(20),
+                                    right: '50%', // Center it horizontally
+                                    transform: [{ translateX: 25 }],
+                                  }}
+                                      onPress={() => {
+                                        navigation.navigate('Addvehicle'); 
+                                      }}
+                                    >
+          <MaterialIcons name='add-circle' size={scale(40)} color='#111111' />
+          </TouchableOpacity>
+        </View>
       
     </ImageBackground>
   );
