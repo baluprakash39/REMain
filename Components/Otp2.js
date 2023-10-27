@@ -20,7 +20,6 @@ i18n.use(initReactI18next).init({
 });
 
 
-
 const Otp2 = ({ route }) => {
   const {t} = useTranslation();
   const { deviceId } = route.params;

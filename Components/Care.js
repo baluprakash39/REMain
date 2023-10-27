@@ -40,7 +40,7 @@ const Care = ({route}) => {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
+      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
   
       const response = await axios.get(url, {
         headers: {
@@ -167,7 +167,7 @@ const Care = ({route}) => {
   
       // Make the POST request to your API endpoint
       const response = await axios.post(
-        `https://vast-newt-crown.cyclic.app/formdetails/uploadcare/${vehicleId}`,
+        `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/uploadcare/${vehicleId}`,
         data,
         {
           headers: {
@@ -302,17 +302,17 @@ return (
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Model</Text>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>125</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>{bike.model}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>EngineCC</Text>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>250cc</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>{bike.EngineCC}</Text>
             </View>
             <View style={{ flexDirection: 'row', }}>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Color</Text>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>Red</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>{bike.vehiclecolor}</Text>
             </View>
           </View>
           {/* Insurance  view*/}

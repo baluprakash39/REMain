@@ -98,7 +98,7 @@ const[registrationErr,setRegistrationError]=useState('')
 //         deviceId: deviceUniqueid, // Use the deviceUniqueId
 //       };
   
-//       fetch('https://vast-newt-crown.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
+//       fetch('https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ const handleAddDetails = async () => {
       deviceId: deviceUniqueid, // Use the deviceUniqueId
     };
 
-    fetch('https://vast-newt-crown.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
+    fetch('https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -358,7 +358,8 @@ const styles = StyleSheet.create({
   },
   inputField: {
     flex: 1,
-    height: verticalScale(35),
+    // height: verticalScale(35),
+    paddingVertical:verticalScale(15),
     backgroundColor: '#111111',
     borderWidth:scale(1),
     borderColor:'#979797',

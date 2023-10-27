@@ -37,7 +37,7 @@
 //   //   setPhoneNumberError('');
 
 //   //   const number = phoneNumber.replace('+91', '');
-//   //   const serverUrl = 'https://vast-newt-crown.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+//   //   const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
 
 //   //   fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
 //   //     method: 'GET',
@@ -98,7 +98,7 @@
 //   setPhoneNumberError('');
 
 //   const number = phoneNumber.replace('+91', '');
-//   const serverUrl = 'https://vast-newt-crown.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+//   const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
 
 //   try {
 //     const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
@@ -384,9 +384,6 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
 });
 
-
-
-
 const Otp = ({ route }) => {
   const {t} = useTranslation();
   const { deviceId } = route.params;
@@ -402,6 +399,145 @@ const Otp = ({ route }) => {
   const getPhoneNumber = () => {
     // Alert.alert(phoneNumber)
   }
+  // const sendVerification = async () => {
+  //   if (!phoneNumber) {
+  //     setPhoneNumberError('Please enter a phone number.');
+  //     return;
+  //   }
+  
+  //   setPhoneNumberError('');
+  
+  //   const number = phoneNumber.replace('+91', '');
+  //   const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+  
+  //   try {
+  //     const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  
+  //     const data = await response.json();
+  
+  //     console.log(data);
+  
+  //     if (data.success) {
+  //       if (data.status === 'allowed') {
+  //         if (data.data.adminaccept === true) {
+  //           const phoneProvider = new firebase.auth.PhoneAuthProvider();
+  
+  //           // Verify the phone number using reCAPTCHA
+  //           try {
+  //             const verificationId = await phoneProvider.verifyPhoneNumber(
+                
+  //               "+91" + number,
+  //               recaptchaVerifier.current
+  //             );
+  //             console.log("v",verificationId)
+  //             // Set AsyncStorage values
+  //             await AsyncStorage.setItem('token', data.token);
+  //             await AsyncStorage.setItem('refreshToken', data.refreshToken);
+  //             await AsyncStorage.setItem('isloggedIn', 'true');
+  //             await AsyncStorage.setItem("deviceId", deviceId);
+  //             await AsyncStorage.setItem("verificationId", verificationId);
+  //             await AsyncStorage.setItem('phoneNo',number)
+  //             setPhoneNumber('')
+    
+  
+  //             // Navigate to the OTP verification screen
+  //             navigation.navigate('Otp2', {deviceId,verificationId});
+  //             // setIsOtpSent(true);
+  //             setPhoneNumber('');
+  //             setError('');
+  //           } catch (error) {
+  //             console.error('Error during phone number verification:', error);
+  //           }
+  //         } else if (data.data.adminaccept === false) {
+  //           Alert.alert('Admin not Accepted');
+  //         } else if (data.status === 'not allowed') {
+  //           Alert.alert('Admin not Accepted');
+  //         }
+  //       }  
+  //     } 
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
+  // const sendVerification = async () => {
+  //   if (!phoneNumber) {
+  //     setPhoneNumberError('Please enter a phone number.');
+  //     return;
+  //   }
+  
+  //   setPhoneNumberError('');
+  
+  //   const number = phoneNumber.replace('+91', '');
+  //   const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+  
+  //   try {
+  //     const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw Error('Network response was not ok');
+  //     }
+  
+  //     const data = await response.json();
+  
+  //     console.log(data);
+  
+  //     if (data.success === false && data.status === 'not allowed') {
+  //       Alert.alert('Admin not Accepted');
+  //       return;
+  //     }
+  
+  //     if (data.success) {
+  //       if (data.status === 'allowed') {
+  //         if (data.data.adminaccept === true) {
+  //           const phoneProvider = new firebase.auth.PhoneAuthProvider();
+  
+  //           // Verify the phone number using reCAPTCHA
+  //           try {
+  //             const verificationId = await phoneProvider.verifyPhoneNumber(
+  //               "+91" + number,
+  //               recaptchaVerifier.current
+  //             );
+  //             console.log("v", verificationId);
+              
+  //             // Clear the phone number input field
+  //             setPhoneNumber('');
+              
+  //             // Set AsyncStorage values
+  //             await AsyncStorage.setItem('token', data.token);
+  //             await AsyncStorage.setItem('refreshToken', data.refreshToken);
+  //             await AsyncStorage.setItem('isloggedIn', 'true');
+  //             await AsyncStorage.setItem("deviceId", deviceId);
+  //             await AsyncStorage.setItem("verificationId", verificationId);
+  //             await AsyncStorage.setItem('phoneNo', number);
+  
+  //             // Navigate to the OTP verification screen
+  //             navigation.navigate('Otp2', { deviceId, verificationId });
+  //             // setIsOtpSent(true);
+  //             setError('');
+  //           } catch (error) {
+  //             console.error('Error during phone number verification:', error);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
   const sendVerification = async () => {
     if (!phoneNumber) {
       setPhoneNumberError('Please enter a phone number.');
@@ -411,7 +547,7 @@ const Otp = ({ route }) => {
     setPhoneNumberError('');
   
     const number = phoneNumber.replace('+91', '');
-    const serverUrl = 'https://vast-newt-crown.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+    const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
   
     try {
       const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
@@ -429,6 +565,11 @@ const Otp = ({ route }) => {
   
       console.log(data);
   
+      if (data.success === false && data.status === 'not allowed') {
+        Alert.alert('Admin not Accepted');
+        return;
+      }
+  
       if (data.success) {
         if (data.status === 'allowed') {
           if (data.data.adminaccept === true) {
@@ -437,61 +578,36 @@ const Otp = ({ route }) => {
             // Verify the phone number using reCAPTCHA
             try {
               const verificationId = await phoneProvider.verifyPhoneNumber(
-                
                 "+91" + number,
                 recaptchaVerifier.current
               );
-              console.log("v",verificationId)
+              console.log("v", verificationId);
+              
+              // Clear the phone number input field
+              await setPhoneNumber(''); // Use 'await' to ensure the state is updated
+  
               // Set AsyncStorage values
               await AsyncStorage.setItem('token', data.token);
               await AsyncStorage.setItem('refreshToken', data.refreshToken);
               await AsyncStorage.setItem('isloggedIn', 'true');
               await AsyncStorage.setItem("deviceId", deviceId);
               await AsyncStorage.setItem("verificationId", verificationId);
-              await AsyncStorage.setItem('phoneNo',number)
-              setPhoneNumber('')
-    
+              await AsyncStorage.setItem('phoneNo', number);
   
               // Navigate to the OTP verification screen
-              navigation.navigate('Otp2', {deviceId,verificationId});
+              navigation.navigate('Otp2', { deviceId, verificationId });
               // setIsOtpSent(true);
-              setPhoneNumber('');
               setError('');
             } catch (error) {
               console.error('Error during phone number verification:', error);
             }
-          } else if (data.data.adminaccept === false) {
-            Alert.alert('Admin not Accepted');
-          } else if (data.status === 'not allowed') {
-            Alert.alert('Admin not Accepted');
           }
-        }  
-      } 
+        }
+      }
     } catch (error) {
       console.error('Error:', error);
     }
-  }
-
-  // const confirmCode = () => {
-  //   if (code.length !== 6) {
-  //     setCodeError('Code must be exactly 6 digits.');
-  //     return;
-  //   }
-
-  //   const credential = firebase.auth.PhoneAuthProvider.credential(
-  //     verificationId,
-  //     code
-  //   );
-  //   firebase.auth().signInWithCredential(credential)
-  //     .then(() => {
-  //       setCodeError('');
-  //       showAlert();
-  //     })
-  //     .catch((error) => {
-  //       setCodeError(error.message);
-  //     });
-  // }
-
+  };
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -507,7 +623,6 @@ const Otp = ({ route }) => {
         <View style={styles.contain}>
           <PhoneInput
             ref={phoneInput}
-            defaultValue={phoneNumber}
             placeholder="Enter Phone Number"
             placeholderTextColor='#979797'
             containerStyle={styles.phoneContainer}
@@ -561,7 +676,6 @@ const Otp = ({ route }) => {
 }
 
 export default Otp;
-
 
 const styles = StyleSheet.create({
 container2: {

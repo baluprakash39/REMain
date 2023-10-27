@@ -79,7 +79,7 @@ function Home({route}) {
         return;
       }
   
-      const url = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
+      const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
   
       fetch(url, {
         headers: {
@@ -104,7 +104,7 @@ function Home({route}) {
   // const fetchBikeDetails = async() => {
   //   const token = await AsyncStorage.getItem('token');
   //   console.log("token",token)
-  //   const url = `https://vast-newt-crown.cyclic.app/formdetails/getbikes`;
+  //   const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes`;
   
 
   //   axios
@@ -128,7 +128,7 @@ function Home({route}) {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://vast-newt-crown.cyclic.app/formdetails/getbikes';
+      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes';
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -156,7 +156,7 @@ function Home({route}) {
   const products = (section) => {
     setSelectedSection(section);
     setAcc(section);
-    axios.get(`https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`, {
+    axios.get(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`, {
       
         headers: {
           'Access-Control-Allow-Origin': '*',

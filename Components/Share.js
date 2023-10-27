@@ -349,7 +349,7 @@
    
 //   }, []);
 //   const fetchBikeDetails = async (vehicleId) => {
-//     const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
+//     const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
 
 //     try {
 //       const response = await axios.get(url);
@@ -395,7 +395,7 @@
 //     const fetchData = async () => {
 //       try {
 //         // Make a GET request to your API endpoint
-//         const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers');
+//         const response = await axios.get('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers');
         
 //         // Extract the data from the response
 //         const responseData = response.data.user[0];
@@ -1243,6 +1243,7 @@ import { RadioButton } from 'react-native-paper';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
+
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources: {
@@ -1260,7 +1261,6 @@ const Share = ({route}) => {
   // const { isDarkTheme } = useTheme();
   const navigation = useNavigation();
     const [selectedStyle, setSelectedStyle] = useState(null);
-
     const [customername, setCustomerName] = useState('');
     const [address, setAddress] = useState('');
     const [mobilenumber, setMobileNumber] = useState('');
@@ -1321,7 +1321,7 @@ const handlemobile=(text)=>{
   //checkboxes//
   const [dataArray, setDataArray] = useState([]);
     const [isSelected, setSelection] = useState(false);
-    const [checked, setChecked] = React.useState('first');
+    // const [checked, setChecked] = React.useState('');
   const [isNilldip,setnilldip]=useState(false);
   const [EP,setEP]=useState(false);
   const[RTI,setRTI]=useState(false);
@@ -1437,73 +1437,88 @@ console.log(selectedMirrorsvalue)
 
 
   const handleFourChange = (out,text) => {
-    setFour(true);
-    setFive(false);
-    setFiveRsa(false);
+    setwarentyCheked('four')
     setSelectedOption(out);
     setextext(text)
   };
 
 const handleFiveChange = (out,text) => {
-  setFour(false);
-  setFive(true);
-  setFiveRsa(false);
+  setwarentyCheked('five')
   setSelectedOption(out);
   setextext(text)
 };
 
 const handleFiveRsaChange = (out,text) => {
-  setFour(false);
-  setFive(false);
-  setFiveRsa(true);
+  setwarentyCheked('fiveRsa')
 setSelectedOption(out);
 setextext(text)
 };
 const handleYes=(out,text)=>{
-setYes(true)
-setNo(false)
+  sethypoCheked('YES')
 sethype(out)
 sethypetext(text)
 }
 
 const handleNo=(out,text)=>{
-setYes(false)
-setNo(true);
+  sethypoCheked('NO')
 sethype(out);
 sethypetext(text)
 }
 
+// const handlebasic=(out,text)=>{
+// setSelection(true);
+// setnilldip(false);
+// setEP(false);
+// setRTI(false);
+// setins(out)
+// settext(text)
+// }
+
+// const handleNill=(out,text)=>{
+// setSelection(false);
+// setnilldip(true);
+// setEP(false);
+// setRTI(false);
+// setins(out)
+// settext(text)
+// }
+// const handleEP=(out,text)=>{
+// setSelection(false);
+// setnilldip(false);
+// setEP(true);
+// setRTI(false);
+// setins(out)
+// settext(text)
+// }
+
+// const handleRTI=(out,text)=>{
+// setSelection(false);
+// setnilldip(false);
+// setEP(false);
+// setRTI(true);
+// setins(out)
+// settext(text)
+// }
 const handlebasic=(out,text)=>{
-setSelection(true);
-setnilldip(false);
-setEP(false);
-setRTI(false);
-setins(out)
-settext(text)
+  setChecked('Basic')
+  setins(out)
+  settext(text)
 }
 
 const handleNill=(out,text)=>{
-setSelection(false);
-setnilldip(true);
-setEP(false);
-setRTI(false);
+  setChecked('Nilldip')
 setins(out)
 settext(text)
 }
 const handleEP=(out,text)=>{
-setSelection(false);
-setnilldip(false);
-setEP(true);
-setRTI(false);
-setins(out)
+   setChecked('EP')
+   setins(out)
 settext(text)
+
 }
 
 const handleRTI=(out,text)=>{
-setSelection(false);
-setnilldip(false);
-setEP(false);
-setRTI(true);
+  setChecked('RTI')
 setins(out)
 settext(text)
 }
@@ -1516,7 +1531,9 @@ const [EngineCC,setEngineCC]=useState('');
 const [adminallimage,setadminallimage]=useState('');
 const [vehiclename,setvehiclename]=useState('');
 const [model,setmodel]=useState('');
-
+const [checked, setChecked] = React.useState('');
+const[chekedhypo,sethypoCheked]=useState('')
+const[Checkwarenty,setwarentyCheked]=useState('')
 // dealerdetails
 const [dataaa, setData] = useState([]);
 
@@ -1532,7 +1549,6 @@ const [state,setstate]=useState('');
 const [streetname,setstreetname]=useState('');
 const [website,setwebsite]=useState('');
 console.log("adress",companyaddress)
-
 
   const formData ={
     customername: '',
@@ -1673,7 +1689,7 @@ console.log("adress",companyaddress)
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
+      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
       
       const response = await axios.get(url, {
         headers: {
@@ -1723,7 +1739,7 @@ console.log("adress",companyaddress)
     // const fetchData = async () => {
     //   try {
     //     // Make a GET request to your API endpoint
-    //     const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers');
+    //     const response = await axios.get('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers');
         
     //     // Extract the data from the response
     //     const responseData = response.data.user[0];
@@ -1752,7 +1768,7 @@ console.log("adress",companyaddress)
         const token = await AsyncStorage.getItem('token');
     
         // Make a GET request to your API endpoint with the token in the headers
-        const response = await axios.get('https://vast-newt-crown.cyclic.app/dealerdetails/getdealers', {
+        const response = await axios.get('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -1834,6 +1850,7 @@ console.log("adress",companyaddress)
               value={customername}
               onChangeText={(text) => handlecustomername(text)}
               placeholder="Enter name"
+              placeholderTextColor="#868687"
             />
  
           </View>
@@ -1845,6 +1862,7 @@ console.log("adress",companyaddress)
               value={address}
               onChangeText={(text) => handleadresss(text)}
               placeholder="Enter address"
+              placeholderTextColor="#868687"
             />
           
           </View>
@@ -1856,6 +1874,7 @@ console.log("adress",companyaddress)
               value={mobilenumber}
               onChangeText={(text) => handlemobile(text)}
               placeholder="Enter mobile number"
+              placeholderTextColor="#868687"
             />
           
           </View>
@@ -1867,6 +1886,7 @@ console.log("adress",companyaddress)
               value={emailid}
               onChangeText={setEmailId}
               placeholder="example@email.com"
+              placeholderTextColor="#868687"
             />
             
           </View>
@@ -1922,13 +1942,15 @@ console.log("adress",companyaddress)
     handlebasic(insu.Basic); // Trigger your custom logic
   }}
 /> */}
-  <RadioButton
-  value="isSelected"
-  status={selectedStates.insurance === 'isSelected' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('insurance', insu.Basic)}
-/>
-
-                                    <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
+                                         <RadioButton
+                                              value={isSelected}
+                                              status={ checked === 'Basic' ? 'checked' : 'unchecked' }
+                                              onPress={() =>handlebasic(insu.Basic)}
+                                              color="#f9f9f9" // Customize the color of the radio button
+  uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+  style={styles.radioButton}
+                                            />
+                                  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
                               </View> 
                               {/* Nilldip */}
                               <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -1949,11 +1971,15 @@ console.log("adress",companyaddress)
     handleNill(insu.Nildip); // Trigger your custom logic
   }}
                                    /> */}  
-   <RadioButton
-  value="isNilldip"
-  status={selectedStates.insurance === 'isNilldip' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('insurance', insu.Nildip)}
-/>
+       <RadioButton
+        value={isNilldip}
+        status={ checked === 'Nilldip' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleNill(insu.Nildip)}
+  color="#f9f9f9" // Customize the color of the radio button
+  uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+  style={styles.radioButton}
+      />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
                               </View>
                               {/* EP */}
@@ -1976,10 +2002,14 @@ console.log("adress",companyaddress)
   }}
                                    /> */}
      <RadioButton
-  value="EP"
-  status={selectedStates.insurance === 'EP' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('insurance', insu.Ep)}
-/>
+        value={EP}
+        status={ checked === 'EP' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleEP(insu.Ep)}
+                                        color="#f9f9f9" // Customize the color of the radio button
+                                        uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                        style={styles.radioButton}
+      />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
                               </View>
                               {/* RTI */}
@@ -2002,11 +2032,15 @@ console.log("adress",companyaddress)
   }}
                                      /> */}
                                   
-     <RadioButton
-  value="RTI"
-  status={selectedStates.insurance === 'RTI' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('insurance', insu.RTI)}
-/>
+                                  <RadioButton
+        value={RTI}
+        status={ checked === 'RTI' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleRTI(insu.RTI)}
+                                        color="#f9f9f9" // Customize the color of the radio button
+                                        uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                        style={styles.radioButton}
+      />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
                               </View>
                         </View>
@@ -2025,60 +2059,40 @@ console.log("adress",companyaddress)
                     <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Hypothecation</Text>
                       {data.hypothication.map((hype)=>(
                     <View style={{display:'flex',flexDirection:'row'}}>
-                      {/* YES */}
-                        <View style={{alignItems:'center',flexDirection:'row'}}>
-                          
-                            {/* <CheckBox
-                              value={YES}
-                              onValueChange={()=>handleYes(hype.Yes)}
-                              style={styles.checkbox}
-                            /> */}
-           {/* <RadioButton
-  value="Yes"
-  status={checked === 'Yes' ? 'checked' : 'unchecked'}
-  onPress={() => {
-    if (checked === 'Yes') {
-      setChecked(''); // Uncheck the radio button
-    } else {
-      setChecked('Yes'); // Check the radio button
-    }
-    handleYes(hype.Yes); // Trigger your custom logic
-  }}
-/> */}
- <RadioButton
-  value="Yes"
-  status={selectedStates.hypothecation === 'Yes' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('hypothecation', hype.Yes)}
-/>
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
-                        </View> 
+         {/* YES */}
+                      <View style={{alignItems:'center',flexDirection:'row'}}>
+  <RadioButton
+        value={YES}
+        status={ chekedhypo === 'YES' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleYes(hype.Yes)}
+                                  color="#f9f9f9" // Customize the color of the radio button
+                                  uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                  style={styles.radioButton}
+      />
 
-                      {/* NO */}
-                        <View style={{alignItems:'center',flexDirection:'row'}}>
-                          {/* <CheckBox
-                              value={NO}
-                              onValueChange={()=>handleNo(hype.No)}
-                              style={styles.checkbox}
-          /> */}
-              {/* <RadioButton
-  value="NO"
-  status={checked === 'NO' ? 'checked' : 'unchecked'}
-  onPress={() => {
-    if (checked === 'NO') {
-      setChecked(''); // Uncheck the radio button
-    } else {
-      setChecked('NO'); // Check the radio button
-    }
-    handleNo(hype.No); // Trigger your custom logic
-  }}
-                  /> */}
-       <RadioButton
-  value="NO"
-  status={selectedStates.hypothecation === 'NO' ? 'checked' : 'unchecked'}
-  onPress={() => handleRadioChange('hypothecation', hype.No)}
-/>
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
-                        </View>
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Yes</Text>
+     </View>
+
+    {/* NO */}
+    <View style={{alignItems:'center',flexDirection:'row'}}>
+     
+     <RadioButton
+        value={YES}
+        status={ chekedhypo === 'NO' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleNo(hype.No)}
+                                    color="#f9f9f9" // Customize the color of the radio button
+                                    uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                    style={styles.radioButton}
+      />
+
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>No</Text>
+     </View>
                     </View>
                   ))}
                   </View>
@@ -2101,24 +2115,17 @@ console.log("adress",companyaddress)
                         <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
                         {/* 4 */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
-                          
-                            {/* <CheckBox
-                              value={four}
-                              onValueChange={()=>handleFourChange(ans.fouryears)}
-                              style={styles.checkbox}
-                              /> */}
-                            <RadioButton
-  value="four"
-  status={checked === 'four' ? 'checked' : 'unchecked'}
-  onPress={() => {
-    if (checked === 'four') {
-      setChecked(''); // Uncheck the radio button
-    } else {
-      setChecked('four'); // Check the radio button
-    }
-    handleFourChange(ans.fouryears); // Trigger your custom logic
-  }}
-/>
+                        <RadioButton
+        value={four}
+        status={ Checkwarenty === 'four' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFourChange(ans.fouryears)}
+                                      color="#f9f9f9" // Customize the color of the radio button
+                                      uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                      style={styles.radioButton}
+      />
+                    
+
                               <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
                           </View>
                         {/* 5 */}
@@ -2129,18 +2136,15 @@ console.log("adress",companyaddress)
                               onValueChange={()=>handleFiveChange(ans.fiveyears)}
                               style={styles.checkbox}
                             /> */}
-  <RadioButton
-  value="five"
-  status={checked === 'five' ? 'checked' : 'unchecked'}
-  onPress={() => {
-    if (checked === 'five') {
-      setChecked(''); // Uncheck the radio button
-    } else {
-      setChecked('five'); // Check the radio button
-    }
-    handleFiveChange(ans.fiveyears); // Trigger your custom logic
-  }}
-/>
+                                <RadioButton
+        value={five}
+        status={ Checkwarenty === 'five' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFiveChange(ans.fiveyears)}
+                                  color="#f9f9f9" // Customize the color of the radio button
+                                  uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                  style={styles.radioButton}
+      />     
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
                           </View>
 
@@ -2150,19 +2154,15 @@ console.log("adress",companyaddress)
                               value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
                               onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
                               style={styles.checkbox}
-                      /> */}
-                       <RadioButton
-  value={fiveRsa}
-  status={checked === 'fiveRsa' ? 'checked' : 'unchecked'}
-  style={styles.checkbox}
-  onPress={() => {
-    if (checked === 'fiveRsa') {
-      setChecked(''); // Uncheck the radio button
-    } else {
-      setChecked('fiveRsa'); // Check the radio button
-    }
-    handleFiveRsaChange(ans.fiveplusRSAyears); // Trigger your custom logic
-  }}
+                            /> */}
+                             <RadioButton
+        value={fiveRsa}
+        status={ Checkwarenty === 'fiveRsa' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFiveRsaChange(ans.fiveplusRSAyears)}
+                                    color="#f9f9f9" // Customize the color of the radio button
+                                    uncheckedColor="#f9f9f9" // Customize the color of the unchecked radio button
+                                    style={styles.radioButton}
       />
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
                           </View>
@@ -2194,19 +2194,20 @@ console.log("adress",companyaddress)
             borderColor={'#f9f9f9'}
             selectedValue={selectedMirrorstext}
             onValueChange={(itemValue) => {
-if (itemValue === "") {
-// If the selected value is an empty string, set the state to 0
-setSelectedMirrorsvalue(0);
-} else {
-const selectedMirror = data.mirrors.find(
-(mirror) => mirror.mirrorstext === itemValue
-);
-setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
-}
-setSelectedMirrorstext(itemValue);
-}}
->
-            <Picker.Item label="Mirrors"  value="" />
+            if (itemValue === "") {
+            // If the selected value is an empty string, set the state to 0
+            setSelectedMirrorsvalue(0);
+            } else {
+            const selectedMirror = data.mirrors.find(
+            (mirror) => mirror.mirrorstext === itemValue
+            );
+            setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
+            }
+            setSelectedMirrorstext(itemValue);
+            }}
+            >
+            <Picker.Item label="Mirrors"  value="" 
+            style={{ color: '#111111' }}/>
             {data.mirrors.map((mirror) => (
               <Picker.Item
                 key={mirror._id}
@@ -2233,7 +2234,8 @@ setSelectedOilFillerCapValue(selectedOilFillerCap ? selectedOilFillerCap.oilfill
 setSelectedOilFillerCapText(itemValue);
 }}
 >
-            <Picker.Item label="Oilfiller cap" value="" />
+            <Picker.Item label="Oilfiller cap" value="" 
+            style={{ color: '#111111' }}/>
             {data.oilfillercap.map((oil) => (
               <Picker.Item
                 key={oil._id}
@@ -2260,7 +2262,8 @@ setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue :
 setSelectedHeadLightText(itemValue);
 }}
 >
-              <Picker.Item label="Headlight" value="" />
+              <Picker.Item label="Headlight" value="" 
+              style={{ color: '#111111' }}/>
               {data.headlight.map((headlight) => (
                 <Picker.Item
                   key={headlight._id}
@@ -2294,7 +2297,8 @@ setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsv
 setSelectedWindshieldsText(itemValue);
 }}
 >
-                  <Picker.Item label="Windshields" value="" />
+                  <Picker.Item label="Windshields" value=""
+                  style={{ color: '#111111' }}/>
                   {data.windshields.map((windshield) => (
                     <Picker.Item
                       key={windshield._id}
@@ -2324,7 +2328,7 @@ setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : 0);
 setSelectedPanniersText(itemValue);
 }}
 >
-                  <Picker.Item label="Panniers" value="" />
+                  <Picker.Item label="Panniers" value="" style={{ color: '#111111' }}/>
                   {data.panniers.map((pannier) => (
                     <Picker.Item
                       key={pannier._id}
@@ -2355,7 +2359,7 @@ setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : 0);
 setSelectedSeatsText(itemValue);
 }}
 >
-                  <Picker.Item label="Seats" value="" />
+                  <Picker.Item label="Seats" value="" style={{ color: '#111111' }}/>
                   {data.seats.map((seat) => (
                     <Picker.Item
                       key={seat._id}
@@ -2386,7 +2390,7 @@ setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : 0)
 setSelectedBackrestText(itemValue);
 }}
 >
-                  <Picker.Item label="Backrest" value="" />
+                  <Picker.Item label="Backrest" value="" style={{ color: '#111111' }}/>
                   {data.backrests.map((backrest) => (
                     <Picker.Item
                       key={backrest._id}
@@ -2416,7 +2420,7 @@ setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : 0);
 setSelectedFootPegsText(itemValue);
 }}
 >
-              <Picker.Item label="Foot Pegs" value="" />
+              <Picker.Item label="Foot Pegs" value="" style={{ color: '#111111' }}/>
               {data.footpegs.map((footpeg) => (
                 <Picker.Item
                   key={footpeg._id}
@@ -2451,7 +2455,7 @@ setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegau
 setSelectedEngineGuardsText(itemValue);
 }}
 >
-              <Picker.Item label="Engine Guards" value="" />
+              <Picker.Item label="Engine Guards" value="" style={{ color: '#111111' }}/>
               {data.enginegaurds.map((engineGuard) => (
                 <Picker.Item
                   key={engineGuard._id}
@@ -2480,7 +2484,7 @@ setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue
 setSelectedSumpGuardsText(itemValue);
 }}
 >
-              <Picker.Item label="Sump Guards" value="" />
+              <Picker.Item label="Sump Guards" value="" style={{ color: '#111111' }}/>
               {data.sumpgaurds.map((sumpGuard) => (
                 <Picker.Item
                   key={sumpGuard._id}
@@ -2512,7 +2516,7 @@ setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccess
 setSelectedSafetyAccessoriesText(itemValue);
 }}
 >
-            <Picker.Item label="Safety Accessories" value="" />
+            <Picker.Item label="Safety Accessories" value="" style={{ color: '#111111' }}/>
             {data.safetyaccessories.map((safetyAccessory) => (
               <Picker.Item
                 key={safetyAccessory._id}

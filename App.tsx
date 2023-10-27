@@ -118,7 +118,7 @@ useEffect(() => {
         // Check if the timer has reached 86300 seconds (23 hours and 58 minutes)
         if (newTimer <= 120) {
           openLogoutPopup(); // Open the modal
-        
+        //86200
         } if (newTimer <= 0) {
           clearInterval(unique); // Stop the interval
           setIsLoading(true); // Show loading indicator
@@ -214,13 +214,6 @@ useEffect(() => {
   };
   
 
-  // function formatTime(timeInSeconds) {
-  //   const hours = Math.floor(timeInSeconds / 3600);
-  //   const minutes = Math.floor((timeInSeconds % 3600) / 60);
-  //   const seconds = timeInSeconds % 60;
-  
-  //   return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-  // }
   function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
@@ -319,7 +312,7 @@ if (isLoading) {
     </NavigationContainer>
     {/* </AuthProvider> */}
     <Modal isVisible={showLogoutPopup}>
-        <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
+        {/* <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
           <View style={{marginBottom:verticalScale(30)}}>
           <Text style={{ fontSize: moderateScale(16), fontWeight: '500', color: '#f9f9f9' }}>
             Session will timeout in :{' '}
@@ -328,6 +321,25 @@ if (isLoading) {
             </Text>
           </Text>
         </View>
+        <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10)}}>
+          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>
+            <Text style={{color:'red',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Continue</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'crimson',justifyContent:'center',borderRadius:scale(5)}} onPress={handleLogout}>
+            <Text style={{color:'white',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Logout</Text>
+          </TouchableOpacity>
+          </View>
+        </View> */}
+                <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
+          <Text style={{fontSize: moderateScale(18), fontWeight: '600', color: '#f9f9f9'}}>Account security alert</Text>
+          <View style={{marginBottom:verticalScale(30)}}>
+            <Text style={{ fontSize: moderateScale(16), fontWeight: '500', color: '#868687' }}>
+              Session will timeout in :{' '}
+              <Text style={{ fontSize: moderateScale(20), fontWeight: 'bold', color: 'crimson' }}>
+                {formatTime(timer)}
+              </Text>
+            </Text>
+          </View>
         <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10)}}>
           <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>
             <Text style={{color:'red',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Continue</Text>

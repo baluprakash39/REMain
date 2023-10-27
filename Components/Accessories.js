@@ -151,7 +151,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/acc?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/acc?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/mirrors?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/mirrors?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/oil?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/oil?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/wind?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/wind?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -337,7 +337,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/seats?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/seats?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -384,7 +384,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/back?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/back?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -432,7 +432,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/pan?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/pan?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -481,7 +481,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/foot?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/foot?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -528,7 +528,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/engine?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/engine?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -580,7 +580,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/sump?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/sump?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -626,7 +626,7 @@ const Accessories = ({route}) => {
       ],
     };
   
-    fetch(`https://vast-newt-crown.cyclic.app/formdetails/headlight?_id=${Id}`, {
+    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/headlight?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -664,7 +664,7 @@ const fetchBikeDetails = async (vehicleId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/getbike/${vehicleId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -693,7 +693,7 @@ const handleRemovesafty = async (objId, safetyAccessoryId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/acc/${objId}/${safetyAccessoryId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/acc/${objId}/${safetyAccessoryId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -727,7 +727,7 @@ const deleteSeats = async (objId, seatId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/seats/${objId}/${seatId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/seats/${objId}/${seatId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -763,7 +763,7 @@ const deleteWindshield = async (objId, windshieldId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/wind/${objId}/${windshieldId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/wind/${objId}/${windshieldId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -799,7 +799,7 @@ const deleteBackrest = async (objId, backrestId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/back/${objId}/${backrestId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/back/${objId}/${backrestId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -836,7 +836,7 @@ const deleteEngine = async (objId, engineId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/engine/${objId}/${engineId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/engine/${objId}/${engineId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -872,7 +872,7 @@ const deletesumpguard = async (objId, sumpId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/sump/${objId}/${sumpId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/sump/${objId}/${sumpId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -908,7 +908,7 @@ const deletefoot = async (objId, footpegId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/foot/${objId}/${footpegId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/foot/${objId}/${footpegId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -945,7 +945,7 @@ const deletepanniers = async (objId, panId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/pan/${objId}/${panId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/pan/${objId}/${panId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -981,7 +981,7 @@ const deleteMirrors = async (objId, mirrorId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/mirrors/${objId}/${mirrorId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/mirrors/${objId}/${mirrorId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -1016,7 +1016,7 @@ const deleteoilfiller = async (objId, oilId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/oil/${objId}/${oilId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/oil/${objId}/${oilId}`;
 
     if (!token) {
       // Handle the case where the token is missing
@@ -1053,7 +1053,7 @@ const deletheadlight = async (objId, headId) => {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
 
-    const url = `https://vast-newt-crown.cyclic.app/formdetails/headlight/${objId}/${headId}`;
+    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/headlight/${objId}/${headId}`;
 
     if (!token) {
       // Handle the case where the token is missing

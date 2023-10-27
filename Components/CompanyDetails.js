@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, ScrollView } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -31,7 +31,7 @@ const CompanyDetails = () => {
     state: '',
     country: '',
     contactnumber: '',
-    emailid: '',
+    dealeremailid: '',
     website: '',
     gstin: '', 
   });
@@ -46,12 +46,18 @@ const CompanyDetails = () => {
     state: '',
     country: '',
     contactnumber: '',
-    emailid: '',
+    dealeremailid: '',
     website: '',
     gstin:''
   });
 
   console.log(formData)
+  
+
+
+
+
+
 
   const handleInputChange = (field, text) => {
     setFormData({ ...formData, [field]: text });
@@ -60,6 +66,7 @@ const CompanyDetails = () => {
   
 
   const handleSubmit = async () => {
+    console.log("form",formData)
     let formIsValid = true;
     const newFormErrors = { ...formErrors };
 
@@ -104,10 +111,11 @@ const CompanyDetails = () => {
       formIsValid = false;
     }
 
-    if (formData.emailid === '') {
-      newFormErrors.emailid = 'Email is required';
+    if (formData.dealeremailid === '') {
+      newFormErrors.dealeremailid = 'Email is required';
       formIsValid = false;
     }
+    
 
     if (formData.website === '') {
       newFormErrors.website = 'Website is required';
@@ -123,7 +131,7 @@ const CompanyDetails = () => {
       try {
         const token = await AsyncStorage.getItem('token');
         // Send a POST request to your server's /dealerdetails endpoint
-        const response = await fetch('https://vast-newt-crown.cyclic.app/dealerdetails/dealerdetails', {
+        const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/dealerdetails', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -146,6 +154,51 @@ console.log('response',response)
       }
     } else {
       setFormErrors(newFormErrors);
+    }
+  };
+
+
+
+
+
+  useEffect(() => {
+    getDealer();
+  }, []);
+
+  const getDealer = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        if (data.user && data.user.length > 0) {
+          // Update the formData state with the data from the first item in the array
+          const firstUser = data.user[0];
+          setFormData({
+            companyname: firstUser.companyname || '',
+            companyaddress: firstUser.companyaddress || '',
+            streetname: firstUser.streetname || '',
+            city: firstUser.city || '',
+            pincode: firstUser.pincode || '',
+            state: firstUser.state || '',
+            country: firstUser.country || '',
+            contactnumber: firstUser.contactnumber || '',
+            dealeremailid: firstUser.dealeremailid || '',
+            website: firstUser.website || '',
+            gstin: firstUser.gstin || '',
+          });
+        }
+      } else {
+        console.error('Error:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
@@ -346,11 +399,11 @@ console.log('response',response)
               selectionColor="red"
               placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
-              value={formData.emailid}
-              onChangeText={(text) => handleInputChange('emailid', text)}
+              value={formData.dealeremailid}
+              onChangeText={(text) => handleInputChange('dealeremailid', text)}
             />
           </View>
-          {formErrors.emailid ? <Text style={styles.errorText}>{formErrors.emailid}</Text> : null}
+          {formErrors.dealeremailid ? <Text style={styles.errorText}>{formErrors.dealeremailid}</Text> : null}
 
           {/* Website */}
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>

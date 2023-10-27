@@ -1835,7 +1835,7 @@ const SharePdf = ({route}) => {
                  font-family: 'Inter', sans-serif;
                  font-size: 10px;
                  font-style: normal;
-                 font-weight: 500;">LEKHANA AUTOMOTIVES</p>
+                 font-weight: 500;">${companyname}</p>
      </div>
      <!-- companyname closed -->
    </div>
@@ -1890,7 +1890,8 @@ const SharePdf = ({route}) => {
                  background: #000;"></p>
      <div class="GSTINandNumbercontainer"
           style="display: flex;
-                 align-items: flex-start;">
+                 align-items: flex-start;
+                 padding-right:20px">
        <div class="gstinTextcontainer"
             style="display: flex;
                    padding: 0px 5px;
@@ -2031,7 +2032,8 @@ const SharePdf = ({route}) => {
     </View> 
   <View style={styles.companydetailscontainer}>                        
     <Text style={styles.showroomnameText}>{companyname}</Text>
-    <Text style={styles.headersubtext}>{address}</Text>
+    <Text style={styles.headersubtext}>{companyaddress}</Text>
+    <Text style={styles.headersubtext}>{streetname}</Text>
     <Text style={styles.headersubtext}>{`${city}, ${state}, ${pincode}, ${country}`}</Text>
     <Text style={styles.headersubtext}>{gstin}</Text>
     <Text style={styles.headersubtext}>{contactnumber}</Text>
@@ -2366,7 +2368,7 @@ const SharePdf = ({route}) => {
      <Text style={styles.rupeesinr}>INR.</Text>
     </View>
     <View style={styles.rupeesvalue}>
-     <Text style={styles.AandBtotal}>{grandtotal}</Text>
+     <Text style={styles.AandBtotal}>{B}</Text>
     </View>
    </View>
    </View>
@@ -2446,7 +2448,7 @@ const SharePdf = ({route}) => {
     <Text style={styles.ForText}>For :</Text>
     </View>
     <View style={styles.companyname}>
-    <Text style={styles.companyText}>LEKHANA AUTOMOTIVES</Text>
+    <Text style={styles.companyText}>{companyname}</Text>
     </View>
    </View>
    </View> 

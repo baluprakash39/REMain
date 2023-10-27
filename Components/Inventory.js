@@ -54,27 +54,33 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
     marginHorizontal: moderateScale(5),
     },
-  searchInput: {
-    height: verticalScale(35),
-    color: '#f9f9f9',
-    fontSize: moderateScale(16),
-    width: moderateScale(200),
-  },
-  searchcontainer:{
-    // width: moderateScale(220),
-    width:'100%',
-    height: verticalScale(35),
-    gap:scale(2),
-    paddingLeft:moderateScale(4),
-    flexDirection: 'row',
-    alignItems:'stretch',
-    // justifyContent:'space-between',
-    borderRadius: moderateScale(6),
-    backgroundColor: '#3D3C3C',
-    borderColor: '#979797', // White border
-    borderWidth: moderateScale(1), // 1 pixel border width
-    marginBottom:verticalScale(10),
-  },
+    searchInput: {
+      // flex: 1,
+      width:'100%',
+      color: '#f9f9f9',
+      fontSize: moderateScale(16),
+      paddingLeft: moderateScale(8), // Adjust the padding as needed
+      // Remove alignItems, justifyContent, and textAlignVertical properties
+      textAlignVertical:'center',
+      // paddingTop:verticalScale(8),
+      // textAlign:'center',
+      // textAlignVertical:'center',
+      borderWidth:1,
+      borderColor:'red'
+    },
+    
+    searchcontainer: {
+      width: '100%',
+      height: verticalScale(35),
+      paddingLeft: moderateScale(4),
+      flexDirection: 'row',
+      alignItems: 'center', // Center vertically
+      borderRadius: moderateScale(6),
+      backgroundColor: '#3D3C3C',
+      borderColor: '#979797', // White border
+      borderWidth: moderateScale(1), // 1 pixel border width
+      // marginBottom: verticalScale(10),
+    },
   loginButton: {
     // backgroundColor: '#F9F9F9', // Use the same background color as searchInput
     // paddingVertical: verticalScale(4),
@@ -167,7 +173,7 @@ function Inventory() {
   };
 
   // const fetchSections = () => {
-  //   const url = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
+  //   const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
 
   //   fetch(url)
   //     .then((response) => response.json())
@@ -187,7 +193,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://vast-newt-crown.cyclic.app/bikes/bikes';
+      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
   
       // Make the API request with the 'Authorization' header
       const response = await fetch(apiUrl, {
@@ -217,7 +223,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://vast-newt-crown.cyclic.app/formdetails/getbikes';
+      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes';
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -248,7 +254,7 @@ function Inventory() {
   //     fetchBikeDetails();
   //   } else {
   //     axios
-  //       .get(`https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`, {
+  //       .get(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`, {
   //         headers: {
   //           'Access-Control-Allow-Origin': '*',
   //           'Content-Type': 'application/json',
@@ -280,7 +286,7 @@ const products = (section) => {
         const token = await AsyncStorage.getItem('token');
         
         // Set the API endpoint URL
-        const apiUrl = `https://vast-newt-crown.cyclic.app/formdetails/getbikes/${section}`;
+        const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`;
 
         // Make the API request with the 'Authorization' header
         axios
@@ -344,7 +350,7 @@ const products = (section) => {
               text: 'Delete',
               onPress: () => {
                 // Define your API endpoint URL
-                const apiUrl = `https://vast-newt-crown.cyclic.app/formdetails/deletebikes/${Id}`;
+                const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/deletebikes/${Id}`;
   
                 // Send a DELETE request to the API endpoint with the token in headers
                 fetch(apiUrl, {
@@ -420,7 +426,7 @@ const products = (section) => {
         name: result[0].name,
       });
   
-      const apiUrl = `https://vast-newt-crown.cyclic.app/upload/upload/${Id}`;
+      const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/upload/upload/${Id}`;
   
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -483,14 +489,20 @@ const products = (section) => {
           </View>
           {/* <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),justifyContent:'space-between'}}> */}
           <View style={styles.searchcontainer}>
-          <View style={{justifyContent:'center'}}>
-              <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
+              <View style={{justifyContent:'center'}}>
+               <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
               </View>
-                    <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
-                      value={search}
-                      selectionColor="red"
-                      onChangeText={setSearch}/>
-          </View>
+              <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: moderateScale(4), borderWidth:1,borderColor:'red' }}>
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search Vehicle"
+                  placeholderTextColor="#868687"
+                  value={search}
+                  selectionColor="red"
+                  onChangeText={setSearch}
+                />
+              </View>
+            </View>
           
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
           {/* <TouchableOpacity style={{marginHorizontal: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}>
@@ -555,20 +567,18 @@ const products = (section) => {
               // height:verticalScale(200),
               // width:'47%',
               // // width: moderateScale(232),
-              // justifyContent: 'space-between',
-              borderWidth: 1,
-              backgroundColor: 'r#11111199',
+              justifyContent: 'space-between',
+              borderWidth: scale(1),
+              backgroundColor: '#11111199',
               // backgroundColor: isDarkTheme ? 'black' : 'white',
-              height: scale(210),
+              height: scale(220),
               flex: 1,
-              margin: 5,
-              borderRadius: 10,
-              width: 100,
+              margin: scale(3),
+              borderRadius: scale(6),
+              // width: 100,
               marginTop:scale(5)
-              
-            }}>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
+             }}>
+             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
               <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
@@ -580,25 +590,25 @@ const products = (section) => {
               </TouchableOpacity>
             </View>
 
-
+            <View style={{height:'50%',width:'100%',paddingVertical:scale(2)}}>
             <TouchableOpacity
             
             onPress={() => {
               carddata(item._id);
             }}
-            // style={{
+            style={{
             //   borderColor: 'rgba(249, 249, 249, 0.50)',
             //   borderWidth: 1,
             //   // backgroundColor: 'rgba(151, 151, 151, 0.50)',
             //   height: 250,
-            //   flex: 1,
+              flex: 1,
             //   margin: 5,
             //   borderRadius: 10,
             //   width: 100,
-            // }}
+            }}
           >
-            <View style={{justifyContent: 'space-between',flexDirection: 'column'}}>
-              <View style={{height:'65%',width:'100%'}}>
+            {/* <View style={{flexDirection: 'column',borderWidth:1,borderColor:'red'}}> */}
+             
               <Image
                 style={{
                   flex:1,
@@ -611,35 +621,45 @@ const products = (section) => {
                 }}
                 source={{ uri: item.adminallimage }}
                 />
+                
+                </TouchableOpacity>
                 </View>
-                <View style={{ paddingHorizontal: moderateScale(5),flexDirection: 'column', marginVertical:verticalScale(3)}}>
-                <View style={{  flexDirection: 'column',gap:scale(4) }}>
-                  <Text style={{ fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
-                  <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
+
+                <View style={{paddingHorizontal: moderateScale(5),flexDirection: 'column',justifyContent:'space-between'}}>
+                <TouchableOpacity  onPress={() => {
+                    carddata(item._id);
+                    }}>
+                <View style={{  flexDirection: 'row',justifyContent:'space-between',paddingVertical:scale(2) }}>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.model}</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between',paddingVertical:scale(2) }}>
+                    <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
                     <Ionicons name="speedometer-outline" size={scale(10)} color="#FFFFFF" />
                     <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12) }}>
                       {item.EngineCC} CC
                     </Text>
                     </View>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
                     <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
                     <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)  }}>
                       {item.vehiclecolor} 
                     </Text>
                    </View>
                   </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',}}>
+                    {/* </View> */}
+                    <View style={{paddingVertical:scale(2), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',paddingVertical:scale(2)}}>
                     <Text style={{ color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10) }}>Price Starts from</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ color: '#F9F9F9', fontWeight: 'bold', fontSize: moderateScale(14), paddingRight: moderateScale(5) }} >{'\u20B9'}</Text>
                          <Text style={{ color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14) }}>{item.exShowroomPrice}</Text>
                       </View>
                   </View>
+                
+                </TouchableOpacity>
                 </View>
-              </View>
-            </TouchableOpacity>
+              {/* </View> */}
+            {/* </TouchableOpacity> */}
             </View>
           )}
         />     
@@ -652,7 +672,7 @@ const products = (section) => {
                                     alignItems: 'center',
                                     position: 'absolute', // Position it absolutely
                                     bottom: scale(20),
-                                    right: '50%', // Center it horizontally
+                                    right: '49%', // Center it horizontally
                                     transform: [{ translateX: 25 }],
                                   }}
                                       onPress={() => {
