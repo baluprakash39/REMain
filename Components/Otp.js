@@ -525,14 +525,7 @@ const Otp = ({ route }) => {
           />
           {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
         </View>
-        <View style={styles.container2}>
-          <Text style={{ fontSize: moderateScale(14), color: '#f9f9f9', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
-            {t('otpbottomtxt1')}
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Registration',{deviceId})}>
-            <Text style={{ color: 'orangered', fontSize: moderateScale(14), marginLeft: moderateScale(5), fontWeight: '600'  }}>{t('otpbottomtxt2')}</Text>
-          </TouchableOpacity>
-        </View>
+
                 <View style={styles.sendbutton}>
                     <TouchableOpacity style={{ ...styles.sendVerification}} onPress={() => { sendVerification(); getPhoneNumber() }}>
 
@@ -555,6 +548,14 @@ const Otp = ({ route }) => {
         <TouchableOpacity style={{ ...styles.sendCode, backgroundColor: 'crimson' }} onPress={confirmCode}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity> */}
+                <View style={styles.container2}>
+                  <Text style={{ fontSize: moderateScale(14), color: '#f9f9f9', fontFamily: 'SF Pro Display', fontWeight: '600' }}>
+                    {t('otpbottomtxt1')}
+                  </Text>
+                  <TouchableOpacity onPress={() => navigation.navigate('Registration',{deviceId})}>
+                    <Text style={{ color: 'orangered', fontSize: moderateScale(14), marginLeft: moderateScale(5), fontWeight: '600'  }}>{t('otpbottomtxt2')}</Text>
+                  </TouchableOpacity>
+                </View>
 
       </View>
     </ImageBackground>
@@ -567,12 +568,12 @@ export default Otp;
 const styles = StyleSheet.create({
 container2: {
     width:'100%',
-    // marginTop:verticalScale(40),
+    marginTop:verticalScale(25),
     flexDirection: 'row', // This ensures they appear in a straight line
     // alignItems: 'center', // Align items vertically
     // alignContent:'center',
     justifyContent:'center',
-    marginTop:verticalScale(180),
+    // marginTop:verticalScale(180),
 },
 errorText: {
     color: 'red',
@@ -632,7 +633,7 @@ sendbutton:{
     // width: scale(335),
     width: '100%',
     alignItems:'center',
-    marginTop:verticalScale(20),
+    marginTop:verticalScale(70),
     // borderWidth:1,
     // borderColor:'red'
 },

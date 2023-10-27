@@ -197,7 +197,7 @@ const Update = () => {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View>
-          <View style={styles.header}>
+          {/* <View style={styles.header}>
             <View style={{flexDirection:'row'}}>
             <View style={{ alignContent: 'center'}}>
               <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
@@ -209,8 +209,22 @@ const Update = () => {
             </View>
             </View>
           <View style={styles.line}></View>
-          </View>
-        <View style={{ flexDirection: 'column', marginTop: verticalScale(20) }}>
+          </View> */}
+                <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
+                  <View style={styles.header}>
+                      <View style={{alignContent: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Inventory')} style={styles.backButton}>
+                          <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
+                        </TouchableOpacity>
+                       </View>
+                      <View style={{ justifyContent: 'center',  height:verticalScale(25)}}>
+                        <Text style={styles.title}>Edit Vehicle</Text>
+                      </View>
+                      <View></View>
+                  </View>
+                  <View style={styles.line}></View>
+                </View>
+        <View style={{ flexDirection: 'column', marginTop: verticalScale(20), paddingHorizontal:moderateScale(8) }}>
           <View style={styles.fieldContainer}>
             <Text style={styles.subtitle}>Section Name</Text>
             <TextInput
@@ -324,41 +338,71 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   container: {
+    // flex: 1,
+    // backgroundColor:'#11111190',
+    // padding: scale(8),
+    // justifyContent:'space-between'
     flex: 1,
-    backgroundColor:'#11111190',
-    padding: scale(8),
+    // paddingTop:moderateScale(10),
+    // paddingHorizontal: moderateScale(10),
+    backgroundColor:'#11111199',
     justifyContent:'space-between'
   },
-  header:{
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginBottom: verticalScale(10),
-    width: '100%',
-    height: verticalScale(30),
-  },
+//   header:{
+//     alignItems: 'center',
+//     flexDirection: 'column',
+//     marginBottom: verticalScale(10),
+//     width: '100%',
+//     height: verticalScale(30),
+//   },
+// backButton:{
+//     alignItems: 'center',
+//     width:moderateScale(20),
+//     height:verticalScale(20),
+//     justifyContent:'center',
+//   },
+// headertitle: {
+//     color: '#F9F9F9',
+//     fontSize: moderateScale(16),
+//     fontWeight: 'semibold',
+//     textAlign: 'center',
+//     letterSpacing: moderateScale(0.5),
+//   },
+//   line: {
+//     height: verticalScale(1),
+//     backgroundColor: 'white',
+//     width: '100%',
+//   },
+header:{
+  alignItems: 'center',
+  flexDirection: 'row',
+  paddingTop:verticalScale(10),
+  marginBottom: verticalScale(10),
+  // borderBottomWidth:verticalScale(1),
+  // borderBottomColor:'#f9f9f9',
+  // width: moderateScale(335),
+  height: verticalScale(35),
+  justifyContent:'space-between',
+},
 backButton:{
-    alignItems: 'center',
-    width:moderateScale(20),
-    height:verticalScale(20),
-    justifyContent:'center',
-  },
-headertitle: {
-    color: '#F9F9F9',
-    fontSize: moderateScale(16),
-    fontWeight: 'semibold',
-    textAlign: 'center',
-    letterSpacing: moderateScale(0.5),
-  },
-  line: {
-    height: verticalScale(1),
-    backgroundColor: 'white',
-    width: '100%',
-  },
+  paddingLeft:moderateScale(10),
+  alignItems: 'center',
+  width:moderateScale(30),
+  height:verticalScale(20),
+  justifyContent:'center',
+},
+title: {
+  color: '#F9F9F9',
+  fontSize: scale(16),
+  fontWeight: '600',
+  textAlign: 'center',
+  letterSpacing: moderateScale(0.5),
+},
   subtitle: {
     width: moderateScale(120),
     marginRight: moderateScale(8),
     color: '#F9F9F9',
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(14),
     fontWeight: '400',
     letterSpacing: moderateScale(0.2),
   },
@@ -374,12 +418,12 @@ headertitle: {
     borderRadius: scale(2),
     paddingLeft: moderateScale(10),
     color: '#000000',
-    fontSize:moderateScale(10),
-    fontWeight:'400'
+    fontSize:moderateScale(12),
+    fontWeight:'500'
   },
   button: {
     position:'relative',
-    backgroundColor: 'crimson',
+    backgroundColor: '#f9f9f9',
     width: moderateScale(320),
     alignSelf: 'center',
     alignItems: 'center',
@@ -390,7 +434,7 @@ headertitle: {
     borderColor:'#f9f9f9'
   },
   buttonText: {
-    color: '#f9f9f9',
+    color: '#111111',
     fontWeight: '600',
     fontSize:moderateScale(14)
   },
