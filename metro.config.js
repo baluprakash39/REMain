@@ -15,7 +15,7 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 module.exports = {
   watchFolders: [
     // Add the path to your project's root directory here
-    path.resolve(__dirname, 'C:\\Users\\91986\\Desktop\\RE\\royal-React-Native'),
+    path.resolve(__dirname, 'C:\\Users\\Ro-one\\Desktop\\Projects\\Shriya_Attempt_3\\VGRN'),
   ],
   resolver: {
     extraNodeModules: {

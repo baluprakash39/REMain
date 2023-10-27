@@ -1239,8 +1239,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import { RadioButton } from 'react-native-paper';
 import i18n from 'i18next';
 import en from './locales/en.json';
+
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
@@ -1259,7 +1261,7 @@ const Share = ({route}) => {
   // const { isDarkTheme } = useTheme();
   const navigation = useNavigation();
     const [selectedStyle, setSelectedStyle] = useState(null);
-
+    const[chekedhypo,sethypoCheked]=useState('Yes')
     const [customername, setCustomerName] = useState('');
     const [address, setAddress] = useState('');
     const [mobilenumber, setMobileNumber] = useState('');
@@ -1274,7 +1276,7 @@ const Share = ({route}) => {
    const[mobileErr,setmobileErr]=useState('');
    const[emailErr,setemailErr]=useState('');
 
-
+   const[Checkwarenty,setwarentyCheked]=useState('')
 
 
 
@@ -1423,78 +1425,63 @@ console.log(selectedMirrorsvalue)
  
 
 
-  const handleFourChange = (out,text) => {
-    setFour(true);
-    setFive(false);
-    setFiveRsa(false);
-    setSelectedOption(out);
-    setextext(text)
-  };
 
-const handleFiveChange = (out,text) => {
-  setFour(false);
-  setFive(true);
-  setFiveRsa(false);
-  setSelectedOption(out);
-  setextext(text)
-};
 
-const handleFiveRsaChange = (out,text) => {
-  setFour(false);
-  setFive(false);
-  setFiveRsa(true);
-setSelectedOption(out);
-setextext(text)
-};
+
+
+
+const handlebasic=(out,text)=>{
+  setChecked('Basic')
+  setins(out)
+  settext(text)
+}
+
+const handleNill=(out,text)=>{
+  setChecked('Nilldip')
+setins(out)
+settext(text)
+}
+const handleEP=(out,text)=>{
+   setChecked('EP')
+   setins(out)
+settext(text)
+
+}
+
+const handleRTI=(out,text)=>{
+  setChecked('RTI')
+setins(out)
+settext(text)
+}
 const handleYes=(out,text)=>{
-setYes(true)
-setNo(false)
+  sethypoCheked('YES')
 sethype(out)
 sethypetext(text)
 }
 
 const handleNo=(out,text)=>{
-setYes(false)
-setNo(true);
+  sethypoCheked('NO')
 sethype(out);
 sethypetext(text)
 }
 
-const handlebasic=(out,text)=>{
-setSelection(true);
-setnilldip(false);
-setEP(false);
-setRTI(false);
-setins(out)
-settext(text)
-}
+const handleFourChange = (out,text) => {
+  setwarentyCheked('four')
+  setSelectedOption(out);
+  setextext(text)
+};
 
-const handleNill=(out,text)=>{
-setSelection(false);
-setnilldip(true);
-setEP(false);
-setRTI(false);
-setins(out)
-settext(text)
-}
-const handleEP=(out,text)=>{
-setSelection(false);
-setnilldip(false);
-setEP(true);
-setRTI(false);
-setins(out)
-settext(text)
-}
+const handleFiveChange = (out,text) => {
+setwarentyCheked('five')
+setSelectedOption(out);
+setextext(text)
+};
 
-const handleRTI=(out,text)=>{
-setSelection(false);
-setnilldip(false);
-setEP(false);
-setRTI(true);
-setins(out)
-settext(text)
-}
-
+const handleFiveRsaChange = (out,text) => {
+setwarentyCheked('fiveRsa')
+setSelectedOption(out);
+setextext(text)
+};
 // data
 const [exShowroomPrice, setExShowroomPrice] = useState('');
 const [roadtax, setRoadtax] = useState('');
@@ -1520,7 +1507,7 @@ const [streetname,setstreetname]=useState('');
 const [website,setwebsite]=useState('');
 console.log("adress",companyaddress)
 
-
+const [checked, setChecked] = React.useState('');
   const formData ={
     customername: '',
     address: '',
@@ -1819,6 +1806,7 @@ console.log("adress",companyaddress)
               value={customername}
               onChangeText={(text) => handlecustomername(text)}
               placeholder="Enter name"
+              placeholderTextColor="#868687"
             />
  
           </View>
@@ -1830,6 +1818,7 @@ console.log("adress",companyaddress)
               value={address}
               onChangeText={(text) => handleadresss(text)}
               placeholder="Enter address"
+              placeholderTextColor="#868687"
             />
           
           </View>
@@ -1841,6 +1830,7 @@ console.log("adress",companyaddress)
               value={mobilenumber}
               onChangeText={(text) => handlemobile(text)}
               placeholder="Enter mobile number"
+              placeholderTextColor="#868687"
             />
           
           </View>
@@ -1852,6 +1842,7 @@ console.log("adress",companyaddress)
               value={emailid}
               onChangeText={setEmailId}
               placeholder="example@email.com"
+              placeholderTextColor="#868687"
             />
             
           </View>
@@ -1889,41 +1880,112 @@ console.log("adress",companyaddress)
                     {data.insurance.map((insu)=>(
                         <View style={{display:'flex',flexDirection:'row'}}>
                             {/* Basic */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                              {/* <View style={{alignItems:'center',flexDirection:'row'}}>
                                     <CheckBox
                                       value={isSelected}
                                       onValueChange={()=>handlebasic(insu.Basic)}
                                       style={styles.checkbox}
                                     />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
-                              </View> 
+                              </View>  */}
                               {/* Nilldip */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                              {/* <View style={{alignItems:'center',flexDirection:'row'}}>
                                     <CheckBox
                                       value={isNilldip}
                                       onValueChange={()=>handleNill(insu.Nildip)}
                                       style={styles.checkbox}
                                     />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
-                              </View>
+                              </View> */}
                               {/* EP */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                              {/* <View style={{alignItems:'center',flexDirection:'row'}}>
                                     <CheckBox
                                       value={EP}
                                       onValueChange={()=>handleEP(insu.Ep)}
                                       style={styles.checkbox}
                                     />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
-                              </View>
+                              </View> */}
                               {/* RTI */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
+                              {/* <View style={{alignItems:'center',flexDirection:'row'}}>
                                     <CheckBox
                                         value={RTI}
                                         onValueChange={()=>handleRTI(insu.RTI)}
                                         style={styles.checkbox}
                                       />
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
-                              </View>
+                              </View> */}
+                              {/* Basic */}
+      <View style={{alignItems:'center',flexDirection:'row'}}>
+      <RadioButton
+        value={isSelected}
+        status={ checked === 'Basic' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handlebasic(insu.Basic)}
+       
+      />
+     
+ <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
+     </View> 
+     {/* Nilldip */}
+     <View style={{alignItems:'center',flexDirection:'row'}}>
+     
+     <RadioButton
+        value={isNilldip}
+        status={ checked === 'Nilldip' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleNill(insu.Nildip)}
+       style={styles.checkbox}
+      />
+
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
+     </View>
+     
+     {/* EP */}
+     <View style={{alignItems:'center',flexDirection:'row'}}>
+     
+     <RadioButton
+        value={EP}
+        status={ checked === 'EP' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleEP(insu.Ep)}
+       style={styles.checkbox}
+      />
+
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
+     </View>
+{/* RTI */}
+
+     <View style={{alignItems:'center',flexDirection:'row'}}>
+     
+     <RadioButton
+        value={RTI}
+        status={ checked === 'RTI' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleRTI(insu.RTI)}
+       style={styles.checkbox}
+      />
+
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
+     </View>
+
+
+
+
+
+
+
+
+
+
+
+
                         </View>
                         ))}
                   </View>
@@ -1940,26 +2002,35 @@ console.log("adress",companyaddress)
                     <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Hypothecation</Text>
                       {data.hypothication.map((hype)=>(
                     <View style={{display:'flex',flexDirection:'row'}}>
-                      {/* YES */}
-                        <View style={{alignItems:'center',flexDirection:'row'}}>
-                          
-                            <CheckBox
-                              value={YES}
-                              onValueChange={()=>handleYes(hype.Yes)}
-                              style={styles.checkbox}
-                            />
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
-                        </View> 
+                      <View style={{alignItems:'center',flexDirection:'row'}}>
+  <RadioButton
+        value={YES}
+        status={ chekedhypo === 'YES' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleYes(hype.Yes)}
+       style={styles.checkbox}
+      />
 
-                      {/* NO */}
-                        <View style={{alignItems:'center',flexDirection:'row'}}>
-                          <CheckBox
-                              value={NO}
-                              onValueChange={()=>handleNo(hype.No)}
-                              style={styles.checkbox}
-                            />
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
-                        </View>
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Yes</Text>
+     </View>
+
+    {/* NO */}
+    <View style={{alignItems:'center',flexDirection:'row'}}>
+     
+     <RadioButton
+        value={YES}
+        status={ chekedhypo === 'NO' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleNo(hype.No)}
+       style={styles.checkbox}
+      />
+
+
+     
+  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>No</Text>
+     </View>
                     </View>
                   ))}
                   </View>
@@ -1982,32 +2053,49 @@ console.log("adress",companyaddress)
                         <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
                         {/* 4 */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
-                          
-                            <CheckBox
-                              value={four}
-                              onValueChange={()=>handleFourChange(ans.fouryears)}
-                              style={styles.checkbox}
-                              />
+                        <RadioButton
+        value={four}
+        status={ Checkwarenty === 'four' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFourChange(ans.fouryears)}
+       style={styles.checkbox}
+      />
+                    
+
                               <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
                           </View>
                         {/* 5 */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
                         
-                            <CheckBox
+                            {/* <CheckBox
                               value={five}
                               onValueChange={()=>handleFiveChange(ans.fiveyears)}
                               style={styles.checkbox}
-                            />
+                            /> */}
+                                <RadioButton
+        value={five}
+        status={ Checkwarenty === 'five' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFiveChange(ans.fiveyears)}
+       style={styles.checkbox}
+      />     
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
                           </View>
 
                         {/* 5+RSA */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
-                            <CheckBox
+                            {/* <CheckBox
                               value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
                               onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
                               style={styles.checkbox}
-                            />
+                            /> */}
+                             <RadioButton
+        value={fiveRsa}
+        status={ Checkwarenty === 'fiveRsa' ? 'checked' : 'unchecked' }
+       
+       onPress={() =>handleFiveRsaChange(ans.fiveplusRSAyears)}
+       style={styles.checkbox}
+      />
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
                           </View>
                       </View>
@@ -2038,19 +2126,20 @@ console.log("adress",companyaddress)
             borderColor={'#f9f9f9'}
             selectedValue={selectedMirrorstext}
             onValueChange={(itemValue) => {
-if (itemValue === "") {
-// If the selected value is an empty string, set the state to 0
-setSelectedMirrorsvalue(0);
-} else {
-const selectedMirror = data.mirrors.find(
-(mirror) => mirror.mirrorstext === itemValue
-);
-setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
-}
-setSelectedMirrorstext(itemValue);
-}}
->
-            <Picker.Item label="Mirrors"  value="" />
+            if (itemValue === "") {
+            // If the selected value is an empty string, set the state to 0
+            setSelectedMirrorsvalue(0);
+            } else {
+            const selectedMirror = data.mirrors.find(
+            (mirror) => mirror.mirrorstext === itemValue
+            );
+            setSelectedMirrorsvalue(selectedMirror ? selectedMirror.mirrorsvalue : 0);
+            }
+            setSelectedMirrorstext(itemValue);
+            }}
+            >
+            <Picker.Item label="Mirrors"  value="" 
+            style={{ color: '#111111' }}/>
             {data.mirrors.map((mirror) => (
               <Picker.Item
                 key={mirror._id}
@@ -2077,7 +2166,8 @@ setSelectedOilFillerCapValue(selectedOilFillerCap ? selectedOilFillerCap.oilfill
 setSelectedOilFillerCapText(itemValue);
 }}
 >
-            <Picker.Item label="Oilfiller cap" value="" />
+            <Picker.Item label="Oilfiller cap" value="" 
+            style={{ color: '#111111' }}/>
             {data.oilfillercap.map((oil) => (
               <Picker.Item
                 key={oil._id}
@@ -2104,7 +2194,8 @@ setSelectedHeadLightValue(selectedHeadLight ? selectedHeadLight.headlightvalue :
 setSelectedHeadLightText(itemValue);
 }}
 >
-              <Picker.Item label="Headlight" value="" />
+              <Picker.Item label="Headlight" value="" 
+              style={{ color: '#111111' }}/>
               {data.headlight.map((headlight) => (
                 <Picker.Item
                   key={headlight._id}
@@ -2138,7 +2229,8 @@ setSelectedWindshieldsValue(selectedWindshield ? selectedWindshield.windshieldsv
 setSelectedWindshieldsText(itemValue);
 }}
 >
-                  <Picker.Item label="Windshields" value="" />
+                  <Picker.Item label="Windshields" value=""
+                  style={{ color: '#111111' }}/>
                   {data.windshields.map((windshield) => (
                     <Picker.Item
                       key={windshield._id}
@@ -2168,7 +2260,7 @@ setSelectedPanniersValue(selectedPannier ? selectedPannier.panniersvalue : 0);
 setSelectedPanniersText(itemValue);
 }}
 >
-                  <Picker.Item label="Panniers" value="" />
+                  <Picker.Item label="Panniers" value="" style={{ color: '#111111' }}/>
                   {data.panniers.map((pannier) => (
                     <Picker.Item
                       key={pannier._id}
@@ -2199,7 +2291,7 @@ setSelectedSeatsValue(selectedSeat ? selectedSeat.seatsvalue : 0);
 setSelectedSeatsText(itemValue);
 }}
 >
-                  <Picker.Item label="Seats" value="" />
+                  <Picker.Item label="Seats" value="" style={{ color: '#111111' }}/>
                   {data.seats.map((seat) => (
                     <Picker.Item
                       key={seat._id}
@@ -2230,7 +2322,7 @@ setSelectedBackrestValue(selectedBackrest ? selectedBackrest.backrestsvalue : 0)
 setSelectedBackrestText(itemValue);
 }}
 >
-                  <Picker.Item label="Backrest" value="" />
+                  <Picker.Item label="Backrest" value="" style={{ color: '#111111' }}/>
                   {data.backrests.map((backrest) => (
                     <Picker.Item
                       key={backrest._id}
@@ -2260,7 +2352,7 @@ setSelectedFootPegsValue(selectedFootPeg ? selectedFootPeg.footpegsvalue : 0);
 setSelectedFootPegsText(itemValue);
 }}
 >
-              <Picker.Item label="Foot Pegs" value="" />
+              <Picker.Item label="Foot Pegs" value="" style={{ color: '#111111' }}/>
               {data.footpegs.map((footpeg) => (
                 <Picker.Item
                   key={footpeg._id}
@@ -2295,7 +2387,7 @@ setSelectedEngineGuardsValue(selectedEngineGuard ? selectedEngineGuard.enginegau
 setSelectedEngineGuardsText(itemValue);
 }}
 >
-              <Picker.Item label="Engine Guards" value="" />
+              <Picker.Item label="Engine Guards" value="" style={{ color: '#111111' }}/>
               {data.enginegaurds.map((engineGuard) => (
                 <Picker.Item
                   key={engineGuard._id}
@@ -2324,7 +2416,7 @@ setSelectedSumpGuardsValue(selectedSumpGuard ? selectedSumpGuard.sumpgaurdsvalue
 setSelectedSumpGuardsText(itemValue);
 }}
 >
-              <Picker.Item label="Sump Guards" value="" />
+              <Picker.Item label="Sump Guards" value="" style={{ color: '#111111' }}/>
               {data.sumpgaurds.map((sumpGuard) => (
                 <Picker.Item
                   key={sumpGuard._id}
@@ -2356,7 +2448,7 @@ setSelectedSafetyAccessoriesValue(selectedSafetyAccessory ? selectedSafetyAccess
 setSelectedSafetyAccessoriesText(itemValue);
 }}
 >
-            <Picker.Item label="Safety Accessories" value="" />
+            <Picker.Item label="Safety Accessories" value="" style={{ color: '#111111' }}/>
             {data.safetyaccessories.map((safetyAccessory) => (
               <Picker.Item
                 key={safetyAccessory._id}
