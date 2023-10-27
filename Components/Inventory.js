@@ -8,8 +8,6 @@ import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-// import {launchImageLibrary }from 'react-native-image-picker';
-// import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 
 
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    rowGap:verticalScale(20),
+    rowGap:scale(30),
     // paddingHorizontal: moderateScale(8),
     // paddingTop: verticalScale(5),
     // borderWidth:2,
@@ -548,15 +546,23 @@ const products = (section) => {
             
             
             <View    style={{
-              borderColor:'#979797',
-              borderWidth: scale(1),
+              // borderColor:'#979797',
+              // borderWidth: scale(1),
+              // backgroundColor: '#11111190',
+              // margin: moderateScale(5),
+              // borderRadius: scale(10),
+              // height:verticalScale(200),
+              // width:'47%',
+              // // width: moderateScale(232),
+              // justifyContent: 'space-between',
+              borderWidth: 1,
               backgroundColor: '#11111190',
-              margin: moderateScale(5),
-              borderRadius: scale(10),
-              height:verticalScale(200),
-              width:'47%',
-              // width: moderateScale(232),
-              justifyContent: 'space-between',
+              // backgroundColor: isDarkTheme ? 'black' : 'white',
+              height: 300,
+              flex: 1,
+              margin: 5,
+              borderRadius: 10,
+              width: 100,
               
             }}>
 

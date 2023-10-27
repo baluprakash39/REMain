@@ -351,7 +351,7 @@ function Home({route}) {
             style={{
               
               borderWidth: 1,
-              backgroundColor: 'rgba(151, 151, 151, 0.50)',
+              backgroundColor: '#11111190',
               // backgroundColor: isDarkTheme ? 'black' : 'white',
               height: 250,
               flex: 1,

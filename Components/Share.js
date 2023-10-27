@@ -1239,6 +1239,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import { RadioButton } from 'react-native-paper';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -1318,6 +1319,7 @@ const handlemobile=(text)=>{
   //checkboxes//
   const [dataArray, setDataArray] = useState([]);
     const [isSelected, setSelection] = useState(false);
+    const [checked, setChecked] = React.useState('first');
   const [isNilldip,setnilldip]=useState(false);
   const [EP,setEP]=useState(false);
   const[RTI,setRTI]=useState(false);
@@ -1893,42 +1895,91 @@ console.log("adress",companyaddress)
      {/* Basic */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
       
-      <CheckBox
+      {/* <CheckBox
    value={isSelected}
    onValueChange={()=>handlebasic(insu.Basic)}
    style={styles.checkbox}
- />
+ /> */}
+  <RadioButton
+  value="isSelected"
+  status={checked === 'isSelected' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'isSelected') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('isSelected'); // Check the radio button
+    }
+    handlebasic(insu.Basic); // Trigger your custom logic
+  }}
+/>
+
  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
      </View> 
      {/* Nilldip */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
      
-      <CheckBox
+      {/* <CheckBox
    value={isNilldip}
    onValueChange={()=>handleNill(insu.Nildip)}
    style={styles.checkbox}
- />
+ /> */}
+  <RadioButton
+  value="isNilldip"
+  status={checked === 'isNilldip' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'isNilldip') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('isNilldip'); // Check the radio button
+    }
+    handleNill(insu.Nildip); // Trigger your custom logic
+  }}
+/>
   <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
      </View>
      
      {/* EP */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
       
-      <CheckBox
+      {/* <CheckBox
    value={EP}
    onValueChange={()=>handleEP(insu.Ep)}
    style={styles.checkbox}
- />
+ /> */}
+   <RadioButton
+  value="EP"
+  status={checked === 'EP' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'EP') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('EP'); // Check the radio button
+    }
+    handleEP(insu.Ep); // Trigger your custom logic
+  }}
+/>
  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
      </View>
      {/* RTI */}
      <View style={{alignItems:'center',flexDirection:'row'}}>
       
-      <CheckBox
+      {/* <CheckBox
    value={RTI}
    onValueChange={()=>handleRTI(insu.RTI)}
    style={styles.checkbox}
- />
+ /> */}
+ <RadioButton
+  value="RTI"
+  status={checked === 'RTI' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'RTI') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('RTI'); // Check the radio button
+    }
+    handleRTI(insu.RTI); // Trigger your custom logic
+  }}
+/>
  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
      </View>
       
@@ -1952,22 +2003,46 @@ console.log("adress",companyaddress)
     {/* YES */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
         
-          <CheckBox
+          {/* <CheckBox
             value={YES}
             onValueChange={()=>handleYes(hype.Yes)}
             style={styles.checkbox}
-          />
+          /> */}
+           <RadioButton
+  value="Yes"
+  status={checked === 'Yes' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'Yes') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('Yes'); // Check the radio button
+    }
+    handleYes(hype.Yes); // Trigger your custom logic
+  }}
+/>
           <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
       </View> 
 
     {/* NO */}
       <View style={{alignItems:'center',flexDirection:'row'}}>
        
-          <CheckBox
+          {/* <CheckBox
             value={NO}
             onValueChange={()=>handleNo(hype.No)}
             style={styles.checkbox}
-          />
+          /> */}
+              <RadioButton
+  value="NO"
+  status={checked === 'NO' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'NO') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('NO'); // Check the radio button
+    }
+    handleNo(hype.No); // Trigger your custom logic
+  }}
+/>
            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
       </View>
   </View>
@@ -1996,31 +2071,68 @@ console.log("adress",companyaddress)
                   {/* 4 */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
                     
-                      <CheckBox
+                      {/* <CheckBox
                         value={four}
                         onValueChange={()=>handleFourChange(ans.fouryears)}
                         style={styles.checkbox}
-                        />
+                        /> */}
+                            <RadioButton
+  value="four"
+  status={checked === 'four' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'four') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('four'); // Check the radio button
+    }
+    handleFourChange(ans.fouryears); // Trigger your custom logic
+  }}
+/>
                         <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
                     </View>
                   {/* 5 */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
                    
-                      <CheckBox
+                      {/* <CheckBox
                         value={five}
                         onValueChange={()=>handleFiveChange(ans.fiveyears)}
                         style={styles.checkbox}
-                      />
+                      /> */}
+  <RadioButton
+  value="five"
+  status={checked === 'five' ? 'checked' : 'unchecked'}
+  onPress={() => {
+    if (checked === 'five') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('five'); // Check the radio button
+    }
+    handleFiveChange(ans.fiveyears); // Trigger your custom logic
+  }}
+/>
                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
                     </View>
 
                   {/* 5+RSA */}
                   <View style={{alignItems:'center',flexDirection:'row'}}>
-                      <CheckBox
+                      {/* <CheckBox
                         value={fiveRsa} // Pass ans.fiveplusRSAyears when it's checked
                         onValueChange={() => handleFiveRsaChange(ans.fiveplusRSAyears)} // Pass ans.fiveplusRSAyears to the function
                         style={styles.checkbox}
-                      />
+                      /> */}
+                       <RadioButton
+  value={fiveRsa}
+  status={checked === 'fiveRsa' ? 'checked' : 'unchecked'}
+  style={styles.checkbox}
+  onPress={() => {
+    if (checked === 'fiveRsa') {
+      setChecked(''); // Uncheck the radio button
+    } else {
+      setChecked('fiveRsa'); // Check the radio button
+    }
+    handleFiveRsaChange(ans.fiveplusRSAyears); // Trigger your custom logic
+  }}
+/>
                       <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
                     </View>
                 </View>

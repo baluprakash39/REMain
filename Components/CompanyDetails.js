@@ -177,7 +177,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter your Company name"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.companyname}
               onChangeText={(text) => handleInputChange('companyname', text)}
@@ -195,7 +195,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Address Name"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.companyaddress}
               onChangeText={(text) => handleInputChange('companyaddress', text)}
@@ -211,7 +211,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Street Name"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.streetname}
               onChangeText={(text) => handleInputChange('streetname', text)}
@@ -227,7 +227,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter City Name"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.city}
               onChangeText={(text) => handleInputChange('city', text)}
@@ -243,7 +243,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Pincode"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.pincode}
               onChangeText={(text) => handleInputChange('pincode', text)}
@@ -259,7 +259,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Statename"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.state}
               onChangeText={(text) => handleInputChange('state', text)}
@@ -275,7 +275,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Country Name"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.country}
               onChangeText={(text) => handleInputChange('country', text)}
@@ -296,7 +296,7 @@ console.log('response',response)
   style={styles.inputField}
   placeholder="Enter GST Number"
   selectionColor="red"
-  placeholderTextColor="#979797"
+  placeholderTextColor="#000000"
   backgroundColor="#CBCBCA"
   value={formData.gstin}
   onChangeText={(text) => handleInputChange('gstin', text)}
@@ -320,7 +320,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Contact Number"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.contactnumber}
               onChangeText={(text) => handleInputChange('contactnumber', text)}
@@ -342,7 +342,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Email Id"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.emailid}
               onChangeText={(text) => handleInputChange('emailid', text)}
@@ -358,7 +358,7 @@ console.log('response',response)
               style={styles.inputField}
               placeholder="Enter Website"
               selectionColor="red"
-              placeholderTextColor="#979797"
+              placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
               value={formData.website}
               onChangeText={(text) => handleInputChange('website', text)}
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
   inputField: {
     flex: 1,
     height: 40,
-    backgroundColor: 'white',
+    backgroundColor: '#f9f9f9',
     borderRadius: 5,
     paddingLeft: 10,
     color: '#111111',

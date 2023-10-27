@@ -502,7 +502,7 @@ const Otp = ({ route }) => {
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-          attemptInvisibleVerification={true}
+          // attemptInvisibleVerification={true}
         />
         <View style={styles.contain}>
           <PhoneInput
