@@ -186,10 +186,7 @@ const Care = ({route}) => {
       // Handle error, show an error message, etc.
     }
   };
-  
-
-
-  const handleBasicChange = (text) => {
+const handleBasicChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
       setValue(text);
@@ -199,8 +196,7 @@ const Care = ({route}) => {
       setBasicError('Required number');
     }
   };
-  
-  const handlenillChange = (text) => {
+const handlenillChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
      setnilldip(text);
@@ -210,9 +206,7 @@ const Care = ({route}) => {
       setNilldipError('Required number');
     }
   };
-
-
-  const handleEpChange = (text) => {
+const handleEpChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
      setEP(text);
@@ -222,10 +216,7 @@ const Care = ({route}) => {
       setEPError('Required number');
     }
   };
- 
-
-
-  const  handleRtichange = (text) => {
+const  handleRtichange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
      setRTI(text);
@@ -235,7 +226,6 @@ const Care = ({route}) => {
       setRTIError('Required number');
     }
   };
-
 const  handleHypochange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
@@ -246,8 +236,7 @@ const  handleHypochange = (text) => {
       setYESError('Required number');
     }
   };
-
-  const handleHypozeroChange = (text) => {
+const handleHypozeroChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
      setNO(text);
@@ -277,8 +266,7 @@ const  handleHypochange = (text) => {
       setFiveError('Required number');
     }
   };
-
-  const handleFiversaChange = (text) => {
+const handleFiversaChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
      setRsa(text);
@@ -288,14 +276,8 @@ const  handleHypochange = (text) => {
       setRsaError('Required number');
     }
   };
-
-
-
-
-
-  return (
-   
-    <ImageBackground source={require('../assets/bg.jpg')} style={styles.backgroundImage}>
+return (
+   <ImageBackground source={require('../assets/bg.jpg')} style={styles.backgroundImage}>
         <ScrollView contentContainerStyle={styles.page}>
         {dataArray.map((bike, index) => (
       <View key={index} style={styles.container}>
@@ -311,143 +293,124 @@ const  handleHypochange = (text) => {
             </View>
         </View>
         <View style={styles.line}></View>
-        <View style={{ gap: scale(5)}}>
-          <View style={{ flexDirection: 'row',marginTop:verticalScale(10) }}>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Vehicle</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>Scooty</Text>
+          <View style={{ gap: scale(5)}}>
+            <View style={{ flexDirection: 'row',marginTop:verticalScale(10) }}>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Vehicle</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>Scooty</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Model</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>125</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>EngineCC</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>250cc</Text>
+            </View>
+            <View style={{ flexDirection: 'row', }}>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Color</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>Red</Text>
+            </View>
           </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Model</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>125</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>EngineCC</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>250cc</Text>
-          </View>
-          <View style={{ flexDirection: 'row', }}>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Color</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-            <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4) }}>Red</Text>
-          </View>
-          </View>
-{/* Insurance  view*/}
-        <Text style={{color: '#F9F9F9', fontSize: moderateScale(16), fontWeight: '600', marginTop: verticalScale(15)}}>
-          Insurance
-        </Text>
-
-
- <View style={{ flexDirection: 'column', marginTop: verticalScale(10),gap: scale(5), width: scale(335) }}>
-         
+          {/* Insurance  view*/}
+          <Text style={{color: '#F9F9F9', fontSize: moderateScale(16), fontWeight: '600', marginTop: verticalScale(15)}}>
+            Insurance
+          </Text>
+          <View style={{ flexDirection: 'column', marginTop: verticalScale(10),gap: scale(5), width: scale(335) }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335) }}>
               <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>Basic</Text>
-            
                 <TextInput
                   style={styles.inputField}
                   placeholder="Enter value"
                   selectionColor="red"
+                  placeholderTextColor="#868687"
                   value={Basic}
-              // onChangeText={(text) => setValue(text)}
-              onChangeText={(text) => handleBasicChange(text)}
-              keyboardType="numeric"
-            />
-          </View>
-          {basicError ? <Text style={styles.errorText}>{basicError}</Text> : null}
+                  // onChangeText={(text) => setValue(text)}
+                  onChangeText={(text) => handleBasicChange(text)}
+                  keyboardType="numeric"
+                  />
+            </View>
+            {basicError ? <Text style={styles.errorText}>{basicError}</Text> : null}
             <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335)  }}>
               <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>Nildip</Text>
                 <TextInput
                   style={styles.inputField}
                   placeholder="Enter value"
                   selectionColor="red"
+                  placeholderTextColor="#868687"
                   value={Nildip}
-              // onChangeText={(text) =>setnilldip(text)}
-              onChangeText={(text) =>handlenillChange(text)}
-              keyboardType="numeric"
-              
-            />
-          </View>
-          {nilldipError ? <Text style={styles.errorText}>{nilldipError}</Text> : null}
+                  // onChangeText={(text) =>setnilldip(text)}
+                  onChangeText={(text) =>handlenillChange(text)}
+                  keyboardType="numeric"
+                  />
+            </View>
+            {nilldipError ? <Text style={styles.errorText}>{nilldipError}</Text> : null}
             <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335)  }}>
               <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>EP</Text>
                 <TextInput
                   style={styles.inputField}
                   placeholder="Enter value"
                   selectionColor="red"
+                  placeholderTextColor="#868687"
                   value={Ep}
-              onChangeText={(text)=> handleEpChange(text)}
-              keyboardType="numeric"
-              
-            />
-          </View>
-          {epError ? <Text style={styles.errorText}>{epError}</Text> : null}
-
-
+                  onChangeText={(text)=> handleEpChange(text)}
+                  keyboardType="numeric"
+                  />
+            </View>
+            {epError ? <Text style={styles.errorText}>{epError}</Text> : null}
             <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335)  }}>
               <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>RTI</Text>
                 <TextInput
                   style={styles.inputField}
                   placeholder="Enter value"
                   selectionColor="red"
+                  placeholderTextColor="#868687"
                   value={RTI}
-              onChangeText={(text)=> handleRtichange(text)}
-              keyboardType='numeric'
-            />
-          </View>
- {rtiError ? <Text style={styles.errorText}>{rtiError}</Text> : null}
-
-        </View>  
-
-
-{/* Hypothication view */}
+                  onChangeText={(text)=> handleRtichange(text)}
+                  keyboardType='numeric'
+                  />
+            </View>
+          {rtiError ? <Text style={styles.errorText}>{rtiError}</Text> : null}
+      </View>  
+      {/* Hypothication view */}
       <Text style={{color: '#F9F9F9', fontSize: moderateScale(16), fontWeight: '600', marginTop: verticalScale(15)}}>
-  Hypothication
-</Text>
-
-
+        Hypothication
+      </Text>
       <View style={{ flexDirection: 'column', marginTop: verticalScale(10),gap: scale(5), width: scale(335) }}>
-         
-          <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335) }}>
+         <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335) }}>
             <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>Yes</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter value"
-              selectionColor="red"
-              value={Yes}
-              onChangeText={(text) => handleHypochange (text)}
-              keyboardType='numeric'
-
-            />
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter value"
+                selectionColor="red"
+                placeholderTextColor="#868687"
+                value={Yes}
+                onChangeText={(text) => handleHypochange (text)}
+                keyboardType='numeric'
+              />
           </View>
           {yesError ? <Text style={styles.errorText}>{yesError}</Text> : null}
-
           <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335)}}>
             <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>No</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter value"
               selectionColor="red"
-              placeholderTextColor="#303030"
+              placeholderTextColor="#868687"
               value={No}
               onChangeText={(text) =>handleHypozeroChange(text)}
               keyboardType='numeric'
             />
           </View>
           {noError ? <Text style={styles.errorText}>{noError}</Text> : null}
-
-         
-
-          
-
-       
         </View>
-
-
-{/* Extednedwarenty */}
+        {/* Extednedwarenty */}
         <Text style={{ color: '#F9F9F9', fontSize: moderateScale(16), fontWeight: '600', marginTop: verticalScale(15) }}>
             Extended Warranty
-</Text>
+          </Text>
 
 
         <View style={{ flexDirection: 'column', marginTop: verticalScale(10),gap: scale(5), width: scale(335) }}>
@@ -457,6 +420,7 @@ const  handleHypochange = (text) => {
               style={styles.inputField}
               placeholder="Enter value"
               selectionColor="red"
+              placeholderTextColor="#868687"
               value={fouryears}
               onChangeText={(text) =>  handleFourChange (text)}
             />
@@ -468,6 +432,7 @@ const  handleHypochange = (text) => {
               style={styles.inputField}
               placeholder="Enter value"
               selectionColor="red"
+              placeholderTextColor="#868687"
               value={fiveyears}
               onChangeText={(text) =>handleFiveChange(text)}
             />
@@ -479,6 +444,7 @@ const  handleHypochange = (text) => {
               style={styles.inputField}
               placeholder="Enter value"
               selectionColor="red"
+              placeholderTextColor="#868687"
               value={fiveplusRSAyears}
               onChangeText={(text) => handleFiversaChange(text)}
             />
@@ -488,12 +454,12 @@ const  handleHypochange = (text) => {
 
 
         </View>
-      <View style={styles.bottombuttons}>
-          <TouchableOpacity style={styles.bottomeditbutton} onPress={handleSubmit}>
-              <MaterialIcons name='edit' size={moderateScale(15)} color={'#111111'}/>
-            <Text style={{ color: '#303030', fontSize: moderateScale(16), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Save</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.bottombuttons}>
+              <TouchableOpacity style={styles.bottomeditbutton} onPress={handleSubmit}>
+                  <MaterialIcons name='save' size={scale(15)} color={'#111111'}/>
+                <Text style={{ color: '#303030', fontSize: moderateScale(18), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Save</Text>
+              </TouchableOpacity>
+            </View>
       </View>
           ))}
       </ScrollView>
@@ -575,43 +541,36 @@ const styles = StyleSheet.create({
   },
   inputField: {
       flex: 1,
-      height: scale(25),
+      height: verticalScale(30),
       backgroundColor: '#cbcbca',
       borderRadius: 5,
       paddingLeft: moderateScale(10),
-      color: '#868687',
-      fontSize: moderateScale(10)
+      color: '#111111',
+      fontSize: moderateScale(10),
     },
-    bottombuttons:{ 
+  bottombuttons:{ 
     flexDirection: 'row', 
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems:'center',
-    width:scale(330), 
-    height:scale(30), 
-    marginTop: verticalScale(20),
+    // width:scale(330), 
+    width:'100%',
+    height:scale(40), 
+    marginTop: verticalScale(40),
     marginHorizontal: moderateScale(5),
   },
-    bottombackbutton:{
-      borderColor: '#f9f9f9',
-      backgroundColor:'#453F3F',
-      borderWidth: moderateScale(1),
-      borderRadius: 6,
-      width: scale(130),
-      height: scale(30),
-      justifyContent:'center'
-    },
-    bottomeditbutton:{
+ bottomeditbutton:{
       borderColor: '#868687',
-      backgroundColor: '#cbcbca',
+      backgroundColor: '#f9f9f9',
       borderWidth: moderateScale(1),
-      borderRadius: 6,
-      width: scale(130),
-      height: scale(27),
+      borderRadius: scale(6),
+      // width: scale(170),
+      width:'70%',
+      height: scale(40),
       justifyContent:'center',
       alignItems:'center',
       gap: moderateScale(15),
       flexDirection:'row',
-      marginLeft:scale(105)
+      // marginLeft:scale(105)
     },
 });
 

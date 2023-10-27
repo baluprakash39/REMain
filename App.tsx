@@ -214,13 +214,24 @@ useEffect(() => {
   };
   
 
+  // function formatTime(timeInSeconds) {
+  //   const hours = Math.floor(timeInSeconds / 3600);
+  //   const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  //   const seconds = timeInSeconds % 60;
+  
+  //   return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  // }
   function formatTime(timeInSeconds) {
-    const hours = Math.floor(timeInSeconds / 3600);
-    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
   
-    return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-  }
+    if (minutes > 0) {
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds} min`;
+    } else {
+        return `${seconds} sec`;
+    }
+}
+
 
 
 if (isLoading) {
@@ -231,25 +242,22 @@ if (isLoading) {
     </View>
   );
 }
-
   return (
     <ThemeProvider> 
        {/* <AuthProvider> */}
     <NavigationContainer>
-    <Stack.Navigator initialRouteName={isLoggedIn ? 'Inventory' : 'Getstarted'}>
-    {/* <Stack.Navigator initialRouteName={'Otp2'}> */}
-
-    <Stack.Screen
+      <Stack.Navigator initialRouteName={isLoggedIn ? 'Inventory' : 'Getstarted'}>
+        {/* <Stack.Navigator initialRouteName={'Otp2'}> */}
+        <Stack.Screen
           name="Inventory"
           component={Inventory}
           options={{ headerShown: false }}
         />
-      <Stack.Screen
+        <Stack.Screen
           name="Getstarted"
           component={Getstarted}
           options={{ headerShown: false }}
         />
-        
         <Stack.Screen
           name="Otp"
           component={Otp}
@@ -261,7 +269,6 @@ if (isLoading) {
           options={{ headerShown: false }}
           initialParams={{ onLoginClick: handleLoginClick }}
         />
-        
         <Stack.Screen
           name="Registration"
           component={Registration}
@@ -272,14 +279,13 @@ if (isLoading) {
           component={Care}
           options={{ headerShown: false }}
         />
-<Stack.Screen
-  name="Home"
-  component={Home}
-  options={{ headerShown: false }}
-  initialParams={{ onLoginClick: handleLoginClick }}
-/>
-
-         <Stack.Screen
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+          initialParams={{ onLoginClick: handleLoginClick }}
+        />
+        <Stack.Screen
           name="Share"
           component={Share}
           options={{ headerShown: false }}
@@ -299,7 +305,6 @@ if (isLoading) {
           component={AddVehicle}
           options={{ headerShown: false }}
         />
-        
         <Stack.Screen
           name="Accessories"
           component={Accessories}
@@ -310,13 +315,11 @@ if (isLoading) {
           component={CompanyDetails}
           options={{ headerShown: false }}
         />
-        
-       
       </Stack.Navigator>
     </NavigationContainer>
     {/* </AuthProvider> */}
     <Modal isVisible={showLogoutPopup}>
-        <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(150),justifyContent:'center' }}>
+        <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
           <View style={{marginBottom:verticalScale(30)}}>
           <Text style={{ fontSize: moderateScale(16), fontWeight: '500', color: '#f9f9f9' }}>
             Session will timeout in :{' '}
@@ -324,7 +327,6 @@ if (isLoading) {
               {formatTime(timer)}
             </Text>
           </Text>
-
         </View>
         <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10)}}>
           <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>

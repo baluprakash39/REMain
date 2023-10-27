@@ -1625,7 +1625,7 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
-        registration,
+       registration,
         ins,
         instext,
         hype,

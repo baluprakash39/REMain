@@ -259,7 +259,7 @@ console.log('response',response)
             <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Statename"
+              placeholder="Enter State Name"
               selectionColor="red"
               placeholderTextColor="#000000"
               backgroundColor="#CBCBCA"
