@@ -7,6 +7,7 @@ import { useRoute } from '@react-navigation/native';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import en from './locales/en.json';
+import Registration from './Registration';
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
@@ -45,6 +46,7 @@ const SharePdf = ({route}) => {
     state,
     streetname,
     website,
+    registration,
     ins,
     instext,
     hype,
@@ -509,6 +511,60 @@ const SharePdf = ({route}) => {
        </div>
        <!-- symbol 1 closed -->
      </div>
+     <div class="container5"
+     style="display: flex;
+            height: 16px;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #D7DAE0;
+            align-items: center;
+            align-self: stretch;
+            flex-shrink: 0;">
+  <div class="subheadings"
+       style="display: flex;
+              padding: 0px 10px;
+              align-items: flex-start;
+              flex: 1 0 0;">
+    <p class="onroadsubText"
+       style="color: #1A1C21;
+              font-family: 'Inter', sans-serif;
+              font-size: 10px;
+              font-weight: 600;">Registration</p>
+  </div>
+  <!-- subheadings closed -->
+  <div class="symbol1"
+       style="display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-left: 3px;">
+    <div class="rupeessymbol">
+      <p class= "symbolText"
+         style="color: #5E6470;
+                fontFamily: 'Inter', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                align-content: center;
+                textAlign: 'center';">&nbsp;&#8377;&nbsp;</p>
+    </div>
+    <!-- rupeessymbol closed -->
+    <div class="value"
+         style="display: flex;
+                padding: 0px 10px;
+                justify-content: center;
+                align-items: center;">
+      <p class="pricesubText"
+         style="color: var(--gray-600, #5E6470);
+                text-align: right;
+                font-family: 'Inter', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 0.1px;">${registration}</p>
+    </div>
+    <!-- value closed -->
+  </div>
+  <!-- symbol 1 closed -->
+</div>
      <!-- container 5 closed -->
      <!-- Hypothication -->
      <div class="container5"
@@ -2062,6 +2118,19 @@ const SharePdf = ({route}) => {
      </View>
      </View> 
      </View> */}
+     <View style={styles.container5}>
+    <View style={styles.subheadings}>
+    <Text style={styles.onroadsubText}>Registration</Text>
+    </View>
+<View style={styles.symbol1}>         
+<View style={styles.rupeessymbol}>
+     <Text style={styles.symbolText}>₹</Text>
+     </View>
+     <View style={styles.value}>
+     <Text style={styles.pricesubText}>{registration}</Text>
+     </View>
+     </View> 
+     </View>
      <View style={styles.container5}>
     <View style={styles.subheadings}>
     <Text style={styles.onroadsubText}>Hypothication/{hypetext}</Text>

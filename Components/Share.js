@@ -1316,6 +1316,8 @@ const handlemobile=(text)=>{
   
   //date//
   const [enquiryDate, setEnquiryDate] = useState('');
+  const[registration, setRegistration] = useState('');
+  console.log('re', registration)
   //checkboxes//
   const [dataArray, setDataArray] = useState([]);
     const [isSelected, setSelection] = useState(false);
@@ -1330,6 +1332,15 @@ const handlemobile=(text)=>{
   const [fiveRsa, setFiveRsa] = useState(false);
   // const [selectedTab, setSelectedTab] = useState('Style');
   const [selectedValue, setSelectedValue] = useState('default'); // Initialize
+//Radiobuttons
+//   const [selectedInsurance, setSelectedInsurance] = useState(''); // State for insurance section
+// const [selectedHypothecation, setSelectedHypothecation] = useState(''); // State for hypothecation section
+// const [selectedWarranty, setSelectedWarranty] = useState(''); // State for extended warranty section
+const selectedStates = {
+  insurance: '',
+  hypothecation: '',
+  extendedWarranty: '',
+};
 
 const [oilFillerCap, setOilFillerCap] = useState(null);
 const [headlight, setHeadlight] = useState(null);
@@ -1614,6 +1625,7 @@ console.log("adress",companyaddress)
         state,
         streetname,
         website,
+        registration,
         ins,
         instext,
         hype,
@@ -1674,6 +1686,7 @@ console.log("adress",companyaddress)
       const exShowroompriceNumber = parseFloat(exShowroomPrice.replace(/,/g, ''));
       const roadtaxNumber = parseFloat(roadtax.replace(/,/g, ''));
       const registrationnumber = parseFloat(registration.replace(/,/g, ''));
+      setRegistration(registrationnumber)
   
       const totalPrice = exShowroompriceNumber + roadtaxNumber + registrationnumber;
       setexprice(totalPrice);
@@ -1897,7 +1910,7 @@ console.log("adress",companyaddress)
                                       onValueChange={()=>handlebasic(insu.Basic)}
                                       style={styles.checkbox}
                                     /> */}
-  <RadioButton
+  {/* <RadioButton
   value="isSelected"
   status={checked === 'isSelected' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -1908,6 +1921,11 @@ console.log("adress",companyaddress)
     }
     handlebasic(insu.Basic); // Trigger your custom logic
   }}
+/> */}
+  <RadioButton
+  value="isSelected"
+  status={selectedStates.insurance === 'isSelected' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('insurance', insu.Basic)}
 />
 
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
@@ -1919,7 +1937,7 @@ console.log("adress",companyaddress)
                                       onValueChange={()=>handleNill(insu.Nildip)}
                                       style={styles.checkbox}
  /> */}
-  <RadioButton
+  {/* <RadioButton
   value="isNilldip"
   status={checked === 'isNilldip' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -1930,7 +1948,12 @@ console.log("adress",companyaddress)
     }
     handleNill(insu.Nildip); // Trigger your custom logic
   }}
-                                   />
+                                   /> */}  
+   <RadioButton
+  value="isNilldip"
+  status={selectedStates.insurance === 'isNilldip' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('insurance', insu.Nildip)}
+/>
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
                               </View>
                               {/* EP */}
@@ -1940,7 +1963,7 @@ console.log("adress",companyaddress)
                                       onValueChange={()=>handleEP(insu.Ep)}
                                       style={styles.checkbox}
  /> */}
-   <RadioButton
+   {/* <RadioButton
   value="EP"
   status={checked === 'EP' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -1951,7 +1974,12 @@ console.log("adress",companyaddress)
     }
     handleEP(insu.Ep); // Trigger your custom logic
   }}
-                                   />
+                                   /> */}
+     <RadioButton
+  value="EP"
+  status={selectedStates.insurance === 'EP' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('insurance', insu.Ep)}
+/>
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
                               </View>
                               {/* RTI */}
@@ -1961,7 +1989,7 @@ console.log("adress",companyaddress)
                                         onValueChange={()=>handleRTI(insu.RTI)}
                                         style={styles.checkbox}
  /> */}
- <RadioButton
+ {/* <RadioButton
   value="RTI"
   status={checked === 'RTI' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -1972,7 +2000,13 @@ console.log("adress",companyaddress)
     }
     handleRTI(insu.RTI); // Trigger your custom logic
   }}
-                                     />
+                                     /> */}
+                                  
+     <RadioButton
+  value="RTI"
+  status={selectedStates.insurance === 'RTI' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('insurance', insu.RTI)}
+/>
                                     <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
                               </View>
                         </View>
@@ -1999,7 +2033,7 @@ console.log("adress",companyaddress)
                               onValueChange={()=>handleYes(hype.Yes)}
                               style={styles.checkbox}
                             /> */}
-           <RadioButton
+           {/* <RadioButton
   value="Yes"
   status={checked === 'Yes' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -2010,6 +2044,11 @@ console.log("adress",companyaddress)
     }
     handleYes(hype.Yes); // Trigger your custom logic
   }}
+/> */}
+ <RadioButton
+  value="Yes"
+  status={selectedStates.hypothecation === 'Yes' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('hypothecation', hype.Yes)}
 />
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>YES</Text>
                         </View> 
@@ -2021,7 +2060,7 @@ console.log("adress",companyaddress)
                               onValueChange={()=>handleNo(hype.No)}
                               style={styles.checkbox}
           /> */}
-              <RadioButton
+              {/* <RadioButton
   value="NO"
   status={checked === 'NO' ? 'checked' : 'unchecked'}
   onPress={() => {
@@ -2032,7 +2071,12 @@ console.log("adress",companyaddress)
     }
     handleNo(hype.No); // Trigger your custom logic
   }}
-                  />
+                  /> */}
+       <RadioButton
+  value="NO"
+  status={selectedStates.hypothecation === 'NO' ? 'checked' : 'unchecked'}
+  onPress={() => handleRadioChange('hypothecation', hype.No)}
+/>
                             <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>NO</Text>
                         </View>
                     </View>

@@ -6,6 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -134,6 +135,7 @@ console.log('response',response)
         if (response.ok) {
           // If the request was successful, you can handle the response here
           const data = await response.json();
+          navigation.navigate('Inventory')
           console.log('Response from server:', data);
         } else {
           // Handle errors here
