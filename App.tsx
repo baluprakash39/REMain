@@ -36,7 +36,7 @@ const App = () => {
 const systemTheme = useColorScheme();
 
  
-const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const[timer,setTimer]=useState(0)
@@ -62,24 +62,24 @@ const closeLogoutPopup = () => {
 
 
 //  useffect1
-  useEffect(() => {
-        // Check the login state in AsyncStorage during app startup.
-        AsyncStorage.getItem('isloggedIn')
-          .then((value) => {
-            if (value === 'true') {
-              setIsLoggedIn(true);
-
-
-            } else {
-              setIsLoggedIn(false);
-            }
-            setIsLoading(false); // Set loading to false once you have the value.
-          })
-          .catch((error) => {
-            console.error(error);
-            setIsLoading(false); // Handle errors and set loading to false.
-          });
-      }, [isLoggedIn,clickedValue]);
+useEffect(() => {
+  // Check the login state in AsyncStorage during app startup.
+  AsyncStorage.getItem('isloggedIn')
+    .then((value) => {
+      if (value === 'true') {
+        setIsLoggedIn(true);
+      } else if (value === 'false') { // Check for an empty string
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(''); // Set to empty (undefined)
+      }
+      setIsLoading(false); // Set loading to false once you have the value.
+    })
+    .catch((error) => {
+      console.error(error);
+      setIsLoading(false); // Handle errors and set loading to false.
+    });
+}, [isLoggedIn, clickedValue]);
 
 
      //useffect
@@ -239,7 +239,7 @@ if (isLoading) {
     <ThemeProvider> 
        {/* <AuthProvider> */}
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? 'Inventory' : 'Getstarted'}>
+    <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Inventory' : isLoggedIn === false ? 'Otp' : 'Getstarted'}>
         {/* <Stack.Navigator initialRouteName={'Otp2'}> */}
         <Stack.Screen
           name="Inventory"

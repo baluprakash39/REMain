@@ -362,7 +362,7 @@
 //     }
 // });
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { firebaseConfig } from "../config";
@@ -372,6 +372,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 import PhoneInput from 'react-native-phone-number-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import DeviceInfo from 'react-native-device-info';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -384,21 +385,32 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
 });
 
-const Otp = ({ route }) => {
+const Otp = () => {
   const {t} = useTranslation();
-  const { deviceId } = route.params;
-  console.log("h", deviceId);
+
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
   const recaptchaVerifier = useRef(null);
   const phoneInput = useRef(null);
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [deviceId, setDeviceId] = useState();
+
   // const [isOtpSent, setIsOtpSent] = useState(false);
 
   const getPhoneNumber = () => {
     // Alert.alert(phoneNumber)
   }
+  useEffect(() => {
+   getDeviceId ()
+    
+  }, []);
+  const getDeviceId  = async () => {
+    let uniqueId=await DeviceInfo.getUniqueId();
+    setDeviceId(uniqueId)
+    console.log("i",uniqueId)
+  }
+  console.log('deviceId',deviceId)
   // const sendVerification = async () => {
   //   if (!phoneNumber) {
   //     setPhoneNumberError('Please enter a phone number.');
@@ -564,6 +576,7 @@ const Otp = ({ route }) => {
       const data = await response.json();
   
       console.log(data);
+     
   
       if (data.success === false && data.status === 'not allowed') {
         Alert.alert('Admin not Accepted');

@@ -223,181 +223,152 @@ console.log('response',response)
           </View>
           </View>
           <View style={styles.line}></View>
-
           {/* Company Name */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 , marginTop: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) , marginTop: verticalScale(10) }}>
             <Text style={styles.subtitle}>Company Name</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter your Company name"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.companyname}
               onChangeText={(text) => handleInputChange('companyname', text)}
             />
           </View>
           {formErrors.companyname ? <Text style={styles.errorText}>{formErrors.companyname}</Text> : null}
-
           {/* Company Address */}
-          <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 10, marginBottom: 5 }}>Company Address</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <Text style={{ color: '#F9F9F9', fontSize: moderateScale(18), fontWeight: '700', marginTop: verticalScale(10), marginBottom: verticalScale(5) }}>Company Address</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Address1</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
-              placeholder="Enter Address Name"
+              placeholder="Enter Address"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.companyaddress}
               onChangeText={(text) => handleInputChange('companyaddress', text)}
             />
           </View>
           {formErrors.companyaddress ? <Text style={styles.errorText}>{formErrors.companyaddress}</Text> : null}
-
           {/* Street Name */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Street Name</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Street Name"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.streetname}
               onChangeText={(text) => handleInputChange('streetname', text)}
             />
           </View>
           {formErrors.streetname ? <Text style={styles.errorText}>{formErrors.streetname}</Text> : null}
-
           {/* City */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>City</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter City Name"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.city}
               onChangeText={(text) => handleInputChange('city', text)}
             />
           </View>
           {formErrors.city ? <Text style={styles.errorText}>{formErrors.city}</Text> : null}
-
           {/* Pincode */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Pincode</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Pincode"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.pincode}
               onChangeText={(text) => handleInputChange('pincode', text)}
             />
           </View>
           {formErrors.pincode ? <Text style={styles.errorText}>{formErrors.pincode}</Text> : null}
-
           {/* State */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>State</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter State Name"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.state}
               onChangeText={(text) => handleInputChange('state', text)}
             />
           </View>
           {formErrors.state ? <Text style={styles.errorText}>{formErrors.state}</Text> : null}
-
           {/* Country */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Country</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Country Name"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.country}
               onChangeText={(text) => handleInputChange('country', text)}
             />
           </View>
           {formErrors.country ? <Text style={styles.errorText}>{formErrors.country}</Text> : null}
-         
-         
-
           {/* Contact Details */}
-          <Text style={{ color: '#F9F9F9', fontSize: 18, fontWeight: '700', marginTop: 15, marginBottom: 5 }}>Contact Details</Text>
-
+          <Text style={{ color: '#F9F9F9', fontSize: moderateScale(18), fontWeight: '700', marginTop: verticalScale(10), marginBottom: verticalScale(5) }}>Contact Details</Text>
           {/* GST */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-  <Text style={styles.subtitle}>GST</Text>
-  <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
-  <TextInput
-  style={styles.inputField}
-  placeholder="Enter GST Number"
-  selectionColor="red"
-  placeholderTextColor="#000000"
-  backgroundColor="#CBCBCA"
-  value={formData.gstin}
-  onChangeText={(text) => handleInputChange('gstin', text)}
-/>
-
-         </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
+            <Text style={styles.subtitle}>GST</Text>
+            <Text style={styles.semicolon}>:</Text>
+            <TextInput
+            style={styles.inputField}
+            placeholder="Enter GST Number"
+            selectionColor="red"
+            placeholderTextColor="#868687"
+            backgroundColor="#CBCBCA"
+            value={formData.gstin}
+            onChangeText={(text) => handleInputChange('gstin', text)}
+          />
+        </View>
          {formErrors.gstin ? <Text style={styles.errorText}>{formErrors.gstin}</Text> : null}
-
-
-
-
-
-
-
-
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Contact Number</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Contact Number"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.contactnumber}
               onChangeText={(text) => handleInputChange('contactnumber', text)}
             />
           </View>
           {formErrors.contactnumber ? <Text style={styles.errorText}>{formErrors.contactnumber}</Text> : null}
-
-
-
-         
-
-
-
           {/* Email Id */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Email Id</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Email Id"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.dealeremailid}
               onChangeText={(text) => handleInputChange('dealeremailid', text)}
@@ -406,29 +377,25 @@ console.log('response',response)
           {formErrors.dealeremailid ? <Text style={styles.errorText}>{formErrors.dealeremailid}</Text> : null}
 
           {/* Website */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
             <Text style={styles.subtitle}>Website</Text>
-            <Text style={{ color: 'white', fontSize: 14, width: 20, textAlign: 'center' }}>:</Text>
+            <Text style={styles.semicolon}>:</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Website"
               selectionColor="red"
-              placeholderTextColor="#000000"
+              placeholderTextColor="#868687"
               backgroundColor="#CBCBCA"
               value={formData.website}
               onChangeText={(text) => handleInputChange('website', text)}
             />
           </View>
           {formErrors.website ? <Text style={styles.errorText}>{formErrors.website}</Text> : null}
-
           <View style={styles.bottombuttons}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleSubmit}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-                <FontAwesome6 name='address-card' size={20} color={'#f9f9f9'} />
-                <Text style={styles.buttonText}>Add Details</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit} >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(20) }}>
+                <FontAwesome6 name='address-card' size={scale(20)} color={'#111111'} />
+                <Text style={{ color: '#303030', fontSize: moderateScale(18), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Submit</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -437,7 +404,6 @@ console.log('response',response)
     </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -445,6 +411,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor:'#11111190',
     paddingHorizontal: 10,
     paddingTop: 10,
   },
@@ -474,47 +441,82 @@ const styles = StyleSheet.create({
     width: scale(335),
   },
   subtitle: {
-    width: 120,
-    marginRight: 10,
-    color: '#F9F9F9',
-    fontSize: 14,
+    width: moderateScale(100),
+    marginRight: moderateScale(5),
+    color: '#e6e6e6',
+    fontSize: moderateScale(14),
     fontWeight: '400',
-    letterSpacing: 0.2,
+    letterSpacing: moderateScale(0.2),
+    // borderWidth:1,
+    // borderColor:'red'
+  },
+  semicolon:{
+    color: '#f9f9f9',
+    fontSize: moderateScale(14),
+    width: moderateScale(10),
+    textAlign: 'center',
+    marginRight:moderateScale(3)
   },
   inputField: {
     flex: 1,
-    height: 40,
+    // height: 40,
+    fontSize:moderateScale(14),
+    paddingVertical:verticalScale(7),
     backgroundColor: '#f9f9f9',
-    borderRadius: 5,
-    paddingLeft: 10,
+    borderRadius: scale(3),
+    paddingLeft: moderateScale(10),
     color: '#111111',
   },
-  bottombuttons: {
-    alignItems: 'center',
-    width: '100%',
-    height: 50,
-    marginTop: 50,
+  // bottombuttons: {
+  //   alignItems: 'center',
+  //   width: '100%',
+  //   height: 50,
+  //   marginTop: 50,
+  // },
+  // button: {
+  //   borderColor: '#f9f9f9',
+  //   backgroundColor: '#453F3F',
+  //   borderWidth: 1,
+  //   borderRadius: 6,
+  //   width: '70%',
+  //   height: 50,
+  //   padding: 10,
+  //   alignItems: 'center',
+  // },
+  // buttonText: {
+  //   color: '#111111',
+  //   fontSize: 18,
+  //   fontWeight: '500',
+  //   textAlign: 'center',
+  // },
+  bottombuttons:{ 
+    flexDirection: 'row', 
+    justifyContent: 'center',
+    alignItems:'center',
+    // width:scale(330), 
+    width:'100%',
+    height:scale(40), 
+    marginTop: verticalScale(40),
+    marginHorizontal: moderateScale(5),
   },
-  button: {
-    borderColor: '#f9f9f9',
-    backgroundColor: '#453F3F',
-    borderWidth: 1,
-    borderRadius: 6,
-    width: '70%',
-    height: 50,
-    padding: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#f9f9f9',
-    fontSize: 18,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
+ button:{
+      borderColor: '#868687',
+      backgroundColor: '#f9f9f9',
+      borderWidth: moderateScale(1),
+      borderRadius: scale(6),
+      // width: scale(170),
+      width:'70%',
+      height: scale(40),
+      justifyContent:'center',
+      alignItems:'center',
+      gap: moderateScale(15),
+      flexDirection:'row',
+      // marginLeft:scale(105)
+    },
   errorText: {
     color: 'red',
     marginTop: 0,
-    fontSize: 14,
+    fontSize: moderateScale(10),
     textAlign:'center'
   },
 });

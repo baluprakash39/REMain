@@ -1850,7 +1850,7 @@ console.log("adress",companyaddress)
               value={customername}
               onChangeText={(text) => handlecustomername(text)}
               placeholder="Enter name"
-              placeholderTextColor="#868687"
+              selectionColor="red"
             />
  
           </View>
@@ -1862,7 +1862,7 @@ console.log("adress",companyaddress)
               value={address}
               onChangeText={(text) => handleadresss(text)}
               placeholder="Enter address"
-              placeholderTextColor="#868687"
+              selectionColor="red"
             />
           
           </View>
@@ -1874,7 +1874,7 @@ console.log("adress",companyaddress)
               value={mobilenumber}
               onChangeText={(text) => handlemobile(text)}
               placeholder="Enter mobile number"
-              placeholderTextColor="#868687"
+              selectionColor="red"
             />
           
           </View>
@@ -1886,10 +1886,9 @@ console.log("adress",companyaddress)
               value={emailid}
               onChangeText={setEmailId}
               placeholder="example@email.com"
-              placeholderTextColor="#868687"
+              selectionColor="red"
             />
-            
-          </View>
+            </View>
           {emailErr? <Text style={styles.errorText}>{emailErr}</Text> : null}
       </View>
 
@@ -2616,7 +2615,7 @@ tab: {
     borderColor: '#F9F9F9',
     borderWidth:scale(1),
   },
-  checkbox: {
+  radioButton: {
     borderColor: '#f9f9f9'
   },
   priceContainer: {
@@ -2652,33 +2651,41 @@ title: {
     borderColor: '#f9f9f9',
     borderRadius: scale(6),
     justifyContent:'center',
-    height: scale(250),
+    // height: scale(250),
     // width: scale(335), // Adjust the width as needed
     backgroundColor: 'black',
     marginTop: verticalScale(5), // Add margin between sections
     paddingHorizontal: moderateScale(5), // Add padding inside the card
+    paddingVertical:verticalScale(5)
     },
   cardContent: {
     flex:1,
     // height: scale(35),
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    // paddingVertical:verticalScale(2),
+    // borderColor:'red',
+    // borderWidth:1
   },
   labelText: {
+    flex:1,
     color: '#f9f9f9',
-    width: scale(80),
-    fontSize: moderateScale(12),
+    // width: scale(80),
+    fontSize: moderateScale(14),
+    paddingVertical:verticalScale(2),
     fontWeight: '400',
     letterSpacing: moderateScale(0.4),
     },
   input: {
     flex: 1, // To allow TextInput to expand
-    height:scale(30),
+    // height:scale(30),
+    paddingVertical:verticalScale(5),
+    width:'100%',
     color: '#111111',
     backgroundColor: '#cbcbca',
     borderRadius:scale(5),
     paddingLeft: moderateScale(10), // Add left padding for better appearance
-    fontSize:scale(12),
+    fontSize:scale(14),
   },
   imageCard: {
     alignItems: 'center',
