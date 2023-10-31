@@ -50,24 +50,6 @@ const AddVehicle = () => {
     fetchSections();
   }, []);
 
-  // const fetchSections = async () => {
-  //   try {
-  //     const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes');
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const data = await response.json();
-  //     if (data && data.sections && data.sections.length > 0) {
-  //       // Update the sections state with the fetched data
-  //       setSections(data.sections);
-  //       console.log('Sections Data:', data.sections);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching sections:', error);
-  //   }
-  // };
- 
-
   const fetchSections = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
@@ -229,19 +211,6 @@ const AddVehicle = () => {
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
-     
-        {/* <View style={styles.header}>
-          <View style={{ height:'100%', alignContent: 'center'}}>
-            <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-              <MaterialIcons name='arrow-back' size={20} color={'#F9F9F9'}/>
-            </TouchableOpacity>
-          </View>
-            <View style={{ alignItems: 'center'}}>
-              <Text style={styles.title}>Add Vehicle</Text>
-            </View>
-        </View>
-
-        <View style={styles.line}></View> */}
 
         <View>
                <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
@@ -446,37 +415,14 @@ const styles = StyleSheet.create({
   // },
   container: {
     flex: 1,
-    // paddingTop:moderateScale(10),
-    // paddingHorizontal: moderateScale(10),
     backgroundColor:'#11111199',
     justifyContent:'space-between'
   },
-  // header:{
-  //   gap: 110,
-  //   alignItems: 'center',
-  //   flexDirection: 'row',
-  // },
-  // title: {
-  //   color: '#F9F9F9',
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  //   marginBottom: 16,
-  //   letterSpacing: 0.5,
-  // },
-  // line: {
-  //   height: 1,
-  //   backgroundColor: '#F9F9F9',
-  //   width: '100%',
-  // },
   header:{
     alignItems: 'center',
     flexDirection: 'row',
     paddingTop:verticalScale(10),
     marginBottom: verticalScale(10),
-    // borderBottomWidth:verticalScale(1),
-    // borderBottomColor:'#f9f9f9',
-    // width: moderateScale(335),
     height: verticalScale(35),
     justifyContent:'space-between',
   },
@@ -497,12 +443,11 @@ const styles = StyleSheet.create({
   dropdown: {
     flex:1,
     height:verticalScale(40),
-    // width: '100%',
     color:'#303030',
     borderRadius:moderateScale(2),
     backgroundColor: '#CBCBCA',
-    justifyContent: 'center', // Center the text vertically
-    paddingLeft: moderateScale(5), // Add some padding to align text properly
+    justifyContent: 'center',
+    paddingLeft: moderateScale(5),
   },
   subtitle:{ 
     width: moderateScale(140),
@@ -542,17 +487,13 @@ const styles = StyleSheet.create({
     width:'100%', 
     height:verticalScale(40), 
     marginVertical: verticalScale(20),
-    // borderColor:'red',
-    // borderWidth:1
   },
   button: {
-    // borderColor: '#f9f9f9',
     backgroundColor:'#f9f9f9',
     borderWidth: scale(1),
     borderRadius: scale(2),
     width:'70%',
     height: verticalScale(40),
-    // padding: scale(5),
     alignItems: 'center',
     justifyContent:'center'
   },
@@ -572,5 +513,4 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
 });
-
 export default AddVehicle;

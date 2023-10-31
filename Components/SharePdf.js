@@ -1810,10 +1810,11 @@ const SharePdf = ({route}) => {
                <!-- Company Details -->
    <div class="company"
         style="display: flex;
+                padding: 0px 10px;
                align-items: flex-start;">
      <div class="For"
           style="display: flex;
-                 padding: 0px 10px;
+                 padding: 0px 5px;
                  justify-content: center;
                  align-items: center;">
        <p class="ForText"
@@ -2080,20 +2081,7 @@ const SharePdf = ({route}) => {
      <Text style={styles.pricesubText}>{exShowroomPrice}</Text>
      </View>
      </View> 
-     </View> 
-   {/* <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.onroadsubText}>Insurance</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}></Text>
      </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}></Text>
-     </View>
-     </View> 
-     </View> */}
      <View style={styles.container5}>
     <View style={styles.subheadings}>
     <Text style={styles.onroadsubText}>Insurance/{instext}</Text>
@@ -2107,19 +2095,6 @@ const SharePdf = ({route}) => {
      </View>
      </View> 
      </View>
-     {/* <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.onroadsubText}>Hypothication</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}></Text>
-     </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}></Text>
-     </View>
-     </View> 
-     </View> */}
      <View style={styles.container5}>
     <View style={styles.subheadings}>
     <Text style={styles.onroadsubText}>Registration</Text>
@@ -2216,19 +2191,6 @@ const SharePdf = ({route}) => {
      </View>
      </View> 
      </View>
-     {/* <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.addonproducttext}>{selectedOilFillerCapText}</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}>₹</Text>
-     </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}>{selectedOilFillerCapValue}</Text>
-     </View>
-     </View> 
-     </View> */}
      <View style={styles.container5}>
     <View style={styles.subheadings}>
     <Text style={styles.addonproducttext}>HeadLight/{selectedHeadLightText}</Text>
@@ -2333,19 +2295,6 @@ const SharePdf = ({route}) => {
      </View>
      </View> 
      </View>
-    {/* <View style={styles.container5}>
-    <View style={styles.subheadings}>
-    <Text style={styles.addonproducttext}>Extended warranty</Text>
-    </View>
-<View style={styles.symbol1}>         
-<View style={styles.rupeessymbol}>
-     <Text style={styles.symbolText}></Text>
-     </View>
-     <View style={styles.value}>
-     <Text style={styles.pricesubText}></Text>
-     </View>
-     </View> 
-     </View> */}
      <View style={styles.container5}>
     <View style={styles.subheadings}>
     <Text style={styles.addonproducttext}>Extended warranty/{exwarrantytext}</Text>
@@ -2482,7 +2431,6 @@ const SharePdf = ({route}) => {
     </View>
    </View>
    </View>
-  {/* Share Button */}
   <Button title="Share as PDF" onPress={handleSharePDF} />
   </ScrollView>
   </View>
@@ -3062,6 +3010,7 @@ gstdash:{
     flexDirection: 'row',
     justifyContent:'center',
     alignItems:'flex-start',
+    marginRight:15
   },
   contactgst:{
     flexDirection: 'row',
@@ -3108,9 +3057,4 @@ gstdash:{
     backgroundColor: '#EBF2FF',
   },
 });
-
 export default SharePdf;
-
-
-
-

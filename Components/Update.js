@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -120,41 +119,9 @@ const Update = () => {
       setRegistrationError('Registration is required');
       hasErrors = true;
     }
-
-    // if (!hasErrors) {
-    //   // All required fields are filled, you can send the PUT request here
-    //   const id = localdata._id;
-    //   console.log(id) // Replace with the ID you want to update
-    //   const url = `https://vast-newt-crown.cyclic.app/formdetails/updatebikes/${id}`;
-
-    //   fetch(url, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(localdata), // Pass the updated data in the request body
-    //   })
-    //     .then((response) => {
-    //       if (!response.ok) {
-    //         throw new Error('Network response was not ok');
-    //       }
-    //       return response.json();
-    //     })
-    //     .then((data) => {
-    //       console.log(data);
-    //       // Handle the response here if needed
-    //       // Navigate back to the 'Inventory' screen or any other screen as needed
-    //       navigation.navigate('Inventory');
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error:', error);
-    //       // Handle the error here
-    //     });
-    // }
-    
     if (!hasErrors) {
       const id = localdata._id;
-      const url = `https://vast-newt-crown.cyclic.app/formdetails/updatebikes/${id}`;
+      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/updatebikes/${id}`;
   
       try {
         const token = await AsyncStorage.getItem('token');
@@ -197,19 +164,6 @@ const Update = () => {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View>
-          {/* <View style={styles.header}>
-            <View style={{flexDirection:'row'}}>
-            <View style={{ alignContent: 'center'}}>
-              <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-                  <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'}/>
-                </TouchableOpacity>
-            </View>
-            <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
-              <Text style={styles.headertitle}>Edit Vehicle</Text>
-            </View>
-            </View>
-          <View style={styles.line}></View>
-          </View> */}
                 <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
                   <View style={styles.header}>
                       <View style={{alignContent: 'center' }}>
@@ -243,6 +197,7 @@ const Update = () => {
               style={styles.inputField}
               placeholder="Enter Vehicle Name"
               placeholderTextColor='black'
+              selectionColor="red"
               value={localdata.vehiclename}
               onChangeText={(text) => setLocalData({ ...localdata, vehiclename: text })}
             />
@@ -254,6 +209,7 @@ const Update = () => {
             <TextInput
               style={styles.inputField}
               placeholder="Enter Model Name"
+              selectionColor="red"
               placeholderTextColor='black'
               value={localdata.model}
               onChangeText={(text) => setLocalData({ ...localdata, model: text })}
@@ -266,6 +222,7 @@ const Update = () => {
             <TextInput
               style={styles.inputField}
               placeholder="Enter Engine CC"
+              selectionColor="red"
               placeholderTextColor='black'
               value={localdata.EngineCC}
               onChangeText={(text) => setLocalData({ ...localdata, EngineCC: text })}
@@ -279,6 +236,7 @@ const Update = () => {
               style={styles.inputField}
               placeholder="Enter Color"
               placeholderTextColor='black'
+              selectionColor="red"
               value={localdata.vehiclecolor}
               onChangeText={(text) => setLocalData({ ...localdata, vehiclecolor: text })}
             />
@@ -291,6 +249,7 @@ const Update = () => {
               style={styles.inputField}
               placeholder="Enter ExShowroom price"
               placeholderTextColor='black'
+              selectionColor="red"
               value={localdata.exShowroomPrice}
               onChangeText={(text) => setLocalData({ ...localdata, exShowroomPrice: text })}
             />
@@ -303,19 +262,19 @@ const Update = () => {
               style={styles.inputField}
               placeholder="Enter Roadtax"
               placeholderTextColor='black'
+              selectionColor="red"
               value={localdata.roadtax}
               onChangeText={(text) => setLocalData({ ...localdata, roadtax: text })}
             />
           </View>
           <Text style={styles.errorText}>{roadTaxError}</Text>
-
-          {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}> */}
           <View style={styles.fieldContainer}>
             <Text style={styles.subtitle}>Registartion(fixed)</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Registration"
               placeholderTextColor='black'
+              selectionColor="red"
               value={localdata.registration}
               onChangeText={(text) => setLocalData({ ...localdata, registration: text })}
             />
@@ -338,49 +297,16 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   container: {
-    // flex: 1,
-    // backgroundColor:'#11111190',
-    // padding: scale(8),
-    // justifyContent:'space-between'
     flex: 1,
-    // paddingTop:moderateScale(10),
-    // paddingHorizontal: moderateScale(10),
     backgroundColor:'#11111199',
     justifyContent:'space-between'
   },
-//   header:{
-//     alignItems: 'center',
-//     flexDirection: 'column',
-//     marginBottom: verticalScale(10),
-//     width: '100%',
-//     height: verticalScale(30),
-//   },
-// backButton:{
-//     alignItems: 'center',
-//     width:moderateScale(20),
-//     height:verticalScale(20),
-//     justifyContent:'center',
-//   },
-// headertitle: {
-//     color: '#F9F9F9',
-//     fontSize: moderateScale(16),
-//     fontWeight: 'semibold',
-//     textAlign: 'center',
-//     letterSpacing: moderateScale(0.5),
-//   },
-//   line: {
-//     height: verticalScale(1),
-//     backgroundColor: 'white',
-//     width: '100%',
-//   },
+
 header:{
   alignItems: 'center',
   flexDirection: 'row',
   paddingTop:verticalScale(10),
   marginBottom: verticalScale(10),
-  // borderBottomWidth:verticalScale(1),
-  // borderBottomColor:'#f9f9f9',
-  // width: moderateScale(335),
   height: verticalScale(35),
   justifyContent:'space-between',
 },
@@ -413,12 +339,12 @@ title: {
   },
   inputField: {
     flex: 1,
-    height: verticalScale(30),
+    paddingVertical:verticalScale(5),
     backgroundColor: '#f9f9f9',
     borderRadius: scale(2),
     paddingLeft: moderateScale(10),
     color: '#000000',
-    fontSize:moderateScale(12),
+    fontSize:moderateScale(14),
     fontWeight:'500'
   },
   button: {
@@ -446,5 +372,4 @@ title: {
     marginBottom: verticalScale(8),
   },
 });
-
 export default Update;

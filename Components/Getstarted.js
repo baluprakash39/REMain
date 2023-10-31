@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'; // Import Image component
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
@@ -30,11 +30,6 @@ const handlegetstart = async() => {
 }
   return (
     <View style={styles.container}>
-      {/* <LinearGradient
-        colors={['#000000', '#000000']} // Change colors to black
-        style={styles.linearGradient}
-      > */}
-
         <Swiper style={styles.wrapper} showsButtons={false}
           autoplay={true} // Enable auto-play
           autoplayTimeout={4} //  time interval (in seconds) between slides
@@ -88,7 +83,6 @@ const handlegetstart = async() => {
             <Text style={styles.buttonText}>{t('gsbottontext')}</Text>
           </TouchableOpacity>
         </View>
-      {/* </LinearGradient> */}
     </View>
 
   );
@@ -103,12 +97,6 @@ const styles = StyleSheet.create({
       height: '100%',
   },
   wrapper: {
-    // marginTop:scale(30),
-    // height:scale(300),
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
-    // borderWidth:1,
-    // borderColor:'red'
   },
   dot: {
     backgroundColor: 'gray',
@@ -119,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10), 
   },
   activeDot: {
-    backgroundColor: 'red', // Active dot color
+    backgroundColor: 'red',
     width: moderateScale(20),
     height: verticalScale(2),
     borderRadius: scale(4),
@@ -132,7 +120,6 @@ const styles = StyleSheet.create({
     flex:1,
     height:verticalScale(200),
     alignItems: 'center',
-    // justifyContent: 'center',
     paddingBottom: scale(20),
   },
   images: {
@@ -185,7 +172,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Outfit-Regular'
   },
-
 });
-
 export default Getstarted;

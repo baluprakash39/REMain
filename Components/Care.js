@@ -83,16 +83,6 @@ const Care = ({route}) => {
   const [fourError, setFourError] = useState('');
   const [fiveError, setFiveError] = useState('');
   const [fiveRsaError, setRsaError] = useState('');
-
-
-
-  
-  
-
-
-
- 
-  
   const handleSubmit = async () => {
     // Reset all error states initially
     setBasicError('');
@@ -422,6 +412,7 @@ return (
               selectionColor="red"
               placeholderTextColor="#868687"
               value={fouryears}
+              keyboardType="numeric"
               onChangeText={(text) =>  handleFourChange (text)}
             />
           </View>
@@ -434,6 +425,7 @@ return (
               selectionColor="red"
               placeholderTextColor="#868687"
               value={fiveyears}
+              keyboardType="numeric"
               onChangeText={(text) =>handleFiveChange(text)}
             />
           </View>
@@ -446,13 +438,11 @@ return (
               selectionColor="red"
               placeholderTextColor="#868687"
               value={fiveplusRSAyears}
+              keyboardType="numeric"
               onChangeText={(text) => handleFiversaChange(text)}
             />
           </View>
           {fiveRsaError ? <Text style={styles.errorText}>{fiveRsaError}</Text> : null}
-        
-
-
         </View>
           <View style={styles.bottombuttons}>
               <TouchableOpacity style={styles.bottomeditbutton} onPress={handleSubmit}>
@@ -491,8 +481,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         borderRadius: 5,
-        marginTop: 20, // Adjust this value as needed
-        marginBottom: 100, // Adjust this value as needed
+        marginTop: 20,
+        marginBottom: 100,
       },
       
       buttonText: {
@@ -541,21 +531,21 @@ const styles = StyleSheet.create({
   },
   inputField: {
       flex: 1,
-      height: verticalScale(30),
+      paddingVertical:verticalScale(6),
       backgroundColor: '#cbcbca',
       borderRadius: 5,
       paddingLeft: moderateScale(10),
       color: '#111111',
-      fontSize: moderateScale(10),
+      fontSize: moderateScale(14),
     },
   bottombuttons:{ 
     flexDirection: 'row', 
     justifyContent: 'center',
     alignItems:'center',
-    // width:scale(330), 
     width:'100%',
     height:scale(40), 
     marginTop: verticalScale(40),
+    marginBottom:verticalScale(20),
     marginHorizontal: moderateScale(5),
   },
  bottomeditbutton:{
@@ -563,16 +553,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#f9f9f9',
       borderWidth: moderateScale(1),
       borderRadius: scale(6),
-      // width: scale(170),
       width:'70%',
       height: scale(40),
       justifyContent:'center',
       alignItems:'center',
       gap: moderateScale(15),
       flexDirection:'row',
-      // marginLeft:scale(105)
     },
 });
-
 export default Care;
-

@@ -55,80 +55,6 @@ const[registrationErr,setRegistrationError]=useState('')
       console.error('Error getting device info:', error);
     }
   };
-
-
-// const handleAddDetails = () => {
-//     // Reset error messages
-//     setNameError('');
-//     setCompanyNameError('');
-//     setContactNumberError('');
-//     setEmailError('');
-//     setRegistrationError(''); // Add a new state variable for registration error
-  
-//     let isValid = true;
-  
-//     if (!name) {
-//       setNameError('Name is required');
-//       isValid = false;
-//     }
-  
-//     if (!companyName) {
-//       setCompanyNameError('Company Name is required');
-//       isValid = false;
-//     }
-  
-//     if (!contactNumber) {
-//       setContactNumberError('Contact Number is required');
-//       isValid = false;
-//     }
-  
-//     if (!email) {
-//       setEmailError('Email is required');
-//       isValid = false;
-//     }
-  
-//     if (isValid) {
-//       // If all fields are valid, you can proceed with saving the details
-//       // Prepare the data to send to the backend, including deviceUniqueId
-//       const data = {
-//         name: name,
-//         companyname: companyName,
-//         phoneNumber: contactNumber,
-//         email: email,
-//         deviceId: deviceUniqueid, // Use the deviceUniqueId
-//       };
-  
-//       fetch('https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//       })
-       
-//         .then(data => {
-//            if(data.status===400) {
-//             setRegistrationError('Details already exist. Please try again.');
-//            }else{
-//           console.log('data', data);
-//           // Example: Show an alert upon successful registration
-//           Alert.alert('Success', 'Details saved successfully');
-//           // You can navigate to another screen or perform additional actions here
-//           setCompanyName('');
-//           setName('');
-//           setEmail('');
-//           setContactNumber('');
-//           navigation.navigate("Getstarted")
-//            }
-//         })
-    
-//         .catch(error => {
-//           console.error(error);
-//           // Example: Show an alert for registration failure
-//           Alert.alert('Error', 'Failed to save details. Please try again.');
-//         });
-//     }
-//   };
 const handleAddDetails = async () => {
   // Reset error messages
   setNameError('');
@@ -138,6 +64,13 @@ const handleAddDetails = async () => {
   setRegistrationError('');
 
   let isValid = true;
+  const phoneRegex = /^\d{10}$/;
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  if (!phoneRegex.test(contactNumber)) {
+    setContactNumberError('Phone number must have 10 digits');
+    isValid = false;
+  }
+
 
   if (!name) {
     setNameError('Name is required');
@@ -151,6 +84,11 @@ const handleAddDetails = async () => {
 
   if (!contactNumber) {
     setContactNumberError('Contact Number is required');
+    isValid = false;
+  }
+
+  if (!email || !emailRegex.test(email)) {
+    setEmailError('Please enter a valid email address');
     isValid = false;
   }
 
@@ -207,7 +145,6 @@ const handleAddDetails = async () => {
 
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
-
      <View style={styles.container}>
        <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
          <View style={styles.header}>
@@ -225,14 +162,10 @@ const handleAddDetails = async () => {
         </View>
         <ScrollView>
         <View style={{marginBottom:verticalScale(100), paddingHorizontal:moderateScale(10)}}>
-        {/* Name */}
         <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(15)}}>Personal Information</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
-        
-          {/* <Text style={styles.subtitle}>Name</Text> */}
-          {/* <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField}} 
+            style={styles.inputField} 
             placeholder="Enter your full name"
             selectionColor="red"
             placeholderTextColor="#979797"
@@ -242,12 +175,11 @@ const handleAddDetails = async () => {
           />
         </View>
         {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
-                {/* Contact Number */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-          {/* <Text style={styles.subtitle}>Contact Number</Text>
-          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
+          
+      {/* phonenumber Input */}
           <TextInput
-             style={{ ...styles.inputField}} 
+             style={styles.inputField} 
             placeholder="Enter Contact Number"
             keyboardType='number-pad'
             selectionColor="red"
@@ -255,16 +187,13 @@ const handleAddDetails = async () => {
             backgroundColor="#111111"
             value={contactNumber}
             onChangeText={setContactNumber}
+            
           />
         </View>
         {contactNumberError ? <Text style={styles.errorText}>{contactNumberError}</Text> : null}
-
-        {/* Email Id */}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-          {/* <Text style={styles.subtitle}>Email Id</Text>
-          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-            style={{ ...styles.inputField}} 
+            style={styles.inputField} 
             placeholder="Enter Email Id"
             selectionColor="red"
             placeholderTextColor="#979797"
@@ -274,14 +203,11 @@ const handleAddDetails = async () => {
           />
         </View>
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-
         {/* Company Name */}
         <Text style={{ fontSize:moderateScale(18), color:'#f9f9f9', marginTop:scale(30)}}>Company Information</Text>
         <View style={{  flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20)  }}>
-          {/* <Text style={styles.subtitle}>Company Name</Text>
-          <Text style={{ color: 'white', fontSize: moderateScale(14), width: scale(5), textAlign: 'center',}}>: </Text> */}
           <TextInput
-             style={{ ...styles.inputField}} 
+             style={styles.inputField} 
             placeholder="Enter Company Name"
             selectionColor="red"
             placeholderTextColor="#979797"
@@ -318,8 +244,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // paddingTop:moderateScale(10),
-    // paddingHorizontal: moderateScale(10),
     backgroundColor:'#11111199',
     justifyContent:'space-between'
   },
@@ -328,9 +252,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop:verticalScale(10),
     marginBottom: verticalScale(10),
-    // borderBottomWidth:verticalScale(1),
-    // borderBottomColor:'#f9f9f9',
-    // width: moderateScale(335),
     height: verticalScale(35),
     justifyContent:'space-between',
   },
@@ -358,8 +279,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     flex: 1,
-    // height: verticalScale(35),
-    paddingVertical:verticalScale(15),
+    paddingVertical:verticalScale(9),
     backgroundColor: '#111111',
     borderWidth:scale(1),
     borderColor:'#979797',
@@ -371,36 +291,21 @@ const styles = StyleSheet.create({
     borderRadius: scale(3),
     paddingLeft: moderateScale(5),
   },
-  // line: {
-  //   height: verticalScale(1),
-  //   backgroundColor: 'white',
-  //   width: moderateScale(335),
-  // },
   bottombuttons: {
     alignItems: 'center',
     alignContent:'center',
-    // width:scale(300),
     width:'100%',
     height: verticalScale(40),
-    // marginHorizontal: verticalScale(30),
     marginTop:verticalScale(1),
     marginBottom:verticalScale(40),
-    // paddingHorizontal:scale(5),
-    // borderWidth:1,
-    // borderColor:'red'
   },
   button: {
-    // width:'100%',
     paddingHorizontal: moderateScale(100),
     height:verticalScale(40),
-    // backgroundColor: '#3498db',
     backgroundColor: '#f9f9f9',
     borderRadius: scale(4),
-    // marginHorizontal:moderateScale(50),
     alignItems:'center',
     justifyContent:'center',
-    // borderWidth:1,
-    // borderColor:'red'
   },
   buttonText: {
     color: '#111111',
@@ -412,12 +317,11 @@ const styles = StyleSheet.create({
     color: '#f9f9f9',
     marginVertical: scale(1),
     fontSize: moderateScale(10),
-    textAlign: 'left',
+    textAlign: 'center',
     paddingLeft:scale(5),
     backgroundColor:'#B70404',
-    marginLeft: scale(110), // Adjust the left margin for error text
-    width:scale(100),
+    marginLeft: scale(110),
+    width:scale(120),
   },
 });
-
 export default Registration;

@@ -12,7 +12,7 @@ import DocumentPicker from 'react-native-document-picker';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
+import { useNavigation } from '@react-navigation/native';
 import Home from './Home';
 import Care from './Care';
 import Accessories from './Accessories';
@@ -39,11 +39,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // rowGap:verticalScale(20),
-    // paddingHorizontal: moderateScale(8),
-    // paddingTop: verticalScale(5),
-    // borderWidth:2,
-    // borderColor:'red'
     justifyContent:'space-between'
   },
   header: {
@@ -54,50 +49,45 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
     marginHorizontal: moderateScale(5),
     },
-    searchInput: {
-      // flex: 1,
+  headerIcons:{
+      marginLeft: moderateScale(5),
+      flexDirection:'column',
+      paddingHorizontal:moderateScale(15),
+      paddingVertical:verticalScale(2),
+      rowGap:scale(1),
+      backgroundColor:'#3A3A3A',
+      alignItems:'center',
+      justifyContent:'center',
+      borderRadius:scale(5)
+    },
+    searchInputContainer:{
+      flex: 1,
+      alignItems: 'flex-start',
+      paddingLeft: moderateScale(4),
+      paddingTop:verticalScale(10),
+    },
+  searchInput: {
       width:'100%',
       color: '#f9f9f9',
       fontSize: moderateScale(16),
-      paddingLeft: moderateScale(8), // Adjust the padding as needed
-      // Remove alignItems, justifyContent, and textAlignVertical properties
       textAlignVertical:'center',
-      // paddingTop:verticalScale(8),
-      // textAlign:'center',
-      // textAlignVertical:'center',
-      borderWidth:1,
-      borderColor:'red'
+      paddingTop:verticalScale(0),
     },
     
     searchcontainer: {
       width: '100%',
-      height: verticalScale(35),
+      paddingVertical:verticalScale(0),
       paddingLeft: moderateScale(4),
       flexDirection: 'row',
-      alignItems: 'center', // Center vertically
+      alignItems: 'center',
       borderRadius: moderateScale(6),
       backgroundColor: '#3D3C3C',
-      borderColor: '#979797', // White border
-      borderWidth: moderateScale(1), // 1 pixel border width
-      // marginBottom: verticalScale(10),
+      borderColor: '#979797',
+      borderWidth: moderateScale(1),
     },
   loginButton: {
-    // backgroundColor: '#F9F9F9', // Use the same background color as searchInput
-    // paddingVertical: verticalScale(4),
-    // paddingHorizontal: moderateScale(16),
-    // borderRadius: moderateScale(6),
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // height: verticalScale(35),
-    // borderWidth:1,
-    // borderColor:'red'
+
   },
-  // loginButtonText: {
-    // color: '#111111', // Change the text color as needed
-    // fontWeight: 'bold',
-    // fontSize: moderateScale(12),
-    // marginRight: moderateScale(2),
-  // },
   vehiclevalue:{
     flexDirection: 'row',
     paddingRight: moderateScale(2),
@@ -105,7 +95,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
 });
-
 function Inventory() {
   const {t} = useTranslation();
   const ans=AsyncStorage.getItem('token')
@@ -128,13 +117,8 @@ function Inventory() {
   const [deviceId, setDeviceId] = useState(null)
 
   const [docId, setDocId] = useState(null);
-  // const [selectedFiles, setSelectedFiles] = useState([]);
   const [singleFile, setSingleFile] = useState(null);
-
   const navigation = useNavigation(); // Get the navigation object
-
-
-
   useFocusEffect(
     React.useCallback(() => {
       // This function will be called when the screen gains focus
@@ -172,21 +156,6 @@ function Inventory() {
     setFilteredProductData(filteredData);
   };
 
-  // const fetchSections = () => {
-  //   const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
-
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data && data.sections && data.sections.length > 0) {
-  //         setSections(data.sections);
-  //         console.log(data.sections)
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching sections:', error);
-  //     });
-  // };
   const fetchSections = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
@@ -239,39 +208,7 @@ function Inventory() {
       setError(error.message);
     }
   };
-
-
-
-
-
-  // const products = (section) => {
-  //   setSelectedSection(section);
-  //   setAcc(section);
-  
-  //   if (section === 'Accesories' || section === 'Care') {
-  //     // Call fetchBikeDetails if sectionname is Accessories or Care
-  //     setReloadKey(reloadKey + 1);
-  //     fetchBikeDetails();
-  //   } else {
-  //     axios
-  //       .get(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`, {
-  //         headers: {
-  //           'Access-Control-Allow-Origin': '*',
-  //           'Content-Type': 'application/json',
-  //         },
-  //       })
-  //       .then((response) => {
-  //         if (response.data) {
-  //           setProductData(response.data.bikes);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching bike details:', error);
-  //       });
-  //   }
-  // };
-  
-const products = (section) => {
+  const products = (section) => {
   setSelectedSection(section);
   setAcc(section);
 
@@ -317,21 +254,14 @@ const products = (section) => {
     console.log('data',data)
     console.log(acc)
     if (acc === "Accesories") {
-    
-          // console.log('Data saved successfully:', data._id);
           navigation.navigate('Accessories',{ vehicleId: data }); // Navigate to the Accessories screen
        
     }  if (acc === "Care"){
      
           navigation.navigate('Care',{ vehicleId: data } ); // Navigate to the Care screen
-        
-       
     }
   };
-  
-
-  
-  const deleteProduct = (Id) => {
+const deleteProduct = (Id) => {
     console.log(Id);
   
     // Retrieve the JWT token from AsyncStorage
@@ -470,29 +400,26 @@ const products = (section) => {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),alignItems:'center',justifyContent:'space-between'}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}>
+          <TouchableOpacity style={styles.headerIcons}>
               <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
               <Text style={{color:'#f9f9f9',fontSize:moderateScale(10)}}>Profile</Text>
               </TouchableOpacity>
           <Text style={{color:'#f9f9f9',fontSize:moderateScale(24),paddingHorizontal:moderateScale(10)}}>Inventory</Text>
-          <TouchableOpacity style={{marginLeft: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}
+          <TouchableOpacity style={styles.headerIcons}
             onPress={() => {
-              // Handle login button press here
-              // You can navigate to the login screen or perform the desired action.
               navigation.navigate('Home', {deviceId}); 
               console.log('Login button pressed');
             }}
           >
             <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
-            <Text style={{color:'#f9f9f9'}}>Home</Text>
+            <Text style={{color:'#f9f9f9',fontSize:moderateScale(12),fontWeight:'400',letterSpacing:moderateScale(0.4)}}>Home</Text>
           </TouchableOpacity>
           </View>
-          {/* <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),justifyContent:'space-between'}}> */}
           <View style={styles.searchcontainer}>
               <View style={{justifyContent:'center'}}>
                <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
               </View>
-              <View style={{ flex: 1, alignItems: 'flex-start', paddingLeft: moderateScale(4), borderWidth:1,borderColor:'red' }}>
+              <View style={styles.searchInputContainer}>
                 <TextInput
                   style={styles.searchInput}
                   placeholder="Search Vehicle"
@@ -505,23 +432,7 @@ const products = (section) => {
             </View>
           
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-          {/* <TouchableOpacity style={{marginHorizontal: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}>
-              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
-              <Text style={{color:'#f9f9f9'}}>Profile</Text>
-              </TouchableOpacity> */}
-          {/* <TouchableOpacity style={{marginLeft: moderateScale(5),height: scale(35), width: scale(50),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(5)}}
-            onPress={() => {
-              // Handle login button press here
-              // You can navigate to the login screen or perform the desired action.
-              navigation.navigate('Home', {deviceId}); 
-              console.log('Login button pressed');
-            }}
-          >
-            <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
-            <Text style={{color:'#f9f9f9'}}>Home</Text>
-          </TouchableOpacity> */}
           </View>
-          {/* </View> */}
         </View>
         <View style={{ flexDirection: 'row', marginTop: verticalScale(50)}}>
             {sections
@@ -537,12 +448,9 @@ const products = (section) => {
                     marginHorizontal: scale(10),
                     width: moderateScale(150),
                     height: verticalScale(40),
-                    // marginBottom: verticalScale(10),
-                    justifyContent: 'center', // Center the content vertically
-                    alignItems: 'center', // Center the content Horizontally
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
-                  
-                  
                   onPress={() => products(sec.Sectionname)}
                 >
                 <Text style={{color: '#111111',fontSize:moderateScale(12),fontWeight:'700' }}>{sec.Sectionname}</Text>
@@ -560,23 +468,15 @@ const products = (section) => {
             
             <View    style={{
               borderColor:'#979797',
-              // borderWidth: scale(1),
-              // backgroundColor: '#11111190',
-              // margin: moderateScale(5),
-              // borderRadius: scale(10),
-              // height:verticalScale(200),
-              // width:'47%',
-              // // width: moderateScale(232),
               justifyContent: 'space-between',
               borderWidth: scale(1),
               backgroundColor: '#11111199',
-              // backgroundColor: isDarkTheme ? 'black' : 'white',
               height: scale(220),
               flex: 1,
               margin: scale(3),
               borderRadius: scale(6),
-              // width: 100,
-              marginTop:scale(5)
+              marginTop:scale(5),
+              paddingBottom:scale(10),
              }}>
              <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
               <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
@@ -597,27 +497,14 @@ const products = (section) => {
               carddata(item._id);
             }}
             style={{
-            //   borderColor: 'rgba(249, 249, 249, 0.50)',
-            //   borderWidth: 1,
-            //   // backgroundColor: 'rgba(151, 151, 151, 0.50)',
-            //   height: 250,
               flex: 1,
-            //   margin: 5,
-            //   borderRadius: 10,
-            //   width: 100,
             }}
           >
-            {/* <View style={{flexDirection: 'column',borderWidth:1,borderColor:'red'}}> */}
              
               <Image
                 style={{
                   flex:1,
-                  // height: verticalScale(120),
-                  // height:'65%',
-                  // width: moderateScale(228),
-                  // width:'100%',
                   resizeMode:'cover',
-
                 }}
                 source={{ uri: item.adminallimage }}
                 />
@@ -631,48 +518,43 @@ const products = (section) => {
                     }}>
                 <View style={{  flexDirection: 'row',justifyContent:'space-between',paddingVertical:scale(2) }}>
                   <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
-                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.model}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'capitalize',}}>{item.model}</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between',paddingVertical:scale(2) }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between',paddingVertical:scale(2)}}>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
                     <Ionicons name="speedometer-outline" size={scale(10)} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12) }}>
+                    <Text style={{color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
                       {item.EngineCC} CC
                     </Text>
                     </View>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
                     <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)  }}>
+                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
                       {item.vehiclecolor} 
                     </Text>
                    </View>
                   </View>
-                    {/* </View> */}
                     <View style={{paddingVertical:scale(2), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',paddingVertical:scale(2)}}>
-                    <Text style={{ color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10) }}>Price Starts from</Text>
+                    <Text style={{ color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10) }}>Starts from</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ color: '#F9F9F9', fontWeight: 'bold', fontSize: moderateScale(14), paddingRight: moderateScale(5) }} >{'\u20B9'}</Text>
-                         <Text style={{ color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14) }}>{item.exShowroomPrice}</Text>
+                         <Text style={{ color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
                       </View>
                   </View>
-                
                 </TouchableOpacity>
                 </View>
-              {/* </View> */}
-            {/* </TouchableOpacity> */}
             </View>
           )}
         />     
         <TouchableOpacity style={{
                                     backgroundColor: '#f9f9f9',
                                     borderWidth:moderateScale(0.5),
-                                    // borderColor:'red',
                                     borderRadius: scale(100),
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    position: 'absolute', // Position it absolutely
+                                    position: 'absolute',
                                     bottom: scale(20),
-                                    right: '49%', // Center it horizontally
+                                    right: '49%',
                                     transform: [{ translateX: 25 }],
                                   }}
                                       onPress={() => {
@@ -682,9 +564,7 @@ const products = (section) => {
           <MaterialIcons name='add-circle' size={scale(40)} color='#111111' />
           </TouchableOpacity>
         </View>
-      
     </ImageBackground>
   );
 }
-
 export default Inventory;

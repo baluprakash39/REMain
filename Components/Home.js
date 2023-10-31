@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'; // Import useNavigatio
 import { useTheme } from '../ThemeContext';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import { CommonActions } from '@react-navigation/native';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -22,13 +23,10 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
 });
 
-
-
 function Home({route}) {
   const {t} = useTranslation();
   const {deviceId} = route.params
- 
-  // const { isDarkTheme } = useTheme(); // Access the theme
+  const navigation = useNavigation(); // Get the navigation object
   const [search, setSearch] = useState('');
   const [createVehicle1, setCreateVehicle1] = useState(true);
   const [addVehicle1, setAddVehicle1] = useState(false);
@@ -54,12 +52,6 @@ function Home({route}) {
     filterProductData();
   }, [search, productData]);
 
-  // const filterProductData = () => {
-  //   const filteredData = productData.filter((data) =>
-  //     data.vehiclename.toLowerCase().includes(search.toLowerCase())
-  //   );
-  //   setFilteredProductData(filteredData);
-  // };
   const filterProductData = () => {
 
     const filteredData = productData.filter((data) =>
@@ -100,28 +92,7 @@ function Home({route}) {
       // Handle errors related to AsyncStorage
     }
   };
-  
-  // const fetchBikeDetails = async() => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   console.log("token",token)
-  //   const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes`;
-  
 
-  //   axios
-  //   .get(url, {
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.data) {
-  //         setProductData(response.data.user);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching bike details:', error);
-  //     });
-  // };
   const fetchBikeDetails = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
@@ -175,25 +146,28 @@ function Home({route}) {
 
   const handlelogout = async () => {
     setIsLoading(true); // Display loader
-    const zero=0
-    const randomValue = Math.random();
   
     try {
       // Execute the logout logic here
       await AsyncStorage.setItem('isloggedIn', 'false');
       await AsyncStorage.removeItem('token');
-      route.params.onLoginClick(zero);
+      route.params.onLoginClick(0);
       setIsLoading(false); // Hide loader
       console.log("device", deviceId);
   
       // Navigate to the OTP screen
-      navigation.navigate('Otp', { deviceId });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Otp', params: { deviceId } }],
+        })
+      );
     } catch (error) {
       console.error('Error during logout:', error);
       setIsLoading(false); // Hide loader in case of an error
     }
   };
-  const navigation = useNavigation(); // Get the navigation object
+
   const styles = StyleSheet.create({
     backgroundImage: {
       flex: 1,
@@ -206,65 +180,28 @@ function Home({route}) {
       height: verticalScale(50),
       marginTop: verticalScale(10),
       marginHorizontal: moderateScale(5),
-      // backgroundColor: isDarkTheme ? 'black' : 'white',
     },  
     searchInput: {
-      height: scale(30),
+      flex:1,
+      paddingVertical:verticalScale(2),
       color: '#f9f9f9',
       fontSize: moderateScale(16),
       width: moderateScale(200),
     },
     searchcontainer:{
       width: moderateScale(220),
-      height: scale(30),
-      gap:scale(2),
+      paddingVertical:verticalScale(0),
       paddingLeft:moderateScale(4),
       flexDirection: 'row',
       alignItems:'stretch',
       justifyContent:'space-between',
       borderRadius: moderateScale(6),
       backgroundColor: '#3D3C3C',
-      borderColor: '#979797', // White border
-      borderWidth: moderateScale(1), // 1 pixel border width
+      borderColor: '#979797',
+      borderWidth: moderateScale(1),
     },
-    // searchInput: {
-    //   height: 35,
-    //   marginTop: 32,
-    //   marginRight: 16,
-    //   color: 'white',
-    //   padding: 4,
-    //   fontSize: 16,
-    //   width: 250,
-    //   color: '#868687',
-    //   padding: 2,
-    //   borderRadius: 10,
-    //   backgroundColor: 'transparent', // Transparent background
-    //   borderColor: 'white', // White border
-    //   borderWidth: 1, // 1 pixel border width
-    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
-    // },
-    // searchcontainer:{
-    //   width: 250,
-    //   height: 35,
-    //   flexDirection: 'row',
-    //   alignItems:'center',
-    //   padding: 4,
-    //   borderRadius: 5,
-    //   backgroundColor: '#3D3C3C',
-    //   borderColor: 'rgba(249, 249, 249, 0.50)', // White border
-    //   borderWidth: 1, // 1 pixel border width
-    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
-    // },
-    // searchInput: {
-    //   color: '#868687',
-    //   padding: 2,
-    //   fontSize: 16,
-    //   // backgroundColor: isDarkTheme ? 'black' : 'white',
-    // },
-    loginButton: {
-      backgroundColor: '#3A3A3A', // Use the same background color as searchInput
-      // paddingVertical: 4,
-      // paddingHorizontal: 16,
+loginButton: {
+      backgroundColor: '#3A3A3A',
       height:scale(30),
       width:moderateScale(50),
       gap:scale(2),
@@ -273,16 +210,13 @@ function Home({route}) {
       alignItems: 'center',
       borderWidth:moderateScale(1),
       borderColor:'#979797'
-      // backgroundColor: isDarkTheme ? 'black' : 'white',
     },
     loginButtonText: {
-      color: '#f9f9f9', // Change the text color as needed
+      color: '#f9f9f9',
       fontWeight: '600',
       letterSpacing:moderateScale(0.4),
       fontSize:moderateScale(10),
-      // color: isDarkTheme ? 'white' : 'black',
     },
-  
   });
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
@@ -300,9 +234,6 @@ function Home({route}) {
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
           <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(30), width: scale(30),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
                       onPress={handleInventory}>
-                        {/* navigation.navigate('Inventory');
-                        console.log('Clicked on settings');
-                      }}> */}
               <Ionicons style={{color:'#f9f9f9'}} name='settings-outline' size={scale(20)} />
               </TouchableOpacity>
               <TouchableOpacity
@@ -321,7 +252,6 @@ function Home({route}) {
                 key={index}
                 style={{
                   backgroundColor: selectedSection === sec.Sectionname ? 'white' : 'gray',
-                  // backgroundColor: isDarkTheme ? '#333' : '#3498db',
                   borderWidth: 1,
                   borderColor: '#F9F9F9',
                   borderRadius: 10,
@@ -329,7 +259,7 @@ function Home({route}) {
                   margin: 5,
                   width: '30%',
                   marginBottom: 20,
-                  justifyContent: 'center', // Center the content vertically
+                  justifyContent: 'center',
                   alignItems: 'center'
                 }}
                 onPress={() => products(sec.Sectionname)}
@@ -346,14 +276,12 @@ function Home({route}) {
             <TouchableOpacity
             onPress={() => {
               carddata(item._id); // Handle any card data logic you need here
-               // Navigate to the Share screen
             }}
             style={{
               
               borderWidth: 1,
               borderColor:'#979797',
               backgroundColor: '#11111190',
-              // backgroundColor: isDarkTheme ? 'black' : 'white',
               height: 250,
               flex: 1,
               margin: 5,
@@ -373,28 +301,29 @@ function Home({route}) {
               />
               <View style={{ flex: 1, justifyContent: 'space-between', padding: 5, flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 600, textTransform: 'uppercase'}}>{item.vehiclename}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(14),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'capitalize',}}>{item.model}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
-                    <View style={{flexDirection:'row'}}>
-                    <Ionicons name="speedometer-outline" size={15} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                    <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
+                    <Ionicons name="speedometer-outline" size={scale(10)} color="#FFFFFF" />
+                    <Text style={{color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
                       {item.EngineCC} CC
                     </Text>
                     </View>
-                    <View style={{flexDirection:'row'}}>
-                    <Ionicons name="color-palette" size={15} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: 5 }}>
+                    <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
+                    <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
+                    <Text style={{color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
                       {item.vehiclecolor} 
                     </Text>
                    </View>
                   </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', fontSize: 10 }}>Price Starts from</Text>
+                  <Text style={{color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10)}}>Starts from</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: 18, paddingRight: 5 }} >{'\u20B9'}</Text>
-                  <Text style={{ color: '#FFFFFF', fontWeight: 500, fontSize: 18 }}>{item.exShowroomPrice}</Text>
+                    <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}} >{'\u20B9'}</Text>
+                  <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
                 </View>
                 </View>
               </View>
@@ -405,5 +334,4 @@ function Home({route}) {
     </ImageBackground>
   );
 }
-
 export default Home;

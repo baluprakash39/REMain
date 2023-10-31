@@ -1,4 +1,3 @@
-
 import React, { useState,useEffect } from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,8 +10,6 @@ import Share from './Components/Share';
 import AddVehicle from './Components/Addvehicle';
 import CompanyDetails from './Components/CompanyDetails';
 import Update from './Components/Update';
-import MyDropdown from './Components/Dropdown';
-import Dropdown from './Components/Dropdown';
 import SharePdf from './Components/SharePdf';
 import Otp from './Components/Otp';
 import Getstarted from './Components/Getstarted';
@@ -21,12 +18,10 @@ import Theme from './Components/Theme';
 import { ThemeProvider } from './ThemeContext'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {  ActivityIndicator, View,Text,Button, TouchableOpacity, StyleSheet } from 'react-native';
-// import { AuthProvider } from './AuthContext';
 import Otp2 from './Components/Otp2';
 import Modal from 'react-native-modal';
 import jwtDecode from 'jwt-decode';
 import { moderateScale, scale, verticalScale } from './Components/scaling';
-// import { AuthProvider } from './AuthContext';
 
 
 const Stack = createStackNavigator();
@@ -140,16 +135,13 @@ useEffect(() => {
     }, 1000);
   }
 }, [isLoggedIn,clickedValue]);
-
-
   //function that generate token every time and set to assync storage when click wait. 
   
- 
   const handleWait = async () => {
 
     const number = await AsyncStorage.getItem('phoneNo');
     const deviceId = await AsyncStorage.getItem('deviceId');
-    const serverUrl = 'https://vast-newt-crown.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+    const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
 
     try {
       const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
@@ -237,10 +229,8 @@ if (isLoading) {
 }
   return (
     <ThemeProvider> 
-       {/* <AuthProvider> */}
     <NavigationContainer>
     <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Inventory' : isLoggedIn === false ? 'Otp' : 'Getstarted'}>
-        {/* <Stack.Navigator initialRouteName={'Otp2'}> */}
         <Stack.Screen
           name="Inventory"
           component={Inventory}
@@ -310,27 +300,9 @@ if (isLoading) {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    {/* </AuthProvider> */}
     <Modal isVisible={showLogoutPopup}>
-        {/* <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
-          <View style={{marginBottom:verticalScale(30)}}>
-          <Text style={{ fontSize: moderateScale(16), fontWeight: '500', color: '#f9f9f9' }}>
-            Session will timeout in :{' '}
-            <Text style={{ fontSize: moderateScale(20), fontWeight: 'bold', color: 'crimson' }}>
-              {formatTime(timer)}
-            </Text>
-          </Text>
-        </View>
-        <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10)}}>
-          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>
-            <Text style={{color:'red',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Continue</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'crimson',justifyContent:'center',borderRadius:scale(5)}} onPress={handleLogout}>
-            <Text style={{color:'white',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Logout</Text>
-          </TouchableOpacity>
-          </View>
-        </View> */}
-                <View style={{ backgroundColor: 'black', padding: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'white',height:verticalScale(130),justifyContent:'center' }}>
+        <View style={{ flexDirection:'column',backgroundColor: 'black', paddingLeft: scale(10), borderRadius: scale(10),borderWidth:moderateScale(1),borderColor:'#f9f9f9',paddingVertical:verticalScale(50),justifyContent:'space-between' }}>
+          <View style={{flexDirection:'column'}}>
           <Text style={{fontSize: moderateScale(18), fontWeight: '600', color: '#f9f9f9'}}>Account security alert</Text>
           <View style={{marginBottom:verticalScale(30)}}>
             <Text style={{ fontSize: moderateScale(16), fontWeight: '500', color: '#868687' }}>
@@ -340,7 +312,8 @@ if (isLoading) {
               </Text>
             </Text>
           </View>
-        <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10)}}>
+          </View>
+        <View style={{gap:scale(10),flex:1,flexDirection:'row',height:verticalScale(50),justifyContent:'space-between',marginHorizontal:moderateScale(10),marginBottom:verticalScale(10)}}>
           <TouchableOpacity style={{height:verticalScale(40),width:moderateScale(120),backgroundColor:'white',justifyContent:'center',borderRadius:scale(5)}} onPress={handleWait}>
             <Text style={{color:'red',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>Continue</Text>
           </TouchableOpacity>
@@ -353,8 +326,4 @@ if (isLoading) {
     </ThemeProvider>
   );
 }
-
 export default App;
-
-
-

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, ScrollView } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -35,9 +34,7 @@ const CompanyDetails = () => {
     website: '',
     gstin: '', 
   });
-  
-
-  const [formErrors, setFormErrors] = useState({
+ const [formErrors, setFormErrors] = useState({
     companyname: '',
     companyaddress: '',
     streetname: '',
@@ -52,13 +49,6 @@ const CompanyDetails = () => {
   });
 
   console.log(formData)
-  
-
-
-
-
-
-
   const handleInputChange = (field, text) => {
     setFormData({ ...formData, [field]: text });
     setFormErrors({ ...formErrors, [field]: '' });
@@ -209,7 +199,7 @@ console.log('response',response)
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
-      <ScrollView>
+      
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={{alignContent: 'center' }}>
@@ -223,6 +213,7 @@ console.log('response',response)
           </View>
           </View>
           <View style={styles.line}></View>
+          <ScrollView>
           {/* Company Name */}
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) , marginTop: verticalScale(10) }}>
             <Text style={styles.subtitle}>Company Name</Text>
@@ -395,12 +386,13 @@ console.log('response',response)
             <TouchableOpacity style={styles.button} onPress={handleSubmit} >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(20) }}>
                 <FontAwesome6 name='address-card' size={scale(20)} color={'#111111'} />
-                <Text style={{ color: '#303030', fontSize: moderateScale(18), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Submit</Text>
+                <Text style={{ color: '#111111', fontSize: moderateScale(18), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Submit</Text>
               </View>
             </TouchableOpacity>
           </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+      
     </ImageBackground>
   );
 };
@@ -447,8 +439,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontWeight: '400',
     letterSpacing: moderateScale(0.2),
-    // borderWidth:1,
-    // borderColor:'red'
   },
   semicolon:{
     color: '#f9f9f9',
@@ -459,7 +449,6 @@ const styles = StyleSheet.create({
   },
   inputField: {
     flex: 1,
-    // height: 40,
     fontSize:moderateScale(14),
     paddingVertical:verticalScale(7),
     backgroundColor: '#f9f9f9',
@@ -467,36 +456,14 @@ const styles = StyleSheet.create({
     paddingLeft: moderateScale(10),
     color: '#111111',
   },
-  // bottombuttons: {
-  //   alignItems: 'center',
-  //   width: '100%',
-  //   height: 50,
-  //   marginTop: 50,
-  // },
-  // button: {
-  //   borderColor: '#f9f9f9',
-  //   backgroundColor: '#453F3F',
-  //   borderWidth: 1,
-  //   borderRadius: 6,
-  //   width: '70%',
-  //   height: 50,
-  //   padding: 10,
-  //   alignItems: 'center',
-  // },
-  // buttonText: {
-  //   color: '#111111',
-  //   fontSize: 18,
-  //   fontWeight: '500',
-  //   textAlign: 'center',
-  // },
   bottombuttons:{ 
     flexDirection: 'row', 
     justifyContent: 'center',
-    alignItems:'center',
-    // width:scale(330), 
+    alignItems:'center', 
     width:'100%',
     height:scale(40), 
     marginTop: verticalScale(40),
+    marginBottom:verticalScale(20),
     marginHorizontal: moderateScale(5),
   },
  button:{
@@ -504,14 +471,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#f9f9f9',
       borderWidth: moderateScale(1),
       borderRadius: scale(6),
-      // width: scale(170),
       width:'70%',
       height: scale(40),
       justifyContent:'center',
       alignItems:'center',
       gap: moderateScale(15),
       flexDirection:'row',
-      // marginLeft:scale(105)
     },
   errorText: {
     color: 'red',
@@ -520,5 +485,4 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
 });
-
 export default CompanyDetails;
