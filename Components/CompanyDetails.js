@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -121,7 +122,7 @@ const CompanyDetails = () => {
       try {
         const token = await AsyncStorage.getItem('token');
         // Send a POST request to your server's /dealerdetails endpoint
-        const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/dealerdetails', {
+        const response = await fetch(`${cyclicUrl}/dealerdetails/dealerdetails`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -158,7 +159,7 @@ console.log('response',response)
   const getDealer = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-      const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers', {
+      const response = await fetch(`${cyclicUrl}/dealerdetails/getdealers`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

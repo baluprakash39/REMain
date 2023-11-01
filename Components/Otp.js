@@ -9,6 +9,7 @@ import PhoneInput from 'react-native-phone-number-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
+import cyclicUrl from "../cylic/Cyclic";
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -53,7 +54,7 @@ const Otp = () => {
     setPhoneNumberError('');
   
     const number = phoneNumber.replace('+91', '');
-    const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+    const serverUrl = `${cyclicUrl}/registerPhoneNumber/checkPhoneNumberAndDevice`;
 
     try {
       const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {

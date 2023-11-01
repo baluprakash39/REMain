@@ -8,6 +8,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 import { color } from 'react-native-elements/dist/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import cyclicUrl from './cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 i18n.use(initReactI18next).init({
@@ -106,7 +107,7 @@ const Accessories = ({route}) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/acc?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/acc?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ const Accessories = ({route}) => {
         },
       ],
     };
-  fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/mirrors?_id=${Id}`, {
+  fetch(`${cyclicUrl}/formdetails/mirrors?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -182,7 +183,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/oil?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/oil?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -223,7 +224,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/wind?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/wind?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -264,7 +265,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/seats?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/seats?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -305,7 +306,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/back?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/back?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -346,7 +347,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/pan?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/pan?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -387,7 +388,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/foot?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/foot?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -428,7 +429,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/engine?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/engine?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -475,7 +476,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/sump?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/sump?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -516,7 +517,7 @@ const selectOilFillerCapValue = async (Id) => {
         },
       ],
     };
-    fetch(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/headlight?_id=${Id}`, {
+    fetch(`${cyclicUrl}/formdetails/headlight?_id=${Id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -545,7 +546,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
+    const url = `${cyclicUrl}/formdetails/getbike/${vehicleId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -570,7 +571,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/acc/${objId}/${safetyAccessoryId}`;
+    const url = `${cyclicUrl}/formdetails/acc/${objId}/${safetyAccessoryId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -598,7 +599,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/seats/${objId}/${seatId}`;
+    const url = `${cyclicUrl}/formdetails/seats/${objId}/${seatId}`;
     if (!token) {
     // Handle the case where the token is missing
     console.error('Token is missing. Please log in or fetch the token.');
@@ -629,7 +630,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/wind/${objId}/${windshieldId}`;
+    const url = `${cyclicUrl}/formdetails/wind/${objId}/${windshieldId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -660,7 +661,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/back/${objId}/${backrestId}`;
+    const url = `${cyclicUrl}/formdetails/back/${objId}/${backrestId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -691,7 +692,7 @@ const selectOilFillerCapValue = async (Id) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/engine/${objId}/${engineId}`;
+    const url = `${cyclicUrl}/formdetails/engine/${objId}/${engineId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -722,7 +723,7 @@ const deletesumpguard = async (objId, sumpId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/sump/${objId}/${sumpId}`;
+    const url = `${cyclicUrl}/formdetails/sump/${objId}/${sumpId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -753,7 +754,7 @@ const deletefoot = async (objId, footpegId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/foot/${objId}/${footpegId}`;
+    const url = `${cyclicUrl}/formdetails/foot/${objId}/${footpegId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -784,7 +785,7 @@ const deletefoot = async (objId, footpegId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/pan/${objId}/${panId}`;
+    const url = `${cyclicUrl}/formdetails/pan/${objId}/${panId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -815,7 +816,7 @@ const deletefoot = async (objId, footpegId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/mirrors/${objId}/${mirrorId}`;
+    const url = `${cyclicUrl}/formdetails/mirrors/${objId}/${mirrorId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -846,7 +847,7 @@ const deletefoot = async (objId, footpegId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/oil/${objId}/${oilId}`;
+    const url = `${cyclicUrl}/formdetails/oil/${objId}/${oilId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');
@@ -877,7 +878,7 @@ const deletefoot = async (objId, footpegId) => {
   try {
     // Retrieve the JWT token from AsyncStorage
     const token = await AsyncStorage.getItem('token');
-    const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/headlight/${objId}/${headId}`;
+    const url = `${cyclicUrl}/formdetails/headlight/${objId}/${headId}`;
     if (!token) {
       // Handle the case where the token is missing
       console.error('Token is missing. Please log in or fetch the token.');

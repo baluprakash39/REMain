@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { scale, moderateScale, verticalScale} from './scaling';
+import cyclicUrl from '../cylic/Cyclic';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import en from './locales/en.json';
@@ -121,7 +122,7 @@ const Update = () => {
     }
     if (!hasErrors) {
       const id = localdata._id;
-      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/updatebikes/${id}`;
+      const url = `${cyclicUrl}/formdetails/updatebikes/${id}`;
   
       try {
         const token = await AsyncStorage.getItem('token');

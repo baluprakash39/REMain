@@ -22,7 +22,7 @@ import Otp2 from './Components/Otp2';
 import Modal from 'react-native-modal';
 import jwtDecode from 'jwt-decode';
 import { moderateScale, scale, verticalScale } from './Components/scaling';
-
+import cyclicUrl from './cylic/Cyclic';
 
 const Stack = createStackNavigator();
 
@@ -141,7 +141,7 @@ useEffect(() => {
 
     const number = await AsyncStorage.getItem('phoneNo');
     const deviceId = await AsyncStorage.getItem('deviceId');
-    const serverUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/checkPhoneNumberAndDevice';
+    const serverUrl = `${cyclicUrl}/registerPhoneNumber/checkPhoneNumberAndDevice`;
 
     try {
       const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {

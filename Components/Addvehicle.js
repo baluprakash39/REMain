@@ -9,6 +9,7 @@ import  FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -61,7 +62,7 @@ const AddVehicle = () => {
         return;
       }
   
-      const response = await fetch('https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes', {
+      const response = await fetch(`${cyclicUrl}/bikes/bikes`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -152,7 +153,7 @@ const AddVehicle = () => {
         }
   
         // All required fields are filled, so you can send the POST request here
-        const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/uploadbikes';
+        const url = `${cyclicUrl}/formdetails/uploadbikes`;
   
         const userData = {
           vehiclename: vehicleName,

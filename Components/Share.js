@@ -10,6 +10,7 @@ import { Picker } from '@react-native-picker/picker';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import { RadioButton } from 'react-native-paper';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 i18n.use(initReactI18next).init({
@@ -62,6 +63,10 @@ const handlemobile=(text)=>{
     setmobileErr("Enter number only");
   }
 }
+const handleEmail = (text) => {
+  setEmailId(text);
+   setemailErr('');
+ }
 const [value, setValue] = useState(null);
 //date//
 const [enquiryDate, setEnquiryDate] = useState('');
@@ -267,102 +272,116 @@ console.log(formData)
 const [selectedTab, setSelectedTab] = useState('Style');
 // Define an array of options with labels and values, including the "Select" option
 const handleShare = async () => {
-    try {
+  try {
+    let isValid = true; // Declare isValid as a variable and initialize it to true
+
+    const phoneRegex = /^\d{10}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;// Basic email validation regex
+
+    if (!phoneRegex.test(mobilenumber)) {
+      setmobileErr('Phone number must have 10 digits');
+      isValid = false; // Set isValid to false when the validation fails
+    }
+
     // Validation checks for each input field
     if (!customername) {
       setCustomerNameErr('Please enter customer name');
+      isValid = false;
     }
     if (!address) {
       setadressErr('Please enter address');
-    }
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(mobilenumber)) {
-      setmobileErr('Phone number must have 10 digits');
       isValid = false;
     }
 
     if (!mobilenumber) {
       setmobileErr('Please enter mobile number');
+      isValid = false;
     }
 
     if (!emailid || !emailRegex.test(emailid)) {
-      setemailErr('Please enter a valid email address');
+      if (!emailid) {
+        setemailErr('Please enter email');
+      } else {
+        setemailErr('Please enter a valid email address');
+      }
       isValid = false;
     }
-    else{ // Store the formData in AsyncStorage
-      await AsyncStorage.setItem('formData', JSON.stringify(formData));
-      // Navigate to the SharePdf screen and pass formData as a parameter
-      navigation.navigate('SharePdf', { 
-        formData,
-        customername,
-        address,
-        mobilenumber,
-        emailid,
-        enquiryDate,
-        exShowroomPrice,
-        roadtax,
-        Vehiclecolor,
-        EngineCC,
-        adminallimage,
-        vehiclename,
-        model,
-        companyaddress,
-        companyname,
-        city,
-        contactnumber,
-        gstin,
-        country,
-        dealeremailid,
-        pincode,
-        state,
-        streetname,
-        website,
-        registration,
-        ins,
-        instext,
-        hype,
-        hypetext,
-        exwarrantytext,
-        reimage,
-        totalonroad,
-        grandtotal,
-        B,
-        selectedOption,
-        selectedMirrorstext,
-        selectedMirrorsvalue,
-        selectedOilFillerCapText,
-        selectedOilFillerCapValue,
-        selectedHeadLightText,
-        selectedHeadLightValue,
-        selectedWindshieldsText,
-        selectedWindshieldsValue,
-        selectedPanniersText,
-        selectedPanniersValue,
-        selectedSeatsText,
-        selectedSeatsValue,
-        selectedBackrestText,
-        selectedBackrestValue,
-        selectedFootPegsText,
-        selectedFootPegsValue,
-        selectedEngineGuardsText,
-        selectedEngineGuardsValue,
-        selectedSumpGuardsText,
-        selectedSumpGuardsValue,
-        selectedSafetyAccessoriesText,
-        selectedSafetyAccessoriesValue,
-      });
-    }
-    } catch (error) {
-      console.error('Error storing formData:', error);
-    }
-  };
+    
+    if (isValid) {
+
+    // Navigate to the SharePdf screen and pass formData as a parameter
+    navigation.navigate('SharePdf', { 
+      // formData,
+      customername,
+      address,
+      mobilenumber,
+      emailid,
+      enquiryDate,
+      exShowroomPrice,
+      roadtax,
+      Vehiclecolor,
+      EngineCC,
+      adminallimage,
+      vehiclename,
+      model,
+      companyaddress,
+      companyname,
+      city,
+      contactnumber,
+      gstin,
+      country,
+      dealeremailid,
+      pincode,
+      state,
+      streetname,
+      website,
+     registration,
+      ins,
+      instext,
+      hype,
+      hypetext,
+      exwarrantytext,
+      reimage,
+      totalonroad,
+      grandtotal,
+      B,
+      selectedOption,
+      selectedMirrorstext,
+      selectedMirrorsvalue,
+      selectedOilFillerCapText,
+      selectedOilFillerCapValue,
+      selectedHeadLightText,
+      selectedHeadLightValue,
+      selectedWindshieldsText,
+      selectedWindshieldsValue,
+      selectedPanniersText,
+      selectedPanniersValue,
+      selectedSeatsText,
+      selectedSeatsValue,
+      selectedBackrestText,
+      selectedBackrestValue,
+      selectedFootPegsText,
+      selectedFootPegsValue,
+      selectedEngineGuardsText,
+      selectedEngineGuardsValue,
+      selectedSumpGuardsText,
+      selectedSumpGuardsValue,
+      selectedSafetyAccessoriesText,
+      selectedSafetyAccessoriesValue,
+
+
+    });
+  }
+  } catch (error) {
+    console.error('Error storing formData:', error);
+  }
+};
 const fetchBikeDetails = async (vehicleId) => {
     try {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
+      const url = `${cyclicUrl}/formdetails/getbike/${vehicleId}`;
       
       const response = await axios.get(url, {
         headers: {
@@ -405,7 +424,7 @@ const fetchData = async () => {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
       // Make a GET request to your API endpoint with the token in the headers
-      const response = await axios.get('https://dull-pink-hermit-crab-hat.cyclic.app/dealerdetails/getdealers', {
+      const response = await axios.get(`${cyclicUrl}/dealerdetails/getdealers`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -499,18 +518,18 @@ return (
               keyboardType='number-pad'
             />
           </View>
-            {mobileErr? <Text style={styles.errorText}>{mobileErr}</Text> : null}
+          {mobileErr? <Text style={styles.errorText}>{mobileErr}</Text> : null}
           <View style={styles.cardContent}>
             <Text style={styles.labelText}>Email-id :</Text>
             <TextInput
               style={styles.input}
               value={emailid}
-              onChangeText={setEmailId}
+              onChangeText={(text)=>handleEmail(text)}
               placeholder="example@email.com"
               selectionColor="red"
               placeholderTextColor={'#868687'}
             />
-            </View>
+          </View>
           {emailErr? <Text style={styles.errorText}>{emailErr}</Text> : null}
         </View>
         <View style={styles.imageCard}>
@@ -722,6 +741,7 @@ return (
                         key={mirror._id}
                         label={`${mirror.mirrorstext} - ₹ ${mirror.mirrorsvalue}`}
                         value={mirror.mirrorstext}
+                        style={{ color: '#111111' }}
                       />
                       ))}
                     </Picker>
@@ -748,6 +768,7 @@ return (
                         key={oil._id}
                         label={`${oil.oilfillercaptext} - ₹ ${oil.oilfillercapvalue}`}
                         value={oil.oilfillercaptext}
+                        style={{ color: '#111111' }}
                       />
                      ))}
                     </Picker>
@@ -774,6 +795,7 @@ return (
                         key={headlight._id}
                         label={`${headlight.headlighttext} - ₹ ${headlight.headlightvalue}`}
                         value={headlight.headlighttext}
+                        style={{ color: '#111111' }}
                       />
                       ))}
                     </Picker>
@@ -804,6 +826,7 @@ return (
                       key={windshield._id}
                       label={`${windshield.windshieldstext} - ₹ ${windshield.windshieldsvalue}`}
                       value={windshield.windshieldstext}
+                      style={{ color: '#111111' }}
                     />
                   ))}
                 </Picker>
@@ -830,6 +853,7 @@ return (
                       key={pannier._id}
                       label={`${pannier.pannierstext} - ₹ ${pannier.panniersvalue}`}
                       value={pannier.pannierstext}
+                      style={{ color: '#111111' }}
                     />
                   ))}
                 </Picker>
@@ -856,6 +880,7 @@ return (
                       key={seat._id}
                       label={`${seat.seatstext} - ₹ ${seat.seatsvalue}`}
                       value={seat.seatstext}
+                      style={{ color: '#111111' }}
                     />
                   ))}
                 </Picker>
@@ -882,6 +907,7 @@ return (
                       key={backrest._id}
                       label={`${backrest.backreststext} - ₹ ${backrest.backrestsvalue}`}
                       value={backrest.backreststext}
+                      style={{ color: '#111111' }}
                     />
                   ))}
                 </Picker>
@@ -908,6 +934,7 @@ return (
                     key={footpeg._id}
                     label={`${footpeg.footpegstext} - ₹ ${footpeg.footpegsvalue}`}
                     value={footpeg.footpegstext}
+                    style={{ color: '#111111' }}
                   />
                   ))}
                 </Picker>
@@ -938,6 +965,7 @@ return (
                   key={engineGuard._id}
                   label={`${engineGuard.enginegaurdstext} - ₹ ${engineGuard.enginegaurdsvalue}`}
                   value={engineGuard.enginegaurdstext}
+                  style={{ color: '#111111' }}
                 />
               ))}
             </Picker>
@@ -964,6 +992,7 @@ return (
                   key={sumpGuard._id}
                   label={`${sumpGuard.sumpgaurdstext} - ₹ ${sumpGuard.sumpgaurdsvalue}`}
                   value={sumpGuard.sumpgaurdstext}
+                  style={{ color: '#111111' }}
                 />
               ))}
             </Picker>
@@ -990,6 +1019,7 @@ return (
                   key={safetyAccessory._id}
                   label={`${safetyAccessory.safetyaccessoriestext} - ₹ ${safetyAccessory.safetyaccessoriesvalue}`}
                   value={safetyAccessory.safetyaccessoriestext}
+                  style={{ color: '#111111' }}
                 />
               ))}
             </Picker>

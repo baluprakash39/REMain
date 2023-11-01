@@ -9,8 +9,7 @@ import { StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
-
-
+import cyclicUrl from '../cylic/Cyclic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import Home from './Home';
@@ -162,7 +161,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
+      const apiUrl = `${cyclicUrl}/bikes/bikes`;
   
       // Make the API request with the 'Authorization' header
       const response = await fetch(apiUrl, {
@@ -192,7 +191,7 @@ function Inventory() {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes';
+      const apiUrl = `${cyclicUrl}/formdetails/getbikes`;
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -223,7 +222,7 @@ function Inventory() {
         const token = await AsyncStorage.getItem('token');
         
         // Set the API endpoint URL
-        const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`;
+        const apiUrl = `${cyclicUrl}/formdetails/getbikes/${section}`;
 
         // Make the API request with the 'Authorization' header
         axios
@@ -280,7 +279,7 @@ const deleteProduct = (Id) => {
               text: 'Delete',
               onPress: () => {
                 // Define your API endpoint URL
-                const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/deletebikes/${Id}`;
+                const apiUrl = `${cyclicUrl}/formdetails/deletebikes/${Id}`;
   
                 // Send a DELETE request to the API endpoint with the token in headers
                 fetch(apiUrl, {
@@ -356,7 +355,7 @@ const deleteProduct = (Id) => {
         name: result[0].name,
       });
   
-      const apiUrl = `https://dull-pink-hermit-crab-hat.cyclic.app/upload/upload/${Id}`;
+      const apiUrl = `${cyclicUrl}/upload/upload/${Id}`;
   
       const response = await fetch(apiUrl, {
         method: 'POST',

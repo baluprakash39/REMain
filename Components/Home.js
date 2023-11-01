@@ -11,6 +11,7 @@ import { useTheme } from '../ThemeContext';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import { CommonActions } from '@react-navigation/native';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -71,7 +72,7 @@ function Home({route}) {
         return;
       }
   
-      const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/bikes/bikes';
+      const url = `${cyclicUrl}/bikes/bikes`;
   
       fetch(url, {
         headers: {
@@ -99,7 +100,7 @@ function Home({route}) {
       const token = await AsyncStorage.getItem('token');
       
       // Set the API endpoint URL
-      const apiUrl = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes';
+      const apiUrl = `${cyclicUrl}/formdetails/getbikes`;
 
       // Make the API request with the 'Authorization' header
       const response = await axios.get(apiUrl, {
@@ -127,7 +128,7 @@ function Home({route}) {
   const products = (section) => {
     setSelectedSection(section);
     setAcc(section);
-    axios.get(`https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbikes/${section}`, {
+    axios.get(`${cyclicUrl}/formdetails/getbikes/${section}`, {
       
         headers: {
           'Access-Control-Allow-Origin': '*',

@@ -5,6 +5,7 @@ import Share from 'react-native-share';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 import Registration from './Registration';

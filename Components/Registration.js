@@ -7,6 +7,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 import DeviceInfo from 'react-native-device-info'; // Import the DeviceInfo module
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -111,7 +112,7 @@ const handleAddDetails = async () => {
       deviceId: deviceUniqueid, // Use the deviceUniqueId
     };
 
-    fetch('https://dull-pink-hermit-crab-hat.cyclic.app/registerPhoneNumber/registerPhoneNumber', {
+    fetch(`${cyclicUrl}/registerPhoneNumber/registerPhoneNumber`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

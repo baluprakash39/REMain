@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 
@@ -40,7 +41,7 @@ const Care = ({route}) => {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
   
-      const url = `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/getbike/${vehicleId}`;
+      const url = `${cyclicUrl}/formdetails/getbike/${vehicleId}`;
   
       const response = await axios.get(url, {
         headers: {
@@ -157,7 +158,7 @@ const Care = ({route}) => {
   
       // Make the POST request to your API endpoint
       const response = await axios.post(
-        `https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/uploadcare/${vehicleId}`,
+        `${cyclicUrl}/formdetails/uploadcare/${vehicleId}`,
         data,
         {
           headers: {
