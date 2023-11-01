@@ -18,7 +18,6 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
 });
 function Getstarted() {
- 
 const navigation = useNavigation()
 const {t} = useTranslation();
 
@@ -71,7 +70,7 @@ const handlegetstart = async() => {
               style={styles.image3}
               resizeMode="cover"
             />
-           <Text style={styles.subtext1}>{t('getstart3')}</Text>
+            <Text style={styles.subtext1}>{t('getstart3')}</Text>
           </View>
         </Swiper>
       

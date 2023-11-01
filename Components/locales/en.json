@@ -7,11 +7,12 @@
     "getstart3":"You can effortlessly exchange detailed information about vehicles, including specifications and pricing details. This user-friendly feature simplifies the process, making it convenient for users to access and share essential information about various vehicles quickly and efficiently.",
     "gsbottontext":"Let's start",
     "otpheader":"Login",
-    "otphdsubtext":"Enter mobile number for OTP",
+    "otphdsubtext":"Enter Mobile number for OTP",
     "otpbottomtxt1":"Don't have an account ?",
     "otpbottomtxt2":"Register",
     "otpbtntext":"Send OTP",
     "otp2header":"Enter OTP",
     "otp2hdsubtext":"6 digit OTP sent to your number",
-    "otp2btntext":"Verify OTP"
+    "otp2btntext":"Verify OTP",
+    "accheader":"Vehicle Accessories"
 }

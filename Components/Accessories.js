@@ -8,7 +8,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 import { color } from 'react-native-elements/dist/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {initReactI18next, useTranslation} from 'react-i18next';
-import cyclicUrl from './cylic/Cyclic';
+import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 i18n.use(initReactI18next).init({
@@ -22,7 +22,6 @@ i18n.use(initReactI18next).init({
 const Accessories = ({route}) => {
   const {t} = useTranslation();
   const {vehicleId} =route.params
-  console.log("v",vehicleId)
   const navigation = useNavigation(); // Initialize navigation
   const [reloadKey, setReloadKey] = useState(0); 
   useEffect(() => {}, [reloadKey]);
@@ -129,7 +128,7 @@ const Accessories = ({route}) => {
     setInput2Error(''); // Clear error when value is selected
     toggleSafetyAccessoriesDropdown();
   };
- const selectMirrorsValue = async (Id) => {
+const selectMirrorsValue = async (Id) => {
   if (!input19 || !input20) {
     setInput19Error('This field is required');
     setInput20Error('This field is required');
@@ -680,7 +679,7 @@ const selectOilFillerCapValue = async (Id) => {
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
-     } else {
+    } else {
       console.error('Error deleting backrest:', response.statusText);
       // Handle error
       }
@@ -922,7 +921,7 @@ const deletefoot = async (objId, footpegId) => {
   // Check if the input contains any numbers
   if (/\d/.test(text)) {
     setInput20(text)
-   setInput20Error();
+    setInput20Error();
   } else {
     setInput20('')
     setInput20Error("Enter number only");
@@ -962,7 +961,7 @@ const deletefoot = async (objId, footpegId) => {
   // Check if the input contains any numbers
   if (/\d/.test(text)) {
     setInput24(text)
-     setInput24Error();
+    setInput24Error();
     } else {
     setInput24('')
     setInput24Error("Enter number only");
@@ -1140,7 +1139,7 @@ return (
                 </TouchableOpacity>
               </View>
               <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
-                <Text style={styles.title}>Vehicle Accessories</Text>
+                <Text style={styles.title}>{t('accheader')}</Text>
               </View>
             </View>
             <View style={styles.line}></View>
@@ -1168,7 +1167,7 @@ return (
               </View>
             <Text style={styles.accessoriesText}>Available Accessories</Text>
      {/* Add tabs for Style, Comfort, and Protection */}
-     <View style={{ borderWidth:moderateScale(1), borderColor: '#868687',backgroundColor: 'rgba(249, 249, 249, 0.30)', borderRadius:moderateScale(5),padding:moderateScale(5) }}>
+    <View style={{ borderWidth:moderateScale(1), borderColor: '#868687',backgroundColor: 'rgba(249, 249, 249, 0.30)', borderRadius:moderateScale(5),padding:moderateScale(5) }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch' }}>
             <Text style={{ ...styles.tab, backgroundColor: selectedTab === 'Style' ? '#F9F9F9' : '#868687' }} onPress={() => setSelectedTab('Style')}>
               Style
@@ -1325,7 +1324,7 @@ return (
               </TouchableOpacity>
               <View style={{ padding:scale(3) }}>
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), textAlign: 'center' }}>{oil.oilfillercaptext}</Text>
-                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), textAlign: 'center' }}>{oil.oilfillercapvalue}</Text>
+                <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), textAlign: 'center' }}>{oil.oilfillercapvalue}</Text>
               </View>
             </View>
           </View>
@@ -1556,14 +1555,8 @@ return (
   </View>
 ))}
 </View>
-
-
-
-
-
         </View>
       )}
-
       {/* Backrests Dropdown */}
       <TouchableOpacity onPress={toggleBackrestsDropdown}>
       <View style={styles.dropdown}>
@@ -1702,7 +1695,6 @@ return (
 {data.panniers.map((pan, panIndex) => (
   <View key={panIndex}>
                 <View style={{borderWidth:moderateScale(1), borderColor:'#f9f9f9', alignItems:'flex-end', margin:scale(3), borderRadius:moderateScale(5)}}>
-
     <TouchableOpacity onPress={() => deletepanniers(data._id,pan._id)} style={{padding:scale(1)}}>
     <Ionicons name='close-circle' size={scale(12)} style={{color:'#f9f9f9'}} />
       </TouchableOpacity>
@@ -1714,10 +1706,8 @@ return (
   </View>
 ))}
 </View>
-
         </View>
       )}
-
       {/* Footpegs Dropdown */}
       <TouchableOpacity onPress={toggleFootpegsDropdown}>
       <View style={styles.dropdown}>
@@ -1780,7 +1770,6 @@ return (
 {data.footpegs.map((foot, footIndex) => (
   <View key={footIndex}>
                 <View style={{borderWidth:moderateScale(1), borderColor:'#f9f9f9', alignItems:'flex-end', margin:scale(3), borderRadius:moderateScale(5)}}>
-
     <TouchableOpacity onPress={() => deletefoot(data._id,foot._id)} style={{padding:scale(1)}}>
     <Ionicons name='close-circle' size={scale(12)} style={{color:'#f9f9f9'}} />
           </TouchableOpacity>
@@ -1794,12 +1783,9 @@ return (
 </View>
         </View>
       )}
-
         </>
       )}
-
     {selectedTab === 'Protection' && (
-        
         <>
            {/* Engine Guards Dropdown */}
       <TouchableOpacity onPress={toggleEngineGuardsDropdown}>
@@ -1863,7 +1849,6 @@ return (
 {data.enginegaurds.map((engine, engineIndex) => (
   <View key={engineIndex}>
                 <View style={{borderWidth:moderateScale(1), borderColor:'#f9f9f9', alignItems:'flex-end', margin:scale(3), borderRadius:moderateScale(5)}}>
-
     <TouchableOpacity onPress={() => deleteEngine(data._id,engine._id)} style={{padding:scale(1)}}>
     <Ionicons name='close-circle' size={scale(12)} style={{color:'#f9f9f9'}} />
           </TouchableOpacity>
@@ -1875,13 +1860,8 @@ return (
   </View>
 ))}
 </View>
-
-
-
-
         </View>
       )}
-
       {/* Sump Guards Dropdown */}
       <TouchableOpacity onPress={toggleSumpGuardsDropdown}>
       <View style={styles.dropdown}>
@@ -1958,7 +1938,6 @@ return (
         </View>
       )}
       {/* Safety Accessories Dropdown */}
-     
 <TouchableOpacity onPress={toggleSafetyAccessoriesDropdown}>
 <View style={styles.dropdown}>
       <Text style={styles.dropdownText}>
@@ -1993,7 +1972,6 @@ return (
                   handlesaftychangetext(text);
                   setInput1Error(''); // Clear the error message when text changes
                   }} />
-              
                   {input1Error ? <Text style={styles.errorText}>{input1Error}</Text> : null}
               </View>
               <View style={{flexDirection:'column', paddingBottom:moderateScale(2)}}>
@@ -2025,7 +2003,6 @@ return (
           {data.safetyaccessories.map((safty, saftyIndex) => (
             <View key={saftyIndex}>
                 <View style={{borderWidth:moderateScale(1), borderColor:'#f9f9f9', alignItems:'flex-end', margin:scale(3), borderRadius:moderateScale(5)}}>
-
                 <TouchableOpacity onPress={() => handleRemovesafty(data._id, safty._id)} style={{padding:scale(1)}}>
                 <Ionicons name='close-circle' size={scale(12)} style={{color:'#f9f9f9'}} />
                 </TouchableOpacity>
@@ -2039,22 +2016,16 @@ return (
         </View>
       </View>
     )}
-
-
         </>
       )}
-
-</View>
-
+      </View>
     </View>
-     ))}
+    ))}
     </ScrollView>
   </ImageBackground>
 );
 };
-
 const styles = StyleSheet.create({
-
 backgroundImage: {
   flex: 1,
   resizeMode: 'cover',
@@ -2131,7 +2102,6 @@ dropdownText: {
   letterSpacing: moderateScale(0.4),
   paddingLeft: moderateScale(5),
 },
-
 inputField: {
   height: verticalScale(40),
   width: moderateScale(180),

@@ -24,7 +24,7 @@ i18n.use(initReactI18next).init({
 
 const Otp = () => {
   const { t } = useTranslation();
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
@@ -49,13 +49,12 @@ const Otp = () => {
   console.log('deviceId', deviceId);
 
   const sendVerification = async () => {
-   
   
     setPhoneNumberError('');
   
     const number = phoneNumber.replace('+91', '');
     const serverUrl = `${cyclicUrl}/registerPhoneNumber/checkPhoneNumberAndDevice`;
-
+    setIsLoading(true); // Start loading
     try {
       const response = await fetch(`${serverUrl}?phoneNumber=${number}&deviceId=${deviceId}`, {
         method: 'GET',
@@ -81,7 +80,7 @@ const Otp = () => {
         if (data.status === 'allowed') {
           if (data.data.adminaccept === true) {
             const phoneProvider = new firebase.auth.PhoneAuthProvider();
-
+            
             // Verify the phone number using reCAPTCHA
             try {
               const verificationId = await phoneProvider.verifyPhoneNumber(
@@ -114,6 +113,9 @@ const Otp = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+    }
+    finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -153,10 +155,9 @@ const Otp = () => {
           />
           {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
         </View>
-
-                <View style={styles.sendbutton}>
-                    <TouchableOpacity style={{ ...styles.sendVerification}} onPress={() => { handleSendVerification(); getPhoneNumber() }}>
-          <Text style={styles.buttonText}>{t('otpbtntext')}</Text>
+      <View style={styles.sendbutton}>
+        <TouchableOpacity style={{ ...styles.sendVerification }} onPress={() =>{handleSendVerification();getPhoneNumber();}}disabled={isLoading}>
+          <Text style={styles.buttonText}>{isLoading ? 'Sending OTP...' : t('otpbtntext')}</Text>
         </TouchableOpacity>
           </View>
                 <View style={styles.container2}>

@@ -1,4 +1,4 @@
- import {useState, useEffect} from 'react';                           
+import {useState, useEffect} from 'react';                           
 import { View, Button,  Text,  StyleSheet, ScrollView, Image} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
@@ -2009,28 +2009,27 @@ const SharePdf = ({route}) => {
       console.error('Error sharing PDF:', error);
     }
   };
- return(
-  
-     <ScrollView horizontal={true}>
-          <View style={{flexDirection:'row'}}>
-      <ScrollView contentContainerStyle={styles.page}>
-        
+return(
+<ScrollView horizontal={true}>
+  <View style={{flexDirection:'row'}}>
+    <ScrollView contentContainerStyle={styles.page}>
       <View style={styles.bodypage}> 
-    <View style={styles.heading}>     
-    <View style={styles.container1}>  
-    <View style={styles.header}> 
-      <Text style={styles.headerText}>Quotation</Text>
-    </View> 
-    <Image source={{ uri: Url }} style={styles.relogo} />
-  </View> 
-  <View style={styles.container2}>  
-    <View style={styles.customerdetailscontainer}>  
+        <View style={styles.heading}>     
+          <View style={styles.container1}>  
+            <View style={styles.header}> 
+              <Text style={styles.headerText}>Quotation</Text>
+            </View>
+            <View style={styles.re}>
+            <Image source={{ uri: Url }} style={styles.relogo} />
+            </View>
+          </View> 
+          <View style={styles.container2}>
+    <View style={styles.customerdetailscontainer}>
       <Text style={styles.header2Text}>Customer details</Text>
       <Text style={ styles.headersubtext}>{customername}</Text>
       <Text style={ styles.headersubtext}>{address}</Text>
       <Text style={ styles.headersubtext}>{mobilenumber}</Text>
-      <Text style={ styles.headersubtext}>{emailid}</Text>  
-      
+      <Text style={ styles.headersubtext}>{emailid}</Text>
     </View> 
   <View style={styles.companydetailscontainer}>                        
     <Text style={styles.showroomnameText}>{companyname}</Text>
@@ -2413,38 +2412,37 @@ const SharePdf = ({route}) => {
    </View>
 <View style={styles.Gstindashandnumber}>
   <Text style={styles.gstdash}></Text>
-   <View style={styles.GSTINandNumbercontainer}>
+  <View style={styles.GSTINandNumbercontainer}>
       <View style={styles.gstinTextcontainer}>
-    <Text style={styles.gstinText}>GSTIN :</Text>
-    </View>
-    <View style={styles.gstinnumbercontainer}>
-    <Text style={styles.gstinText}>{gstin}</Text>
-    </View>
-   </View>
+        <Text style={styles.gstinText}>GSTIN :</Text>
+      </View>
+      <View style={styles.gstinnumbercontainer}>
+        <Text style={styles.gstinText}>{gstin}</Text>
+      </View>
+  </View>
 </View>
-   </View>
-   <View style={styles.footer}>
+</View>
+  <View style={styles.footer}>
     <View style={styles.website}>
-    <Text style={styles.websiteText}>{website}</Text>
+      <Text style={styles.websiteText}>{website}</Text>
     </View>
     <View style={styles.companyemail}>
       <Text style={styles.companyemailText}>{dealeremailid}</Text>
     </View>
-   </View>
-   </View>
+  </View>
+</View>
   <Button title="Share as PDF" onPress={handleSharePDF} />
   </ScrollView>
   </View>
 </ScrollView>
 
- )
+)
 }
 
 const styles = StyleSheet.create({
   bodypage: {
-    padding:5,
     width: 595,
-    height: 1065,
+    flex:1,
     justifyContent: 'center',
     marginLeft:90,
     backgroundColor: '#ffffff',
@@ -2462,14 +2460,15 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   re: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    width: 250,
+    height: 80,
+    alignItems:'center',
+    justifyContent:'center',
   },
   relogo: {
     alignSelf: 'stretch',
     borderRadius: 5,
-    width: 154,
-    height: 50,
+    flex:1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -2493,19 +2492,19 @@ const styles = StyleSheet.create({
   container1: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 595,
-    padding: 0,
-    paddingHorizontal: 32,
+    width: '100%',
+    paddingHorizontal: 10,
     alignItems: 'center',
+    textAlignVertical:'center',
   },
   header: {
-        flexDirection: 'column',
+    flexDirection: 'column',
     alignItems: 'flex-start',
   },
   headerText: {
     color: '#1A1C21',
     fontFamily: 'Poppins',
-    fontSize: 10,
+    fontSize: 32,
     fontStyle: 'normal',
     fontWeight: '800',
     lineHeight: 32,
@@ -2514,20 +2513,18 @@ const styles = StyleSheet.create({
   container2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 595,
+    width: '100%',
     padding: 0,
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
     alignItems: 'center',
   },
   customerdetailscontainer: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginVertical: 2,
   },
   companydetailscontainer: {
     flexDirection: 'column',
     alignItems: 'flex-end',
-    marginRight: 10,
   },
   header2Text: {
     color: '#1A1C21',
@@ -2574,12 +2571,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 12,
   },
- optionaladdoncontainer:{
-   borderRadius: 12,
+  optionaladdoncontainer:{
+    borderRadius: 12,
     borderWidth: 0.5,
     borderColor: '#D7DAE0',
     marginTop:2,
- },
+  },
   showroomnameText: {
     color: '#4C63ED',
     fontFamily: 'Poppins',
@@ -2886,13 +2883,14 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems: 'flex-start',
     height: 120,
-    padding: 5,
+    paddingVertical: 5,
+    justifyContent:'space-between',
   },
- onroadtotalpricecontainer: {
+onroadtotalpricecontainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-     borderTopLeftRadius:12,
-     borderTopRightRadius:12,
+    borderTopLeftRadius:12,
+    borderTopRightRadius:12,
     borderBottomWidth: 0.5,
     borderColor: '#D7DAE0',
   },
@@ -2994,7 +2992,6 @@ gstdash:{
     paddingRight: 5,
     justifyContent:'center',
     alignItems:'center',
-
   },
   companyText: {
     color: '#1A1C21',
@@ -3011,7 +3008,7 @@ gstdash:{
     flexDirection: 'row',
     justifyContent:'center',
     alignItems:'flex-start',
-    marginRight:15
+    marginRight:40
   },
   contactgst:{
     flexDirection: 'row',
@@ -3037,17 +3034,17 @@ gstdash:{
     justifyContent: 'space-between',
     alignItems:'center',
     flexShrink:0,
-   },
-   companyemail:{
+  },
+  companyemail:{
     width: 156,
     justifyContent:'space-between',
     alignItems:'center',
     flexShrink:0,
-   },
-   footer: {
+  },
+  footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 585,
+    width: '100%',
     height: 30,
     paddingLeft: 32,
     paddingRight: 32,

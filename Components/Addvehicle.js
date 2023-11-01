@@ -212,208 +212,176 @@ const AddVehicle = () => {
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
-
         <View>
-               <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
-                  <View style={styles.header}>
-                      <View style={{alignContent: 'center' }}>
-                        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-                          <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ justifyContent: 'center',  height:verticalScale(25)}}>
-                      <Text style={styles.title}>Add Vehicle</Text>
-                    </View>
-                    <View></View>
-                  </View>
-                  <View style={styles.line}></View>
-                </View>
+          <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
+            <View style={styles.header}>
+              <View style={{alignContent: 'center' }}>
+                <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+                  <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
+                </TouchableOpacity>
+              </View>
+              <View style={{ justifyContent: 'center',  height:verticalScale(25)}}>
+                <Text style={styles.title}>Add Vehicle</Text>
+              </View>
+              <View></View>
+            </View>
+            <View style={styles.line}></View>
+          </View>
         </View>
         <ScrollView>
-        <View>
-        <View style={{ flexDirection: 'column', marginTop: verticalScale(10),marginHorizontal:moderateScale(10)}}>
-          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
-            <Text style={styles.subtitle}>Select Section</Text>
-
-            <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
-              <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                dropdownTextStyle={{ color: '#111111', backgroundColor:'red' }}
-                inputSearchStyle={styles.inputSearchStyle}
-                data={sections
-                  .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
-                  .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
-                }
-                search
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder="Select Section"
-                searchPlaceholder="Search..."
-                value={value}
-                onChange={(item) => {
-                  setValue(item.value);
-                  setSectionError(''); // Clear the error message
-                }}
-              />
-            </View>
-
-          </View>
-          <Text style={styles.errorText}>{sectionError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.subtitle}>Vehicle Name</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Vehicle Name"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={vehicleName}
-              onChangeText={(text) => {
-                setVehicleName(text);
-                setVehicleNameError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{vehicleNameError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-            <Text style={styles.subtitle}>Model Name</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Name/Number"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={modelName}
-              onChangeText={(text) => {
-                setModelName(text);
-                setModelNameError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{modelNameError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-            <Text style={styles.subtitle}>Engine CC</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Engine CC"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={engineCC}
-              onChangeText={(text) => {
-                setEngineCC(text);
-                setEngineCCError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{engineCCError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
-            <Text style={styles.subtitle}>Color</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Color"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={color}
-              onChangeText={(text) => {
-                setColor(text);
-                setColorError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{colorError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center',}}>
-            <Text style={styles.subtitle}>Ex-Showroom Price</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Value"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={exShowroomPrice}
-              onChangeText={(text) => {
-                setExShowroomPrice(text);
-                setExShowroomPriceError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{exShowroomPriceError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.subtitle}>Road tax</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Value"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={roadTax}
-              onChangeText={(text) => {
-                setRoadTax(text);
-                setRoadTaxError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{roadTaxError}</Text>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.subtitle}>Registration(fixed)</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Value"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={registration}
-              onChangeText={(text) => {
-                setRegistration(text);
-                setRegistrationError(''); // Clear the error message
-              }}
-            />
-          </View>
-          <Text style={styles.errorText}>{registrationError}</Text>
-
-          
-        </View>
-        </View>
-        </ScrollView>
-        <View style={styles.bottombuttons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={addVehicle} // Add the addVehicle function to the onPress handler
-            >
-                <View style={{ flexDirection: 'row', alignItems: 'center',gap: scale(20)}}>
-                  <FontAwesome6 name='motorcycle' size={scale(15)} color={'#111111'} />
-                  <Text style={styles.buttonText}>Add Vehicle</Text>
+          <View>
+            <View style={{ flexDirection: 'column', marginTop: verticalScale(10),marginHorizontal:moderateScale(10)}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+                <Text style={styles.subtitle}>Vehicle Type</Text>
+                  <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
+                    <Dropdown
+                      style={styles.dropdown}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      dropdownTextStyle={{ color: '#111111', backgroundColor:'red' }}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      data={sections
+                        .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
+                        .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
+                      }
+                      search
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder="Select vehicle type"
+                      searchPlaceholder="Search..."
+                      value={value}
+                      onChange={(item) => {
+                        setValue(item.value);
+                        setSectionError(''); // Clear the error message
+                      }}
+                    />
+                  </View>
                 </View>
+                <Text style={styles.errorText}>{sectionError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={styles.subtitle}>Model Name</Text>
+                  <TextInput
+                    style={styles.inputField}
+                    placeholder="Enter Model Name"
+                    selectionColor="red"
+                    placeholderTextColor="#303030"
+                    backgroundColor="#CBCBCA"
+                    value={vehicleName}
+                    onChangeText={(text) => {
+                      setVehicleName(text);
+                      setVehicleNameError(''); // Clear the error message
+                    }}
+                  />
+                </View>
+                <Text style={styles.errorText}>{vehicleNameError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                  <Text style={styles.subtitle}>Engine CC</Text>
+                  <TextInput
+                    style={styles.inputField}
+                    placeholder="Enter Engine CC"
+                    selectionColor="red"
+                    placeholderTextColor="#303030"
+                    backgroundColor="#CBCBCA"
+                    keyboardType='number-pad'
+                    value={engineCC}
+                    onChangeText={(text) => {
+                      setEngineCC(text);
+                      setEngineCCError(''); // Clear the error message
+                    }}
+                  />
+                </View>
+                <Text style={styles.errorText}>{engineCCError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+                  <Text style={styles.subtitle}>Color</Text>
+                  <TextInput
+                    style={styles.inputField}
+                    placeholder="Enter Color"
+                    selectionColor="red"
+                    placeholderTextColor="#303030"
+                    backgroundColor="#CBCBCA"
+                    value={color}
+                    onChangeText={(text) => {
+                      setColor(text);
+                      setColorError(''); // Clear the error message
+                    }}
+                  />
+                </View>
+                <Text style={styles.errorText}>{colorError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center',}}>
+                  <Text style={styles.subtitle}>Ex-Showroom Price</Text>
+                    <TextInput
+                      style={styles.inputField}
+                      placeholder="Enter Value"
+                      selectionColor="red"
+                      placeholderTextColor="#303030"
+                      backgroundColor="#CBCBCA"
+                      keyboardType='number-pad'
+                      value={exShowroomPrice}
+                      onChangeText={(text) => {
+                        setExShowroomPrice(text);
+                        setExShowroomPriceError(''); // Clear the error message
+                      }}
+                    />
+                </View>
+                <Text style={styles.errorText}>{exShowroomPriceError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.subtitle}>Road tax</Text>
+                    <TextInput
+                      style={styles.inputField}
+                      placeholder="Enter Value"
+                      selectionColor="red"
+                      placeholderTextColor="#303030"
+                      backgroundColor="#CBCBCA"
+                      keyboardType='number-pad'
+                      value={roadTax}
+                      onChangeText={(text) => {
+                        setRoadTax(text);
+                        setRoadTaxError(''); // Clear the error message
+                      }}
+                    />
+                </View>
+                <Text style={styles.errorText}>{roadTaxError}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.subtitle}>Registration(fixed)</Text>
+                  <TextInput
+                    style={styles.inputField}
+                    placeholder="Enter Value"
+                    selectionColor="red"
+                    placeholderTextColor="#303030"
+                    backgroundColor="#CBCBCA"
+                    keyboardType='number-pad'
+                    value={registration}
+                    onChangeText={(text) => {
+                      setRegistration(text);
+                      setRegistrationError(''); // Clear the error message
+                    }}
+                  />
+                </View>
+                <Text style={styles.errorText}>{registrationError}</Text>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.bottombuttons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={addVehicle} // Add the addVehicle function to the onPress handler
+              >
+              <View style={{ flexDirection: 'row', alignItems: 'center',gap: scale(20)}}>
+                <FontAwesome6 name='motorcycle' size={scale(15)} color={'#111111'} />
+                <Text style={styles.buttonText}>Add Vehicle</Text>
+              </View>
             </TouchableOpacity>
         </View>
-
-
-
       </View>
     </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
   },
-  // container: {
-  //   flex: 1,
-  //   padding: 16,
-  // },
   container: {
     flex: 1,
     backgroundColor:'#11111199',

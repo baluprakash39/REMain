@@ -254,9 +254,7 @@ function Inventory() {
     console.log(acc)
     if (acc === "Accesories") {
           navigation.navigate('Accessories',{ vehicleId: data }); // Navigate to the Accessories screen
-       
     }  if (acc === "Care"){
-     
           navigation.navigate('Care',{ vehicleId: data } ); // Navigate to the Care screen
     }
   };
@@ -317,8 +315,6 @@ const deleteProduct = (Id) => {
         console.error('Error retrieving token from AsyncStorage:', error);
       });
   };
-  
- 
   function handleEdit(item) {
     // Store the item data locally using AsyncStorage
     AsyncStorage.setItem('Bikes', JSON.stringify(item))
@@ -331,32 +327,25 @@ const deleteProduct = (Id) => {
         console.error('Error storing data:', error);
       });
   }
-
   const uploadImage = async (Id) => {
     try {
       const token = await AsyncStorage.getItem('token');
       const result = await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       });
-  
       if (!result || !result[0].uri) {
         // User canceled the picker or the URI is empty
         console.log('User canceled image picker or empty URI');
         return;
       }
-  
       // Log the URI for debugging
-      console.log('Selected file URI:', result[0].uri);
-  
       const formData = new FormData();
       formData.append('adminallimage', {
         uri: result[0].uri,
         type: result[0].type,
         name: result[0].name,
       });
-  
       const apiUrl = `${cyclicUrl}/upload/upload/${Id}`;
-  
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
@@ -365,7 +354,6 @@ const deleteProduct = (Id) => {
           'Authorization': `Bearer ${token}`,
         },
       });
-  
       if (response.ok) {
         // Handle success
         console.log('Image uploaded successfully');
@@ -375,7 +363,6 @@ const deleteProduct = (Id) => {
         // Handle error
         console.error('Image upload failed');
       }
-  
       // Ensure that the selected file is an image
       if (
         result[0].name.endsWith('.jpg') ||
@@ -393,7 +380,6 @@ const deleteProduct = (Id) => {
       console.error('Error picking or uploading an image:', error);
     }
   };
-  
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -415,9 +401,9 @@ const deleteProduct = (Id) => {
           </TouchableOpacity>
           </View>
           <View style={styles.searchcontainer}>
-              <View style={{justifyContent:'center'}}>
-               <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
-              </View>
+            <View style={{justifyContent:'center'}}>
+              <Ionicons name="search" size={moderateScale(20)} color="#F9f9f9" />
+            </View>
               <View style={styles.searchInputContainer}>
                 <TextInput
                   style={styles.searchInput}
@@ -456,15 +442,11 @@ const deleteProduct = (Id) => {
               </TouchableOpacity>
               ))}
           </View>
-
         <FlatList
-        
           data={filteredProductData}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            
-            
             <View    style={{
               borderColor:'#979797',
               justifyContent: 'space-between',
@@ -476,8 +458,8 @@ const deleteProduct = (Id) => {
               borderRadius: scale(6),
               marginTop:scale(5),
               paddingBottom:scale(10),
-             }}>
-             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
+            }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
               <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
                 <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)} onPress={() => handleEdit(item)}/>
               </TouchableOpacity>
@@ -488,18 +470,14 @@ const deleteProduct = (Id) => {
                 <AntDesign style={{ color: '#f9f9f9'}} name='delete' size={scale(10)} onPress={() => deleteProduct(item._id)} />
               </TouchableOpacity>
             </View>
-
             <View style={{height:'50%',width:'100%',paddingVertical:scale(2)}}>
-            <TouchableOpacity
-            
-            onPress={() => {
+            <TouchableOpacity onPress={() => {
               carddata(item._id);
-            }}
+              }}
             style={{
               flex: 1,
             }}
-          >
-             
+            >
               <Image
                 style={{
                   flex:1,
@@ -507,17 +485,14 @@ const deleteProduct = (Id) => {
                 }}
                 source={{ uri: item.adminallimage }}
                 />
-                
                 </TouchableOpacity>
                 </View>
-
                 <View style={{paddingHorizontal: moderateScale(5),flexDirection: 'column',justifyContent:'space-between'}}>
                 <TouchableOpacity  onPress={() => {
                     carddata(item._id);
                     }}>
                 <View style={{  flexDirection: 'row',justifyContent:'space-between',paddingVertical:scale(2) }}>
                   <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
-                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'capitalize',}}>{item.model}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between',paddingVertical:scale(2)}}>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
@@ -527,17 +502,17 @@ const deleteProduct = (Id) => {
                     </Text>
                     </View>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
-                    <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
-                      {item.vehiclecolor} 
-                    </Text>
-                   </View>
+                      <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
+                      <Text style={{ color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
+                        {item.vehiclecolor} 
+                      </Text>
+                    </View>
                   </View>
                     <View style={{paddingVertical:scale(2), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',paddingVertical:scale(2)}}>
                     <Text style={{ color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10) }}>Starts from</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ color: '#F9F9F9', fontWeight: 'bold', fontSize: moderateScale(14), paddingRight: moderateScale(5) }} >{'\u20B9'}</Text>
-                         <Text style={{ color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
+                        <Text style={{ color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
                       </View>
                   </View>
                 </TouchableOpacity>

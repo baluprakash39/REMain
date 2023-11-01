@@ -230,7 +230,7 @@ if (isLoading) {
   return (
     <ThemeProvider> 
     <NavigationContainer>
-    <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Inventory' : isLoggedIn === false ? 'Otp' : 'Getstarted'}>
+    <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Home' : isLoggedIn === false ? 'Otp' : 'Getstarted'}>
         <Stack.Screen
           name="Inventory"
           component={Inventory}

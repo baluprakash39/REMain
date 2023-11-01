@@ -46,8 +46,8 @@ const handlecustomername=(text)=>{
     setCustomerName('')
     setCustomerNameErr('Numbers are not allowed');
   } else {
-   setCustomerName(text);
-   setCustomerNameErr('');
+  setCustomerName(text);
+  setCustomerNameErr('');
   }
 }
 const handleadresss = (text) => {
@@ -56,7 +56,7 @@ const handleadresss = (text) => {
 }
 const handlemobile=(text)=>{
   if (/\d/.test(text)) {
-   setMobileNumber(text)
+  setMobileNumber(text)
   setmobileErr();
   } else {
   setMobileNumber('')
@@ -65,8 +65,8 @@ const handlemobile=(text)=>{
 }
 const handleEmail = (text) => {
   setEmailId(text);
-   setemailErr('');
- }
+  setemailErr('');
+}
 const [value, setValue] = useState(null);
 //date//
 const [enquiryDate, setEnquiryDate] = useState('');
@@ -197,8 +197,8 @@ const handleNill=(out,text)=>{
   settext(text)
 }
 const handleEP=(out,text)=>{
-   setChecked('EP')
-   setins(out)
+  setChecked('EP')
+  setins(out)
   settext(text)
 }
 const handleRTI=(out,text)=>{
@@ -335,7 +335,7 @@ const handleShare = async () => {
       state,
       streetname,
       website,
-     registration,
+      registration,
       ins,
       instext,
       hype,
@@ -465,7 +465,7 @@ useEffect(() => {
   }, []);
 return (
       <ScrollView contentContainerStyle={styles.container}>
-       {dataArray.map((data, index) => (
+      {dataArray.map((data, index) => (
         <View key={index} style={styles.content}>
           <View style={styles.header}>
             <View style={{ alignContent: 'center'}}>
@@ -493,7 +493,7 @@ return (
               placeholderTextColor={'#868687'}
             />
           </View>
-           {customernameErr ? <Text style={styles.errorText}>{customernameErr}</Text> : null}
+          {customernameErr ? <Text style={styles.errorText}>{customernameErr}</Text> : null}
           <View style={styles.cardContent}>
             <Text style={styles.labelText}>Address :</Text>
             <TextInput
@@ -566,7 +566,7 @@ return (
                                   uncheckedColor="#f9f9f9"
                                   style={styles.radioButton}
                                 />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Basic</Text>
+                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11),letterSpacing: moderateScale(0.4)}}>Basic</Text>
                               </View> 
                               {/* Nilldip */}
                               <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -578,7 +578,7 @@ return (
                                   uncheckedColor="#f9f9f9"
                                   style={styles.radioButton}
                                 />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Nildip</Text>
+                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11),letterSpacing: moderateScale(0.4)}}>Nildip</Text>
                               </View>
                               {/* EP */}
                               <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -590,7 +590,7 @@ return (
                                     uncheckedColor="#f9f9f9"
                                     style={styles.radioButton}
                                 />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>EP</Text>
+                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11), letterSpacing: moderateScale(0.4)}}>EP</Text>
                               </View>
                               {/* RTI */}
                               <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -602,7 +602,7 @@ return (
                                     uncheckedColor="#f9f9f9"
                                     style={styles.radioButton}
                                   />
-                                  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>RTI</Text>
+                                  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>RTI</Text>
                               </View>
                         </View>
                         ))}
@@ -629,7 +629,7 @@ return (
                           uncheckedColor="#f9f9f9"
                           style={styles.radioButton}
                         />
-                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>Yes</Text>
+                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>Yes</Text>
                       </View>
                       {/* NO */}
                       <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -641,7 +641,7 @@ return (
                           uncheckedColor="#f9f9f9"
                           style={styles.radioButton}
                         />
-                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>No</Text>
+                        <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>No</Text>
                       </View>
                     </View>
                   ))}
@@ -671,7 +671,7 @@ return (
                                 uncheckedColor="#f9f9f9"
                                 style={styles.radioButton}
                               />
-                              <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
+                              <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>4 Years</Text>
                           </View>
                         {/* 5 */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
@@ -683,11 +683,11 @@ return (
                               uncheckedColor="#f9f9f9"
                               style={styles.radioButton}
                             />     
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>5 Years</Text>
                           </View>
                         {/* 5+RSA */}
                         <View style={{alignItems:'center',flexDirection:'row'}}>
-                             <RadioButton
+                          <RadioButton
                                 value={fiveRsa}
                                 status={ Checkwarenty === 'fiveRsa' ? 'checked' : 'unchecked' }
                                 onPress={() =>handleFiveRsaChange(ans.fiveplusRSAyears)}
@@ -695,7 +695,7 @@ return (
                                 uncheckedColor="#f9f9f9"
                                 style={styles.radioButton}
                               />
-                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12),marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
+                            <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>5 Years+RSA</Text>
                           </View>
                       </View>
                     </View>
@@ -706,13 +706,13 @@ return (
               <View style={{ margin:scale(4),padding:scale(3), flexDirection:'row' ,borderRadius:scale(6), backgroundColor:'#111111'}}>
                 <View style={{ flexDirection: 'column', justifyContent: 'space-between',alignItems: 'flex-start', alignSelf: 'stretch'}}>
                   <Text style={{ ...styles.tab, borderColor: selectedTab === 'Style' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Style' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Style')}>
-                     Style
+                    Style
                   </Text>
                   <Text style={{ ...styles.tab, borderColor: selectedTab === 'Comfort' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Comfort' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Comfort')}>
-                  Comfort
+                    Comfort
                   </Text>
                   <Text style={{ ...styles.tab, borderColor: selectedTab === 'Protection' ? '#F9F9F9' : '#999999', backgroundColor: selectedTab === 'Protection' ? '#434242' : '#111111' }} onPress={() => setSelectedTab('Protection')}>
-                   Protection
+                    Protection
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',width:scale(210),marginHorizontal:moderateScale(2)}}>

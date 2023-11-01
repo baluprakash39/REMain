@@ -34,7 +34,6 @@ function Home({route}) {
   const [isOpen, setIsOpen] = useState(false);
   const [sections, setSections] = useState([]);
   const [newSectionName, setNewSectionName] = useState('');
-
   const [bikeData, setBikeData] = useState([]);
   const [productData, setProductData] = useState([]);
   const [acc, setAcc] = useState(null);
@@ -43,37 +42,29 @@ function Home({route}) {
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
   useEffect(() => {
     fetchSections();
     fetchBikeDetails();
   }, []);
-
   useEffect(() => {
     filterProductData();
   }, [search, productData]);
-
   const filterProductData = () => {
-
     const filteredData = productData.filter((data) =>
       data.vehiclename?.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredProductData(filteredData);
   };
-  
   const fetchSections = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
-  
       if (!token) {
         // Handle the case where the token is missing
         console.error('Token is missing. Please log in or fetch the token.');
         return;
       }
-  
       const url = `${cyclicUrl}/bikes/bikes`;
-  
       fetch(url, {
         headers: {
           'Authorization': `Bearer ${token}`, // Add the token to the headers
@@ -93,7 +84,6 @@ function Home({route}) {
       // Handle errors related to AsyncStorage
     }
   };
-
   const fetchBikeDetails = async () => {
     try {
       // Retrieve the JWT token from AsyncStorage
@@ -108,7 +98,6 @@ function Home({route}) {
           'Authorization': `Bearer ${token}`,
         },
       });
-
       if (response.data) {
         setProductData(response.data.user);
       }
@@ -120,16 +109,13 @@ function Home({route}) {
     navigation.navigate('Share',{vehicleId:Id, deviceId:deviceId})
     console.log(Id)
   };
-
   const handleInventory = () =>{
     navigation.navigate('Inventory')
   }
-
   const products = (section) => {
     setSelectedSection(section);
     setAcc(section);
     axios.get(`${cyclicUrl}/formdetails/getbikes/${section}`, {
-      
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
@@ -144,10 +130,8 @@ function Home({route}) {
         console.error('Error fetching bike details:', error);
       });
   };
-
   const handlelogout = async () => {
     setIsLoading(true); // Display loader
-  
     try {
       // Execute the logout logic here
       await AsyncStorage.setItem('isloggedIn', 'false');
@@ -155,7 +139,6 @@ function Home({route}) {
       route.params.onLoginClick(0);
       setIsLoading(false); // Hide loader
       console.log("device", deviceId);
-  
       // Navigate to the OTP screen
       navigation.dispatch(
         CommonActions.reset({
@@ -168,7 +151,6 @@ function Home({route}) {
       setIsLoading(false); // Hide loader in case of an error
     }
   };
-
   const styles = StyleSheet.create({
     backgroundImage: {
       flex: 1,
@@ -201,7 +183,7 @@ function Home({route}) {
       borderColor: '#979797',
       borderWidth: moderateScale(1),
     },
-loginButton: {
+    loginButton: {
       backgroundColor: '#3A3A3A',
       height:scale(30),
       width:moderateScale(50),
@@ -223,26 +205,23 @@ loginButton: {
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-        <View style={styles.searchcontainer}>
-        <View style={{justifyContent:'center'}}>
+          <View style={styles.searchcontainer}>
+            <View style={{justifyContent:'center'}}>
               <Ionicons name="search" size={verticalScale(20)} color="#F9f9f9" />
-              </View>
-                    <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
-                      value={search}
-                      selectionColor="red"
-                      onChangeText={setSearch}/>
+            </View>
+            <TextInput style={styles.searchInput} placeholder="Search Vehicle" placeholderTextColor="#868687"
+              value={search}
+              selectionColor="red"
+              onChangeText={setSearch}/>
           </View>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center',}}>
-          <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(30), width: scale(30),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
+            <TouchableOpacity style={{marginHorizontal: moderateScale(15), height: scale(30), width: scale(30),backgroundColor:'#3A3A3A',alignItems:'center',justifyContent:'center',borderRadius:scale(100)}}
                       onPress={handleInventory}>
               <Ionicons style={{color:'#f9f9f9'}} name='settings-outline' size={scale(20)} />
-              </TouchableOpacity>
-              <TouchableOpacity
-            style={styles.loginButton}
-            onPress={ handlelogout}
-          >
-            <Text style={styles.loginButtonText}>Logout</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.loginButton} onPress={ handlelogout} >
+              <Text style={styles.loginButtonText}>Logout</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{ flexDirection: 'row', borderRadius: 10, marginTop: 10 }}>
@@ -274,36 +253,26 @@ loginButton: {
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-            onPress={() => {
-              carddata(item._id); // Handle any card data logic you need here
-            }}
-            style={{
-              
-              borderWidth: 1,
-              borderColor:'#979797',
-              backgroundColor: '#11111190',
-              height: 250,
-              flex: 1,
-              margin: 5,
-              borderRadius: 10,
-              width: 100,
-              
-            }}
-          >
-              <Image
-                style={{
-                  height: '60%',
-                  width: '100%',
-                  borderTopRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                }}
+            <TouchableOpacity onPress={() => {carddata(item._id);}}
+            style={{borderWidth: 1,
+                    borderColor:'#979797',
+                    backgroundColor: '#11111190',
+                    height: 250,
+                    flex: 1,
+                    margin: 5,
+                    borderRadius: 10,
+                    width: 100,
+                    }}>
+            <Image style={{height: '60%',
+                          width: '100%',
+                          borderTopRightRadius: 10,
+                          borderTopLeftRadius: 10,
+                          }}
                 source={{ uri: item.adminallimage }}
               />
               <View style={{ flex: 1, justifyContent: 'space-between', padding: 5, flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={{paddingVertical:scale(2), fontSize:moderateScale(14),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
-                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'capitalize',}}>{item.model}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
@@ -313,26 +282,25 @@ loginButton: {
                     </Text>
                     </View>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
-                    <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
-                    <Text style={{color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
+                      <Ionicons name="color-palette" size={scale(10)} color="#FFFFFF" />
+                      <Text style={{color: '#FFFFFF', fontWeight: 'semibold', marginLeft: moderateScale(4),fontSize:moderateScale(12)}}>
                       {item.vehiclecolor} 
-                    </Text>
-                   </View>
+                      </Text>
+                    </View>
                   </View>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                  <Text style={{color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10)}}>Starts from</Text>
-                  <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-                    <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}} >{'\u20B9'}</Text>
-                  <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <Text style={{color: '#F9F9F9', fontWeight: 'semibold', fontSize: moderateScale(10)}}>Starts from</Text>
+                      <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+                        <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}} >{'\u20B9'}</Text>
+                        <Text style={{color: '#F9F9F9', fontWeight: '500', fontSize: moderateScale(14)}}>{item.exShowroomPrice}</Text>
+                      </View>
+                  </View>
                 </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-    </ImageBackground>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      </ImageBackground>
   );
 }
 export default Home;
