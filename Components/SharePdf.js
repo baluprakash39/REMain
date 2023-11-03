@@ -23,6 +23,7 @@ i18n.use(initReactI18next).init({
 const SharePdf = ({route}) => {
   const {t} = useTranslation();
   const { formData,
+    randomCode,
     customername,
     address,
     B,
@@ -308,11 +309,11 @@ const SharePdf = ({route}) => {
          <p style="color: #5E6470;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600;">Enquiry Number</p>
+                   font-weight: 600;">Quote Number</p>
          <p style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 12px;
-                   font-weight: 700;"></p>
+                   font-weight: 700;">${randomCode}</p>
        </div>
        <!-- eqnum closed -->
      </div>       
@@ -2049,8 +2050,8 @@ return(
     <Text  style={styles.dateText}>{enquiryDate}</Text>
     </View>
     <View style={styles.eqnum}>    
-      <Text style={styles.subText}>Enquiry Number</Text>
-      <Text style={styles.dateText}></Text>
+      <Text style={styles.subText}>Quote Number</Text>
+      <Text style={styles.dateText}>{randomCode}</Text>
     </View> 
   </View>   
   <View style={styles.container4}>        

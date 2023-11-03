@@ -51,7 +51,7 @@ function Home({route}) {
   }, [search, productData]);
   const filterProductData = () => {
     const filteredData = productData.filter((data) =>
-      data.vehiclename?.toLowerCase().includes(search.toLowerCase())
+      data.model?.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredProductData(filteredData);
   };

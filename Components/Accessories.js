@@ -126,7 +126,7 @@ const Accessories = ({route}) => {
     });
     setInput1Error(''); // Clear error when value is selected
     setInput2Error(''); // Clear error when value is selected
-    toggleSafetyAccessoriesDropdown();
+    // toggleSafetyAccessoriesDropdown();
   };
 const selectMirrorsValue = async (Id) => {
   if (!input19 || !input20) {
@@ -164,7 +164,7 @@ const selectMirrorsValue = async (Id) => {
     });
     setInput19Error('');
     setInput20Error('');
-    toggleMirrorsDropdown();
+    // toggleMirrorsDropdown();
   };
 const selectOilFillerCapValue = async (Id) => {
     if (!input21 || !input22) {
@@ -202,7 +202,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput21Error('');
     setInput22Error('');
-    toggleOilFillerCapDropdown();
+    // toggleOilFillerCapDropdown();
   };
   const toggleWindshieldDropdown = () => {
     setShowWindshieldDropdown(!showWindshieldDropdown);
@@ -243,7 +243,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput3Error('');
     setInput4Error('');
-    toggleWindshieldDropdown();
+    // toggleWindshieldDropdown();
   };
   const toggleSeatsDropdown = () => {
     setShowSeatsDropdown(!showSeatsDropdown);
@@ -284,7 +284,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput5Error('');
     setInput6Error('');
-    toggleSeatsDropdown();
+    // toggleSeatsDropdown();
   };
   const toggleBackrestsDropdown = () => {
     setShowBackrestsDropdown(!showBackrestsDropdown);
@@ -325,7 +325,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput7Error('');
     setInput8Error('');
-    toggleBackrestsDropdown();
+    // toggleBackrestsDropdown();
   };
   const togglePanniersDropdown = () => {
     setShowPanniersDropdown(!showPanniersDropdown);
@@ -366,7 +366,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput11Error('');
     setInput12Error('');
-    togglePanniersDropdown();
+    // togglePanniersDropdown();
   };
   const toggleFootpegsDropdown = () => {
     setShowFootpegsDropdown(!showFootpegsDropdown);
@@ -407,7 +407,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput13Error('');
     setInput14Error('');
-    toggleFootpegsDropdown();
+    // toggleFootpegsDropdown();
   };
   const toggleEngineGuardsDropdown = () => {
     setShowEngineGuardsDropdown(!showEngineGuardsDropdown);
@@ -448,7 +448,7 @@ const selectOilFillerCapValue = async (Id) => {
     setInput16('');
     setInput15Error('');
     setInput16Error('');
-    toggleEngineGuardsDropdown();
+    // toggleEngineGuardsDropdown();
   };
   const toggleSumpGuardsDropdown = () => {
     setShowSumpGuardsDropdown(!showSumpGuardsDropdown);
@@ -495,7 +495,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput17Error(''); // Clear error when value is selected
     setInput18Error(''); // Clear error when value is selected
-    toggleSumpGuardsDropdown();
+    // toggleSumpGuardsDropdown();
   };
   const toggleHeadlightDropdown = () => {
     setShowHeadlightDropdown(!showHeadlightDropdown);
@@ -536,7 +536,7 @@ const selectOilFillerCapValue = async (Id) => {
     });
     setInput23Error('');
     setInput24Error('');
-    toggleHeadlightDropdown();
+    // toggleHeadlightDropdown();
   };
   useEffect(() => {
     fetchBikeDetails(vehicleId);
