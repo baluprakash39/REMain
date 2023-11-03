@@ -114,7 +114,7 @@ function Inventory() {
   const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
   const [deviceId, setDeviceId] = useState(null)
-
+console.log('filer',productData)
   const [docId, setDocId] = useState(null);
   const [singleFile, setSingleFile] = useState(null);
   const navigation = useNavigation(); // Get the navigation object
@@ -202,6 +202,7 @@ function Inventory() {
 
       if (response.data) {
         setProductData(response.data.user);
+        
       }
     } catch (error) {
       setError(error.message);
@@ -315,13 +316,14 @@ const deleteProduct = (Id) => {
         console.error('Error retrieving token from AsyncStorage:', error);
       });
   };
-  function handleEdit(item) {
+  const handleEdit= async(item)=> {
+    navigation.navigate('Update');
     // Store the item data locally using AsyncStorage
-    AsyncStorage.setItem('Bikes', JSON.stringify(item))
+    await AsyncStorage.setItem('Bikes', JSON.stringify(item))
       .then(() => {
         console.log(item);
         // Navigate to the 'Update' screen using navigation
-        navigation.navigate('Update');
+        
       })
       .catch((error) => {
         console.error('Error storing data:', error);
@@ -385,8 +387,8 @@ const deleteProduct = (Id) => {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),alignItems:'center',justifyContent:'space-between'}}>
-          <TouchableOpacity style={styles.headerIcons}>
-              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} onPress={()=>navigation.navigate('CompanyDetails')}/>
+          <TouchableOpacity style={styles.headerIcons} onPress={()=>navigation.navigate('CompanyDetails')}>
+              <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} />
               <Text style={{color:'#f9f9f9',fontSize:moderateScale(10)}}>Profile</Text>
               </TouchableOpacity>
           <Text style={{color:'#f9f9f9',fontSize:moderateScale(24),paddingHorizontal:moderateScale(10)}}>Inventory</Text>
@@ -460,14 +462,17 @@ const deleteProduct = (Id) => {
               paddingBottom:scale(10),
             }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal:scale(3), paddingVertical:scale(3)}}>
-              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
-                <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)} onPress={() => handleEdit(item)}/>
+              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}
+               onPress={() => handleEdit(item)}>
+                <AntDesign style={{color: '#f9f9f9'}} name='edit' size={scale(10)}/>
               </TouchableOpacity>
-              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
-                <AntDesign style={{color: '#f9f9f9'}} name="upload" size={scale(10)} onPress={() => uploadImage(item._id)}/>
+              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}
+              onPress={() => uploadImage(item._id)}>
+                <AntDesign style={{color: '#f9f9f9'}} name="upload" size={scale(10)} />
               </TouchableOpacity>
-              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}>
-                <AntDesign style={{ color: '#f9f9f9'}} name='delete' size={scale(10)} onPress={() => deleteProduct(item._id)} />
+              <TouchableOpacity style={{ height:scale(30), width: scale(30), borderRadius: scale(50), alignItems: 'center', justifyContent: 'center',borderWidth:scale(0.5), backgroundColor:'#484848' }}
+              onPress={() => deleteProduct(item._id)} >
+                <AntDesign style={{ color: '#f9f9f9'}} name='delete' size={scale(10)} />
               </TouchableOpacity>
             </View>
             <View style={{height:'50%',width:'100%',paddingVertical:scale(2)}}>

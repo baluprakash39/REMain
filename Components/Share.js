@@ -91,16 +91,8 @@ insurance: '',
 hypothecation: '',
 extendedWarranty: '',
 };
-const [oilFillerCap, setOilFillerCap] = useState(null);
-const [headlight, setHeadlight] = useState(null);
-const [windshields, setWindshields] = useState(null);
-const [panniers, setPanniers] = useState(null);
-const [seats, setSeats] = useState(null);
-const [backrest, setBackrest] = useState(null);
-const [footpegs, setFootpegs] = useState(null);
-const [engineGuards, setEngineGuards] = useState(null);
-const [sumpGuards, setSumpGuards] = useState(null);
-const [safetyAccessories, setSafetyAccessories] = useState(null);
+const [randomCode, setRandomCode] = useState('');
+
 //image usesatate
 const [reimage, setreimage] = useState('https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg')
 console.log('r', reimage)
@@ -308,10 +300,15 @@ const handleShare = async () => {
     }
     
     if (isValid) {
-
+      const generateRandomAlphabet = () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)];
+      const generateRandomNumber = () => Math.floor(1000 + Math.random() * 9000);
+  
+      const newRandomCode = `${generateRandomAlphabet()}${generateRandomAlphabet()}${generateRandomNumber()}`;
+      setRandomCode(newRandomCode);
     // Navigate to the SharePdf screen and pass formData as a parameter
     navigation.navigate('SharePdf', { 
       // formData,
+      randomCode,
       customername,
       address,
       mobilenumber,
@@ -371,6 +368,7 @@ const handleShare = async () => {
 
 
     });
+    
   }
   } catch (error) {
     console.error('Error storing formData:', error);

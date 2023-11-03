@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity,ScrollView, ImageBackground, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
@@ -152,7 +151,7 @@ const AddVehicle = () => {
         }
   
         // All required fields are filled, so you can send the POST request here
-        const url = 'https://dull-pink-hermit-crab-hat.cyclic.app/formdetails/uploadbikes';
+        const url = 'https://quotegenerator-74e65a9ae1fc.herokuapp.com/formdetails/uploadbikes';
   
         const userData = {
           modelname: modelName,

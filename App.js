@@ -99,7 +99,7 @@ useEffect(() => {
 
 
  
-      let unique: any; 
+      let unique;
 // usefect3
 useEffect(() => {
   if (isLoggedIn) {

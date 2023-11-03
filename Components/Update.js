@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
-  StyleSheet,
+  StyleSheet,ScrollView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -164,7 +164,9 @@ const Update = () => {
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
+       
         <View>
+          <ScrollView>
                 <View style={{backgroundColor:'#1f1f1f',borderBottomColor:'#f9f9f9', borderBottomWidth:verticalScale(1)}}>
                   <View style={styles.header}>
                       <View style={{alignContent: 'center' }}>
@@ -192,19 +194,7 @@ const Update = () => {
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.subtitle}>Vehicle Name</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Vehicle Name"
-              placeholderTextColor='black'
-              selectionColor="red"
-              value={localdata.vehiclename}
-              onChangeText={(text) => setLocalData({ ...localdata, vehiclename: text })}
-            />
-          </View>
-          <Text style={styles.errorText}>{vehicleNameError}</Text>
-
+          
           <View style={styles.fieldContainer}>
             <Text style={styles.subtitle}>Model Name</Text>
             <TextInput
@@ -282,7 +272,9 @@ const Update = () => {
           </View>
           <Text style={styles.errorText}>{registrationError}</Text>
           </View>
+          </ScrollView>
           </View>
+          
           <TouchableOpacity style={styles.button} onPress={updateVehicle}>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
