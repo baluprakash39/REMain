@@ -26,8 +26,8 @@ const AddVehicle = () => {
   const [sections, setSections] = useState([]);
   const [value, setValue] = useState(null);
   const [brandName, setBrandName] = useState('');
+  const [vehicleName, setVehicleName] = useState('null');
   const [modelName, setModelName] = useState('');
-  // const [modelName, setModelName] = useState('');
   const [engineCC, setEngineCC] = useState('');
   const [color, setColor] = useState('');
   const [exShowroomPrice, setExShowroomPrice] = useState('');
@@ -35,8 +35,8 @@ const AddVehicle = () => {
   const [registration, setRegistration] = useState('');
 
   const [brandNameError, setBrandNameError] = useState('');
+  const [vehicleNameError, setVehicleNameError] = useState('');
   const [modelNameError, setModelNameError] = useState('');
-  // const [modelNameError, setModelNameError] = useState('');
   const [engineCCError, setEngineCCError] = useState('');
   const [colorError, setColorError] = useState('');
   const [exShowroomPriceError, setExShowroomPriceError] = useState('');
@@ -86,8 +86,8 @@ const AddVehicle = () => {
   const addVehicle = async () => {
     // Reset error messages
     setBrandNameError('');
+    // setVehicleNameError('');
     setModelNameError('');
-    // setModelNameError('');
     setEngineCCError('');
     setColorError('');
     setExShowroomPriceError('');
@@ -104,15 +104,15 @@ const AddVehicle = () => {
       hasErrors = true;
     }
   
-    if (!modelName) {
-      setModelNameError('Vehicle Name is required');
-      hasErrors = true;
-    }
-  
-    // if (!modelName) {
-    //   setModelNameError('Model Name is required');
+    // if (!vehicleName) {
+    //   setVehicleNameError('Vehicle Name is required');
     //   hasErrors = true;
     // }
+  
+    if (!modelName) {
+      setModelNameError('Model Name is required');
+      hasErrors = true;
+    }
   
     if (!engineCC) {
       setEngineCCError('Engine CC is required');
@@ -154,8 +154,8 @@ const AddVehicle = () => {
         const url = 'https://quotegenerator-74e65a9ae1fc.herokuapp.com/formdetails/uploadbikes';
   
         const userData = {
-          modelname: modelName,
-          // model: modelName,
+          // vehiclename: vehicleName,
+          model: modelName,
           EngineCC: engineCC,
           vehiclecolor: color,
           exShowroomPrice: exShowroomPrice,
@@ -181,8 +181,8 @@ const AddVehicle = () => {
           .then((data) => {
             console.log(data);
             // Clear the input fields by updating state variables
+            // setVehicleName('');
             setModelName('');
-            // setModelName('');
             setEngineCC('');
             setColor('');
             setExShowroomPrice('');
@@ -261,11 +261,28 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.subtitle}>Model Name</Text>
+          {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.subtitle}>Vehicle Name</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter Vehicle Name"
+              selectionColor="red"
+              placeholderTextColor="#303030"
+              backgroundColor="#CBCBCA"
+              value={vehicleName}
+              onChangeText={(text) => {
+                setVehicleName(text);
+                setVehicleNameError(''); // Clear the error message
+              }}
+            />
+          </View> */}
+          {/* <Text style={styles.errorText}>{vehicleNameError}</Text> */}
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <Text style={styles.subtitle}>Model Name</Text>
+            <TextInput
+              style={styles.inputField}
+              placeholder="Enter Name/Number"
               selectionColor="red"
               placeholderTextColor="#303030"
               backgroundColor="#CBCBCA"
