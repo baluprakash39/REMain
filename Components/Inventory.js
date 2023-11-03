@@ -149,7 +149,7 @@ function Inventory() {
 
   const filterProductData = () => {
     const filteredData = productData.filter((data) =>
-    data?.vehiclename?.toLowerCase().includes(search.toLowerCase())
+    data?.model?.toLowerCase().includes(search.toLowerCase())
   );
   
     setFilteredProductData(filteredData);
@@ -492,7 +492,7 @@ const deleteProduct = (Id) => {
                     carddata(item._id);
                     }}>
                 <View style={{  flexDirection: 'row',justifyContent:'space-between',paddingVertical:scale(2) }}>
-                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(12),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.model}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between',paddingVertical:scale(2)}}>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>

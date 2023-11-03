@@ -1560,7 +1560,7 @@ const SharePdf = ({route}) => {
                    font-size: 8px;
                    font-style: normal;
                    font-weight: 500;
-                   margin-bottom: 2px;">2). Payment via Cheque/Demand Draft in favor of LEKHANA AUMOTIVES only.</p>
+                   margin-bottom: 2px;">2). Payment via Cheque/Demand Draft in favor of  ${companyname}  only.</p>
        </div>
        <!-- point2terms closed -->
        <div class="point3terms"
@@ -2331,7 +2331,7 @@ return(
       <Text style={styles.termssubText}>1). Prices may change, final prices at invoicing apply.</Text>
     </View>
     <View style={styles.point2terms}>
-      <Text style={styles.termssubText}>2). Payment via Cheque/Demand Draft in favor of LEKHANA AUMOTIVES only.</Text>
+      <Text style={styles.termssubText}>2). Payment via Cheque/Demand Draft in favor of {companyname} only.</Text>
     </View>
     <View style={styles.point3terms}>
       <Text style={styles.termssubText}>3). Local taxes apply, receipts provided upon billing/delivery.</Text>

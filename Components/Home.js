@@ -51,7 +51,7 @@ function Home({route}) {
   }, [search, productData]);
   const filterProductData = () => {
     const filteredData = productData.filter((data) =>
-      data.vehiclename?.toLowerCase().includes(search.toLowerCase())
+      data.model?.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredProductData(filteredData);
   };
@@ -272,7 +272,7 @@ function Home({route}) {
               />
               <View style={{ flex: 1, justifyContent: 'space-between', padding: 5, flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(14),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.vehiclename}</Text>
+                  <Text style={{paddingVertical:scale(2), fontSize:moderateScale(14),color: '#F9F9F9', fontWeight: '600', textTransform: 'uppercase',}}>{item.model}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-between' }}>
                     <View style={{paddingVertical:scale(2),flexDirection:'row', alignItems:'center'}}>
