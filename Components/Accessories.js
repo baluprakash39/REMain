@@ -86,7 +86,6 @@ const Accessories = ({route}) => {
   const [input17Error, setInput17Error] = useState(''); 
   const [input18Error, setInput18Error] = useState('');
   const [dataArray, setDataArray] = useState([]);
-  console.log("dataarray",dataArray)
   const toggleSafetyAccessoriesDropdown = () => {
     setShowSafetyAccessoriesDropdown(!showSafetyAccessoriesDropdown);
   };
@@ -116,7 +115,6 @@ const Accessories = ({route}) => {
     })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       setInput1('');
       setInput2('');
       fetchBikeDetails(Id);
@@ -154,7 +152,6 @@ const selectMirrorsValue = async (Id) => {
     })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       setInput19('');
       setInput20('');
       fetchBikeDetails(Id);
@@ -613,7 +610,6 @@ const selectOilFillerCapValue = async (Id) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted seat:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -644,7 +640,6 @@ const selectOilFillerCapValue = async (Id) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted windshield:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -675,7 +670,6 @@ const selectOilFillerCapValue = async (Id) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted backrest:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -768,7 +762,6 @@ const deletefoot = async (objId, footpegId) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted footpeg accessory:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -799,7 +792,6 @@ const deletefoot = async (objId, footpegId) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted panniers accessory:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -861,7 +853,6 @@ const deletefoot = async (objId, footpegId) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted oil filler accessory:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -892,7 +883,6 @@ const deletefoot = async (objId, footpegId) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log('Deleted headlight accessory:', data);
       fetchBikeDetails(objId); // Fetch updated bike details
       // Perform any desired actions after successful deletion
       // For example, update your app's state or UI accordingly
@@ -1147,7 +1137,7 @@ return (
                 <View style={{ flexDirection: 'row',marginTop:verticalScale(10) }}>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Vehicle</Text>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>{data.vehiclename}</Text>
+                  <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>{data.section}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Model</Text>

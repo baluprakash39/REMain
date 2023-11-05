@@ -38,7 +38,7 @@ const Registration = ({route}) => {
   const [emailError, setEmailError] = useState('');
 
   const [deviceUniqueid, setDeviceId] = useState('');
-console.log("id",deviceUniqueid)
+
 
 
 
@@ -124,7 +124,6 @@ const handleAddDetails = async () => {
         if (response.status === 400) {
             setRegistrationError('Your registration request already sent, please contact owner.');
         } else {
-          console.log('data', response);
           // Example: Show an alert upon successful registration
           Alert.alert('Success', 'Request sent successfully');
           // You can navigate to another screen or perform additional actions here

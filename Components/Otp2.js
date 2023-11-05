@@ -26,6 +26,7 @@ const Otp2 = ({ route }) => {
   const { verificationId } = route.params;
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
+  const [verifying, setVerifying] = useState(false);
   const navigation = useNavigation();
 
   const confirmCode = async () => {
@@ -36,7 +37,7 @@ const Otp2 = ({ route }) => {
 
     // Retrieve the verificationId from AsyncStorage
     const verificationId = await AsyncStorage.getItem('verificationId');
-
+    setVerifying(true);
     // Perform OTP verification with the verificationId
     const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
 
@@ -45,39 +46,29 @@ const Otp2 = ({ route }) => {
       .signInWithCredential(credential)
       .then(() => {
         setCodeError('');
-        showAlert();
+        random();
+        setVerifying(false);
+       
+        
+        // Replace the alert with navigation logic
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Home', params: { deviceId, verificationId } }],
+          })
+        );
       })
       .catch((error) => {
         setCodeError('Invalid OTP. Please try again.');
+        setVerifying(false);
       });
   };
-
-  const showAlert = () => {
-    // Define the value you want to pass
+  
+  const random =()=>{
     const randomValue = Math.random();
     console.log("r", randomValue);
     route.params.onLoginClick(randomValue);
-
-    Alert.alert(
-      'Success',
-      'You are logged in as Admin',
-      [
-        {
-          text: 'OK',
-          onPress: () => {
-            // navigation.navigate('Inventory', { deviceId, verificationId });
-            navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [{ name: 'Inventory', params: { deviceId, verificationId } }],
-              })
-            );
-          }
-        }
-      ]
-    );
   }
-
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -104,7 +95,7 @@ const Otp2 = ({ route }) => {
           style={{ ...styles.sendVerification}}
           onPress={confirmCode}
         >
-          <Text style={styles.buttonText}>{t('otp2btntext')}</Text>
+         <Text style={styles.buttonText}>{verifying ? 'Verifying...' : t('otp2btntext')}</Text>
         </TouchableOpacity>
         </View>
       </View>

@@ -23,7 +23,7 @@ i18n.use(initReactI18next).init({
 const SharePdf = ({route}) => {
   const {t} = useTranslation();
   const { formData,
-    randomCode,
+    newRandomCode,
     customername,
     address,
     B,
@@ -89,7 +89,6 @@ const SharePdf = ({route}) => {
         if (data) {
           const parsedData = JSON.parse(data);
           // setFormData(parsedData);
-          console.log('Retrieved formData from AsyncStorage:', parsedData);
         }
       })
       .catch((error) => {
@@ -313,7 +312,8 @@ const SharePdf = ({route}) => {
          <p style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 12px;
-                   font-weight: 700;">${randomCode}</p>
+                   font-weight: 700;">${newRandomCode}</p>
+
        </div>
        <!-- eqnum closed -->
      </div>       
@@ -347,7 +347,7 @@ const SharePdf = ({route}) => {
                    font-family: 'Inter', sans-serif;
                    font-size:12px;
                    font-weight: 700;
-                   line-height: 0.1px;">${vehiclename},${model},${EngineCC},${Vehiclecolor}</p>
+                   line-height: 0.1px;">${model},${EngineCC},${Vehiclecolor}</p>
        </div>
        <!-- vehiclename closed -->
      </div>
@@ -788,7 +788,7 @@ const SharePdf = ({route}) => {
             style="color: #1A1C21;
                    font-family: 'Inter', sans-serif;
                    font-size: 10px;
-                   font-weight: 600">SafetyAccessories/${selectedSafetyAccessoriesText}p>
+                   font-weight: 600">SafetyAccessories/${selectedSafetyAccessoriesText}</p>
        </div>
        <!-- subheadings closed -->
        <div class="symbol1"
@@ -2051,7 +2051,7 @@ return(
     </View>
     <View style={styles.eqnum}>    
       <Text style={styles.subText}>Quote Number</Text>
-      <Text style={styles.dateText}>{randomCode}</Text>
+      <Text style={styles.dateText}>{newRandomCode}</Text>
     </View> 
   </View>   
   <View style={styles.container4}>        
@@ -2059,7 +2059,7 @@ return(
     <Text style={styles.vehsubText}>Vehicle details :</Text>
     </View> 
     <View style={styles.vehiclename}>  
-    <Text style={styles.vehnamesubText}>{`${vehiclename}, ${model}, ${EngineCC}, ${Vehiclecolor}`}</Text>
+    <Text style={styles.vehnamesubText}>{`${model}, ${EngineCC}, ${Vehiclecolor}`}</Text>
     </View> 
   </View> 
 </View>

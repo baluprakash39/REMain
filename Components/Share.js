@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ScrollView, useColorScheme } from 'react-native'; // Import ScrollView for scrolling if needed
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ImageBackground,ActivityIndicator, TextInput, ScrollView, useColorScheme } from 'react-native'; // Import ScrollView for scrolling if needed
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -25,22 +25,38 @@ const Share = ({route}) => {
 const {t} = useTranslation();
 const colorScheme = useColorScheme();
 const { vehicleId, deviceId } = route.params;
-console.log(vehicleId)
 const navigation = useNavigation();
 const [selectedStyle, setSelectedStyle] = useState(null);
 const [customername, setCustomerName] = useState('');
 const [address, setAddress] = useState('');
 const [mobilenumber, setMobileNumber] = useState('');
 const [emailid, setEmailId] = useState('');
-console.log("c",customername,address)
+const [isLoading, setIsLoading] = useState(true);
 // errors for customer
 const [customernameErr, setCustomerNameErr]=useState('');
-console.log(customernameErr)
 const [adressseErr,setadressErr]=useState('');
-console.log(adressseErr)
 const[mobileErr,setmobileErr]=useState('');
 const[emailErr,setemailErr]=useState('');
+
+
+
+
+
+
+
+
+
+
+
 // customerdetails
+
+
+
+
+
+
+
+
 const handlecustomername=(text)=>{
   if (/\d/.test(text)) {
     setCustomerName('')
@@ -71,7 +87,6 @@ const [value, setValue] = useState(null);
 //date//
 const [enquiryDate, setEnquiryDate] = useState('');
 const[registration, setRegistration] = useState('');
-console.log('re', registration)
 //checkboxes//
 const [dataArray, setDataArray] = useState([]);
 const [isSelected, setSelection] = useState(false);
@@ -95,7 +110,6 @@ const [randomCode, setRandomCode] = useState('');
 
 //image usesatate
 const [reimage, setreimage] = useState('https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg')
-console.log('r', reimage)
 // dropdowns
 const [selectedMirrorstext, setSelectedMirrorstext] = useState('');
 const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState(0);
@@ -120,7 +134,6 @@ const [selectedSumpGuardsValue, setSelectedSumpGuardsValue] = useState(0);
 const [selectedSafetyAccessoriesText, setSelectedSafetyAccessoriesText] = useState('');
 const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useState(0);
 // Add state variables for other dropdowns here
-console.log("S",selectedSafetyAccessoriesText)
 const [selectedOption, setSelectedOption] = useState(0);
 const [exwarrantytext, setextext] = useState('');
 //checkboxes
@@ -142,15 +155,10 @@ const B=parseFloat(selectedMirrorsvalue)+parseFloat(selectedOilFillerCapValue)+p
 +parseFloat(selectedWindshieldsValue)+
 parseFloat(selectedPanniersValue)+parseFloat(selectedSeatsValue)+parseFloat(selectedBackrestValue)+
 parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFloat(selectedSumpGuardsValue)+parseFloat(selectedSafetyAccessoriesValue)
-console.log("B",B)
-console.log("x",totalonroad)
-console.log("y",grandtotal)
-console.log(selectedOption)
-console.log(dataArray)
-console.log("mirrorvlue",parseFloat(selectedMirrorsvalue))
-console.log(selectedMirrorsvalue)
+
   useEffect(() => {
     fetchBikeDetails(vehicleId);
+    setIsLoading(false)
   }, []);
 const handleFourChange = (out,text) => {
   setwarentyCheked('four')
@@ -222,7 +230,6 @@ const [pincode,setpincode]=useState('');
 const [state,setstate]=useState('');
 const [streetname,setstreetname]=useState('');
 const [website,setwebsite]=useState('');
-console.log("adress",companyaddress)
 const formData ={
     customername: '',
     address: '',
@@ -260,7 +267,6 @@ const formData ={
     five: false,
     fiveRsa: false,
 }
-console.log(formData)
 const [selectedTab, setSelectedTab] = useState('Style');
 // Define an array of options with labels and values, including the "Select" option
 const handleShare = async () => {
@@ -304,11 +310,11 @@ const handleShare = async () => {
       const generateRandomNumber = () => Math.floor(1000 + Math.random() * 9000);
   
       const newRandomCode = `${generateRandomAlphabet()}${generateRandomAlphabet()}${generateRandomNumber()}`;
-      setRandomCode(newRandomCode);
+     
     // Navigate to the SharePdf screen and pass formData as a parameter
     navigation.navigate('SharePdf', { 
       // formData,
-      randomCode,
+      newRandomCode,
       customername,
       address,
       mobilenumber,
@@ -319,7 +325,6 @@ const handleShare = async () => {
       Vehiclecolor,
       EngineCC,
       adminallimage,
-      vehiclename,
       model,
       companyaddress,
       companyname,
@@ -394,7 +399,6 @@ const fetchBikeDetails = async (vehicleId) => {
       setRegistration(registrationnumber)
       const totalPrice = exShowroompriceNumber + roadtaxNumber + registrationnumber;
       setexprice(totalPrice);
-      console.log(response);
       const { vehiclecolor, EngineCC, adminallimage, vehiclename, model } = bike;
       // Filter and store exShowroomPrice and roadtax in separate useState variables
       setExShowroomPrice(exShowroomPrice);
@@ -408,7 +412,6 @@ const fetchBikeDetails = async (vehicleId) => {
       setDataArray([...dataArray, bike]);
       // Store the bike data in AsyncStorage (optional)
       await AsyncStorage.setItem('bikedata', JSON.stringify(bike));
-      console.log('Bike data stored successfully', bike);
     } catch (error) {
       console.error('Error fetching bike details:', error);
     }
@@ -429,7 +432,6 @@ const fetchData = async () => {
         });
         // Extract the data from the response
         const responseData = response.data.user[0];
-        console.log("data", responseData);
         const { companyaddress, companyname, city, contactnumber, country, dealeremailid, gstin, pincode, state, streetname, website } = responseData;
         setcopmapnyadress(companyaddress);
         setcompanyname(companyname);
@@ -461,6 +463,14 @@ useEffect(() => {
     const date = getCurrentDate();
     setEnquiryDate(date);
   }, []);
+  if (isLoading) {
+    // Display an activity loader while loading the AsyncStorage value.
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 return (
       <ScrollView contentContainerStyle={styles.container}>
       {dataArray.map((data, index) => (
@@ -539,7 +549,7 @@ return (
             )}
           </View>
             <View style={styles.centeredContainer}>
-              <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.vehiclename}- {data.model} {data.EngineCC} </Text>
+              <Text style={{fontWeight:'600', color: '#f9f9f9', fontSize: moderateScale(18), borderBottomWidth:scale(1), borderColor: '#F9F9F9', paddingVertical: verticalScale(5), textAlign:'center', }}>{data.model} {data.EngineCC}  CC </Text>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),}}>
                 <Text style={{color: '#F9F9F9', fontSize: moderateScale(12), flex: 1,marginLeft:moderateScale(5), letterSpacing: moderateScale(0.4),textAlignVertical:'center'}}>Ex.showroom price (including GST)</Text>
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹  {data.exShowroomPrice}</Text>

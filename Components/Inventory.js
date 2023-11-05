@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground,Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,Image, FlatList, ImageBackground,Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
@@ -96,27 +96,22 @@ const styles = StyleSheet.create({
 });
 function Inventory() {
   const {t} = useTranslation();
-  const ans=AsyncStorage.getItem('token')
-  console.log("ans",ans)
+ 
   const [search, setSearch] = useState('');
   const [createVehicle1, setCreateVehicle1] = useState(true);
   const [addVehicle1, setAddVehicle1] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [sections, setSections] = useState([]);
   const [newSectionName, setNewSectionName] = useState('');
-
   const [bikeData, setBikeData] = useState([]);
   const [productData, setProductData] = useState([]);
   const [acc, setAcc] = useState(null);
-  const [vehicleModels, setVehicleModels] = useState([]);
-  const [selectedModel, setSelectedModel] = useState('');
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
   const [deviceId, setDeviceId] = useState(null)
-console.log('filer',productData)
-  const [docId, setDocId] = useState(null);
-  const [singleFile, setSingleFile] = useState(null);
+
+  
   const navigation = useNavigation(); // Get the navigation object
   useFocusEffect(
     React.useCallback(() => {
@@ -175,7 +170,7 @@ console.log('filer',productData)
         const data = await response.json();
         if (data && data.sections && data.sections.length > 0) {
           setSections(data.sections);
-          console.log(data.sections);
+
         }
       } else {
         throw new Error(`Request failed with status: ${response.status}`);
@@ -208,6 +203,7 @@ console.log('filer',productData)
       setError(error.message);
     }
   };
+ 
   const products = (section) => {
   setSelectedSection(section);
   setAcc(section);
@@ -251,8 +247,7 @@ console.log('filer',productData)
   }
 };
   const carddata = (data) => {
-    console.log('data',data)
-    console.log(acc)
+  
     if (acc === "Accesories") {
           navigation.navigate('Accessories',{ vehicleId: data }); // Navigate to the Accessories screen
     }  if (acc === "Care"){
@@ -260,7 +255,7 @@ console.log('filer',productData)
     }
   };
 const deleteProduct = (Id) => {
-    console.log(Id);
+
   
     // Retrieve the JWT token from AsyncStorage
     AsyncStorage.getItem('token')
@@ -290,7 +285,6 @@ const deleteProduct = (Id) => {
                 })
                   .then((response) => response.json())
                   .then((data) => {
-                    console.log(data);
                     // Update the state by removing the deleted item
                     setProductData((prevProductData) =>
                       prevProductData.filter((item) => item._id !== Id)
@@ -337,7 +331,6 @@ const deleteProduct = (Id) => {
       });
       if (!result || !result[0].uri) {
         // User canceled the picker or the URI is empty
-        console.log('User canceled image picker or empty URI');
         return;
       }
       // Log the URI for debugging
@@ -358,8 +351,7 @@ const deleteProduct = (Id) => {
       });
       if (response.ok) {
         // Handle success
-        console.log('Image uploaded successfully');
-        fetchBikeDetails(Id);
+        fetchBikeDetails();
         // You may want to trigger a refresh or update here if needed
       } else {
         // Handle error
@@ -372,9 +364,8 @@ const deleteProduct = (Id) => {
         result[0].name.endsWith('.png')
       ) {
         const fileURI = result[0].uri;
-        // Now you have a valid image file URI (e.g., file:///path/to/selected/image.jpg)
-        // You can use this URI to upload or display the image.
-        console.log('File URI:', fileURI);
+  
+        
       } else {
         console.error('Invalid file type. Please select a valid image.');
       }
@@ -382,6 +373,9 @@ const deleteProduct = (Id) => {
       console.error('Error picking or uploading an image:', error);
     }
   };
+  const handleHome=()=>{
+    navigation.navigate('Home', {deviceId}); 
+  }
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -393,10 +387,7 @@ const deleteProduct = (Id) => {
               </TouchableOpacity>
           <Text style={{color:'#f9f9f9',fontSize:moderateScale(24),paddingHorizontal:moderateScale(10)}}>Inventory</Text>
           <TouchableOpacity style={styles.headerIcons}
-            onPress={() => {
-              navigation.navigate('Home', {deviceId}); 
-              console.log('Login button pressed');
-            }}
+            onPress={handleHome}
           >
             <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
             <Text style={{color:'#f9f9f9',fontSize:moderateScale(12),fontWeight:'400',letterSpacing:moderateScale(0.4)}}>Home</Text>

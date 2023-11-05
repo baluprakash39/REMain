@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, FlatList, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView,ActivityIndicator, Image, FlatList, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet } from 'react-native';
 import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
@@ -37,17 +38,26 @@ function Home({route}) {
   const [bikeData, setBikeData] = useState([]);
   const [productData, setProductData] = useState([]);
   const [acc, setAcc] = useState(null);
-  const [vehicleModels, setVehicleModels] = useState([]);
-  const [selectedModel, setSelectedModel] = useState('');
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  useFocusEffect(
+    React.useCallback(() => {
+      // This function will be called when the screen gains focus
+     fetchBikeDetails(); // Replace with the function that fetches your data
+    }, [])
+  );
+ 
   useEffect(() => {
-    fetchSections();
     fetchBikeDetails();
+    fetchSections();
+    setIsLoading(false);
+   
   }, []);
   useEffect(() => {
     filterProductData();
+    
+   
   }, [search, productData]);
   const filterProductData = () => {
     const filteredData = productData.filter((data) =>
@@ -88,7 +98,7 @@ function Home({route}) {
     try {
       // Retrieve the JWT token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
-      
+    
       // Set the API endpoint URL
       const apiUrl = `${cyclicUrl}/formdetails/getbikes`;
 
@@ -105,9 +115,9 @@ function Home({route}) {
       setError(error.message);
     }
   };
+
   const carddata = (Id) => {
     navigation.navigate('Share',{vehicleId:Id, deviceId:deviceId})
-    console.log(Id)
   };
   const handleInventory = () =>{
     navigation.navigate('Inventory')
@@ -138,7 +148,6 @@ function Home({route}) {
       await AsyncStorage.removeItem('token');
       route.params.onLoginClick(0);
       setIsLoading(false); // Hide loader
-      console.log("device", deviceId);
       // Navigate to the OTP screen
       navigation.dispatch(
         CommonActions.reset({
@@ -201,6 +210,17 @@ function Home({route}) {
       fontSize:moderateScale(10),
     },
   });
+
+  if (isLoading) {
+    // Display the activity loader while isLoading is true.
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+  
+
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={{ flex: 1 }}>

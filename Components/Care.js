@@ -24,10 +24,8 @@ i18n.use(initReactI18next).init({
 const Care = ({route}) => {
   const {t} = useTranslation();
   const { vehicleId } = route.params;
-  console.log('vehicle',vehicleId)
   const [dataArray, setDataArray] = useState([]);
   const [isFormValid, setIsFormValid] = useState(false); 
-  console.log('dataara',dataArray)
 
   useEffect(() => {
  
@@ -52,7 +50,6 @@ const Care = ({route}) => {
       const bike = response.data;
       setDataArray([]);
       setDataArray((prevDataArray) => [...prevDataArray, bike]);
-      console.log('Bike data stored successfully', bike);
     } catch (error) {
       console.error('Error fetching bike details:', error);
     }
@@ -66,7 +63,7 @@ const Care = ({route}) => {
     const [Ep, setEP] = useState('');
     const [RTI, setRTI] = useState('');
     const [Yes,setYES]=useState('');
-    const [No,setNO]=useState('');
+    const [No,setNO]=useState('0');
     const [fouryears,setfour]=useState('');
     const [fiveyears,setfive]=useState('');
     const[fiveplusRSAyears,setRsa]=useState('')
@@ -111,9 +108,6 @@ const Care = ({route}) => {
     }
     if (!Yes) {
       setYESError('Yes value is required');
-    }
-    if (!No) {
-      setNOError('No value is required');
     }
     if (!fouryears) {
       setFourError('4Years value is required');
@@ -168,7 +162,6 @@ const Care = ({route}) => {
       );
   
       // Handle the response as needed
-      console.log('Response:', response.data);
       navigation.navigate('Inventory')
       // You can add logic here to handle success or navigate to another screen.
   
@@ -288,7 +281,7 @@ return (
             <View style={{ flexDirection: 'row',marginTop:verticalScale(10) }}>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Vehicle</Text>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', width: scale(50), textAlign: 'center' }}>:</Text>
-              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>Scooty</Text>
+              <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'600', letterSpacing: moderateScale(0.4)}}>{bike.section}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), fontWeight:'400', width: scale(100), letterSpacing: moderateScale(0.4) }}>Model</Text>
@@ -384,19 +377,7 @@ return (
               />
           </View>
           {yesError ? <Text style={styles.errorText}>{yesError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', width:scale(335)}}>
-            <Text style={{ fontSize:moderateScale(14), fontWeight: '500', width: scale(80),letterSpacing: moderateScale(0.2), marginRight: moderateScale(10), color: '#F9F9F9' }}>No</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter value"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              value={No}
-              onChangeText={(text) =>handleHypozeroChange(text)}
-              keyboardType='numeric'
-            />
-          </View>
-          {noError ? <Text style={styles.errorText}>{noError}</Text> : null}
+         
         </View>
         {/* Extednedwarenty */}
         <Text style={{ color: '#F9F9F9', fontSize: moderateScale(16), fontWeight: '600', marginTop: verticalScale(15) }}>

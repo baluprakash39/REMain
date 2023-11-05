@@ -32,7 +32,6 @@ const Update = () => {
   const [localdata, setLocalData] = useState({
     _id: '',
     section: '',
-    vehiclename: '',
     model: '',
     EngineCC: '',
     vehiclecolor: '',
@@ -70,7 +69,6 @@ const Update = () => {
   const updateVehicle = async () => {
     // Reset error messages
     setSectionError('');
-    setVehicleNameError('');
     setModelNameError('');
     setEngineCCError('');
     setColorError('');
@@ -86,10 +84,7 @@ const Update = () => {
       hasErrors = true;
     }
 
-    if (!localdata.vehiclename) {
-      setVehicleNameError('Vehicle Name is required');
-      hasErrors = true;
-    }
+    
 
     if (!localdata.model) {
       setModelNameError('Model Name is required');
@@ -156,10 +151,7 @@ const Update = () => {
     
   };
 
-  const handleBackPress = () => {
-    // Navigate back to the Inventory screen
-    navigation.navigate('Inventory');
-  };
+ 
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>

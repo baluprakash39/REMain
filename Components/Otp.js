@@ -44,9 +44,8 @@ const Otp = () => {
   const getDeviceId = async () => {
     let uniqueId = await DeviceInfo.getUniqueId();
     setDeviceId(uniqueId);
-    console.log("i", uniqueId);
   }
-  console.log('deviceId', deviceId);
+  
 
   const sendVerification = async () => {
   
@@ -69,7 +68,7 @@ const Otp = () => {
 
       const data = await response.json();
 
-      console.log(data);
+
 
       if (data.success === false && data.status === 'not allowed') {
         Alert.alert('Admin not Accepted');
@@ -87,7 +86,6 @@ const Otp = () => {
                 "+91" + number,
                 recaptchaVerifier.current
               );
-              console.log("v", verificationId);
 
               // Clear the phone number input field
              // Use 'await' to ensure the state is updated
@@ -105,6 +103,8 @@ const Otp = () => {
               // setIsOtpSent(true);
               setPhoneNumber(''); 
               setError('');
+             
+             
             } catch (error) {
               console.error('Error during phone number verification:', error);
             }
@@ -126,6 +126,8 @@ const Otp = () => {
       sendVerification();
     }
   };
+
+  
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>

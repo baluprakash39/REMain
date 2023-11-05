@@ -10,7 +10,7 @@ import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import en from './locales/en.json';
-
+import cyclicUrl from '../cylic/Cyclic';
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources: {
@@ -60,7 +60,7 @@ const AddVehicle = () => {
         return;
       }
   
-      const response = await fetch('https://quotegenerator-74e65a9ae1fc.herokuapp.com/bikes/bikes', {
+      const response = await fetch(`${cyclicUrl}/bikes/bikes`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -74,7 +74,6 @@ const AddVehicle = () => {
       if (data && data.sections && data.sections.length > 0) {
         // Update the sections state with the fetched data
         setSections(data.sections);
-        console.log('Sections Data:', data.sections);
       }
     } catch (error) {
       console.error('Error fetching sections:', error);
@@ -151,7 +150,7 @@ const AddVehicle = () => {
         }
   
         // All required fields are filled, so you can send the POST request here
-        const url = 'https://quotegenerator-74e65a9ae1fc.herokuapp.com/formdetails/uploadbikes';
+        const url = `${cyclicUrl}/formdetails/uploadbikes`;
   
         const userData = {
           // vehiclename: vehicleName,
@@ -231,13 +230,14 @@ const AddVehicle = () => {
         <View>
         <View style={{ flexDirection: 'column', marginTop: verticalScale(10),marginHorizontal:moderateScale(10)}}>
           <View style={{ flexDirection: 'row', alignItems: 'center',}}>
-            <Text style={styles.subtitle}>Select Section</Text>
+            <Text style={styles.subtitle}>Vehicle type</Text>
 
             <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
               <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
+                itemTextStyle={{color:'#111111'}}
                 dropdownTextStyle={{ color: '#111111', backgroundColor:'red' }}
                 inputSearchStyle={styles.inputSearchStyle}
                 data={sections
@@ -261,22 +261,6 @@ const AddVehicle = () => {
           </View>
           <Text style={styles.errorText}>{sectionError}</Text>
 
-          {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.subtitle}>Vehicle Name</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Vehicle Name"
-              selectionColor="red"
-              placeholderTextColor="#303030"
-              backgroundColor="#CBCBCA"
-              value={vehicleName}
-              onChangeText={(text) => {
-                setVehicleName(text);
-                setVehicleNameError(''); // Clear the error message
-              }}
-            />
-          </View> */}
-          {/* <Text style={styles.errorText}>{vehicleNameError}</Text> */}
 
           <View style={{ flexDirection: 'row', alignItems: 'center', }}>
             <Text style={styles.subtitle}>Model Name</Text>
@@ -304,6 +288,7 @@ const AddVehicle = () => {
               placeholderTextColor="#303030"
               backgroundColor="#CBCBCA"
               value={engineCC}
+              keyboardType='numeric'
               onChangeText={(text) => {
                 setEngineCC(text);
                 setEngineCCError(''); // Clear the error message
@@ -338,6 +323,7 @@ const AddVehicle = () => {
               placeholderTextColor="#303030"
               backgroundColor="#CBCBCA"
               value={exShowroomPrice}
+              keyboardType='numeric'
               onChangeText={(text) => {
                 setExShowroomPrice(text);
                 setExShowroomPriceError(''); // Clear the error message
@@ -354,6 +340,7 @@ const AddVehicle = () => {
               selectionColor="red"
               placeholderTextColor="#303030"
               backgroundColor="#CBCBCA"
+              keyboardType='numeric'
               value={roadTax}
               onChangeText={(text) => {
                 setRoadTax(text);
@@ -372,6 +359,7 @@ const AddVehicle = () => {
               placeholderTextColor="#303030"
               backgroundColor="#CBCBCA"
               value={registration}
+              keyboardType='numeric'
               onChangeText={(text) => {
                 setRegistration(text);
                 setRegistrationError(''); // Clear the error message
@@ -408,10 +396,6 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
   },
-  // container: {
-  //   flex: 1,
-  //   padding: 16,
-  // },
   container: {
     flex: 1,
     backgroundColor:'#11111199',
