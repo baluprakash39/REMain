@@ -81,96 +81,192 @@ const Care = ({route}) => {
   const [fourError, setFourError] = useState('');
   const [fiveError, setFiveError] = useState('');
   const [fiveRsaError, setRsaError] = useState('');
-  const handleSubmit = async () => {
-    // Reset all error states initially
+  // const handleSubmit = async () => {
+  //   // Reset all error states initially
+  //   setBasicError('');
+  //   setNilldipError('');
+  //   setEPError('');
+  //   setRTIError('');
+  //   setYESError('');
+  //   setNOError('');
+  //   setFourError('');
+  //   setFiveError('');
+  //   setRsaError('');
+  
+  //   // Validate each input field
+  //   if (!Basic) {
+  //     setBasicError('Basic insurance value is required');
+  //   }
+  //   if (!Nildip) {
+  //     setNilldipError('Nilldip value is required');
+  //   }
+  //   if (!Ep) {
+  //     setEPError('EP value is required');
+  //   }
+  //   if (!RTI) {
+  //     setRTIError('RTI value is required');
+  //   }
+  //   if (!Yes) {
+  //     setYESError('Yes value is required');
+  //   }
+  //   if (!fouryears) {
+  //     setFourError('4Years value is required');
+  //   }
+  //   if (!fiveyears) {
+  //     setFiveError('5years value is required');
+  //   }
+  //   if (!fiveplusRSAyears) {
+  //     setRsaError('5years+Rsa value is required');
+  //   }
+  
+  //   // Check if any errors exist
+  //   if (
+  //     !Basic ||
+  //     !Nildip ||
+  //     !Ep ||
+  //     !RTI ||
+  //     !Yes ||
+  //     !No ||
+  //     !fouryears ||
+  //     !fiveyears ||
+  //     !fiveplusRSAyears
+  //   ) {
+  //     // If there are errors, do not proceed with form submission
+  //     return;
+  //   }
+  
+  //   try {
+  //     // Prepare the data to be sent in the POST request
+  //     const token = await AsyncStorage.getItem('token');
+  //     const data = {
+  //       Basic,
+  //       Nildip,
+  //       Ep,
+  //       RTI,
+  //       Yes,
+  //       No,
+  //       fouryears,
+  //       fiveyears,
+  //       fiveplusRSAyears,
+  //     };
+  
+  //     // Make the POST request to your API endpoint
+  //     const response = await axios.post(
+  //       `${cyclicUrl}/formdetails/uploadcare/${vehicleId}`,
+  //       data,
+  //       {
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  
+  //     // Handle the response as needed
+  //     navigation.navigate('Inventory')
+  //     // You can add logic here to handle success or navigate to another screen.
+  
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     // Handle error, show an error message, etc.
+  //   }
+  // };
+
+  const handleSubmit= async()=>{
     setBasicError('');
-    setNilldipError('');
-    setEPError('');
-    setRTIError('');
-    setYESError('');
-    setNOError('');
-    setFourError('');
-    setFiveError('');
-    setRsaError('');
+      setNilldipError('');
+      setEPError('');
+      setRTIError('');
+      setYESError('');
+      setNOError('');
+      setFourError('');
+      setFiveError('');
+      setRsaError('');
   
-    // Validate each input field
-    if (!Basic) {
-      setBasicError('Basic insurance value is required');
-    }
-    if (!Nildip) {
-      setNilldipError('Nilldip value is required');
-    }
-    if (!Ep) {
-      setEPError('EP value is required');
-    }
-    if (!RTI) {
-      setRTIError('RTI value is required');
-    }
-    if (!Yes) {
-      setYESError('Yes value is required');
-    }
-    if (!fouryears) {
-      setFourError('4Years value is required');
-    }
-    if (!fiveyears) {
-      setFiveError('5years value is required');
-    }
-    if (!fiveplusRSAyears) {
-      setRsaError('5years+Rsa value is required');
-    }
+
+      if (!Basic) {
+            setBasicError('Basic insurance value is required');
+          }
+          if (!Nildip) {
+            setNilldipError('Nilldip value is required');
+          }
+          if (!Ep) {
+            setEPError('EP value is required');
+          }
+          if (!RTI) {
+            setRTIError('RTI value is required');
+          }
+          if (!Yes) {
+            setYESError('Yes value is required');
+          }
+          if (!fouryears) {
+            setFourError('4Years value is required');
+          }
+          if (!fiveyears) {
+            setFiveError('5years value is required');
+          }
+          if (!fiveplusRSAyears) {
+            setRsaError('5years+Rsa value is required');
+          }  
+          if (
+                !Basic ||
+                !Nildip ||
+                !Ep ||
+                !RTI ||
+                !Yes ||
+                !No ||
+                !fouryears ||
+                !fiveyears ||
+                !fiveplusRSAyears
+              ) {
+                // If there are errors, do not proceed with form submission
+                return;
+              }
+              const data = {
+                      Basic,
+                      Nildip,
+                      Ep,
+                      RTI,
+                      Yes,
+                      No,
+                      fouryears,
+                      fiveyears,
+                      fiveplusRSAyears,
+                    };
+  console.log(data)
+  const token = await AsyncStorage.getItem('token');
   
-    // Check if any errors exist
-    if (
-      !Basic ||
-      !Nildip ||
-      !Ep ||
-      !RTI ||
-      !Yes ||
-      !No ||
-      !fouryears ||
-      !fiveyears ||
-      !fiveplusRSAyears
-    ) {
-      // If there are errors, do not proceed with form submission
-      return;
-    }
-  
-    try {
-      // Prepare the data to be sent in the POST request
-      const token = await AsyncStorage.getItem('token');
-      const data = {
-        Basic,
-        Nildip,
-        Ep,
-        RTI,
-        Yes,
-        No,
-        fouryears,
-        fiveyears,
-        fiveplusRSAyears,
-      };
-  
-      // Make the POST request to your API endpoint
-      const response = await axios.post(
-        `${cyclicUrl}/formdetails/uploadcare/${vehicleId}`,
-        data,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }
-      );
-  
-      // Handle the response as needed
+  const response = await axios.post(
+          `${cyclicUrl}/formdetails/uploadcare/${vehicleId}`,
+          data,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          }
+        );
+   
+      // Handle the successful response here
+      console.log(data)
       navigation.navigate('Inventory')
-      // You can add logic here to handle success or navigate to another screen.
-  
-    } catch (error) {
+    
+    .catch((error) => {
+      // Handle any errors here
       console.error('Error:', error);
-      // Handle error, show an error message, etc.
-    }
-  };
-const handleBasicChange = (text) => {
+    });
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+  const handleBasicChange = (text) => {
     // Check if the input is a valid number
     if (/^\d+$/.test(text)) {
       setValue(text);
