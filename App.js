@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useColorScheme } from 'react-native';
 import Home from './Components/Home';
 import Care from './Components/Care';
@@ -23,7 +24,8 @@ import Modal from 'react-native-modal';
 import jwtDecode from 'jwt-decode';
 import { moderateScale, scale, verticalScale } from './Components/scaling';
 import cyclicUrl from './cylic/Cyclic';
-
+import Splash from './Components/Splash';
+import Superadminpage from './Components/Superadminpage';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -36,11 +38,14 @@ const [isLoggedIn, setIsLoggedIn] = useState('');
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const[timer,setTimer]=useState(0)
   const [clickedValue, setClickedValue] = useState(0);
+  const [role,setRole]=useState()
+  console.log('role',role)
   console.log('click',clickedValue)
       // Callback function to receive the clicked value from Otp component
-      const handleLoginClick = (value,zero) => {
+      const handleLoginClick = (value,role) => {
         setClickedValue(value);
-        setTimer(zero)
+        setTimer(0)
+       setRole(role)
       };
   
  console.log("islogged",isLoggedIn)
@@ -230,10 +235,29 @@ if (isLoading) {
   return (
     <ThemeProvider> 
     <NavigationContainer>
-    <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Home' : isLoggedIn === false ? 'Otp' : 'Getstarted'}>
+    {/* <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Home' : isLoggedIn === false ? 'Otp' : 'Getstarted'}> */}
+    <Stack.Navigator initialRouteName={
+        isLoggedIn
+          ? role === 'superadmin'
+            ? 'Superadminpage'
+            : 'Home'
+          : isLoggedIn === false
+            ? 'Otp'
+            : 'Getstarted'
+      }>
         <Stack.Screen
           name="Inventory"
           component={Inventory}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Superadminpage"
+          component={Superadminpage}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Splash"
+          component={Splash}
           options={{ headerShown: false }}
         />
         <Stack.Screen

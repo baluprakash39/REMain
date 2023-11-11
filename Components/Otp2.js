@@ -24,6 +24,7 @@ const Otp2 = ({ route }) => {
   const {t} = useTranslation();
   const { deviceId } = route.params;
   const { verificationId } = route.params;
+  const{role}=route.params;
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
   const [verifying, setVerifying] = useState(false);
@@ -50,13 +51,20 @@ const Otp2 = ({ route }) => {
         setVerifying(false);
        
         
-        // Replace the alert with navigation logic
+        //condition for naviagtion based on role should give below
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Home', params: { deviceId, verificationId } }],
+            routes: [
+              {
+                name: role === 'superadmin' ? 'Superadminpage' : 'Home',
+                params: { deviceId, verificationId, role },
+              },
+            ],
           })
         );
+       
+        
       })
       .catch((error) => {
         setCodeError('Invalid OTP. Please try again.');
@@ -67,7 +75,7 @@ const Otp2 = ({ route }) => {
   const random =()=>{
     const randomValue = Math.random();
     console.log("r", randomValue);
-    route.params.onLoginClick(randomValue);
+    route.params.onLoginClick(randomValue,role);
   }
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>

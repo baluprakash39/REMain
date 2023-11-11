@@ -26,9 +26,12 @@ i18n.use(initReactI18next).init({
 });
 
 function Home({route}) {
+  const navigation = useNavigation(); 
   const {t} = useTranslation();
   const {deviceId} = route.params
-  const navigation = useNavigation(); // Get the navigation object
+  const{role}=route.params
+  console.log('role',role)
+  // Get the navigation object
   const [search, setSearch] = useState('');
   const [createVehicle1, setCreateVehicle1] = useState(true);
   const [addVehicle1, setAddVehicle1] = useState(false);
@@ -119,8 +122,14 @@ function Home({route}) {
   const carddata = (Id) => {
     navigation.navigate('Share',{vehicleId:Id, deviceId:deviceId})
   };
-  const handleInventory = () =>{
-    navigation.navigate('Inventory')
+  //function to naviagte to inventory
+  const handleInventory = () => {
+    if (role === 'user') {
+      alert('You do not have access to Inventory');
+    } else {
+      // Navigate to the Inventory screen for roles other than 'user'
+      navigation.navigate('Inventory');
+    }
   }
   const products = (section) => {
     setSelectedSection(section);

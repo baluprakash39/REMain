@@ -23,9 +23,9 @@ i18n.use(initReactI18next).init({
 });
 
 const Otp = () => {
+  const navigation=useNavigation()
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
   const recaptchaVerifier = useRef(null);
@@ -66,9 +66,10 @@ const Otp = () => {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
-
-
+      let data = await response.json();
+      let role=data.data.role
+    console.log("data",data)
+    console.log("role",role)
 
       if (data.success === false && data.status === 'not allowed') {
         Alert.alert('Admin not Accepted');
@@ -97,9 +98,11 @@ const Otp = () => {
               await AsyncStorage.setItem("deviceId", deviceId);
               await AsyncStorage.setItem("verificationId", verificationId);
               await AsyncStorage.setItem('phoneNo', number);
-  
+              
               // Navigate to the OTP verification screen
-              navigation.navigate('Otp2', { deviceId, verificationId });
+              setTimeout(() => {
+                navigation.navigate('Otp2', { deviceId, verificationId, role });
+              }, 2000);
               // setIsOtpSent(true);
               setPhoneNumber(''); 
               setError('');
@@ -119,11 +122,12 @@ const Otp = () => {
     }
   };
 
-  const handleSendVerification = () => {
+  const handleSendVerification = async() => {
     if (!phoneNumber) {
       setPhoneNumberError('Please enter a phone number.');
     } else {
-      sendVerification();
+      await sendVerification();
+      getPhoneNumber();
     }
   };
 

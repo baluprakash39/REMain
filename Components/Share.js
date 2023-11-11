@@ -160,51 +160,51 @@ parseFloat(selectedFootPegsValue)+parseFloat(selectedEngineGuardsValue)+parseFlo
     fetchBikeDetails(vehicleId);
     setIsLoading(false)
   }, []);
-const handleFourChange = (out,text) => {
+const handleFourChange = (out) => {
   setwarentyCheked('four')
   setSelectedOption(out);
-  setextext(text)
+  setextext('four')
 };
-const handleFiveChange = (out,text) => {
+const handleFiveChange = (out) => {
   setwarentyCheked('five')
   setSelectedOption(out);
-  setextext(text)
+  setextext('five')
 };
-const handleFiveRsaChange = (out,text) => {
+const handleFiveRsaChange = (out) => {
   setwarentyCheked('fiveRsa')
   setSelectedOption(out);
-  setextext(text)
+  setextext('fiveRsa')
 };
-const handleYes=(out,text)=>{
+const handleYes=(out)=>{
   sethypoCheked('YES')
   sethype(out)
-  sethypetext(text)
+  sethypetext('Yes')
 }
 
-const handleNo=(out,text)=>{
+const handleNo=(out)=>{
   sethypoCheked('NO')
   sethype(out);
-  sethypetext(text)
+  sethypetext('No')
 }
-const handlebasic=(out,text)=>{
+const handlebasic=(out)=>{
   setChecked('Basic')
   setins(out)
-  settext(text)
+  settext('Basic')
 }
-const handleNill=(out,text)=>{
+const handleNill=(out)=>{
   setChecked('Nilldip')
   setins(out)
-  settext(text)
+  settext('Nilldip')
 }
-const handleEP=(out,text)=>{
+const handleEP=(out)=>{
   setChecked('EP')
   setins(out)
-  settext(text)
+  settext('Ep')
 }
-const handleRTI=(out,text)=>{
+const handleRTI=(out)=>{
   setChecked('RTI')
   setins(out)
-  settext(text)
+  settext('Rti')
 }
 // data
 const [exShowroomPrice, setExShowroomPrice] = useState('');
