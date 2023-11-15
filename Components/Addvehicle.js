@@ -233,29 +233,27 @@ const AddVehicle = () => {
             <Text style={styles.subtitle}>Vehicle type</Text>
 
             <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
-              <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                itemTextStyle={{color:'#111111'}}
-                dropdownTextStyle={{ color: '#111111', backgroundColor:'red' }}
-                inputSearchStyle={styles.inputSearchStyle}
-                data={sections
-                  .filter((section) => section.Sectionname === 'Bike') // Filter to include only "bike" sections
-                  .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
-                }
-                search
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder="Select Section"
-                searchPlaceholder="Search..."
-                value={value}
-                onChange={(item) => {
-                  setValue(item.value);
-                  setSectionError(''); // Clear the error message
-                }}
-              />
+            <Dropdown
+  style={styles.dropdown}
+  placeholderStyle={styles.placeholderStyle}
+  selectedTextStyle={styles.selectedTextStyle}
+  itemTextStyle={{ color: '#111111' }}
+  dropdownTextStyle={{ color: '#111111', backgroundColor: 'red' }}
+  inputSearchStyle={styles.inputSearchStyle}
+  data={dealers.map(dealer => ({ label: dealer, value: dealer }))}
+  search
+  maxHeight={300}
+  labelField="label"
+  valueField="value"
+  placeholder="Select Company"
+  searchPlaceholder="Search..."
+  value={selectedCompanyInfo}
+  onChangeText={(item) => {
+    setSelectedCompanyInfo(item);
+    
+  }}
+/>
+
             </View>
 
           </View>

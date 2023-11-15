@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,30 +9,27 @@ import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CommonActions } from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
-
 import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 import axios from 'axios';
 import UpdateAdmins from './UpdateAdmins';
+import { CommonActions } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
-const Superadminpage = () => {
+const AdminUsers = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(1);
   const [searchQueryAdmins, setSearchQueryAdmins] = useState('');
   const [dealers, setDealers] = useState([]);
   const [dealersF, setDealersF] = useState([]);
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [responseMessage, setResponseMessage] = useState('');
-  const [showDescription, setShowDescription] = useState(false);
-  const route = useRoute();
+
 useEffect(()=>{
- fetchDealers();;
+ fetchDealers();
 },[])
 
 
@@ -72,8 +69,8 @@ const handleSearchAdminsInputChange = (text) => {
   
       if (response.data) {
         // Filter dealers where role is equal to "admin"
-        const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === true);
-        const adminDealersfalse= response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === false);
+        const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'user'&& dealer.adminaccept === true);
+        const adminDealersfalse= response.data.data.filter(dealer => dealer.role === 'user'&& dealer.adminaccept === false);
         setDealers(adminDealerstrue);
         setDealersF(adminDealersfalse)
       }
@@ -119,8 +116,16 @@ const handleSearchAdminsInputChange = (text) => {
       // Handle errors, e.g., show an error message to the user
     }
   };
-   
-  const logout = async () => {
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchDealers();
+      return () => {
+        // Cleanup function (optional) when the component loses focus
+        console.log('Cleaning up SuperAdminPage');
+      };
+    }, [])
+  );
+const logout = async () => {
     try {
       setIsLoading(true); // Display loader
   
@@ -135,7 +140,7 @@ const handleSearchAdminsInputChange = (text) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: 'Otp' }],
+          routes: [{ name: 'Home' }],
         })
       );
     } catch (error) {
@@ -146,25 +151,12 @@ const handleSearchAdminsInputChange = (text) => {
   };
   
 const updateadmin=(Id)=>{
-  navigation.navigate('UpdateAdmins',{Id})
+  navigation.navigate('AdminUserUpdate',{Id})
 }
-useFocusEffect(
-  React.useCallback(() => {
-    fetchDealers();
-    return () => {
-      // Cleanup function (optional) when the component loses focus
-      console.log('Cleaning up SuperAdminPage');
-    };
-  }, [])
-);
-if (isLoading) {
-  // Display an activity loader while loading the AsyncStorage value.
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivityIndicator size="large" color="#0000ff" />
-    </View>
-  );
-}
+ 
+
+
+
 
   return (
    
@@ -181,7 +173,7 @@ if (isLoading) {
           
           <TouchableOpacity onPress={logout}>
           {/* Increase the size of the profile icon */}
-          <Text style={{ color: '#f9f9f9', fontSize: moderateScale(20) }}>Logout</Text>
+          <Text style={{ color: '#f9f9f9', fontSize: moderateScale(20) }}>Back</Text>
         </TouchableOpacity>
 
           </View>
@@ -192,7 +184,7 @@ if (isLoading) {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: verticalScale(20) }}>
         <TouchableOpacity onPress={() => handleTabPress(1)} style={activeTab === 1 ? styles.activeTab : styles.tab}>
         
-          <Text style={{color:'white',fontSize:20}}>Admins</Text>
+          <Text style={{color:'white',fontSize:20}}>Users</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleTabPress(2)} style={activeTab === 2 ? styles.activeTab : styles.tab}>
         
@@ -229,35 +221,22 @@ if (isLoading) {
     <Feather style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='phone' /> 
    <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.phoneNumber}</Text>
   </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-  <Text style={{color:'white',fontSize:20,marginLeft:10}}>@</Text>
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.email}</Text>
-  </View>
+  
   <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
     <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
    <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.companyname}</Text>
   </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.brandname}</Text>
-  </View>
+ 
   <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
     <Feather style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='calendar' /> 
    <Text style={{color:'white',fontSize:20,marginLeft:10}}>user From {dealer.currentdate}</Text>
   </View>
- 
- 
-
-
-
-
-
   <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
     <View style={{display:'flex',flexDirection:'row'}}>
     <MaterialIcons style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='person-remove'/> 
    
     <TouchableOpacity onPress={() => deleteadmin(dealer._id)}>
-    <Text style={{color:'white',fontSize:20,marginLeft:10,textDecorationLine:'underline'}}>Delete Admin</Text>
+    <Text style={{color:'white',fontSize:20,marginLeft:10,textDecorationLine:'underline'}}>Delete User</Text>
     </TouchableOpacity>
    </View>
 
@@ -273,12 +252,6 @@ if (isLoading) {
  
  
 
-    
-    
-    
-    
-    
-    
     </View>
   ))}
 </ScrollView>
@@ -320,7 +293,7 @@ if (isLoading) {
       </View>
       <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
         <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>Royal Enfield</Text>
+       <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.brandname}</Text>
       </View>
       <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
         <View style={{display:'flex',flexDirection:'row'}}>
@@ -426,4 +399,4 @@ const styles = StyleSheet.create({
   
  
 });
-export default Superadminpage;
+export default  AdminUsers;

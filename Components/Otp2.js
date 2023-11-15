@@ -35,7 +35,7 @@ const Otp2 = ({ route }) => {
       setCodeError('Code must be exactly 6 digits.');
       return;
     }
-
+    await AsyncStorage.setItem('userRole', role);
     // Retrieve the verificationId from AsyncStorage
     const verificationId = await AsyncStorage.getItem('verificationId');
     setVerifying(true);
@@ -50,7 +50,7 @@ const Otp2 = ({ route }) => {
         random();
         setVerifying(false);
        
-        
+       
         //condition for naviagtion based on role should give below
         navigation.dispatch(
           CommonActions.reset({
@@ -58,7 +58,7 @@ const Otp2 = ({ route }) => {
             routes: [
               {
                 name: role === 'superadmin' ? 'Superadminpage' : 'Home',
-                params: { deviceId, verificationId, role },
+                params: { deviceId, verificationId},
               },
             ],
           })
@@ -75,7 +75,7 @@ const Otp2 = ({ route }) => {
   const random =()=>{
     const randomValue = Math.random();
     console.log("r", randomValue);
-    route.params.onLoginClick(randomValue,role);
+    route.params.onLoginClick(randomValue);
   }
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>

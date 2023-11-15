@@ -26,6 +26,9 @@ import { moderateScale, scale, verticalScale } from './Components/scaling';
 import cyclicUrl from './cylic/Cyclic';
 import Splash from './Components/Splash';
 import Superadminpage from './Components/Superadminpage';
+import UpdateAdmins from './Components/UpdateAdmins';
+import AdminUsers from './Components/AdminUsers';
+import AdminUserUpdate from './Components/AdminUserUpdate';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -45,7 +48,7 @@ const [isLoggedIn, setIsLoggedIn] = useState('');
       const handleLoginClick = (value,role) => {
         setClickedValue(value);
         setTimer(0)
-       setRole(role)
+      
       };
   
  console.log("islogged",isLoggedIn)
@@ -61,25 +64,31 @@ const closeLogoutPopup = () => {
 };
 
 
-//  useffect1
+
 useEffect(() => {
-  // Check the login state in AsyncStorage during app startup.
-  AsyncStorage.getItem('isloggedIn')
-    .then((value) => {
-      if (value === 'true') {
+  const checkLoginState = async () => {
+    try {
+      const roleValue = await AsyncStorage.getItem('userRole');
+      const isLoggedInValue = await AsyncStorage.getItem('isloggedIn');
+
+      if (isLoggedInValue === 'true') {
         setIsLoggedIn(true);
-      } else if (value === 'false') { // Check for an empty string
+        setRole(roleValue);
+      } else if (isLoggedInValue === 'false') {
         setIsLoggedIn(false);
       } else {
-        setIsLoggedIn(''); // Set to empty (undefined)
+        setIsLoggedIn('');
       }
-      setIsLoading(false); // Set loading to false once you have the value.
-    })
-    .catch((error) => {
+
+      setIsLoading(false);
+    } catch (error) {
       console.error(error);
-      setIsLoading(false); // Handle errors and set loading to false.
-    });
-}, [isLoggedIn, clickedValue]);
+      setIsLoading(false);
+    }
+  };
+
+  checkLoginState();
+}, [clickedValue]);
 
 
      //useffect
@@ -235,7 +244,6 @@ if (isLoading) {
   return (
     <ThemeProvider> 
     <NavigationContainer>
-    {/* <Stack.Navigator initialRouteName={isLoggedIn === true ? 'Home' : isLoggedIn === false ? 'Otp' : 'Getstarted'}> */}
     <Stack.Navigator initialRouteName={
         isLoggedIn
           ? role === 'superadmin'
@@ -251,8 +259,24 @@ if (isLoading) {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="AdminUserUpdate"
+          component={AdminUserUpdate}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AdminUsers"
+          component={AdminUsers}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Superadminpage"
           component={Superadminpage}
+          initialParams={{ onLoginClick: handleLoginClick }}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="UpdateAdmins"
+          component={UpdateAdmins}
           options={{ headerShown: false }}
         />
          <Stack.Screen

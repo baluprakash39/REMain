@@ -376,6 +376,12 @@ const deleteProduct = (Id) => {
   const handleHome=()=>{
     navigation.navigate('Home', {deviceId}); 
   }
+
+const handleuser =()=>{
+  navigation.navigate('AdminUsers')
+}
+
+
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
@@ -386,12 +392,23 @@ const deleteProduct = (Id) => {
               <Text style={{color:'#f9f9f9',fontSize:moderateScale(10)}}>Profile</Text>
               </TouchableOpacity>
           <Text style={{color:'#f9f9f9',fontSize:moderateScale(24),paddingHorizontal:moderateScale(10)}}>Inventory</Text>
+          
+          
+          <TouchableOpacity style={styles.headerIcons}
+            onPress={handleuser}
+          >
+
+            <Text style={{color:'#f9f9f9',fontSize:moderateScale(12),fontWeight:'400',letterSpacing:moderateScale(0.4)}}>Users</Text>
+          </TouchableOpacity>
+          
           <TouchableOpacity style={styles.headerIcons}
             onPress={handleHome}
           >
             <AntDesign style={{color:'#f9f9f9'}} name='home' size={scale(20)}/>
             <Text style={{color:'#f9f9f9',fontSize:moderateScale(12),fontWeight:'400',letterSpacing:moderateScale(0.4)}}>Home</Text>
           </TouchableOpacity>
+
+          
           </View>
           <View style={styles.searchcontainer}>
             <View style={{justifyContent:'center'}}>
