@@ -38,7 +38,8 @@ console.log("device",deviceId)
     brandname: '',
     deviceId: '',
     role:'' ,
-    adminaccept:''
+    adminaccept:'',
+    count:''
   });
 
 
@@ -47,7 +48,7 @@ console.log("updateData",updatedData)
     const getAdminInfo = async () => {
       try {
         const response = await axios.get(`${cyclicUrl}/registerPhoneNumber/getadminid/${Id}`);
-        const { phoneNumber, name, email, companyname, brandname, deviceId, role, adminaccept } = response.data.data;
+        const { phoneNumber, name, email, companyname, brandname, deviceId, role, adminaccept,count } = response.data.data;
         
         setPhoneNumber(phoneNumber);
         setName(name);
@@ -74,6 +75,7 @@ console.log("updateData",updatedData)
           deviceId,
           role,
           adminaccept,
+          count
         });
   
        
@@ -162,7 +164,15 @@ console.log("updateData",updatedData)
 
         />
       </View>
+      <View style={styles.inputContainer}>
+        <Text>Count:</Text>
+        <TextInput
+          style={styles.input}
+          value={updatedData.count}
+          onChangeText={(text) => setUpdatedData({ ...updatedData, count: text })}
 
+        />
+      </View>
       
 
       <TouchableOpacity style={styles.button} onPress={updateAdmin}>

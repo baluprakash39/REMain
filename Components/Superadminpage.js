@@ -31,6 +31,18 @@ const Superadminpage = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [showDescription, setShowDescription] = useState(false);
   const route = useRoute();
+  const [showUserData, setShowUserData] = useState({});
+  const[User,setUser]=useState('')
+  console.log("user",User)
+  const toggleUserData = (dealerId) => {
+    setShowUserData((prev) => ({
+      ...prev,
+      [dealerId]: !prev[dealerId],
+    }));
+  };
+
+
+
 useEffect(()=>{
  fetchDealers();;
 },[])
@@ -74,8 +86,12 @@ const handleSearchAdminsInputChange = (text) => {
         // Filter dealers where role is equal to "admin"
         const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === true);
         const adminDealersfalse= response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === false);
+        const usertruedata = response.data.data.filter(dealer => dealer.role === 'user'&& dealer.adminaccept === true);
+        
+       setUser(usertruedata)
         setDealers(adminDealerstrue);
         setDealersF(adminDealersfalse)
+        console.log('admindelaer',adminDealerstrue)
       }
     } catch (error) {
       console.error('Error fetching dealers:', error);
@@ -220,7 +236,7 @@ if (isLoading) {
      
         <ScrollView>
   {dealers.map((dealer, index) => (
-    <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:10,height:350,marginTop:20}}>
+    <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:10,height:450,marginTop:20}}>
     <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
     <Ionicons style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='person-outline' /> 
    <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.name}</Text>
@@ -246,7 +262,21 @@ if (isLoading) {
    <Text style={{color:'white',fontSize:20,marginLeft:10}}>user From {dealer.currentdate}</Text>
   </View>
  
- 
+  {/*  to show user data */}
+  <TouchableOpacity onPress={() => toggleUserData(dealer._id)}>
+          <Text style={{ color: 'white', fontSize: 30 }}>View userdata</Text>
+        </TouchableOpacity>
+
+        {showUserData[dealer._id] && (
+          // need to bind user data where role equl to user
+          
+          <View>
+            <Text style={{ color: 'white', fontSize: 20 }}>Username:</Text>
+            <Text style={{ color: 'white', fontSize: 20 }}>UserMobile:</Text>
+          </View>
+        )}
+
+
 
 
 

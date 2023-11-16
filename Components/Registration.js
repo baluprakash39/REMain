@@ -2,7 +2,7 @@
 
 //working code 
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Alert, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground,Image,StyleSheet,Button, Alert, ScrollView, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -19,6 +19,7 @@ import i18n from 'i18next';
 import en from './locales/en.json';
 import axios from 'axios';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import DocumentPicker from 'react-native-document-picker';
 
 
 i18n.use(initReactI18next).init({
@@ -35,15 +36,10 @@ const RegistrationScreen = () => {
  
   const navigation = useNavigation();
  
-  const [selectedCompanyInfo, setSelectedCompanyInfo] = useState('');
+ 
   const [companyInfoVisible, setCompanyInfoVisible] = useState(false);
   const [companyInfoOptions, setCompanyInfoOptions] = useState([]);
   const [companyDetailVisible, setCompanyDetailVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [brand, setBrand] = useState('');
-  const [email,setEmail]=useState('');
 
   const [nameError, setNameError] = useState('');
   const [companyNameError, setCompanyNameError] = useState('');
@@ -52,13 +48,29 @@ const RegistrationScreen = () => {
   const [registrationErr, setRegistrationError] = useState('');
  const [emailError,setEmailError]=useState('')
 
-  const [deviceId, setDeviceId] = useState('');
-  const [currentdate,setDate]=useState('') 
- 
-console.log(currentdate)
-
-
   
+ 
+
+// Adminside
+  
+const [phoneNumber, setPhonenumber] = useState('');
+const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [companyName, setCompanyName] = useState('');
+const[currentdate,seDate]=useState('');
+const[brandName,setBrand]=useState('')
+const[gst,setGst]=useState('');
+const[address,setAddress]=useState('');
+const[streetname,setStreet]=useState();
+const[pincode,setPincode]=useState('');
+const[city,setCity]=useState('');
+const[state,setState]=useState('');
+const[country,setCountry]=useState('');
+const[website,setWebsite]=useState('');
+const[deviceId,setDeviceId]=useState('');
+const[role,setRRole]=useState('admin');
+const[image,setImage]=useState('');
+
 
 // usersside
 // userErrors mgs
@@ -75,7 +87,7 @@ const [Role, setRole]=useState('user')
 const[ Date,setCurrentdate]=useState('02/06/12');
 const [deviceID,setDeviceID]=useState('')
 const[ Adminaccept,setAdminccept]=useState('false')
-
+const [result, setResult] = useState(null);
 console.log(Companyname)
 console.log("dealer",dealers)
 
@@ -89,12 +101,9 @@ const fetchDealers = async () => {
     const response = await axios.get(apiUrl);
 
     if (response.data) {
-
       const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'admin' && dealer.adminaccept === true);
       const dealerOptions = adminDealerstrue.map(dealer => dealer.companyname);
      
-     
-
       setDealers(dealerOptions);
     }
   } catch (error) {
@@ -118,108 +127,10 @@ const fetchDealers = async () => {
       console.error('Error getting device info:', error);
     }
   };
-  
-  
-
-  const handleAddDetails = async () => {
-    // Reset error messages
-    setNameError('');
-    setCompanyNameError('');
-    setContactNumberError('');
-    setBrandError('');
-    setRegistrationError('');
-
-    let isValid = true;
-    const phoneRegex = /^\d{10}$/;
-    // const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (!phoneRegex.test(contactNumber)) {
-      setContactNumberError('Phone number must have 10 digits');
-      isValid = false;
-    }
-
-    if (!name) {
-      setNameError('Name is required');
-      isValid = false;
-    }
-
-    if (!companyName) {
-      setCompanyNameError('Company Name is required');
-      isValid = false;
-    }
-
-    if (!contactNumber) {
-      setContactNumberError('Contact Number is required');
-      isValid = false;
-    }
-    
-    if (!brand) {
-      setBrandError('Brand Name is required');
-      isValid = false;
-    }
-    
-
-    if (!email) {
-      setEmailError('Email is required');
-      isValid = false;
-    }
-
-    if (isValid) {
-      // Retrieve the JWT token from AsyncStorage
-      const token = await AsyncStorage.getItem('token');
-
-      // If all fields are valid, you can proceed with saving the details
-      // Prepare the data to send to the backend, including deviceUniqueId
-      const data = {
-        name: name,
-        companyname: companyName,
-        phoneNumber: contactNumber,
-        email: email,
-        brandname:brand,
-        deviceId: deviceId, // Use the deviceUniqueId
-        currentdate:currentdate,
-        role:'admin'
-      };
-
-      fetch(`${cyclicUrl}/registerPhoneNumber/registerPhoneNumber`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include the token in the headers
-        },
-        body: JSON.stringify(data),
-      })
-        .then(response => {
-          if (response.status === 400) {
-            setRegistrationError('Your registration request already sent, please contact owner.');
-          } else {
-            // Example: Show an alert upon successful registration
-            Alert.alert('Success', 'Request sent successfully');
-            // You can navigate to another screen or perform additional actions here
-            setCompanyName('');
-            setName('');
-            setBrand('');
-            setEmail('');
-            setContactNumber('');
-            navigation.navigate('Otp', { deviceId });
-
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          // Example: Show an alert for registration failure
-          Alert.alert('Error', 'Failed to save details. Please try again.');
-        });
-    }
-  };
-
-
-
-
-  
-
-  // userpostcall
  
-  const handleRegister = async () => {
+   // userpostcall
+ 
+   const handleRegister = async () => {
     try {
       const data = {
         name: Name, 
@@ -260,6 +171,79 @@ const fetchDealers = async () => {
   };
   
 
+ 
+  
+const handleDocumentPicker = async () => {
+  try {
+    const documentResult = await DocumentPicker.pick({
+      type: [DocumentPicker.types.images],
+    });
+    setImage(documentResult[0].uri);
+    setResult(documentResult);
+
+    // The selected document is in the result variable
+    console.log('result',documentResult);
+    
+    // Handle the selected document as needed
+    // For example, you can set it to the state
+    // setDocument(result);
+
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      // User cancelled the document picker
+      console.log('User cancelled document picker');
+    } else {
+      // Handle errors
+      console.log('DocumentPicker Error: ', err);
+    }
+  }
+};
+ 
+
+
+  const handleRegistration = async () => {
+    const formData = new FormData();
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('name', name);
+    formData.append('email',email);
+    formData.append('companyname',companyName);
+    formData.append('brandname',brandName);
+    formData.append('currentdate',currentdate);
+    formData.append('gst',gst);
+    formData.append('address',address);
+    formData.append('streetname',streetname);
+    formData.append('pincode',pincode);
+    formData.append('city',city);
+    formData.append('state',state);
+    formData.append('country',country);
+    formData.append('website',website);
+    formData.append('deviceId',deviceId);
+    formData.append('role',role);
+
+
+    if (result && result.length > 0) {
+      formData.append('image', {
+        uri: result[0].uri,
+        type: result[0].type,
+        name: result[0].name,
+      });
+    }
+
+    try {
+      // Send the registration request to the server
+      const response = await axios.post(`${cyclicUrl}/registerPhoneNumber/registerPhoneNumber`, formData, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+       // Update the state variable 'image' after a successful upload
+      Alert.alert('Success', response.data.message);
+    } catch (error) {
+      console.error('Error registering phone number:', error);
+      Alert.alert('Error', 'Failed to register phone number. Please try again.');
+    }
+  };
 
 
 
@@ -303,94 +287,104 @@ const fetchDealers = async () => {
             </View>
           </TouchableOpacity>
       </View>
-         
+ {/* admininputs */}
+
+
+         <ScrollView>
             {companyInfoVisible && (
         <View style={{paddingHorizontal: moderateScale(10) }}>
           <Text style={{ fontSize: moderateScale(18), color: '#f9f9f9', marginTop: scale(30) }}>Company Information</Text>
-          <View style={{paddingHorizontal: moderateScale(10) }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
-              <TextInput
-                style={styles.inputField}
-                placeholder="Enter your full name"
-                selectionColor="red"
-                placeholderTextColor="#979797"
-                backgroundColor="#111111"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-            {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
-            
-            
-            
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-              <TextInput
-                style={styles.inputField}
-                placeholder="Enter Contact Number"
-                keyboardType="number-pad"
-                selectionColor="red"
-                placeholderTextColor="#979797"
-                backgroundColor="#111111"
-                value={contactNumber}
-                onChangeText={setContactNumber}
-              />
-            </View>
-            {contactNumberError ? <Text style={styles.errorText}>{contactNumberError}</Text> : null}
-     
           
-     
-     
-     
-      </View>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Company Name"
-              selectionColor="red"
-              placeholderTextColor="#979797"
-              value={companyName}
-              onChangeText={setCompanyName}
-            />
-          </View>
-          {companyNameError ? <Text style={styles.errorText}>{companyNameError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter brand name"
-              selectionColor="red"
-              placeholderTextColor="#979797"
-              backgroundColor="#111111"
-              value={brand}
-              onChangeText={setBrand}
-            />
-          </View>
-          {brandError ? <Text style={styles.errorText}>{brandError}</Text> : null}
+          <View>
          
-           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter email name"
-              selectionColor="red"
-              placeholderTextColor="#979797"
-              backgroundColor="#111111"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </View>
-          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+          <TextInput style={styles.inputField}
+        placeholder="phoneNumber"
+        value={phoneNumber}
+        onChangeText={(text) => setPhonenumber(text)}
+      />  
+        <TextInput style={styles.inputField}
+        placeholder="name"
+        value={name}
+        onChangeText={(text) => setName(text)}
+      />  
+       <TextInput style={styles.inputField}
+        placeholder="email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />  
+        <TextInput style={styles.inputField}
+        placeholder="companyName"
+        value={companyName}
+        onChangeText={(text) => setCompanyName(text)}
+      /> 
           
+          
+  
+          
+
+      <TextInput style={styles.inputField}
+        placeholder="Brand Name"
+        value={brandName}
+        onChangeText={(text) => setBrand(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="GST"
+        value={gst}
+        onChangeText={(text) => setGst(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="Address"
+        value={address}
+        onChangeText={(text) => setAddress(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="Street Name"
+        value={streetname}
+        onChangeText={(text) => setStreet(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="Pincode"
+        value={pincode}
+        onChangeText={(text) => setPincode(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="City"
+        value={city}
+        onChangeText={(text) => setCity(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="State"
+        value={state}
+        onChangeText={(text) => setState(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="Country"
+        value={country}
+        onChangeText={(text) => setCountry(text)}
+      />
+
+      <TextInput style={styles.inputField}
+        placeholder="Website"
+        value={website}
+        onChangeText={(text) => setWebsite(text)}
+      />
+
+
+          </View>
+
+
+          <Button title="Pick Image" onPress={handleDocumentPicker} />
+          {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
           <View style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
-          <TouchableOpacity onPress={handleAddDetails} >
-            <Text style={{color:'white',width:100,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Save</Text>
+          <TouchableOpacity onPress={handleRegistration}>
+            <Text style={{color:'white',width:130,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Register</Text>
           </TouchableOpacity>
           </View>
           
@@ -398,10 +392,11 @@ const fetchDealers = async () => {
           
           
           </View>
+          
 )}
+</ScrollView>
 
-
-
+{/* usersinputs */}
 
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
             {companyDetailVisible && (
@@ -468,7 +463,7 @@ const fetchDealers = async () => {
 
           <View style={{display:'flex',flexDirection:'row',justifyContent:'center'}} >
           <TouchableOpacity onPress={handleRegister} >
-            <Text style={{color:'white',width:100,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Save</Text>
+            <Text style={{color:'white',width:100,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Register</Text>
           </TouchableOpacity>
           </View>
          
@@ -542,6 +537,13 @@ export default function TabViewExample() {
 }
 
 const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -614,6 +616,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     flex: 1,
+    marginBottom:15,
     paddingVertical:verticalScale(9),
     backgroundColor: '#111111',
     borderWidth:scale(1),
