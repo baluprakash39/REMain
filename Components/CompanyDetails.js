@@ -35,7 +35,7 @@ const CompanyDetails = () => {
   const [adminaccept,setAdmin]=useState('')
   const [result, setResult] = useState(null);
   const[Id,setObjId]=useState('')
-
+console.log("i",image)
   const [adminInfo, setAdminInfo] = useState(null);
 
   const [updatedData, setUpdatedData] = useState({
@@ -56,7 +56,7 @@ const CompanyDetails = () => {
 
 
   });
-  
+  console.log('updateData',updatedData)
   useEffect(() => {
     
     getAdminInfo();
@@ -79,7 +79,7 @@ const CompanyDetails = () => {
      
       
       const { _id,phoneNumber, name, email,count,address, companyname, brandname, adminaccept,gst,image,pincode,state,streetname,city,country,website} = response.data.data;
-         console.log(count)
+         console.log("res",response.data.data.email)
          setObjId(_id)
           setDeviceId(deviceId);
           setRole(role);
@@ -133,8 +133,37 @@ const CompanyDetails = () => {
   const [websiteError, setWebsiteError] = useState('');
   const [imageError, setImageError] = useState('');
 
+const updateImage=()=>{
 
 
+  const apiUrl = `${cyclicUrl}/registerPhoneNumber/updateImage/${Id}`;; // Replace '123' with the actual ID
+
+    // Replace the formData creation with your actual FormData creation logic
+    const formData = new FormData();
+    formData.append('image', {
+      uri: result[0].uri, // Replace with the actual path to your image file
+      type: result[0].type, // Adjust the type based on your image file type
+      name: result[0].name,
+    });
+
+    axios
+      .put(apiUrl, formData, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          // Include any additional headers if required (e.g., authorization headers)
+        },
+      })
+      .then((response) => {
+        console.log('Image update response:', response.data);
+        // Handle the response data accordingly
+      })
+      .catch((error) => {
+        console.error('Error updating image:', error);
+        // Handle the error
+      });
+  }
+  
 
   const updateAdmin = async () => {
     setPhoneNumberError('');
@@ -153,10 +182,6 @@ const CompanyDetails = () => {
     setImageError('');
   
     let hasError = false;
-    if (!updatedData.phoneNumber) {
-      setPhoneNumberError('Please enter your contact number');
-      hasError = true;
-    }
   
     if (!updatedData.name) {
       setNameError('Please enter your full name');
@@ -217,11 +242,11 @@ const CompanyDetails = () => {
       setWebsiteError('Please enter your website');
       hasError = true;
     }
-    if(!updatedData.image){
+    if(!image){
       setImageError('Please enter your Image');
       hasError = true;
     }
- 
+ if (!hasError){
     try {
       // Make the PUT request to update the admin
       const response = await axios.put(`${cyclicUrl}/registerPhoneNumber/updateadmin/${Id}`, updatedData);
@@ -229,6 +254,7 @@ const CompanyDetails = () => {
       if (response.data === 'Admin details updated successfully') {
         // Navigate to a success screen or perform any other actions needed
         console.log('Admin updated successfully:', response.data);
+        updateImage();
         if (!hasError) {
           navigation.navigate('Inventory');
         }
@@ -240,7 +266,12 @@ const CompanyDetails = () => {
       console.error('Error updating admin:', error);
       // Handle errors, e.g., show an error message to the user
     }
+  }
   };
+
+
+
+
   const handleDocumentPicker = async () => {
     try {
       const documentResult = await DocumentPicker.pick({
@@ -272,7 +303,7 @@ const CompanyDetails = () => {
               <MaterialIcons name='arrow-back' size={moderateScale(25)} color={'#F9F9F9'} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.title}>User Management</Text>
+          <Text style={styles.title}>Update Dealer</Text>
             <Image
                 source={require('../assets/Mg.jpg')}
                 style={{height:scale(50),width:scale(50)}}
@@ -295,19 +326,6 @@ const CompanyDetails = () => {
         </View>
         {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
         <View style={styles.inputContainer}>
-          <Text style={styles.subtitle}>Mobile number</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Mobile number"
-            keyboardType="number-pad"
-            selectionColor="red"
-            placeholderTextColor="#979797"
-            value={updatedData.phoneNumber}
-            onChangeText={(text) => setUpdatedData({ ...updatedData, phoneNumber: text })}
-          />
-        </View>
-        {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
-        <View style={styles.inputContainer}>
           <Text style={styles.subtitle}>Email</Text>
           <TextInput style={styles.input} value={updatedData.email}
             placeholder="Enter email address"
@@ -316,6 +334,7 @@ const CompanyDetails = () => {
             onChangeText={(text) => setUpdatedData({ ...updatedData, email: text })}
           />
         </View>
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <View style={{width:'100%',alignItems:'flex-start'}}>
           <Text style={{ fontSize: moderateScale(20), color: '#f9f9f9',fontWeight:'500',marginTop:verticalScale(15)}}>Company information :</Text>
         </View>
@@ -452,7 +471,7 @@ const CompanyDetails = () => {
               <Text style={{color:'#f9f9f9',fontSize:moderateScale(10),textAlign:'center',fontWeight:'500'}}>Image Preview</Text>
               {image && (
                 <Image
-                  source={{ uri: image }}
+                  source={{ uri:image }}
                   style={{ width:moderateScale(300), height: verticalScale(80), marginTop: verticalScale(5),resizeMode: 'stretch',}}
                 />
               )}

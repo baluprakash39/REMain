@@ -87,9 +87,6 @@ const [imageError, setImageError] = useState('');
 
 // usersside
 // userErrors mgs
-const[usernameError,setUsernameErr]=useState('');
-const[userMobileError,setUsermobileErr]=useState('')
-const [selectedRole, setSelectedRole] = useState(null);
 
 // dealerdata contains company name
 const [dealers, setDealers] = useState([]);
@@ -97,14 +94,23 @@ const [dealers, setDealers] = useState([]);
 
 //  userregistration
 const [Name,setuserName]=useState('');
-const[PhoneNumber,setphoneNumber]=useState('');
-const[Companyname,setCompanyname]=useState('Re');
+const[phonenumber,setphoneNumber]=useState('');
+const[companyname,setCompanyname]=useState('');
 const [Role, setRole]=useState('user')
 const[ Date,setCurrentdate]=useState('02/06/12');
 const [deviceID,setDeviceID]=useState('')
 const[ Adminaccept,setAdminccept]=useState('false')
 const [result, setResult] = useState(null);
-console.log(Companyname)
+
+
+// uererrormsgs
+const[usernameError,setUsernameErr]=useState('');
+const[userMobileError,setUsermobileErr]=useState('');
+const [companynameErr,setcompanyNameErr]=useState('');
+const [selectedRole, setSelectedRole] = useState(null);
+
+
+
 console.log("dealer",dealers)
 
 useEffect(()=>{
@@ -137,22 +143,41 @@ const fetchDealers = async () => {
     }
   };
  
-  const getCurrentDate = () => {
-    const now = new Date();
-    const day = now.getDate();
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-    const formattedDate = `${day}-${month}-${year}`;
-    seDate(formattedDate);
-    };
+  
 
-   
+  // const getCurrentDate = () => {
+  //   const now = new Date();
+  //   const day = now.getDate();
+  //   const month = now.getMonth() + 1;
+  //   const year = now.getFullYear();
+  //   const formattedDate = `${day}-${month}-${year}`;
+    
+  //   };
+  // useEffect(() => {
+  //     const date = getCurrentDate();
+  //     seDate(date);
+  //   }, []);
    const handleRegister = async () => {
+    let hasError = false;
+    if (!companyname) {
+      setcompanyNameErr('Please enter your company name');
+      hasError = true;
+    }
+    if (!phonenumber) {
+      setUsermobileErr('Please enter your contact number');
+      hasError = true;
+    }
+  
+    if (!Name) {
+      setUsernameErr('Please enter your full name');
+      hasError = true;
+    }
+    if(!hasError){
     try {
       const data = {
         name: Name, 
         companyname: Companyname,
-        phoneNumber: PhoneNumber,
+        phoneNumber: Phonenumber,
         deviceId: deviceID,
         currentdate: Date,
         adminaccept: Adminaccept,
@@ -175,13 +200,13 @@ const fetchDealers = async () => {
       setphoneNumber('');
       setCompanyname('');
       // Reset other fields as needed
-  
+     navigation.navigate('Otp')
     } catch (error) {
       console.error('Error registering user:', error);
       // Handle error as needed, e.g., display an error message to the user
     }
   };
-  
+}
 
  
   
@@ -470,6 +495,7 @@ const handleDocumentPicker = async () => {
                   // Clear the error when the user starts typing
                   setPhoneNumberError('');
                 }}
+               
                 />
             </View>
             {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
@@ -686,15 +712,18 @@ const handleDocumentPicker = async () => {
             valueField="value"
             placeholder="Select your Company"
             searchPlaceholder="Search by company name..."
-            value={Companyname}
+            value={companyname}
             onChange={(item) => {
               setCompanyname(item.value);
+              setcompanyNameErr('');
             }}
-            // renderLeftIcon={() => (
-            //   <AntDesign style={styles.icon} color="green" name="checkcircle" size={20} />
-            // )}
+          
+            
           />
+          
         </View>
+        {companynameErr ? <Text style={styles.errorText}>{companynameErr}</Text> : null}
+
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
           <TextInput
             style={styles.inputField}
@@ -702,7 +731,12 @@ const handleDocumentPicker = async () => {
             selectionColor="red"
             placeholderTextColor="#979797"
             value={Name}
-            onChangeText={setuserName}
+            onChangeText={(text) => {
+              // Update the input value
+            setuserName(text);
+              // Clear the error when the user starts typing
+              setUsernameErr('');
+            }}
           />
         </View>
         {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
@@ -713,8 +747,13 @@ const handleDocumentPicker = async () => {
             selectionColor="red"
             placeholderTextColor="#979797"
             backgroundColor="#111111"
-            value={PhoneNumber}
-            onChangeText={setphoneNumber}
+            value={phonenumber}
+            onChangeText={(text) => {
+              // Update the input value
+              setphoneNumber(text);
+              // Clear the error when the user starts typing
+              setUsermobileErr('');
+            }}
           />
         </View>
         {userMobileError ? <Text style={styles.errorText}>{userMobileError}</Text> : null}

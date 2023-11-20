@@ -110,7 +110,7 @@ function Inventory() {
   const [reloadKey, setReloadKey] = useState(0); 
   const [selectedSection, setSelectedSection] = useState(null);
   const [deviceId, setDeviceId] = useState(null)
-
+console.log('filer',productData)
   
   const navigation = useNavigation(); // Get the navigation object
   useFocusEffect(
@@ -351,6 +351,7 @@ const deleteProduct = (Id) => {
       });
       if (response.ok) {
         // Handle success
+        console.log('image')
         fetchBikeDetails();
         // You may want to trigger a refresh or update here if needed
       } else {

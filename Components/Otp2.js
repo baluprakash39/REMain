@@ -23,8 +23,9 @@ i18n.use(initReactI18next).init({
 const Otp2 = ({ route }) => {
   const {t} = useTranslation();
   const { deviceId } = route.params;
-  const { verificationId } = route.params;
+
   const{role}=route.params;
+console.log(role)
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
   const [verifying, setVerifying] = useState(false);

@@ -82,40 +82,7 @@ const[phoneErr,phoneNumberError]=useState('')
       Alert.alert('Error', 'Failed to retrieve admin information. Please try again.');
     }
   };
-  // const updateAdmin = async () => {
-  //   // Field validation
-  //   setNameError('');
-  //   phoneNumberError('');
-  //   let hasError = false;
-  //   if (!phoneNumber) {
-  //     phoneNumberError('Please enter your contact number');
-  //     hasError = true;
-  //   }
-  
-  //   if (!name) {
-  //     setNameError('Please enter your full name');
-  //     hasError = true;
-  //   }
 
-  //   try {
-  //     // Make the PUT request to update the admin
-  //     const response = await axios.put(`${cyclicUrl}/registerPhoneNumber/updateadmin/${Id}`, updatedData);
-  //     // Handle the success case
-  //     if (response.data === 'Admin details updated successfully') {
-  //       // Navigate to a success screen or perform any other actions needed
-  //       console.log('Admin updated successfully:', response.data);
-  //       getAdminInfo();
-  //       naviagtion.navigate('AdminUsers')
-  //     } else {
-  //       // Handle the failure case
-  //       console.log('Failed to update admin:', response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error updating admin:', error);
-  //     // Handle errors, e.g., show an error message to the user
-  //   }
-  // };
-  
   const updateAdmin = async () => {
     // Field validation
     setNameError('');

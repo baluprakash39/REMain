@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image,Alert, StyleSheet,Modal,ScrollView,ActivityIndicator } from 'react-native';
+import { Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet,Modal,ScrollView,ActivityIndicator } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -163,32 +164,72 @@ console.log(document)
   };
 
 
-  const deleteuser=async(Id)=>{
-    console.log('id',Id)
-       try {
-         // Replace 'your_backend_url' with the actual URL of your backend
-         const apiUrl = `${cyclicUrl}/registerUser/deleteUser/${Id}`;
+  // const deleteuser=async(Id)=>{
+  //   console.log('id',Id)
+  //      try {
+  //        // Replace 'your_backend_url' with the actual URL of your backend
+  //        const apiUrl = `${cyclicUrl}/registerUser/deleteUser/${Id}`;
          
-         // Make the DELETE request to delete the user
-         const response = await axios.delete(apiUrl);
+  //        // Make the DELETE request to delete the user
+  //        const response = await axios.delete(apiUrl);
    
-         if (response.data.status === 'fail') {
-           // Handle the case where the user is not found
-           Alert.alert('Error', 'User not found.');
-         } else {
-           // Handle the success case
-           Alert.alert('Success', 'User deleted successfully');
-           fetchData();
-         }
-       } catch (error) {
-         console.error('Error deleting user:', error);
-         // Handle errors, e.g., show an error message to the user
-         Alert.alert('Error', 'Internal server error');
-       }
-     };
+  //        if (response.data.status === 'fail') {
+  //          // Handle the case where the user is not found
+  //          Alert.alert('Error', 'User not found.');
+  //        } else {
+  //          // Handle the success case
+  //          Alert.alert('Success', 'User deleted successfully');
+  //          fetchData();
+  //        }
+  //      } catch (error) {
+  //        console.error('Error deleting user:', error);
+  //        // Handle errors, e.g., show an error message to the user
+  //        Alert.alert('Error', 'Internal server error');
+  //      }
+  //    };
 
 
-
+ 
+  const deleteuser = async (Id) => {
+    console.log('id', Id);
+  
+    try {
+      // Display confirmation alert
+      Alert.alert(
+        'Confirmation',
+        'Are you sure you want to delete this user?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Yes',
+            onPress: async () => {
+              // User confirmed, proceed with the deletion
+              const apiUrl = `${cyclicUrl}/registerUser/deleteUser/${Id}`;
+              const response = await axios.delete(apiUrl);
+  
+              if (response.data.status === 'fail') {
+                // Handle the case where the user is not found
+                Alert.alert('Error', 'User not found.');
+              } else {
+                // Handle the success case
+                Alert.alert('Success', 'User deleted successfully');
+                fetchData();
+              }
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      // Handle errors, e.g., show an error message to the user
+      Alert.alert('Error', 'Internal server error');
+    }
+  };
+  
 
 
 
@@ -252,22 +293,44 @@ const handleSearchAdminsInputChange = (text) => {
       // Handle the error, e.g., set an error state or display an error message
     }
   };
-  const deleteadmin = async (Id) => {
-    try {
-      const response = await axios.delete(`${cyclicUrl}/registerPhoneNumber/deleteRegisteredPhoneNumber/${Id}`);
-      // Handle the success case
-      if (response.data.status === 'success') {
-        setResponseMessage(response.data.message);
-        fetchDealers();
-      } else {
-        // Handle the failure case
-        setResponseMessage('Failed to delete phone number');
-      }
-    } catch (error) {
-      console.error('Error deleting phone number:', error);
-      setResponseMessage('Internal server error');
-    }
-  };
+  
+
+const deleteadmin = async (Id) => {
+  try {
+    // Display confirmation alert
+    Alert.alert(
+      'Confirmation',
+      'Are you sure you want to delete this admin?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: async () => {
+            // User confirmed, proceed with the deletion
+            const response = await axios.delete(`${cyclicUrl}/registerPhoneNumber/deleteRegisteredPhoneNumber/${Id}`);
+
+            // Handle the success case
+            if (response.data.status === 'success') {
+              setResponseMessage(response.data.message);
+              fetchDealers();
+            } else {
+              // Handle the failure case
+              setResponseMessage('Failed to delete phone number');
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  } catch (error) {
+    console.error('Error deleting phone number:', error);
+    setResponseMessage('Internal server error');
+  }
+};
+
   const handleupdate= async (Id) => {
     try {
       // Replace 'your_backend_url' with the actual URL of your backend

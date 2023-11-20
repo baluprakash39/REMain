@@ -109,7 +109,6 @@ extendedWarranty: '',
 const [randomCode, setRandomCode] = useState('');
 
 //image usesatate
-const [reimage, setreimage] = useState('https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg')
 // dropdowns
 const [selectedMirrorstext, setSelectedMirrorstext] = useState('');
 const [selectedMirrorsvalue, setSelectedMirrorsvalue] = useState(0);
@@ -137,6 +136,8 @@ const [selectedSafetyAccessoriesValue, setSelectedSafetyAccessoriesValue] = useS
 const [selectedOption, setSelectedOption] = useState(0);
 const [exwarrantytext, setextext] = useState('');
 //checkboxes
+const [checked, setChecked] = useState(null);
+
 // hype
 const [hype,sethype]=useState(0);
 const[hypetext,sethypetext]=useState('')
@@ -187,22 +188,23 @@ const handleNo=(out)=>{
   sethypetext('No')
 }
 const handlebasic=(out)=>{
-  setChecked('Basic')
+  setChecked(out ? 'Basic' : null);
   setins(out)
   settext('Basic')
 }
 const handleNill=(out)=>{
-  setChecked('Nilldip')
+
+  setChecked(out ? 'Nilldip' : null);
   setins(out)
   settext('Nilldip')
 }
 const handleEP=(out)=>{
-  setChecked('EP')
+  setChecked(out ? 'EP' : null);
   setins(out)
   settext('Ep')
 }
 const handleRTI=(out)=>{
-  setChecked('RTI')
+  setChecked(out ? 'RTI' : null);
   setins(out)
   settext('Rti')
 }
@@ -214,7 +216,7 @@ const [EngineCC,setEngineCC]=useState('');
 const [adminallimage,setadminallimage]=useState('');
 const [vehiclename,setvehiclename]=useState('');
 const [model,setmodel]=useState('');
-const [checked, setChecked] = React.useState('');
+// const [checked, setChecked] = React.useState('');
 const[chekedhypo,sethypoCheked]=useState('')
 const[Checkwarenty,setwarentyCheked]=useState('')
 // dealerdetails
@@ -311,7 +313,6 @@ const handleShare = async () => {
       hype,
       hypetext,
       exwarrantytext,
-      reimage,
       totalonroad,
       grandtotal,
       B,
@@ -560,62 +561,50 @@ return (
                 <Text style={{ color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹ {data.roadtax}</Text>
               </View>
               <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', paddingVertical:verticalScale(5),alignItems:'center'}}> 
-                  <View style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
-                    {/* Insurance */}
-                    <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(4), letterSpacing: moderateScale(0.4)}}>Insurance</Text>
-                    {data.insurance.map((insu)=>(
-                        <View style={{display:'flex',flexDirection:'row'}}>
-                            {/* Basic */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
-                                <RadioButton
-                                  value={isSelected}
-                                  status={ checked === 'Basic' ? 'checked' : 'unchecked' }
-                                  onPress={() =>handlebasic(insu.Basic)}
-                                  color="#f9f9f9"
-                                  uncheckedColor="#f9f9f9"
-                                  style={styles.radioButton}
-                                />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11),letterSpacing: moderateScale(0.4)}}>Basic</Text>
-                              </View> 
-                              {/* Nilldip */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
-                                <RadioButton
-                                  value={isNilldip}
-                                  status={ checked === 'Nilldip' ? 'checked' : 'unchecked' }
-                                  onPress={() =>handleNill(insu.Nildip)}
-                                  color="#f9f9f9"
-                                  uncheckedColor="#f9f9f9"
-                                  style={styles.radioButton}
-                                />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11),letterSpacing: moderateScale(0.4)}}>Nildip</Text>
-                              </View>
-                              {/* EP */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
-                                <RadioButton
-                                    value={EP}
-                                    status={ checked === 'EP' ? 'checked' : 'unchecked' }
-                                    onPress={() =>handleEP(insu.Ep)}
-                                    color="#f9f9f9"
-                                    uncheckedColor="#f9f9f9"
-                                    style={styles.radioButton}
-                                />
-                                <Text style={{color:'#F9F9F9',fontSize:moderateScale(11), letterSpacing: moderateScale(0.4)}}>EP</Text>
-                              </View>
-                              {/* RTI */}
-                              <View style={{alignItems:'center',flexDirection:'row'}}>
-                                  <RadioButton
-                                    value={RTI}
-                                    status={ checked === 'RTI' ? 'checked' : 'unchecked' }
-                                    onPress={() =>handleRTI(insu.RTI)}
-                                    color="#f9f9f9"
-                                    uncheckedColor="#f9f9f9"
-                                    style={styles.radioButton}
-                                  />
-                                  <Text style={{color:'#F9F9F9',fontSize:moderateScale(12), letterSpacing: moderateScale(0.4)}}>RTI</Text>
-                              </View>
-                        </View>
-                        ))}
-                  </View>
+              <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
+  {/* Insurance */}
+  <Text style={{ marginLeft: moderateScale(5), justifyContent: 'flex-start', color: '#F9F9F9', fontSize: moderateScale(12), fontWeight: '500', marginBottom: verticalScale(4), letterSpacing: moderateScale(0.4) }}>Insurance</Text>
+  {data.insurance.map((insu) => (
+    <View style={{ display: 'flex', flexDirection: 'row' }}>
+      {/* Basic */}
+      <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+        <CheckBox
+          checked={checked === 'Basic'}
+          onPress={() => handlebasic(insu.Basic)}
+          // containerStyle={styles.checkBoxContainer}
+        />
+        <Text style={{ color: '#F9F9F9', fontSize: moderateScale(11), letterSpacing: moderateScale(0.4) }}>Basic</Text>
+      </View>
+      {/* Nilldip */}
+      <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+        <CheckBox
+          checked={checked === 'Nilldip'}
+          onPress={() => handleNill(insu.Nildip)}
+          // containerStyle={styles.checkBoxContainer}
+        />
+        <Text style={{ color: '#F9F9F9', fontSize: moderateScale(11), letterSpacing: moderateScale(0.4) }}>Nildip</Text>
+      </View>
+      {/* EP */}
+      <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+        <CheckBox
+          checked={checked === 'EP'}
+          onPress={() => handleEP(insu.Ep)}
+          containerStyle={styles.checkBoxContainer}
+        />
+        <Text style={{ color: '#F9F9F9', fontSize: moderateScale(11), letterSpacing: moderateScale(0.4) }}>EP</Text>
+      </View>
+      {/* RTI */}
+      <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+        <CheckBox
+          checked={checked === 'RTI'}
+          onPress={() => handleRTI(insu.RTI)}
+          containerStyle={styles.checkBoxContainer}
+        />
+        <Text style={{ color: '#F9F9F9', fontSize: moderateScale(12), letterSpacing: moderateScale(0.4) }}>RTI</Text>
+      </View>
+    </View>
+  ))}
+</View>
                   <Text style={{color: '#F9F9F9', fontSize: moderateScale(14), flex: 1, textAlign: 'right',marginRight:moderateScale(4), fontWeight:'600', textAlignVertical:'center' }}>₹{ins}</Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', height: verticalScale(30),paddingVertical:5}}>

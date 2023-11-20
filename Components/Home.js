@@ -29,8 +29,7 @@ function Home({route}) {
   const navigation = useNavigation(); 
   const {t} = useTranslation();
   const {deviceId} = route.params
-  const{role}=route.params
-  console.log('role',role)
+  const [userRole, setUserRole] = useState(null);
   // Get the navigation object
   const [search, setSearch] = useState('');
   const [createVehicle1, setCreateVehicle1] = useState(true);
@@ -44,6 +43,32 @@ function Home({route}) {
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+
+
+  useEffect(() => {
+    // Call the function to retrieve the role from AsyncStorage
+    getRoleFromAsyncStorage();
+  }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
+
+  const getRoleFromAsyncStorage = async () => {
+    try {
+      // Retrieve the role from AsyncStorage
+      const storedRole = await AsyncStorage.getItem('userRole');
+
+      // Check if the role is not null or undefined
+      if (!storedRole) {
+        console.error('User role is null or undefined');
+        return;
+      }
+
+      // Set the userRole state with the retrieved role
+      setUserRole(storedRole);
+    } catch (error) {
+      // Handle errors
+      console.error('Error retrieving user role:', error);
+    }
+  };
   useFocusEffect(
     React.useCallback(() => {
       // This function will be called when the screen gains focus
@@ -124,7 +149,7 @@ function Home({route}) {
   };
   //function to naviagte to inventory
   const handleInventory = () => {
-    if (role === 'user') {
+    if (userRole === 'user') {
       alert('You do not have access to Inventory');
     } else {
       // Navigate to the Inventory screen for roles other than 'user'

@@ -240,19 +240,23 @@ const AddVehicle = () => {
   itemTextStyle={{ color: '#111111' }}
   dropdownTextStyle={{ color: '#111111', backgroundColor: 'red' }}
   inputSearchStyle={styles.inputSearchStyle}
-  data={dealers.map(dealer => ({ label: dealer, value: dealer }))}
+  data={sections
+    .filter(section => section.Sectionname !== 'Accesories' && section.Sectionname !== 'Care')
+    .map((section) => ({ label: section.Sectionname, value: section.Sectionname }))
+  }
   search
   maxHeight={300}
   labelField="label"
   valueField="value"
   placeholder="Select Company"
   searchPlaceholder="Search..."
-  value={selectedCompanyInfo}
-  onChangeText={(item) => {
-    setSelectedCompanyInfo(item);
-    
+  value={value}
+  onChange={(item) => {
+    setValue(item.value);
+    setSectionError(''); // Clear the error message
   }}
 />
+
 
             </View>
 

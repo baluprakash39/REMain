@@ -36,7 +36,6 @@ const SharePdf = ({route}) => {
     Vehiclecolor,
     EngineCC,
     adminallimage,
-    vehiclename,
     model,
     companyaddress,
     companyname,
@@ -55,7 +54,6 @@ const SharePdf = ({route}) => {
     hype,
     hypetext,
     exwarrantytext,
-    reimage,
     totalonroad,
     grandtotal,
     selectedOption,
@@ -83,6 +81,7 @@ const SharePdf = ({route}) => {
     selectedSafetyAccessoriesValue } = route.params;
 
   const Url=image
+  console.log("url",Url)
   useEffect(() => {
     // Retrieve 'formData' from AsyncStorage
     AsyncStorage.getItem('formData')
@@ -144,7 +143,7 @@ const SharePdf = ({route}) => {
                  text-transform: uppercase;">Quotation</p>
      </div>
      <div>
-     <img src=${reimage}  class="relogo" 
+     <img src=${Url}  class="relogo" 
 
             style="display: flex;
                    width: 170px;
