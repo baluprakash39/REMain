@@ -1,489 +1,560 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, ScrollView } from 'react-native';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import cyclicUrl from '../cylic/Cyclic';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
-import {initReactI18next, useTranslation} from 'react-i18next';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+import Superadminpage from './Superadminpage';
+import DocumentPicker from 'react-native-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import cyclicUrl from '../cylic/Cyclic';
-import i18n from 'i18next';
-import en from './locales/en.json';
 
-i18n.use(initReactI18next).init({
-  compatibilityJSON: 'v3',
-  resources: {
-    en: {translation: en},
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-});
 const CompanyDetails = () => {
-  const {t} = useTranslation();
-  const navigation = useNavigation();
+  const navigation=useNavigation();
+  const[image,setImage]=useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [companyname, setCompanyName] = useState('');
+  const [brandname, setBrandName] = useState('');
+  const [role,setRole]=useState('admin');
+  const [deviceId, setDeviceId] = useState('');
+  const [adminaccept,setAdmin]=useState('')
+  const [result, setResult] = useState(null);
+  const[Id,setObjId]=useState('')
 
-  const [formData, setFormData] = useState({
-    companyname: '',
-    companyaddress: '',
-    streetname: '',
-    city: '',
-    pincode: '',
-    state: '',
-    country: '',
-    contactnumber: '',
-    dealeremailid: '',
-    website: '',
-    gstin: '', 
-  });
- const [formErrors, setFormErrors] = useState({
-    companyname: '',
-    companyaddress: '',
-    streetname: '',
-    city: '',
-    pincode: '',
-    state: '',
-    country: '',
-    contactnumber: '',
-    dealeremailid: '',
-    website: '',
-    gstin:''
-  });
+  const [adminInfo, setAdminInfo] = useState(null);
 
-  console.log(formData)
-  const handleInputChange = (field, text) => {
-    setFormData({ ...formData, [field]: text });
-    setFormErrors({ ...formErrors, [field]: '' });
-  };
+  const [updatedData, setUpdatedData] = useState({
+    phoneNumber: '',
+    name: '',
+    email: '',
+    companyname: '',
+    brandname: '',
+    gst:'',
+    address:'',
+    streetname:'',
+    pincode:'',
+    city:'',
+    country:'',
+    image:'',
+    website:'',
+    count:'',
+
+
+  });
   
-
-  const handleSubmit = async () => {
-    console.log("form",formData)
-    let formIsValid = true;
-    const newFormErrors = { ...formErrors };
-
-    // Validation logic for each field
-    if (formData.companyname === '') {
-      newFormErrors.companyname = 'Company Name is required';
-      formIsValid = false;
-    }
-
-    if (formData.companyaddress === '') {
-      newFormErrors.companyaddress = 'Company Address is required';
-      formIsValid = false;
-    }
-
-    if (formData.streetname === '') {
-      newFormErrors.streetname = 'Street Name is required';
-      formIsValid = false;
-    }
-
-    if (formData.city === '') {
-      newFormErrors.city = 'City is required';
-      formIsValid = false;
-    }
-
-    if (formData.pincode === '') {
-      newFormErrors.pincode = 'Pincode is required';
-      formIsValid = false;
-    }
-
-    if (formData.state === '') {
-      newFormErrors.state = 'State is required';
-      formIsValid = false;
-    }
-
-    if (formData.country === '') {
-      newFormErrors.country = 'Country is required';
-      formIsValid = false;
-    }
-
-    if (formData.contactnumber === '') {
-      newFormErrors.contactnumber = 'Contact Number is required';
-      formIsValid = false;
-    }
-
-    if (formData.dealeremailid === '') {
-      newFormErrors.dealeremailid = 'Email is required';
-      formIsValid = false;
-    }
-    
-
-    if (formData.website === '') {
-      newFormErrors.website = 'Website is required';
-      formIsValid = false;
-    }
-    
-  if (formData.gstin === '') {
-  newFormErrors.gstin = 'GST Number is required';
-  formIsValid = false;
-  }
-
-    if (formIsValid) {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        // Send a POST request to your server's /dealerdetails endpoint
-        const response = await fetch(`${cyclicUrl}/dealerdetails/dealerdetails`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        });
-console.log('response',response)
-        if (response.ok) {
-          // If the request was successful, you can handle the response here
-          const data = await response.json();
-          navigation.navigate('Inventory')
-          console.log('Response from server:', data);
-        } else {
-          // Handle errors here
-          console.error('Error:', response.status, response.statusText);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    } else {
-      setFormErrors(newFormErrors);
-    }
-  };
-
-
-
-
-
   useEffect(() => {
-    getDealer();
+    
+    getAdminInfo();
   }, []);
-
-  const getDealer = async () => {
+ 
+  const getAdminInfo = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      const response = await fetch(`${cyclicUrl}/dealerdetails/getdealers`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        if (data.user && data.user.length > 0) {
-          // Update the formData state with the data from the first item in the array
-          const firstUser = data.user[0];
-          setFormData({
-            companyname: firstUser.companyname || '',
-            companyaddress: firstUser.companyaddress || '',
-            streetname: firstUser.streetname || '',
-            city: firstUser.city || '',
-            pincode: firstUser.pincode || '',
-            state: firstUser.state || '',
-            country: firstUser.country || '',
-            contactnumber: firstUser.contactnumber || '',
-            dealeremailid: firstUser.dealeremailid || '',
-            website: firstUser.website || '',
-            gstin: firstUser.gstin || '',
+      // Retrieve phone number from AsyncStorage
+      const phoneNo = await AsyncStorage.getItem('phoneNo');
+      console.log('Phone Number:', phoneNo);
+
+      // Check if phoneNo is not null or undefined
+      if (!phoneNo) {
+        console.error('Phone number is null or undefined');
+        return;
+      }
+
+      // Make GET request to your API
+      const response = await axios.get(`${cyclicUrl}/registerPhoneNumber/getphonenumber/${phoneNo}`);
+     
+      
+      const { _id,phoneNumber, name, email,count,address, companyname, brandname, adminaccept,gst,image,pincode,state,streetname,city,country,website} = response.data.data;
+         console.log(count)
+         setObjId(_id)
+          setDeviceId(deviceId);
+          setRole(role);
+          setAdmin(adminaccept);
+          setUpdatedData({
+            phoneNumber,
+            name,
+            email,
+            companyname,
+            brandname,
+            count,gst,streetname,address,pincode,city,state,country,website,image
           });
+          setAdminInfo(response.data.data);
+          setDeviceId(deviceId)
+          setRole(role)
+          setAdmin(adminaccept)
+
+    } catch (error) {
+      // Handle errors
+      console.error('Error:', error);
+
+      // Log the entire error object to see more details
+      console.error('Full Error:', error);
+
+      // You can also check specific properties of the error object
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error('Response Data:', error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received. Request details:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error setting up the request:', error.message);
+      }
+    }
+  }
+  
+  const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [companyNameError, setCompanyNameError] = useState('');
+  const [brandError, setBrandError] = useState('');
+  const [gstError, setGstError] = useState('');
+  const [addressError, setAddressError] = useState('');
+  const [streetNameError, setStreetNameError] = useState('');
+  const [pincodeError, setPincodeError] = useState('');
+  const [cityError, setCityError] = useState('');
+  const [stateError, setStateError] = useState('');
+  const [countryError, setCountryError] = useState('');
+  const [websiteError, setWebsiteError] = useState('');
+  const [imageError, setImageError] = useState('');
+
+
+
+
+  const updateAdmin = async () => {
+    setPhoneNumberError('');
+    setNameError('');
+    setEmailError('');
+    setCompanyNameError('');
+    setBrandError('');
+    setGstError('');
+    setAddressError('');
+    setStreetNameError('');
+    setCityError('');
+    setStateError('');
+    setPincodeError('');
+    setCountryError('');
+    setWebsiteError('');
+    setImageError('');
+  
+    let hasError = false;
+    if (!updatedData.phoneNumber) {
+      setPhoneNumberError('Please enter your contact number');
+      hasError = true;
+    }
+  
+    if (!updatedData.name) {
+      setNameError('Please enter your full name');
+      hasError = true;
+    }
+  
+    if (!updatedData.email) {
+      setEmailError('Please enter your email address');
+      hasError = true;
+    }
+  
+    if (!updatedData.companyname) {
+      setCompanyNameError('Please enter your company name');
+      hasError = true;
+    }
+  
+    if (!updatedData.brandname) {
+      setBrandError('Please enter your brand name');
+      hasError = true;
+    }
+  
+    if (!updatedData.gst) {
+      setGstError('Please enter your GSTIN number');
+      hasError = true;
+    }
+  
+    if (!updatedData.address) {
+      setAddressError('Please enter your address');
+      hasError = true;
+    }
+  
+    if (!updatedData.streetname) {
+      setStreetNameError('Please enter your street name');
+      hasError = true;
+    }
+  
+    if (!updatedData.pincode) {
+      setPincodeError('Please enter your PIN code');
+      hasError = true;
+    }
+  
+    if (!updatedData.city) {
+      setCityError('Please enter your city name');
+      hasError = true;
+    }
+  
+    if (!updatedData.state) {
+      setStateError('Please enter your state name');
+      hasError = true;
+    }
+  
+    if (!updatedData.country) {
+      setCountryError('Please enter your country name');
+      hasError = true;
+    }
+  
+    if (!updatedData.website) {
+      setWebsiteError('Please enter your website');
+      hasError = true;
+    }
+    if(!updatedData.image){
+      setImageError('Please enter your Image');
+      hasError = true;
+    }
+ 
+    try {
+      // Make the PUT request to update the admin
+      const response = await axios.put(`${cyclicUrl}/registerPhoneNumber/updateadmin/${Id}`, updatedData);
+      // Handle the success case
+      if (response.data === 'Admin details updated successfully') {
+        // Navigate to a success screen or perform any other actions needed
+        console.log('Admin updated successfully:', response.data);
+        if (!hasError) {
+          navigation.navigate('Inventory');
         }
       } else {
-        console.error('Error:', response.status, response.statusText);
+        // Handle the failure case
+        console.log('Failed to update admin:', response.data);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error updating admin:', error);
+      // Handle errors, e.g., show an error message to the user
     }
   };
-
-  const handleBackPress = () => {
-    // Navigate back to the Inventory screen
-    navigation.navigate('Inventory');
-  };
-
-  return (
-    <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
+  const handleDocumentPicker = async () => {
+    try {
+      const documentResult = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      setImage(documentResult[0].uri);
+      setResult(documentResult);
+  getAdminInfo();
+      // The selected document is in the result variable
+      console.log('result',documentResult);
       
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <View style={{alignContent: 'center' }}>
-              <TouchableOpacity onPress={() => { handleBackPress(); navigation.navigate('Inventory'); }} style={styles.backButton}>
-                <MaterialIcons name='arrow-back' size={moderateScale(20)} color={'#F9F9F9'} />
-              </TouchableOpacity>
-            </View>
-          
-          <View style={{ justifyContent: 'center', width:scale(315), height:scale(20)}}>
-          <Text style={styles.title}>Company Details</Text>
-          </View>
-          </View>
-          <View style={styles.line}></View>
-          <ScrollView>
-          {/* Company Name */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) , marginTop: verticalScale(10) }}>
-            <Text style={styles.subtitle}>Company Name</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter your Company name"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.companyname}
-              onChangeText={(text) => handleInputChange('companyname', text)}
-            />
-          </View>
-          {formErrors.companyname ? <Text style={styles.errorText}>{formErrors.companyname}</Text> : null}
-          {/* Company Address */}
-          <Text style={{ color: '#F9F9F9', fontSize: moderateScale(18), fontWeight: '700', marginTop: verticalScale(10), marginBottom: verticalScale(5) }}>Company Address</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Address1</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Address"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.companyaddress}
-              onChangeText={(text) => handleInputChange('companyaddress', text)}
-            />
-          </View>
-          {formErrors.companyaddress ? <Text style={styles.errorText}>{formErrors.companyaddress}</Text> : null}
-          {/* Street Name */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Street Name</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Street Name"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.streetname}
-              onChangeText={(text) => handleInputChange('streetname', text)}
-            />
-          </View>
-          {formErrors.streetname ? <Text style={styles.errorText}>{formErrors.streetname}</Text> : null}
-          {/* City */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>City</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter City Name"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.city}
-              onChangeText={(text) => handleInputChange('city', text)}
-            />
-          </View>
-          {formErrors.city ? <Text style={styles.errorText}>{formErrors.city}</Text> : null}
-          {/* Pincode */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Pincode</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Pincode"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.pincode}
-              onChangeText={(text) => handleInputChange('pincode', text)}
-            />
-          </View>
-          {formErrors.pincode ? <Text style={styles.errorText}>{formErrors.pincode}</Text> : null}
-          {/* State */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>State</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter State Name"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.state}
-              onChangeText={(text) => handleInputChange('state', text)}
-            />
-          </View>
-          {formErrors.state ? <Text style={styles.errorText}>{formErrors.state}</Text> : null}
-          {/* Country */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Country</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Country Name"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.country}
-              onChangeText={(text) => handleInputChange('country', text)}
-            />
-          </View>
-          {formErrors.country ? <Text style={styles.errorText}>{formErrors.country}</Text> : null}
-          {/* Contact Details */}
-          <Text style={{ color: '#F9F9F9', fontSize: moderateScale(18), fontWeight: '700', marginTop: verticalScale(10), marginBottom: verticalScale(5) }}>Contact Details</Text>
-          {/* GST */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>GST</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-            style={styles.inputField}
-            placeholder="Enter GST Number"
-            selectionColor="red"
-            placeholderTextColor="#868687"
-            backgroundColor="#CBCBCA"
-            value={formData.gstin}
-            onChangeText={(text) => handleInputChange('gstin', text)}
-          />
-        </View>
-         {formErrors.gstin ? <Text style={styles.errorText}>{formErrors.gstin}</Text> : null}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Contact Number</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Contact Number"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.contactnumber}
-              onChangeText={(text) => handleInputChange('contactnumber', text)}
-            />
-          </View>
-          {formErrors.contactnumber ? <Text style={styles.errorText}>{formErrors.contactnumber}</Text> : null}
-          {/* Email Id */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Email Id</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Email Id"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.dealeremailid}
-              onChangeText={(text) => handleInputChange('dealeremailid', text)}
-            />
-          </View>
-          {formErrors.dealeremailid ? <Text style={styles.errorText}>{formErrors.dealeremailid}</Text> : null}
-
-          {/* Website */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(5) }}>
-            <Text style={styles.subtitle}>Website</Text>
-            <Text style={styles.semicolon}>:</Text>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Website"
-              selectionColor="red"
-              placeholderTextColor="#868687"
-              backgroundColor="#CBCBCA"
-              value={formData.website}
-              onChangeText={(text) => handleInputChange('website', text)}
-            />
-          </View>
-          {formErrors.website ? <Text style={styles.errorText}>{formErrors.website}</Text> : null}
-          <View style={styles.bottombuttons}>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit} >
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(20) }}>
-                <FontAwesome6 name='address-card' size={scale(20)} color={'#111111'} />
-                <Text style={{ color: '#111111', fontSize: moderateScale(18), fontWeight: '600', textAlign:'center', letterSpacing: moderateScale(0.4)}}>Submit</Text>
-              </View>
+  
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the document picker
+        console.log('User cancelled document picker');
+      } else {
+        // Handle errors
+        console.log('DocumentPicker Error: ', err);
+      }
+    }
+  };
+  return (
+    <View style={styles.container}>
+      <View style={{flexDirection:'column',justifyContent:'space-between'}}>
+        <View style={styles.header}>
+          <View style={{alignContent: 'center' }}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Inventory')} style={styles.backButton}>
+              <MaterialIcons name='arrow-back' size={moderateScale(25)} color={'#F9F9F9'} />
             </TouchableOpacity>
           </View>
-          </ScrollView>
+          <Text style={styles.title}>User Management</Text>
+            <Image
+                source={require('../assets/Mg.jpg')}
+                style={{height:scale(50),width:scale(50)}}
+                resizeMode="cover"
+            />
+          </View>
+        <View style={styles.line}></View>
+      </View>
+      <ScrollView contentContainerStyle={styles.admincontainer}>
+        <View style={{width:'100%',alignItems:'flex-start'}}>
+          <Text style={{ fontSize: moderateScale(20), color: '#f9f9f9',fontWeight:'500',marginTop:verticalScale(15)}}>Contact details :</Text>
         </View>
-      
-    </ImageBackground>
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Name</Text>
+          <TextInput style={styles.input} value={updatedData.name} 
+            placeholder="Enter your full name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+          onChangeText={(text) => setUpdatedData({ ...updatedData, name: text })}/>
+        </View>
+        {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Mobile number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Mobile number"
+            keyboardType="number-pad"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.phoneNumber}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, phoneNumber: text })}
+          />
+        </View>
+        {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Email</Text>
+          <TextInput style={styles.input} value={updatedData.email}
+            placeholder="Enter email address"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            onChangeText={(text) => setUpdatedData({ ...updatedData, email: text })}
+          />
+        </View>
+        <View style={{width:'100%',alignItems:'flex-start'}}>
+          <Text style={{ fontSize: moderateScale(20), color: '#f9f9f9',fontWeight:'500',marginTop:verticalScale(15)}}>Company information :</Text>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Company Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Company Name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.companyname}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, companyname: text })}
+          />
+        </View>
+        {companyNameError ? <Text style={styles.errorText}>{companyNameError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Brand Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Brand name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.brandname}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, brandname: text })}
+          />
+        </View>
+        {brandError ? <Text style={styles.errorText}>{brandError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>GSTIN</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter GSTIN number"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.gst}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, gst: text })}
+          />
+        </View>
+        {gstError ? <Text style={styles.errorText}>{gstError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Address</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter D.no / Flat no"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.address}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, address: text })}
+          />
+        </View>
+        {addressError ? <Text style={styles.errorText}>{addressError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Street Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Street name / Colony name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.streetname}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, streetname: text })}
+          />
+        </View>
+        {streetNameError ? <Text style={styles.errorText}>{streetNameError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>PIN Code</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your city PIN code"
+            selectionColor="red"
+            keyboardType="number-pad"
+            placeholderTextColor="#979797"
+            value={updatedData.pincode}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, pincode: text })}
+          />
+        </View>
+        {pincodeError ? <Text style={styles.errorText}>{pincodeError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>City Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter city name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.city}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, city: text })}
+          />
+        </View>
+        {cityError ? <Text style={styles.errorText}>{cityError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>State Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter state name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.state}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, state: text })}
+          />
+        </View>
+        {stateError ? <Text style={styles.errorText}>{stateError}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Country Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter country name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.country}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, country: text })}
+          />
+        </View>
+        {countryError ? <Text style={styles.errorText}>{countryError}</Text> : null}
+       
+
+
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.subtitle}>Brand Website Address</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="www.brandwebsite.com"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={updatedData.website}
+            onChangeText={(text) => setUpdatedData({ ...updatedData, website: text })}
+          />
+        </View>
+        {websiteError ? <Text style={styles.errorText}>{websiteError}</Text> : null}
+        <View style={{flexDirection: 'column', alignItems: 'center', marginVertical:verticalScale(20), borderWidth:1,borderColor:'red' }}>
+              <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center',borderWidth:1,borderColor:'white',paddingHorizontal:moderateScale(20),gap:scale(10), borderRadius:scale(6),paddingVertical:moderateScale(10) }} onPress={handleDocumentPicker}>
+                <MaterialIcons name="upload" size={moderateScale(20)} color="#f9f9f9" />
+                <Text style={{color:'#f9f9f9',fontSize:moderateScale(14),textAlign:'center',fontWeight:'500'}}>Upload your brand LOGO image</Text>
+              </TouchableOpacity>
+              <Text style={{color:'#f9f9f9',fontSize:moderateScale(10),textAlign:'center',fontWeight:'500'}}>Image Preview</Text>
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width:moderateScale(300), height: verticalScale(80), marginTop: verticalScale(5),resizeMode: 'stretch',}}
+                />
+              )}
+               {imageError ? <Text style={styles.errorText}>{imageError}</Text> : null}
+            </View>
+        <View style={styles.bottombuttons}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={updateAdmin} // Add the addVehicle function to the onPress handler
+          >
+            <FontAwesome6 name='user-check' size={scale(15)} color={'#7E7474'} />
+            <Text style={styles.buttonText}>Update</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
+
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
+  errorText: {
+    color: 'red',
+    fontSize: moderateScale(14),
+    marginTop: verticalScale(5),
   },
   container: {
     flex: 1,
-    backgroundColor:'#11111190',
-    paddingHorizontal: 10,
+    backgroundColor:'black',
     paddingTop: 10,
   },
   header:{
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: verticalScale(10),
-    width: scale(335),
-    height: verticalScale(30),
+    width:'100%',
+    height: verticalScale(50),
+    justifyContent:'space-between',
   },
   backButton:{
     alignItems: 'center',
     width:scale(20),
     height:verticalScale(20),
     justifyContent:'center',
+    marginLeft:moderateScale(16),
   },
   title: {
     color: '#F9F9F9',
-    fontSize: moderateScale(16),
-    fontWeight: 'semibold',
+    fontSize: moderateScale(18),
+    fontWeight: '600',
     textAlign: 'center',
-    letterSpacing: moderateScale(0.5),
+    letterSpacing: moderateScale(0.2),
   },
   line: {
     height: verticalScale(1),
-    backgroundColor: 'white',
-    width: scale(335),
-  },
-  subtitle: {
-    width: moderateScale(100),
-    marginRight: moderateScale(5),
-    color: '#e6e6e6',
-    fontSize: moderateScale(14),
-    fontWeight: '400',
-    letterSpacing: moderateScale(0.2),
-  },
-  semicolon:{
-    color: '#f9f9f9',
-    fontSize: moderateScale(14),
-    width: moderateScale(10),
-    textAlign: 'center',
-    marginRight:moderateScale(3)
-  },
-  inputField: {
-    flex: 1,
-    fontSize:moderateScale(14),
-    paddingVertical:verticalScale(7),
     backgroundColor: '#f9f9f9',
-    borderRadius: scale(3),
-    paddingLeft: moderateScale(10),
-    color: '#111111',
+    width: '100%',
+  },
+  admincontainer:{
+    paddingHorizontal: moderateScale(10),
+    alignItems:'center',
+    justifyContent:'flex-start',
+  },
+  inputContainer: {
+    marginTop:verticalScale(10),
+    width:'100%',
+    gap:scale(10),
+  },
+  subtitle:{
+    fontSize: moderateScale(16),
+    color: '#A8A196',
+    fontWeight:'500',
+  },
+  input: {
+    fontSize:moderateScale(16),
+    borderWidth: 1,
+    backgroundColor:'#232026',
+    borderColor: '#56596C',
+    borderRadius: scale(4),
+    padding: scale(6),
   },
   bottombuttons:{ 
-    flexDirection: 'row', 
-    justifyContent: 'center',
-    alignItems:'center', 
-    width:'100%',
-    height:scale(40), 
-    marginTop: verticalScale(40),
-    marginBottom:verticalScale(20),
-    marginHorizontal: moderateScale(5),
+    alignItems:'center',
+    width:'100%', 
+    height:verticalScale(40), 
+    marginVertical: verticalScale(40),
   },
- button:{
-      borderColor: '#868687',
-      backgroundColor: '#f9f9f9',
-      borderWidth: moderateScale(1),
-      borderRadius: scale(6),
-      width:'70%',
-      height: scale(40),
-      justifyContent:'center',
-      alignItems:'center',
-      gap: moderateScale(15),
-      flexDirection:'row',
-    },
-  errorText: {
-    color: 'red',
-    marginTop: 0,
-    fontSize: moderateScale(10),
-    textAlign:'center'
+  button: {
+    flexDirection:'row',
+    paddingHorizontal:moderateScale(40),
+    backgroundColor:'#f9f9f9',
+    borderWidth: scale(1),
+    borderRadius: scale(8),
+    width:'50%',
+    height: verticalScale(40),
+    alignItems:'center',
+    justifyContent:'space-between'
+  },
+  buttonText: {
+    color: '#111111',
+    fontSize: moderateScale(18),
+    fontWeight: '600',
+    textAlignVertical:'center'
   },
 });
+
 export default CompanyDetails;

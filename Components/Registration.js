@@ -1,8 +1,7 @@
 
 
-//working code 
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground,Image,StyleSheet,Button, Alert, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground,ActivityIndicator,Image,StyleSheet,Button, Alert, ScrollView, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -18,7 +17,7 @@ import cyclicUrl from '../cylic/Cyclic';
 import i18n from 'i18next';
 import en from './locales/en.json';
 import axios from 'axios';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import DocumentPicker from 'react-native-document-picker';
 
 
@@ -35,19 +34,12 @@ const RegistrationScreen = () => {
   const { t } = useTranslation();
  
   const navigation = useNavigation();
- 
+  
  
   const [companyInfoVisible, setCompanyInfoVisible] = useState(false);
-  const [companyInfoOptions, setCompanyInfoOptions] = useState([]);
   const [companyDetailVisible, setCompanyDetailVisible] = useState(false);
 
-  const [nameError, setNameError] = useState('');
-  const [companyNameError, setCompanyNameError] = useState('');
-  const [contactNumberError, setContactNumberError] = useState('');
-  const [brandError, setBrandError] = useState('');
-  const [registrationErr, setRegistrationError] = useState('');
- const [emailError,setEmailError]=useState('')
-
+  
   
  
 
@@ -72,13 +64,37 @@ const[role,setRRole]=useState('admin');
 const[image,setImage]=useState('');
 
 
+// adminside Errors
+
+const [phoneNumberError, setPhoneNumberError] = useState('');
+const [nameError, setNameError] = useState('');
+const [emailError, setEmailError] = useState('');
+const [companyNameError, setCompanyNameError] = useState('');
+const [brandError, setBrandError] = useState('');
+const [gstError, setGstError] = useState('');
+const [addressError, setAddressError] = useState('');
+const [streetNameError, setStreetNameError] = useState('');
+const [pincodeError, setPincodeError] = useState('');
+const [cityError, setCityError] = useState('');
+const [stateError, setStateError] = useState('');
+const [countryError, setCountryError] = useState('');
+const [websiteError, setWebsiteError] = useState('');
+const [imageError, setImageError] = useState('');
+
+
+
+
+
 // usersside
 // userErrors mgs
 const[usernameError,setUsernameErr]=useState('');
 const[userMobileError,setUsermobileErr]=useState('')
+const [selectedRole, setSelectedRole] = useState(null);
 
 // dealerdata contains company name
 const [dealers, setDealers] = useState([]);
+
+
 //  userregistration
 const [Name,setuserName]=useState('');
 const[PhoneNumber,setphoneNumber]=useState('');
@@ -92,32 +108,25 @@ console.log(Companyname)
 console.log("dealer",dealers)
 
 useEffect(()=>{
-fetchDealers();
+  fetchDealers();
 
-},[])
+  },[])
 const fetchDealers = async () => {
   try {
     const apiUrl = `${cyclicUrl}/registerPhoneNumber/getAllRegisteredPhoneNumbers`;
     const response = await axios.get(apiUrl);
-
     if (response.data) {
       const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'admin' && dealer.adminaccept === true);
       const dealerOptions = adminDealerstrue.map(dealer => dealer.companyname);
-     
       setDealers(dealerOptions);
     }
   } catch (error) {
     console.error('Error fetching dealers:', error);
   }
 };
-
-
-
-
   useEffect(() => {
     getDeviceInfo();
   }, []);
-
   const getDeviceInfo = async () => {
     try {
       const uniqueId = await DeviceInfo.getUniqueId();
@@ -128,8 +137,16 @@ const fetchDealers = async () => {
     }
   };
  
-   // userpostcall
- 
+  const getCurrentDate = () => {
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+    seDate(formattedDate);
+    };
+
+   
    const handleRegister = async () => {
     try {
       const data = {
@@ -141,10 +158,7 @@ const fetchDealers = async () => {
         adminaccept: Adminaccept,
         role: Role,
       };
-      
-  
       console.log('data', data);
-  
       const response = await axios.post(
         `${cyclicUrl}/registerUser/registerUser`,
         data,
@@ -154,8 +168,6 @@ const fetchDealers = async () => {
           },
         }
       );
-      
-  
       console.log("h",response.data); // You can handle the response as needed
   
       // Reset form fields after successful registration
@@ -180,6 +192,7 @@ const handleDocumentPicker = async () => {
     });
     setImage(documentResult[0].uri);
     setResult(documentResult);
+    setImageError('')
 
     // The selected document is in the result variable
     console.log('result',documentResult);
@@ -198,10 +211,98 @@ const handleDocumentPicker = async () => {
     }
   }
 };
- 
 
 
   const handleRegistration = async () => {
+   
+    setPhoneNumberError('');
+    setNameError('');
+    setEmailError('');
+    setCompanyNameError('');
+    setBrandError('');
+    setGstError('');
+    setAddressError('');
+    setStreetNameError('');
+    setCityError('');
+    setStateError('');
+    setPincodeError('');
+    setCountryError('')
+    setWebsiteError('');
+    setImageError('');
+
+    let hasError = false;
+    if (!phoneNumber) {
+      setPhoneNumberError('Please enter your contact number');
+      hasError = true;
+    }
+  
+    if (!name) {
+      setNameError('Please enter your full name');
+      hasError = true;
+    }
+  
+    if (!email) {
+      setEmailError('Please enter your email address');
+      hasError = true;
+    }
+  
+    if (!companyName) {
+      setCompanyNameError('Please enter your company name');
+      hasError = true;
+    }
+  
+    if (!brandName) {
+      setBrandError('Please enter your brand name');
+      hasError = true;
+    }
+  
+    if (!gst) {
+      setGstError('Please enter your GSTIN number');
+      hasError = true;
+    }
+  
+    if (!address) {
+      setAddressError('Please enter your address');
+      hasError = true;
+    }
+  
+    if (!streetname) {
+      setStreetNameError('Please enter your street name');
+      hasError = true;
+    }
+  
+    if (!pincode) {
+      setPincodeError('Please enter your PIN code');
+      hasError = true;
+    }
+  
+    if (!city) {
+      setCityError('Please enter your city name');
+      hasError = true;
+    }
+  
+    if (!state) {
+      setStateError('Please enter your state name');
+      hasError = true;
+    }
+  
+    if (!country) {
+      setCountryError('Please enter your country name');
+      hasError = true;
+    }
+  
+    if (!website) {
+      setWebsiteError('Please enter your website');
+      hasError = true;
+    }
+    if(!image){
+      setImageError('Please enter your Image');
+      hasError = true;
+    }
+ 
+
+
+
     const formData = new FormData();
     formData.append('phoneNumber', phoneNumber);
     formData.append('name', name);
@@ -239,247 +340,395 @@ const handleDocumentPicker = async () => {
       });
        // Update the state variable 'image' after a successful upload
       Alert.alert('Success', response.data.message);
+      navigation.navigate('Otp')
+      setPhonenumber('')
+      setName('')
+      setEmail('')
+      setCompanyName('')
+     setBrand('')
+     setGst('')
+    setAddress('')
+     setStreet('')
+     setPincode('')
+     setCity('')
+     setState('')
+     setCountry('')
+     setWebsite('')
+     fetchDealers();
     } catch (error) {
-      console.error('Error registering phone number:', error);
-      Alert.alert('Error', 'Failed to register phone number. Please try again.');
+      // console.error('Error registering phone number:', error);
     }
   };
 
-
+ 
 
   return (
     <ImageBackground source={require('../assets/bg2.jpeg')} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <View style={{ backgroundColor: '#1f1f1f', borderBottomColor: '#f9f9f9', borderBottomWidth: verticalScale(1) }}>
-          <View style={styles.line}></View>
-        </View>
-        <View style={{ flex: 1 }}>
-      </View>
         <ScrollView>
-        <View style={styles.rolesContainer}>
+          <View style={{paddingHorizontal: moderateScale(10),}}>
+          <Text style={styles.rolesuggestion}>Select registration preference</Text>
+            <View style={styles.rolesContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.adminContainer,
+                  selectedRole === 'admin' && { backgroundColor: '#f9f9f9' },
+                ]}
+                onPress={() => {
+                  setCompanyInfoVisible(!companyInfoVisible);
+                  setCompanyDetailVisible(false);
+                  setSelectedRole((prevRole) => (prevRole === 'admin' ? null : 'admin'));
+                }}
+              >
+              <View style={{ marginTop: verticalScale(10) }}>
+                <FontAwesome5
+                  name="user-shield"
+                  size={moderateScale(30)}
+                  color={selectedRole === 'admin' ? '#232026' : '#F9F9F9'}
+                />
+              </View>
+              <View style={{ marginVertical: verticalScale(20) }}>
+                <Text
+                  style={{
+                    color: selectedRole === 'admin' ? '#232026' : '#f9f9f9',
+                    fontSize: moderateScale(12),
+                    fontWeight: '500',
+                  }}
+                >
+                  Admin
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <Text style={{ fontSize: moderateScale(16), color: '#979797', fontWeight: '500' }}>Or</Text>
           <TouchableOpacity
-          style={styles.adminContainer}
+            style={[
+              styles.usersContainer,
+              selectedRole === 'user' && { backgroundColor: '#f9f9f9' },
+            ]}
             onPress={() => {
-            setCompanyInfoVisible(!companyInfoVisible);
-            setCompanyDetailVisible(false); // Hide the company details section
+              setCompanyDetailVisible(!companyDetailVisible);
+              setCompanyInfoVisible(false);
+              setSelectedRole((prevRole) => (prevRole === 'user' ? null : 'user'));
             }}
           >
-            <View style={{marginTop: verticalScale(10)}}>
-              <FontAwesome5 name="user-shield" size={moderateScale(30)} color="#F9F9F9" />
+            <View style={{ marginTop: verticalScale(10) }}>
+              <FontAwesome5
+                name="users"
+                size={moderateScale(30)}
+                color={selectedRole === 'user' ? '#232026' : '#F9F9F9'}
+              />
             </View>
-            <View style={{marginVertical: verticalScale(20)}}>
-              <Text style={{color: '#f9f9f9',fontSize: moderateScale(12), fontWeight: '500'}}>Admin</Text>
-            </View>
-          </TouchableOpacity>
-          <Text style={{fontSize: moderateScale(16),color:'#979797',fontWeight:'500'}}>Or</Text>
-          <TouchableOpacity 
-            style={styles.usersContainer}
-            onPress={() => {
-            setCompanyDetailVisible(!companyDetailVisible);
-            setCompanyInfoVisible(false); // Hide the company info section
-            }}
-          >
-            <View style={{marginTop: verticalScale(10)}}>
-              <FontAwesome5 name="users" size={moderateScale(30)} color="#F9F9F9" />
-            </View>
-            <View style={{marginVertical: verticalScale(20)}}>
-              <Text style={{color: '#f9f9f9',fontSize: moderateScale(12), fontWeight: '500'}}>Users</Text>
+            <View style={{ marginVertical: verticalScale(20) }}>
+              <Text
+                style={{
+                  color: selectedRole === 'user' ? '#232026' : '#f9f9f9',
+                  fontSize: moderateScale(12),
+                  fontWeight: '500',
+                }}
+              >
+                Users
+              </Text>
             </View>
           </TouchableOpacity>
       </View>
- {/* admininputs */}
-
-
-         <ScrollView>
-            {companyInfoVisible && (
-        <View style={{paddingHorizontal: moderateScale(10) }}>
-          <Text style={{ fontSize: moderateScale(18), color: '#f9f9f9', marginTop: scale(30) }}>Company Information</Text>
-          
-          <View>
-         
-          <TextInput style={styles.inputField}
-        placeholder="phoneNumber"
-        value={phoneNumber}
-        onChangeText={(text) => setPhonenumber(text)}
-      />  
-        <TextInput style={styles.inputField}
-        placeholder="name"
-        value={name}
-        onChangeText={(text) => setName(text)}
-      />  
-       <TextInput style={styles.inputField}
-        placeholder="email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />  
-        <TextInput style={styles.inputField}
-        placeholder="companyName"
-        value={companyName}
-        onChangeText={(text) => setCompanyName(text)}
-      /> 
-          
-          
-  
-          
-
-      <TextInput style={styles.inputField}
-        placeholder="Brand Name"
-        value={brandName}
-        onChangeText={(text) => setBrand(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="GST"
-        value={gst}
-        onChangeText={(text) => setGst(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="Address"
-        value={address}
-        onChangeText={(text) => setAddress(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="Street Name"
-        value={streetname}
-        onChangeText={(text) => setStreet(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="Pincode"
-        value={pincode}
-        onChangeText={(text) => setPincode(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="City"
-        value={city}
-        onChangeText={(text) => setCity(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="State"
-        value={state}
-        onChangeText={(text) => setState(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="Country"
-        value={country}
-        onChangeText={(text) => setCountry(text)}
-      />
-
-      <TextInput style={styles.inputField}
-        placeholder="Website"
-        value={website}
-        onChangeText={(text) => setWebsite(text)}
-      />
-
-
+    </View>
+       {/* admininputs */}
+      <ScrollView>
+      {companyInfoVisible && (
+        <View style={{flex:1,paddingHorizontal: moderateScale(10), justifyContent:'space-between'}}>
+          <View style={{paddingHorizontal: moderateScale(10) }}>
+            <Text style={{ fontSize: moderateScale(18), color: '#f9f9f9', marginTop: scale(30) }}>Contact details :</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter your full name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={name}
+                onChangeText={(text) => {
+                  // Update the input value
+                  setName(text);
+                  // Clear the error when the user starts typing
+                  setNameError('');
+                }}
+              />
+            </View>
+           {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter Contact Number"
+                keyboardType="number-pad"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={phoneNumber}
+                onChangeText={(text) => {
+                  // Update the input value
+                  setPhonenumber(text);
+                  // Clear the error when the user starts typing
+                  setPhoneNumberError('');
+                }}
+                />
+            </View>
+            {phoneNumberError ? <Text style={styles.errorText}>{phoneNumberError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter email address"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text)
+                setEmailError('')
+                }}
+              />
+            </View>
+            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
           </View>
-
-
-          <Button title="Pick Image" onPress={handleDocumentPicker} />
-          {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
-          <View style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
-          <TouchableOpacity onPress={handleRegistration}>
-            <Text style={{color:'white',width:130,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Register</Text>
-          </TouchableOpacity>
+          <View style={{paddingHorizontal: moderateScale(10),justifyContent:'space-between'}}>
+            <Text style={{ fontSize: moderateScale(18), color: '#f9f9f9', marginTop: scale(20) }}>Company information :</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter Company Name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                value={companyName}
+                onChangeText={(text) => {
+                  setCompanyName(text)
+                setCompanyNameError('')
+                }}
+              />
+            </View>
+            {companyNameError ? <Text style={styles.errorText}>{companyNameError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter Brand name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={brandName}
+                onChangeText={(text)=>{
+                  setBrand(text)
+                  setBrandError('')
+                }}
+              />
+            </View>
+            {brandError ? <Text style={styles.errorText}>{brandError}</Text> : null}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter GSTIN number"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={gst}
+                onChangeText={(text)=>{
+                setGst(text)
+                setGstError('')
+                }}
+              />
+            </View>
+            {gstError ? <Text style={styles.errorText}>{gstError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter D.no / Flat no"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={address}
+                onChangeText={(text)=>{
+                setAddress(text)
+                setAddressError('')
+                }}
+              />
+            </View>
+            {addressError ? <Text style={styles.errorText}>{addressError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter Street name / Colony name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={streetname}
+                onChangeText={(text)=>{
+                setStreet(text)
+                setStreetNameError('')
+                }}
+              />
+            </View>
+            {streetNameError ? <Text style={styles.errorText}>{streetNameError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter your city PIN code"
+                selectionColor="red"
+                keyboardType="number-pad"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={pincode}
+                onChangeText={(text)=>{
+                setPincode(text)
+                setPincodeError('')
+                }}
+              />
+            </View>
+            {pincodeError ? <Text style={styles.errorText}>{pincodeError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter city name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={city}
+                onChangeText={(text)=>{
+                setCity(text)
+                setCityError('')
+                }}
+              />
+            </View>
+            {cityError? <Text style={styles.errorText}>{cityError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter state name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={state}
+                onChangeText={(text)=>{
+                setState(text)
+                setStateError('')
+                }}
+              />
+            </View>
+            {stateError ? <Text style={styles.errorText}>{stateError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="Enter country name"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={country}
+                onChangeText={(text)=>{
+                setCountry(text)
+                setCountryError('')
+                }}
+              />
+            </View>
+            {countryError ? <Text style={styles.errorText}>{countryError}</Text> : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+              <TextInput
+                style={styles.inputField}
+                placeholder="www.brandwebsite.com"
+                selectionColor="red"
+                placeholderTextColor="#979797"
+                backgroundColor="#111111"
+                value={website}
+                onChangeText={(text)=>{
+                setWebsite(text)
+                setWebsiteError('')
+                }}
+              />
+            </View>
+            {websiteError ? <Text style={styles.errorText}>{websiteError}</Text> : null}
+            </View>
+            <View style={{flexDirection: 'column', alignItems: 'center', marginVertical:verticalScale(20), borderWidth:1,borderColor:'red' }}>
+              <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center',borderWidth:1,borderColor:'white',paddingHorizontal:moderateScale(20),gap:scale(10), borderRadius:scale(6),paddingVertical:moderateScale(10) }} onPress={handleDocumentPicker}>
+                <MaterialIcons name="upload" size={moderateScale(20)} color="#f9f9f9" />
+                <Text style={{color:'#f9f9f9',fontSize:moderateScale(14),textAlign:'center',fontWeight:'500'}}>Upload your brand LOGO image</Text>
+              </TouchableOpacity>
+              <Text style={{color:'#f9f9f9',fontSize:moderateScale(10),textAlign:'center',fontWeight:'500'}}>Image Preview</Text>
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width:moderateScale(300), height: verticalScale(80), marginTop: verticalScale(5),resizeMode: 'stretch',}}
+                />
+              )}
+              {imageError ? <Text style={styles.errorText}>{imageError}</Text> : null}
+            </View>
+          <View style={{justifyContent:'center', marginTop:verticalScale(30),width:'100%',}}>
+            <TouchableOpacity onPress={handleRegistration} style={{marginHorizontal:moderateScale(30),paddingVertical:verticalScale(10),backgroundColor:'#f9f9f9',borderRadius:scale(6)}}>
+              <Text style={{color:'#111111',fontSize:moderateScale(20),textAlign:'center',fontWeight:'600'}}>Register</Text>
+            </TouchableOpacity>
           </View>
-          
-          
-          
-          
-          </View>
-          
+        </View>
 )}
 </ScrollView>
-
-{/* usersinputs */}
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
-            {companyDetailVisible && (
-  <View>
-    <Text style={{ color: '#f9f9f9',fontSize:30 }}>User Information: </Text>
-    {/* bind company nmae in the drop down */}
-    
-
-    <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2) }}>
-  {/* dropdown */}
-  <Dropdown
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
-        data={dealers.map((dealer, index) => ({ label: dealer, value: dealer }))}
-        search
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder="Select dealer"
-        searchPlaceholder="Search..."
-        value={Companyname}
-        onChange={(item) => {
-          setCompanyname(item.value);
-        }}
-        renderLeftIcon={() => (
-          <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-        )}
-      />
-
-
-
-
-
-</View>
-
-
-  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Name"
-              selectionColor="red"
-              placeholderTextColor="#979797"
-              value={Name}
-              onChangeText={setuserName}
-            />
-          </View>
-          {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
-            <TextInput
-              style={styles.inputField}
-              placeholder="Enter Phonenumber"
-              selectionColor="red"
-              placeholderTextColor="#979797"
-              backgroundColor="#111111"
-              value={PhoneNumber}
-              onChangeText={setphoneNumber}
-            />
-          </View>
-          {userMobileError ? <Text style={styles.errorText}>{userMobileError}</Text> : null}
-         
-
-          <View style={{display:'flex',flexDirection:'row',justifyContent:'center'}} >
-          <TouchableOpacity onPress={handleRegister} >
-            <Text style={{color:'white',width:100,fontSize:30,borderWidth:1,borderColor:'white',textAlign:'center'}}>Register</Text>
+{/* User role selected */}
+<View style={{flex:1, flexDirection: 'row',marginBottom: scale(5)}}>
+{companyDetailVisible && (
+  <View style={{flex:1,paddingHorizontal: moderateScale(10)}}>
+    <Text style={{ fontSize: moderateScale(18), color: '#f9f9f9', marginTop: scale(20) }}>User Information: </Text>
+        <View style={{ flex: 1, backgroundColor: '#CBCBCA', borderRadius: scale(2),marginTop: verticalScale(20)}}>
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            containerStyle={styles.dropdownContainer}
+            itemContainerStyle={styles.itemContainerStyle}
+            itemTextStyle={styles.itemTextStyle}
+            activeColor={styles.activeColor}
+            data={dealers.map((dealer, index) => ({ label: dealer, value: dealer }))}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Select your Company"
+            searchPlaceholder="Search by company name..."
+            value={Companyname}
+            onChange={(item) => {
+              setCompanyname(item.value);
+            }}
+            // renderLeftIcon={() => (
+            //   <AntDesign style={styles.icon} color="green" name="checkcircle" size={20} />
+            // )}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5), marginTop: verticalScale(20) }}>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Enter your full name"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            value={Name}
+            onChangeText={setuserName}
+          />
+        </View>
+        {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: scale(5) }}>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Enter mobile number"
+            selectionColor="red"
+            placeholderTextColor="#979797"
+            backgroundColor="#111111"
+            value={PhoneNumber}
+            onChangeText={setphoneNumber}
+          />
+        </View>
+        {userMobileError ? <Text style={styles.errorText}>{userMobileError}</Text> : null}
+        <View style={{justifyContent:'center', marginTop:verticalScale(30),width:'100%',}}>
+          <TouchableOpacity onPress={handleRegister} style={{marginHorizontal:moderateScale(60),paddingVertical:verticalScale(10),backgroundColor:'#f9f9f9',borderRadius:scale(6)}}>
+            <Text style={{color:'#111111',fontSize:moderateScale(20),textAlign:'center',fontWeight:'600'}}>Save</Text>
           </TouchableOpacity>
-          </View>
-         
-
-
-
-
-  </View>
-)}
-
-
-          </View>
-         
-        </ScrollView>
+        </View>
       </View>
-    </ImageBackground>
+      )}
+    </View>
+    </ScrollView>
+  </View>
+</ImageBackground>
   );
 };
 // 
@@ -490,7 +739,7 @@ const HeaderComponent = () => {
     // <View style={styles.headerContainer}>
     //   <Text style={styles.headerText}>Your Header Title</Text>
     // </View>
-    <View style={styles.headerContainer}>
+  <View style={styles.headerContainer}>
     <View style={{ alignContent: 'center' }}>
       <TouchableOpacity onPress={() => navigation.navigate('Otp', )} style={styles.backButton}>
         <MaterialIcons name="arrow-back" size={moderateScale(20)} color="#F9F9F9" />
@@ -502,26 +751,21 @@ const HeaderComponent = () => {
 };
 const renderScene = SceneMap({
   registration: RegistrationScreen,
-
 });
-
 const renderTabBar = (props) => (
   <TabBar
     {...props}
     indicatorStyle={{ backgroundColor: '#f9f9f9' }} // Style for the indicator
     style={{ backgroundColor: '#333' }} // Style for the tab bar
-    labelStyle={{ color: '#f9f9f9' }} // Style for the tab labels
+    labelStyle={{ color: '#f9f9f9', fontSize:moderateScale(18) }} // Style for the tab labels
   />
 );
-
 export default function TabViewExample() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'registration', title: 'Registration' },
-   
   ]);
-
   return (
     <View style={{ flex: 1 }}>
     <HeaderComponent />
@@ -535,15 +779,7 @@ export default function TabViewExample() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -553,14 +789,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#11111199',
     justifyContent:'space-between'
   },
-  header:{
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingTop:verticalScale(10),
-    marginBottom: verticalScale(10),
-    height: verticalScale(35),
-    justifyContent:'space-between',
-  },
   backButton:{
     paddingLeft:moderateScale(10),
     alignItems: 'center',
@@ -568,20 +796,12 @@ const styles = StyleSheet.create({
     height:verticalScale(20),
     justifyContent:'center',
   },
-  title: {
-    color: '#F9F9F9',
-    fontSize: moderateScale(16),
-    fontWeight: 'semibold',
-    textAlign: 'center',
-    letterSpacing: moderateScale(0.5),
-  },
-  subtitle: {
-    width: scale(90),
-    marginRight: moderateScale(5),
-    color: '#AAAAAA',
-    fontSize: moderateScale(14),
-    fontWeight: '400',
-    letterSpacing: moderateScale(0.2),
+  rolesuggestion:{
+    color:'#f9f9f9',
+    fontSize:moderateScale(18),
+    fontWeight:'500',
+    marginVertical:verticalScale(20),
+    paddingLeft:moderateScale(10),
   },
   rolesContainer:{
     flexDirection: 'row',
@@ -616,7 +836,6 @@ const styles = StyleSheet.create({
   },
   inputField: {
     flex: 1,
-    marginBottom:15,
     paddingVertical:verticalScale(9),
     backgroundColor: '#111111',
     borderWidth:scale(1),
@@ -629,28 +848,6 @@ const styles = StyleSheet.create({
     borderRadius: scale(3),
     paddingLeft: moderateScale(5),
   },
-  bottombuttons: {
-    alignItems: 'center',
-    alignContent:'center',
-    width:'100%',
-    height: verticalScale(40),
-    marginTop:verticalScale(1),
-    marginBottom:verticalScale(40),
-  },
-  button: {
-    paddingHorizontal: moderateScale(100),
-    height:verticalScale(40),
-    backgroundColor: '#f9f9f9',
-    borderRadius: scale(4),
-    alignItems:'center',
-    justifyContent:'center',
-  },
-  buttonText: {
-    color: '#111111',
-    fontSize: moderateScale(14),
-    fontWeight: '600',
-    textAlign: 'center',
-  },
   errorText: {
     color: '#f9f9f9',
     marginVertical: scale(1),
@@ -661,48 +858,11 @@ const styles = StyleSheet.create({
     marginLeft: scale(110),
     width:scale(120),
   },
-  getdetailsbutton:{
-    marginTop:50,
-    width:'100%',
-  },
-  button2: {
-    marginHorizontal: moderateScale(60),
-    height: verticalScale(40),
-    backgroundColor: '#f9f9f9',
-    borderRadius: scale(4),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button2Text: {
-    color: '#000000',
-    fontSize: moderateScale(14),
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  inputFieldText: {
-    flex: 1,
-    paddingVertical: verticalScale(9),
-    backgroundColor: '#111111',
-    borderWidth: scale(1),
-    borderColor: '#979797',
-    fontSize: moderateScale(14),
-    textAlignVertical: 'center',
-    color: '#f9f9f9',
-    fontWeight: '500',
-    letterSpacing: moderateScale(0.4),
-    borderRadius: scale(3),
-    paddingLeft: moderateScale(5),
-  },
   headerContainer: {
     backgroundColor: '#333',
     paddingVertical: verticalScale(10),
     alignItems: 'flex-start',
     justifyContent: 'center',
-  },
-  headerText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   dropdown: {
     flex:1,
@@ -711,47 +871,40 @@ const styles = StyleSheet.create({
     borderRadius:moderateScale(2),
     backgroundColor: '#CBCBCA',
     justifyContent: 'center',
-    paddingLeft: moderateScale(5),
+    paddingHorizontal: moderateScale(10),
   },
   placeholderStyle:{
     color:'#111111',
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(14),
     fontWeight:'500',
   },
   selectedTextStyle:{
     color:'#111111',
+    fontSize:moderateScale(16)
   },
   inputSearchStyle:{
-    color:'#111111',
-    borderRadius:moderateScale(2),
-    fontSize: moderateScale(12),
+    color:'white',
+    fontSize: moderateScale(14),
     fontWeight:'500',
+    backgroundColor:'#232026',
+    borderRadius:scale(6)
   },
- 
-  dropdown: {
-    margin: 16,
-    height: 50,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 0.5,
+  dropdownContainer:{
+    backgroundColor:'#808080',
+    borderRadius:scale(6),
+    borderWidth:2,
+    borderColor:'#56596C',
   },
-  icon: {
-    marginRight: 5,
+  itemContainerStyle:{
+    // backgroundColor:'#808080',
+    marginHorizontal:moderateScale(5),
+    marginVertical:verticalScale(1),
+    borderRadius:scale(4),
+    borderBottomWidth:1,
+    borderBottomColor:'#111111'
   },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+  itemTextStyle:{
+    fontSize:moderateScale(14),
+    color:'#111111',
   },
 });
-
-
-//working code 

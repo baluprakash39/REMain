@@ -42,8 +42,8 @@ const [isLoggedIn, setIsLoggedIn] = useState('');
   const[timer,setTimer]=useState(0)
   const [clickedValue, setClickedValue] = useState(0);
   const [role,setRole]=useState()
-  console.log('role',role)
-  console.log('click',clickedValue)
+  // console.log('role',role)
+  // console.log('click',clickedValue)
       // Callback function to receive the clicked value from Otp component
       const handleLoginClick = (value,role) => {
         setClickedValue(value);
@@ -51,8 +51,8 @@ const [isLoggedIn, setIsLoggedIn] = useState('');
       
       };
   
- console.log("islogged",isLoggedIn)
- console.log('timer',timer)
+//  console.log("islogged",isLoggedIn)
+//  console.log('timer',timer)
 
  
  const openLogoutPopup = () => {

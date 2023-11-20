@@ -1,9 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image,Alert, StyleSheet,Modal,ScrollView,ActivityIndicator } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 import  MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { scale, moderateScale, verticalScale} from './scaling';
@@ -30,32 +35,191 @@ const Superadminpage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [showDescription, setShowDescription] = useState(false);
-  const route = useRoute();
   const [showUserData, setShowUserData] = useState({});
-  const[User,setUser]=useState('')
-  console.log("user",User)
-  const toggleUserData = (dealerId) => {
-    setShowUserData((prev) => ({
-      ...prev,
-      [dealerId]: !prev[dealerId],
-    }));
+  const [isUserDataVisible, setIsUserDataVisible] = useState(false);
+  const[userdata,setUserData]=useState([])
+  const route = useRoute();
+console.log("userdata",userdata)
+
+const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+
+const [document, setDocument] = useState(null);
+
+
+
+const [updatedData, setUpdatedData] = useState({
+  name: '',
+  phoneNumber: '',
+});
+
+
+console.log(updatedData)
+
+
+
+
+
+
+console.log(document)
+  const openEditModal = (Id) => {
+    fetchusedbyId(Id)
+    setIsEditModalVisible(true);
+   
   };
 
 
 
-useEffect(()=>{
- fetchDealers();;
-},[])
+  
+  const fetchusedbyId = async (Id) => {
+    try {
+      // Replace 'your_backend_url' with the actual URL of your backend
+      const apiUrl = `${cyclicUrl}/registerUser/getDocumentById/${Id}`;
+
+      const response = await axios.get(apiUrl);
+      console.log('Id',Id)
+      if (response.data.success) {
+        // Document found
+        setDocument(response.data.document);
+        const{name,phoneNumber}=response.data.document
+        setUpdatedData({
+          phoneNumber,
+          name,
+        });
+      } else {
+        // Document not found
+        Alert.alert('Error', 'Document not found.');
+      }
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      // Handle errors, e.g., show an error message to the user
+      Alert.alert('Error', 'Internal server error');
+    }
+  };
 
 
 
-  const handleTabPress = (tabNumber) => {
-        setActiveTab(tabNumber);
-      };
+
+
+  const closeEditModal = () => {
+    setIsEditModalVisible(false);
+   
+    
+  };
+  
  
+  
+
+  const handleUpdateUser = async (Id) => {
+    try {
+      // Replace 'your_backend_url' with the actual URL of your backend
+      const apiUrl = `${cyclicUrl}/registerUser/updateUser/${Id}`;
+
+      const response = await axios.put(apiUrl, updatedData);
+
+      if (response.data) {
+        // User details updated successfully
+        Alert.alert('Success', 'User details updated successfully');
+
+        closeEditModal();
+      } else {
+        // Handle the case where the response does not contain the expected data
+        Alert.alert('Error', 'Failed to update user details');
+      }
+    } catch (error) {
+      console.error('Error updating user details:', error);
+      // Handle errors, e.g., show an error message to the user
+      Alert.alert('Error', 'Internal server error');
+    }
+  };
+
+
+
+    
+  const fetchData = async (companyname,) => {
+    try {
+  
+      // Replace the URL below with your actual backend endpoint
+      
+      const response = await axios.get(`${cyclicUrl}/registerUser/checkCompanyNameAndRole`, {
+        params: {
+          companyname:companyname , // Replace with actual company name
+          role: 'user', // Replace with actual role
+        },
+        headers: {
+          'Content-Type': 'application/json', // Adjust headers as needed
+          
+        },
+      });
+      const filteredUserData = response.data.users.filter(user => user.role === 'user');
+  
+      setUserData(filteredUserData)
+      setIsUserDataVisible(!isUserDataVisible);
+   
+    } catch (err) {
+     console.log('errro geting data')
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const deleteuser=async(Id)=>{
+    console.log('id',Id)
+       try {
+         // Replace 'your_backend_url' with the actual URL of your backend
+         const apiUrl = `${cyclicUrl}/registerUser/deleteUser/${Id}`;
+         
+         // Make the DELETE request to delete the user
+         const response = await axios.delete(apiUrl);
+   
+         if (response.data.status === 'fail') {
+           // Handle the case where the user is not found
+           Alert.alert('Error', 'User not found.');
+         } else {
+           // Handle the success case
+           Alert.alert('Success', 'User deleted successfully');
+           fetchData();
+         }
+       } catch (error) {
+         console.error('Error deleting user:', error);
+         // Handle errors, e.g., show an error message to the user
+         Alert.alert('Error', 'Internal server error');
+       }
+     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+useEffect(()=>{
+fetchDealers();
+},[])
+const handleTabPress = (tabNumber) => {
+  setActiveTab(tabNumber);
+  };
 const handleSearchAdminsInputChange = (text) => {
   setSearchQueryAdmins(text);
- 
   // Check if the search input is empty
   if (text === '') {
     // If empty, reset the displayed data to the original list
@@ -70,28 +234,18 @@ const handleSearchAdminsInputChange = (text) => {
     setDealers(filteredDealers);
   }
 };
-
-
-
-  
   const fetchDealers = async () => {
     try {
       // Set the API endpoint URL
       const apiUrl = `${cyclicUrl}/registerPhoneNumber/getAllRegisteredPhoneNumbers`;
-  
       // Make the API request without headers
       const response = await axios.get(apiUrl);
-  
       if (response.data) {
         // Filter dealers where role is equal to "admin"
         const adminDealerstrue = response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === true);
         const adminDealersfalse= response.data.data.filter(dealer => dealer.role === 'admin'&& dealer.adminaccept === false);
-        const usertruedata = response.data.data.filter(dealer => dealer.role === 'user'&& dealer.adminaccept === true);
-        
-       setUser(usertruedata)
         setDealers(adminDealerstrue);
         setDealersF(adminDealersfalse)
-        console.log('admindelaer',adminDealerstrue)
       }
     } catch (error) {
       console.error('Error fetching dealers:', error);
@@ -101,7 +255,6 @@ const handleSearchAdminsInputChange = (text) => {
   const deleteadmin = async (Id) => {
     try {
       const response = await axios.delete(`${cyclicUrl}/registerPhoneNumber/deleteRegisteredPhoneNumber/${Id}`);
-      
       // Handle the success case
       if (response.data.status === 'success') {
         setResponseMessage(response.data.message);
@@ -115,31 +268,23 @@ const handleSearchAdminsInputChange = (text) => {
       setResponseMessage('Internal server error');
     }
   };
-
-
   const handleupdate= async (Id) => {
     try {
-
       // Replace 'your_backend_url' with the actual URL of your backend
       const apiUrl = `${cyclicUrl}/registerPhoneNumber/updateAcceptStatus/${Id}`;
-
       // Make the PUT request to update the accept status to true
       const response = await axios.put(apiUrl, { adminaccept: true });
-
       // Handle the response as needed
       console.log('Updated accept status:', response.data);
       fetchDealers();
-
     } catch (error) {
       console.error('Error updating accept status:', error);
       // Handle errors, e.g., show an error message to the user
     }
   };
-   
   const logout = async () => {
     try {
       setIsLoading(true); // Display loader
-  
       // Execute the logout logic here
       await AsyncStorage.setItem('isloggedIn', 'false');
       await AsyncStorage.removeItem('token');
@@ -160,7 +305,6 @@ const handleSearchAdminsInputChange = (text) => {
       setIsLoading(false); // Hide loader regardless of success or failure
     }
   };
-  
 const updateadmin=(Id)=>{
   navigation.navigate('UpdateAdmins',{Id})
 }
@@ -181,236 +325,249 @@ if (isLoading) {
     </View>
   );
 }
-
-  return (
-   
-        <View style={styles.container}>
-          
-          
-          <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-          
-          <Image
-              source={require('../assets/Mg.jpg')}
-              style={{height:100,width:100}}
-              resizeMode="cover"
-            />
-          
-          <TouchableOpacity onPress={logout}>
-          {/* Increase the size of the profile icon */}
-          <Text style={{ color: '#f9f9f9', fontSize: moderateScale(20) }}>Logout</Text>
+return (
+  <View style={styles.container}>
+    <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center', paddingHorizontal:moderateScale(5),}}>
+      <Image
+          source={require('../assets/Mg.jpg')}
+          style={{height:scale(50),width:scale(50)}}
+          resizeMode="cover"
+        />
+        <TouchableOpacity onPress={logout} style={styles.headerIcons}>
+        <AntDesign style={{color:'#f9f9f9'}} name='logout' size={scale(20)}/>
+          <Text style={{ color: '#f9f9f9', fontSize: moderateScale(12) }}>Logout</Text>
         </TouchableOpacity>
-
-          </View>
-          
-
-          {/* tabs should be below*/}
-          <View style={styles.container}>
+    </View>
+    {/* tabs should be below*/}
+    <View style={styles.tabContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: verticalScale(20) }}>
-        <TouchableOpacity onPress={() => handleTabPress(1)} style={activeTab === 1 ? styles.activeTab : styles.tab}>
-        
-          <Text style={{color:'white',fontSize:20}}>Admins</Text>
+        <TouchableOpacity onPress={() => handleTabPress(1)} style={styles.tab}>
+          <Text style={{ color: activeTab === 1 ? 'white' : '#979797', fontSize: activeTab === 1 ? moderateScale(24) : moderateScale(20) }}>Admins</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleTabPress(2)} style={activeTab === 2 ? styles.activeTab : styles.tab}>
-        
-          <Text style={{color:'white',fontSize:20}}>Requests</Text>
+        <TouchableOpacity onPress={() => handleTabPress(2)} style={styles.tab}>
+          <Text style={{ color: activeTab === 2 ? 'white' : '#979797', fontSize: activeTab === 2 ? moderateScale(24) : moderateScale(20) }}>Requests</Text>
         </TouchableOpacity>
       </View>
-
-      <View style={styles.header}></View>
+      {/* <View style={styles.header}></View> */}
       <View style={styles.line}></View>
-
       {/*tab1 to bind data*/}
       {activeTab === 1 && (
-        <View>
-        <View style={{marginTop:20,height:50}}>
-        <TextInput
-      style={styles.searchInput}
-      placeholder="Search Admins/  Company  /  BrandName"
-      placeholderTextColor="gray"
-      value={searchQueryAdmins}
-      onChangeText={handleSearchAdminsInputChange}
-/>
-    </View>
-
-        
-     
-        <ScrollView>
-  {dealers.map((dealer, index) => (
-    <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:10,height:450,marginTop:20}}>
-    <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <Ionicons style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='person-outline' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.name}</Text>
-  </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <Feather style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='phone' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.phoneNumber}</Text>
-  </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-  <Text style={{color:'white',fontSize:20,marginLeft:10}}>@</Text>
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.email}</Text>
-  </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.companyname}</Text>
-  </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.brandname}</Text>
-  </View>
-  <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-    <Feather style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='calendar' /> 
-   <Text style={{color:'white',fontSize:20,marginLeft:10}}>user From {dealer.currentdate}</Text>
-  </View>
- 
-  {/*  to show user data */}
-  <TouchableOpacity onPress={() => toggleUserData(dealer._id)}>
-          <Text style={{ color: 'white', fontSize: 30 }}>View userdata</Text>
-        </TouchableOpacity>
-
-        {showUserData[dealer._id] && (
-          // need to bind user data where role equl to user
-          
-          <View>
-            <Text style={{ color: 'white', fontSize: 20 }}>Username:</Text>
-            <Text style={{ color: 'white', fontSize: 20 }}>UserMobile:</Text>
+        <ScrollView style={{marginBottom:verticalScale(5)}}>
+          <View style={{marginTop:verticalScale(6),height:verticalScale(35)}}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search by Admin name /  Company name  /  Brand name"
+              placeholderTextColor="gray"
+              selectionColor="red"
+              value={searchQueryAdmins}
+              onChangeText={handleSearchAdminsInputChange}
+            />
           </View>
-        )}
-
-
-
-
-
-
-
-  <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
-    <View style={{display:'flex',flexDirection:'row'}}>
-    <MaterialIcons style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='person-remove'/> 
-   
-    <TouchableOpacity onPress={() => deleteadmin(dealer._id)}>
-    <Text style={{color:'white',fontSize:20,marginLeft:10,textDecorationLine:'underline'}}>Delete Admin</Text>
-    </TouchableOpacity>
-   </View>
-
-
-    <TouchableOpacity style={{backgroundColor:'white',width:200,borderRadius:30}} onPress={()=>updateadmin(dealer._id)}>
-   <Text style={{color:'black',fontSize:20,marginLeft:10,textDecorationLine:'underline'}}>View/Edit button</Text>
-   </TouchableOpacity>
-
-
-
-
-  </View>
- 
- 
-
-    
-    
-    
-    
-    
-    
-    </View>
-  ))}
-</ScrollView>
-
+        {dealers.map((dealer, index) => (
+          <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:scale(6),marginTop:verticalScale(5)}}>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(10)}}>
+              <FontAwesome style={{ color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(18)}} name='user' /> 
+              <Text style={{color:'#f9f9f9',fontSize:moderateScale(18),marginLeft:moderateScale(7),textTransform:'capitalize',fontWeight:'500', letterSpacing:moderateScale(0.4)}}>{dealer.name}</Text>
+            </View>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(8)}}>
+              <MaterialIcons style={{ color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='call' /> 
+              <Text style={{color:'#979797',fontSize:moderateScale(16),marginLeft:moderateScale(7)}}>{dealer.phoneNumber}</Text>
+            </View>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(8)}}>
+              <MaterialIcons style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15) }} name='alternate-email'/>
+              <Text style={{color:'#979797',fontSize:moderateScale(16),marginLeft:moderateScale(7)}}>{dealer.email}</Text>
+            </View>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(10)}}>
+              <FontAwesome6 style={{ color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='building' /> 
+              <Text style={{color:'white',fontSize:moderateScale(16),marginLeft:moderateScale(7), textTransform:'capitalize'}}>{dealer.companyname}</Text>
+            </View>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(2)}}>
+              <FontAwesome6 style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15) }} name='city' /> 
+              <Text style={{color:'white',fontSize:moderateScale(16),marginLeft:moderateScale(7), textTransform:'capitalize'}}>{dealer.brandname}</Text>
+            </View>
+            <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(8)}}>
+              <AntDesign style={{ color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15) }} name='solution1' /> 
+              <Text style={{color:'#979797',fontSize:moderateScale(12),marginLeft:moderateScale(7)}}>User from {dealer.currentdate}</Text>
+            </View>
+{/* Users List */}
+          <View style={styles.usersContainer}>
+            <TouchableOpacity onPress={() => fetchData(dealer.companyname)} style={styles.userslist}>
+              <Text style={{color: '#f9f9f9', fontSize: moderateScale(14)}}>Users</Text>
+              <AntDesign style={{color: '#f9f9f9'}} name='down' size={scale(15)}/>
+            </TouchableOpacity>
+            <View style={{}}>
+            {/* userdata */}
+            {isUserDataVisible && (
+              <View style={{borderWidth:1,borderColor:'#f9f9f9',paddingHorizontal:moderateScale(10),marginTop:verticalScale(5),borderRadius:scale(6)}}>
+              {/* userdata */}
+              {userdata.map((user, index) => (
+              user.companyname === dealer.companyname && (
+                <View key={index} style={{flexDirection:'row',justifyContent:'space-between',borderBottomWidth:1,borderBottomColor:'#f9f9f9',paddingVertical:verticalScale(5),alignItems:'center'}}>
+                  <View style={{width:'45%'}}>
+                    <Text style={{ color: '#f9f9f9', fontSize: moderateScale(14),textTransform:'capitalize'}}>{user.name}</Text>
+                  </View>
+                  <Text style={{ color: '#979797', fontSize: moderateScale(14) }}>{user.phoneNumber}</Text>
+                    <TouchableOpacity onPress={()=>openEditModal(user._id)}>
+                      <FontAwesome5 style={{color:'#f9f9f9',}}  name='user-edit' size={scale(15)}/>
+                    </TouchableOpacity>
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      style={{}}
+                      visible={isEditModalVisible}
+                      onRequestClose={closeEditModal}
+                    >
+                    <View style={{top:'33%',width:'100%',flexDirection:'column',backgroundColor: '#f9f9f9', paddingHorizontal: moderateScale(10), borderRadius: scale(10),justifyContent:'space-between'}}>
+                      <TouchableOpacity onPress={closeEditModal} style={{alignItems:'flex-end',paddingRight:moderateScale(1),marginVertical:verticalScale(2)}}>
+                        <AntDesign style={{ color: '#111111'}} name='close' size={scale(20)}/>
+                      </TouchableOpacity>
+                      <View style={{width:'100%',paddingLeft:moderateScale(10),marginTop:verticalScale(5)}}>
+                        <Text style={{fontSize:moderateScale(18),color:'#111111',fontWeight:'500'}}>Update user details</Text>
+                      </View>
+                      <View style={{ flexDirection:'column',paddingHorizontal: scale(10),paddingVertical:verticalScale(10),justifyContent:'space-between' }}>
+                        <View style={{flexDirection:'column'}}>
+                          <View style={{width:'100%',marginVertical:verticalScale(5)}}>
+                            <Text style={{fontSize:moderateScale(12),color:'#111111',fontWeight:'400'}}>Name</Text>
+                          </View>
+                          {/* update input filds */}
+                          <TextInput
+                            style={{marginBottom:15,color:'#111111',fontSize:moderateScale(14),paddingLeft:moderateScale(10),borderRadius:scale(4)}}
+                            placeholder="Enter your full name"
+                            selectionColor="red"
+                            placeholderTextColor="#979797"
+                            backgroundColor="#ebebeb"
+                            value={updatedData.name} 
+                            onChangeText={(text) => setUpdatedData({ ...updatedData, name: text })}
+                          />
+                          <View style={{width:'100%',marginVertical:verticalScale(5)}}>
+                            <Text style={{fontSize:moderateScale(12),color:'#111111',fontWeight:'400'}}>Mobile number</Text>
+                          </View>
+                          <TextInput
+                            style={{marginBottom:5,color:'#111111',fontSize:moderateScale(14),paddingLeft:moderateScale(10),borderRadius:scale(4)}}
+                            placeholder="Enter your phonenumber name"
+                            selectionColor="red"
+                            placeholderTextColor="#979797"
+                            backgroundColor="#ebebeb"
+                            value={updatedData.phoneNumber} 
+                            onChangeText={(text) => setUpdatedData({ ...updatedData, phoneNumber: text })}
+                          />
+                        </View>
+                        <View style={{flexDirection:'row',justifyContent:'center',marginVertical:verticalScale(10),width:'100%',paddingHorizontal:moderateScale(70)}}>
+                          <TouchableOpacity style={{backgroundColor:'#111111',justifyContent:'center',borderRadius:scale(5),width:'100%',paddingVertical:verticalScale(9)}} onPress={()=>handleUpdateUser(user._id)}>
+                            <Text style={{color:'#f9f9f9',textAlign:'center',textAlignVertical:'center',fontSize:moderateScale(14),fontWeight:'600',letterSpacing:moderateScale(0.5)}}>update</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      </View>
+                    </Modal>
+                    <TouchableOpacity onPress={()=>deleteuser(user._id)}>
+                      <Entypo style={{color:'#f9f9f9',}} name='remove-user' size={scale(15)}/>
+                    </TouchableOpacity>
+                  </View>
+                )
+              ))}
+              </View>
+            )}
+            </View>
+          </View>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <View style={{flexDirection:'row',justifyContent:'space-between',marginVertical:verticalScale(10),alignItems:'center', paddingRight:moderateScale(8)}}>
+              <View style={{flexDirection:'row',alignItems:'center'}}>
+                <AntDesign style={{ color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15) }} name='deleteuser'/>
+                  <TouchableOpacity onPress={() => deleteadmin(dealer._id)} style={{borderBottomWidth:1,borderBottomColor:'red',marginLeft:moderateScale(5),}}>
+                    <Text style={{color:'#f9f9f9',fontSize:moderateScale(14)}}>Delete Admin</Text>
+                  </TouchableOpacity>
+              </View>
+              <TouchableOpacity style={{backgroundColor:'#f9f9f9',alignItems:'center',borderRadius:scale(8),height:verticalScale(25),justifyContent:'center',flexDirection:'row', paddingHorizontal:moderateScale(15),gap:moderateScale(5)}} onPress={()=>updateadmin(dealer._id)}>
+                <MaterialCommunityIcons style={{ color: '#111111',marginLeft:moderateScale(5),fontSize: moderateScale(20) }} name="account-edit" />
+                <Text style={{color:'#111111',fontSize:moderateScale(18),marginLeft:moderateScale(5)}}>Edit Admin</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    )}
+    {activeTab === 2 && (
+    <ScrollView style={{marginBottom:verticalScale(5)}}>
+    {dealersF.map((dealer, index) => (
+      <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:scale(6),marginTop:verticalScale(5)}}>
+        <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(10)}}>
+          <FontAwesome style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(18)}} name='user' /> 
+          <Text style={{color:'#f9f9f9',fontSize:moderateScale(18),marginLeft:moderateScale(7),textTransform:'capitalize',fontWeight:'500', letterSpacing:moderateScale(0.4)}}>{dealer.name}</Text>
         </View>
-      )}
-
-      {activeTab === 2 && (
-      
-       
-     
-
-
-
-
-
-
-
-
-      //   </View>
-      <ScrollView>
-      {dealersF.map((dealer, index) => (
-        <View key={index} style={{borderWidth:1,borderColor:'grey',borderRadius:10,height:350,marginTop:20}}>
-        <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-        <Ionicons style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='person-outline' /> 
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.name}</Text>
-      </View>
-      <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-        <Feather style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='phone' /> 
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.phoneNumber}</Text>
-      </View>
-      <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-      <Text style={{color:'white',fontSize:20,marginLeft:10}}>@</Text>
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.email}</Text>
-      </View>
-      <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-        <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>{dealer.companyname}</Text>
-      </View>
-      <View style={{display:'flex',flexDirection:'row',marginTop:20}}>
-        <FontAwesome style={{ color: '#f9f9f9',marginLeft:10, borderRadius: scale(1000), fontSize: moderateScale(20) }} name='building-o' /> 
-       <Text style={{color:'white',fontSize:20,marginLeft:10}}>Royal Enfield</Text>
-      </View>
-      <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
-        <View style={{display:'flex',flexDirection:'row'}}>
-        <TouchableOpacity style={{backgroundColor:"red",width:200,borderRadius:10,height:40}}  onPress={() => deleteadmin(dealer._id)}> 
-         <Text style={{color:'white',fontSize:20,marginLeft:10,textDecorationLine:'underline',textAlign:'center'}}>Reject</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(8)}}>
+          <MaterialIcons style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='call' /> 
+          <Text style={{color:'#979797',fontSize:moderateScale(16),marginLeft:moderateScale(7)}}>{dealer.phoneNumber}</Text>
         </View>
-
-
-         <TouchableOpacity style={{backgroundColor:'white',width:200,borderRadius:10}} onPress={()=>handleupdate(dealer._id)}>
-        <Text style={{color:'black',fontSize:20,marginLeft:10,textDecorationLine:'underline',textAlign:'center'}}>Accept</Text>
-      </TouchableOpacity>
-      </View>
-     
-     
-    
+        <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(8)}}>
+          <MaterialIcons style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='alternate-email'/>
+          <Text style={{color:'#979797',fontSize:moderateScale(16),marginLeft:moderateScale(7)}}>{dealer.email}</Text>
         </View>
+        <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(10)}}>
+          <FontAwesome6 style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='building' /> 
+          <Text style={{color:'white',fontSize:moderateScale(16),marginLeft:moderateScale(7), textTransform:'capitalize'}}>{dealer.companyname}</Text>
+        </View>
+        <View style={{flexDirection:'row',marginTop:verticalScale(10),gap:(2)}}>
+          <FontAwesome6 style={{color: '#f9f9f9',marginLeft:moderateScale(5),fontSize: moderateScale(15)}} name='city' /> 
+          <Text style={{color:'white',fontSize:moderateScale(16),marginLeft:moderateScale(7), textTransform:'capitalize'}}>{dealer.brandname}</Text>
+        </View>
+        <View style={{flexDirection:'row',justifyContent:'space-between',marginVertical:verticalScale(10),alignItems:'center', paddingHorizontal:moderateScale(8)}}>
+          <TouchableOpacity style={{backgroundColor:'#BE9595',alignItems:'center',borderRadius:scale(4),height:verticalScale(25),justifyContent:'center',paddingHorizontal:moderateScale(35)}} onPress={() => deleteadmin(dealer._id)}> 
+            <Text style={{color:'#A00000',fontSize:moderateScale(18),marginLeft:moderateScale(5)}}>Reject</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{backgroundColor:'#9ABA99',alignItems:'center',borderRadius:scale(4),height:verticalScale(25),justifyContent:'center',paddingHorizontal:moderateScale(35)}} onPress={()=>handleupdate(dealer._id)}>
+            <Text style={{color:'#187700',fontSize:moderateScale(18),marginLeft:moderateScale(5)}}>Accept</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       ))}
     </ScrollView>
-
-      )}
-    </View>
-
-
-
-          <View style={styles.header}>
-           
-          
-         
-          </View>
-          <View style={styles.line}></View>
-         
-          
-        </View>
-      
-  
+    )}
+  </View>
+  <View style={styles.header}>
+  </View>
+  </View>
   );
 };
 const styles = StyleSheet.create({
- 
   container: {
     flex: 1,
     backgroundColor:'black',
-    paddingHorizontal: 10,
-    paddingTop: 10,
+    paddingHorizontal: moderateScale(10),
+    paddingTop: scale(10),
   },
-  header:{
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: scale(335),
-    height: verticalScale(10),
+  tabContainer: {
+    flex: 1,
+    backgroundColor:'black',
   },
- 
-  
+  headerIcons:{
+    flexDirection:'column',
+    paddingHorizontal:moderateScale(10),
+    paddingVertical:verticalScale(4),
+    rowGap:scale(1),
+    backgroundColor:'#3A3A3A',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:scale(5)
+  },
   line: {
     height: verticalScale(1),
-    backgroundColor: 'white',
-    width: scale(335),
+    backgroundColor: '#f9f9f9',
+    width: '100%',
   },
- 
   tab: {
     flex: 1,
     alignItems: 'center',
@@ -425,7 +582,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     height: verticalScale(40),
-    backgroundColor: 'transparent', // Set the color you want for active tabs
+    backgroundColor: 'transparent', // Set the color you want for inactive tabs
   },
   tabIcon: {
     color: '#f9f9f9',
@@ -452,8 +609,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'transparent',
   },
-  
-  
- 
+  usersContainer:{
+    // borderWidth:1,
+    // borderColor:'red',
+    marginHorizontal:moderateScale(20),
+  },
+  userslist:{
+    borderWidth:1,
+    borderColor:'#f9f9f9',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    paddingVertical:verticalScale(7),
+    paddingHorizontal:moderateScale(10),
+    marginTop:verticalScale(10),
+    borderRadius:scale(6)
+  },
 });
 export default Superadminpage;

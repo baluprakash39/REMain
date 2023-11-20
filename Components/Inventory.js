@@ -380,14 +380,16 @@ const deleteProduct = (Id) => {
 const handleuser =()=>{
   navigation.navigate('AdminUsers')
 }
-
+const handlecompany=()=>{
+  navigation.navigate('CompanyDetails',)
+}
 
   return (
     <ImageBackground source={require('../assets/red.jpg')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={{flexDirection:'row',width:'100%',marginBottom:verticalScale(5),alignItems:'center',justifyContent:'space-between'}}>
-          <TouchableOpacity style={styles.headerIcons} onPress={()=>navigation.navigate('CompanyDetails')}>
+          <TouchableOpacity style={styles.headerIcons} onPress={handlecompany}>
               <Ionicons style={{color:'#f9f9f9',borderRadius:scale(1000)}} name='person-circle-outline' size={scale(20)} />
               <Text style={{color:'#f9f9f9',fontSize:moderateScale(10)}}>Profile</Text>
               </TouchableOpacity>

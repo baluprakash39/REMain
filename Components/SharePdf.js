@@ -22,7 +22,8 @@ i18n.use(initReactI18next).init({
 
 const SharePdf = ({route}) => {
   const {t} = useTranslation();
-  const { formData,
+  const { 
+    image,
     newRandomCode,
     customername,
     address,
@@ -81,7 +82,7 @@ const SharePdf = ({route}) => {
     selectedSafetyAccessoriesText,
     selectedSafetyAccessoriesValue } = route.params;
 
-  const Url='https://logos-world.net/wp-content/uploads/2022/12/Royal-Enfield-Logo.jpg'
+  const Url=image
   useEffect(() => {
     // Retrieve 'formData' from AsyncStorage
     AsyncStorage.getItem('formData')

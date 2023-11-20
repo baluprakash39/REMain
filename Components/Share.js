@@ -230,43 +230,9 @@ const [pincode,setpincode]=useState('');
 const [state,setstate]=useState('');
 const [streetname,setstreetname]=useState('');
 const [website,setwebsite]=useState('');
-const formData ={
-    customername: '',
-    address: '',
-    mobilenumber: '',
-    emailid: '',
-    mirrortext:selectedMirrorstext,
-    mirrorvalue:selectedMirrorsvalue,
-    oilFillerCaptext: '',
-    oilFillerCapvalue: '',
-    headlightlabel: '',
-    headlightvalue: '',
-    windshieldslabel: '',
-    windshieldsvalue: '',
-    pannierslabel: '',
-    panniersvalue: '',
-    seatslabel: '',
-    seatsvalue: '',
-    backrestlabel: '',
-    backrestvalue: '',
-    footpegslabel: '',
-    footpegsvalue: '',
-    engineguardslabel: '',
-    engineguardsvalue: '',
-    sumpguardslabel: '',
-    sumpguardsvalue: '',
-    safetyaccessorieslabel: '',
-    safetyaccessoriesvalue: '',
-    isSelected: false,
-    isNilldip: false,
-    EP: false,
-    RTI: false,
-    YES: false,
-    NO: false,
-    four: false,
-    five: false,
-    fiveRsa: false,
-}
+const[name,setName]=useState('');
+const[image,setImage]=useState('')
+
 const [selectedTab, setSelectedTab] = useState('Style');
 // Define an array of options with labels and values, including the "Select" option
 const handleShare = async () => {
@@ -314,6 +280,8 @@ const handleShare = async () => {
     // Navigate to the SharePdf screen and pass formData as a parameter
     navigation.navigate('SharePdf', { 
       // formData,
+      image,
+      name,
       newRandomCode,
       customername,
       address,
@@ -420,37 +388,70 @@ useEffect(() => {
     // Call the fetchData function to fetch data when the component mounts
     fetchData();
   }, []);
+
+
+
 const fetchData = async () => {
-      try {
-      // Retrieve the JWT token from AsyncStorage
-      const token = await AsyncStorage.getItem('token');
-      // Make a GET request to your API endpoint with the token in the headers
-      const response = await axios.get(`${cyclicUrl}/dealerdetails/getdealers`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        // Extract the data from the response
-        const responseData = response.data.user[0];
-        const { companyaddress, companyname, city, contactnumber, country, dealeremailid, gstin, pincode, state, streetname, website } = responseData;
-        setcopmapnyadress(companyaddress);
-        setcompanyname(companyname);
-        setcity(city);
-        setgstin(gstin);
-        setcontactnumber(contactnumber);
-        setcountry(country);
-        setdealeremailid(dealeremailid);
-        setpincode(pincode);
-        setstate(state);
-        setstreetname(streetname);
-        setwebsite(website);
-        // Update the state with the fetched data
-        setData([...dataaa, responseData]);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-//date//
+  try {
+    // Retrieve phone number from AsyncStorage
+    const phoneNo = await AsyncStorage.getItem('phoneNo');
+    console.log('Phone Number:', phoneNo);
+
+    // Check if phoneNo is not null or undefined
+    if (!phoneNo) {
+      console.error('Phone number is null or undefined');
+      return;
+    }
+
+    // Make GET request to your API
+    const response = await axios.get(`${cyclicUrl}/registerPhoneNumber/getphonenumber/${phoneNo}`);
+    console.log("ress",response.data.data)
+    const responseData=response.data.data
+    const { _id,phoneNumber, name, email,count,address, companyname, brandname, adminaccept,gst,image,pincode,state,streetname,city,country,website} = response.data.data;
+           
+           setcopmapnyadress(address);
+            setcompanyname(companyname);
+            setcity(city);
+            setgstin(gst);
+            setcontactnumber(phoneNumber);
+            setcountry(country);
+            setdealeremailid(email);
+            setpincode(pincode);
+            setstate(state);
+            setstreetname(streetname);
+            setwebsite(website);
+            setName(name)
+            setImage(image)
+            // Update the state with the fetched data
+            setData([...dataaa, responseData]);
+
+  } catch (error) {
+    // Handle errors
+    console.error('Error:', error);
+
+    // Log the entire error object to see more details
+    console.error('Full Error:', error);
+
+    // You can also check specific properties of the error object
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      console.error('Response Data:', error.response.data);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('No response received. Request details:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error setting up the request:', error.message);
+    }
+  }
+}
+
+
+
+
+
+
+
 const getCurrentDate = () => {
   const now = new Date();
   const day = now.getDate();
@@ -473,7 +474,7 @@ useEffect(() => {
   }
 return (
       <ScrollView contentContainerStyle={styles.container}>
-      {dataArray.map((data, index) => (
+      {dataArray.map((data,index) => (
         <View key={index} style={styles.content}>
           <View style={styles.header}>
             <View style={{ alignContent: 'center'}}>
@@ -666,7 +667,7 @@ return (
                 <View style={{flexDirection:'row', borderBottomWidth: verticalScale(0.3), borderBottomColor: '#F9F9F9', paddingVertical:verticalScale(5),alignItems:'center'}}>
                   {/* extendedwarranty */}
                       {data.extendedwarranty.map((ans) => (
-                    <View key={index} style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
+                    <View key={data._id} style={{ flexDirection: 'column', justifyContent: 'space-between',}}>
                       <Text style={{ marginLeft:moderateScale(5),justifyContent:'flex-start', color: '#F9F9F9', fontSize: moderateScale(12),fontWeight:'500',marginBottom:verticalScale(3), letterSpacing: moderateScale(0.4)}}>Extended Warranty</Text>
                         <View style={{display:'flex',flexDirection:'row', paddingBottom:verticalScale(5)}}>
                         {/* 4 */}

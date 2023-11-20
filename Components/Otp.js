@@ -313,6 +313,7 @@ const Otp = () => {
     setPhoneNumberError('');
   
     const number = phoneNumber.replace('+91', '');
+    
     const serverUrl = `${cyclicUrl}/registerPhoneNumber/checkPhoneNumberAndDevice`;
     setIsLoading(true); // Start loading
     try {

@@ -115,7 +115,7 @@ function Home({route}) {
         setProductData(response.data.user);
       }
     } catch (error) {
-      setError(error.message);
+      console.log('error')
     }
   };
 
